@@ -58,16 +58,17 @@
     <button id="day" class="on">낮</button>
     <button id="night">밤</button>
     <button id="walls">벽 낮추기</button>
-    <button id="labels" class="on">이름표</button>
-    <button id="prodbtn" class="on">상품 링크</button>
+    <button id="labels">이름표</button>
+    <button id="prodbtn">상품 링크</button>
     <button id="prodlist">상품 목록 ↗</button>
     <button id="livingbtn">좌식 세트 빼기</button>
+    <button id="laundrybtn">빨래 모드</button>
   </div>
 </div>
 <div id="prod" class="panel" style="display:none"></div>
 <div id="legend" class="panel">
   <h2>배치 가구 (권장 크기)</h2>
-  <div style="color:#c96b2c;font-weight:bold;margin-bottom:4px">주황색 이름표를 누르면 비슷한 실제 상품 링크가 나와요</div>
+  <div style="color:#c96b2c;font-weight:bold;margin-bottom:4px">‘상품 링크’를 켜고 주황 이름표를 누르면 비슷한 실제 상품이 나와요</div>
   <div class="sec">거실 · 작업 공간</div>
   · 화이트 장책상 180×60 (꺾인 V자 벽 중 창 없는 쪽)<br>
   · 모니터 27" + 노트북 + LED 바 / 화이트 메쉬 의자<br>
@@ -83,6 +84,10 @@
   <div class="sec">침실</div>
   · 퀸 침대 150×200 (헤드 오른쪽 벽, 아래벽 쪽으로 붙임 → 붙박이장 앞 68cm)<br>
   · 협탁 + 플리츠 스탠드, 러그, 전신거울, 화분
+  <div class="sec">숨은 생활가전 · 빨래</div>
+  · 무선청소기: 책상 오른쪽 끝 구석, 흰 슬림 스탠드 (흰 벽·책상에 묻힘)<br>
+  · 제습기: 침실 창가 끝 구석 (현관·거실·베개 쪽에서 안 보임)<br>
+  · 건조대: 평소 접어서 책상 밑 → <b>빨래 모드</b> = 침실 창가에 펴고 문 닫고 제습기 + 서큘레이터
   <div class="sec">기본 설비 (도면 기준)</div>
   · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 2구 인덕션 아래 <b>드럼세탁기 빌트인</b>, 흰 2도어 냉장고<br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
 </div>
@@ -496,6 +501,70 @@ wall(746, 224, 746, 340, IN);                                                   
   for (let h = 95; h < 202; h += 8) { const sl = B(grp, 62, 1, 6, lm, 0, h, 0); sl.rotation.x = 0.5; }
 }
 
+// ---------- 생활가전 헬퍼: 무선청소기 · 제습기 · 서큘레이터 · 빨래 건조대 ----------
+const laundrySet = [], laundryOff = []; // 빨래 모드에서 켜지는 것 / 숨는 것(치워 둔 것)
+function stickVacuum(parent, x, z) { // 흰 슬림 스탠드(받침 22×29, 높이 127) + 스틱 청소기
+  const g = new THREE.Group(); g.position.set(cm(x), 0, cm(z)); parent.add(g);
+  const wh = M("#f6f3ee", { roughness: 0.45 }), gr = M("#d6d1c9", { roughness: 0.5 }), dk = M("#9a948c", { roughness: 0.6 });
+  B(g, 22, 1.6, 29, wh, 0, 0, 0, 0.8);                     // 받침
+  B(g, 5, 125, 3, wh, 0, 1.6, -12, 1);                     // 기둥
+  B(g, 10, 6, 8, wh, 0, 84, -7, 1.5);                      // 충전 브래킷
+  CY(g, 1.6, 1.6, 78, gr, 0, 7, 1, 12);                    // 파이프
+  B(g, 25, 5.5, 10, wh, 0, 1.6, 4, 2);                     // 바닥 헤드
+  B(g, 22, 1.2, 1.2, dk, 0, 1.8, 9.2);                     // 브러시 라인
+  CY(g, 5.5, 5.5, 22, new THREE.MeshStandardMaterial({ color: "#dfe3e4", roughness: 0.1, transparent: true, opacity: 0.6 }), 0, 85, 3, 20); // 투명 먼지통
+  const mo = CY(g, 4.6, 4.6, 13, wh, 0, 101, -3.5, 20); mo.rotation.x = Math.PI / 2; // 모터 (가로)
+  const hd = B(g, 3, 19, 3.6, dk, 0, 92, -9, 1.3); hd.rotation.x = -0.35;            // 손잡이
+  B(g, 8, 6, 3.4, wh, 0, 88, -11, 1.2);                    // 배터리
+  return g;
+}
+function dehumidifier(parent, x, z) { // 콤팩트 제습기 30×22×50 (크림 화이트, 위로 토출)
+  const g = new THREE.Group(); g.position.set(cm(x), 0, cm(z)); parent.add(g);
+  B(g, 30, 49, 22, M("#f4f0e8", { roughness: 0.5 }), 0, 1.5, 0, 4);
+  for (let i = 0; i < 8; i++) B(g, 22, 0.5, 1, M("#d6cfc4"), 0, 50.3, -6 + i * 1.7); // 상단 토출 그릴
+  B(g, 28, 0.4, 0.5, M("#e2dbcf"), 0, 16, 11.1);                                    // 물통 라인
+  const led = B(g, 6, 1.6, 0.4, new THREE.MeshStandardMaterial({ color: "#45433f", emissive: "#8fd6ff", emissiveIntensity: 0 }), 0, 43, 11.2);
+  window.__dehumLed = led;
+  for (const [cx, cz] of [[-11, -7], [11, -7], [-11, 7], [11, 7]]) CY(g, 1.5, 1.5, 1.5, M("#cfc8bd"), cx, 0, cz, 10);
+  return g;
+}
+function circulator(parent, x, z) { // 무선 서큘레이터 20×16×35
+  const g = new THREE.Group(); g.position.set(cm(x), 0, cm(z)); parent.add(g);
+  const wh = M("#f7f4ef", { roughness: 0.4 });
+  B(g, 18, 3, 15, wh, 0, 0, 0, 2); B(g, 4, 16, 4, wh, 0, 3, -2, 1.5);
+  const head = shadowy(new THREE.Mesh(new THREE.SphereGeometry(cm(9), 24, 16), wh)); head.scale.set(1, 1, 0.75); head.position.set(0, cm(26), 0); g.add(head);
+  const gl = new THREE.Mesh(new THREE.CircleGeometry(cm(7.5), 28), M("#ddd7cc", { roughness: 0.8 })); gl.position.set(0, cm(26), cm(6.9)); g.add(gl);
+  return g;
+}
+function wingRack(parent, x, z) { // 윙 건조대 펼침 108×59, 날개 살짝 들림 + 빨래
+  const g = new THREE.Group(); g.position.set(cm(x), 0, cm(z)); parent.add(g);
+  const st = M("#e3e3e0", { roughness: 0.35, metalness: 0.45 });
+  const C = 50, W = 29, D = 59, Hc = 91;
+  for (const sx of [-C / 2, C / 2]) for (const sz of [-1, 1]) { const leg = B(g, 1.8, Hc + 2, 1.8, st, sx, 0, sz * 27, 0.6); leg.rotation.x = sz * 0.07; }
+  for (const sz of [-D / 2, D / 2]) B(g, C, 1.8, 1.8, st, 0, Hc, sz, 0.6);
+  for (let i = 0; i <= 7; i++) B(g, 0.8, 0.8, D, st, -C / 2 + (i * C) / 7, Hc + 0.5, 0);
+  for (const side of [-1, 1]) {
+    const w = new THREE.Group(); w.position.set(cm((side * C) / 2), cm(Hc), 0); w.rotation.z = side * 0.32; g.add(w);
+    for (const sz of [-D / 2, D / 2]) B(w, W, 1.6, 1.6, st, (side * W) / 2, 0, sz, 0.6);
+    for (let i = 1; i <= 4; i++) B(w, 0.8, 0.8, D, st, side * i * (W / 4), 0.4, 0);
+  }
+  const cols = ["#fbfaf6", "#efe3cf", "#d9c7a5", "#c9d6c3", "#f3d9b8", "#fbfaf6"];
+  [[-44, 46, 26], [-30, 34, 48], [-12, 52, 40], [8, 40, 54], [26, 36, 44], [42, 48, 30]].forEach(([px, w, h], i) => {
+    const lift = Math.abs(px) > C / 2 ? (Math.abs(px) - C / 2) * Math.tan(0.32) : 0;
+    B(g, 1.1, h, w, M(cols[i], { roughness: 1 }), px, Hc + lift - h, 0, 0.4);
+  });
+  return g;
+}
+function foldedRack(parent, x, z) { // 접은 건조대 (긴 변을 바닥에 두고 세움, 98×59×5)
+  const g = new THREE.Group(); g.position.set(cm(x), 0, cm(z)); parent.add(g);
+  const st = M("#e3e3e0", { roughness: 0.35, metalness: 0.45 });
+  const p = new THREE.Group(); p.rotation.x = -0.05; g.add(p);
+  for (const h of [0.5, 57]) B(p, 98, 1.8, 1.8, st, 0, h, 0, 0.6);
+  for (const sx of [-48, 48]) B(p, 1.8, 59, 1.8, st, sx, 0, 0, 0.6);
+  for (let i = 1; i < 8; i++) B(p, 96, 0.8, 0.8, st, 0, i * 7.2, 1.5);
+  return g;
+}
+
 // ---------- 거실: 화이트 장책상 (꺾인 막힌 벽) ----------
 {
   const ax = 530, ay = 912, bx = 747, by = 745;
@@ -530,6 +599,7 @@ wall(746, 224, 746, 340, IN);                                                   
   B(d, 160, 1.2, 1.2, mat.led, 6, 76, -0.2);
   const ledLight = new THREE.PointLight("#ffcf86", 0, 2.2, 2); ledLight.position.set(0, cm(90), cm(10)); d.add(ledLight);
   window.__ledLight = ledLight;
+  laundryOff.push(foldedRack(d, 22, 8)); // 접은 건조대 (책상 밑 뒤쪽, 평소 보관)
   // 화이트 메쉬 의자 (책상을 바라봄)
   const c = new THREE.Group(); c.position.set(cm(4), 0, cm(92)); d.add(c);
   CY(c, 2.5, 2.5, 38, mat.white, 0, 6, 0);
@@ -543,6 +613,10 @@ wall(746, 224, 746, 340, IN);                                                   
   B(back, 48, 58, 3, mat.white, 0, 0, 0, 1.2); B(back, 42, 52, 3.4, mat.mesh, 0, 3, 0);
   B(back, 32, 12, 4, mat.white, 0, 60, 0, 2);
   for (const sx of [-27, 27]) { B(c, 3, 22, 3, mat.white, sx, 50, 2); B(c, 6, 2.5, 26, mat.white, sx, 72, -2, 1); }
+}
+
+{ // 무선청소기 + 흰 슬림 스탠드: 책상 오른쪽 끝과 스트링 선반 사이 구석 (흰 벽·책상에 묻힘)
+  const v = place(708, 741, -0.609, -0.792); stickVacuum(v, 0, 0);
 }
 
 // ---------- 거실: 소파 · 테이블 · 러그 ----------
@@ -703,13 +777,30 @@ curtain(747, 745, 832, 912, 8, 48); curtain(747, 745, 832, 912, 140, 180);
   m.children.forEach((c) => (c.rotation.x = -0.08));
 }
 { // 침실 창가 화분 + 라탄 바스켓
-  const p = place(797, 786, 1, 0); CY(p, 14, 11, 30, mat.ceramic2, 0, 0, 0);
+  const p = place(797, 786, 1, 0); laundryOff.push(p); CY(p, 14, 11, 30, mat.ceramic2, 0, 0, 0);
   const r = rnd(9);
   for (let i = 0; i < 10; i++) { const lf = new THREE.Mesh(new THREE.SphereGeometry(cm(9), 8, 6), i % 2 ? mat.leaf : mat.leaf2); lf.scale.set(0.5, 1.4, 0.25); lf.position.set(cm((r() - 0.5) * 22), cm(50 + r() * 50), cm((r() - 0.5) * 22)); lf.rotation.y = r() * 3; p.add(lf); }
-  const b = place(840, 840, 0, -1); CY(b, 18, 16, 34, mat.rattan, 0, 0, 0);
+  const b = place(819, 820, 0, -1); laundryOff.push(b); CY(b, 18, 16, 34, mat.rattan, 0, 0, 0);
   B(b, 26, 6, 26, mat.linenDark, 0, 30, 0, 3);
 }
 
+
+{ // 제습기: 침실 창가 끝 구석 (현관·거실·베개 쪽에서 안 보임) — 보관 자리 = 가동 자리
+  const g = place(846, 859, 0.258, -0.966); dehumidifier(g, 0, 0);
+}
+{ // 빨래 모드: 침실 창가에 윙 건조대(창에서 10cm 띄움) + 서큘레이터 → 문 닫고 제습기와 함께
+  const r = place(821, 777, 0.8912, -0.4536); wingRack(r, 0, 0); laundrySet.push(r);
+  const c = place(786, 712, 0.4536, 0.8912); circulator(c, 0, 0); laundrySet.push(c);
+  laundrySet.forEach((o) => (o.visible = false));
+}
+{ // 보일러실 에어컨 실외기 (실사진 확인: 루버창 바로 앞)
+  const u = place(970, 794, -0.5462, -0.8376, true);
+  const body = M("#ecebe6", { roughness: 0.6 });
+  for (const sx of [-26, 26]) for (const sz of [-10, 10]) B(u, 4, 6, 4, M("#9a9a96"), sx, 0, sz);
+  B(u, 66, 54, 28, body, 0, 6, 0, 1.5);
+  for (let i = 0; i < 9; i++) B(u, 0.6, 40, 0.4, M("#c9c8c2"), -28 + i * 3.2, 12, 14.1);
+  CY(u, 2.6, 2.6, 160, M("#f3f1ec", { roughness: 0.9 }), 30, 60, 6, 10);
+}
 
 // ---------- 천장 · 다운라이트 (벽 낮추기 때 숨김) ----------
 {
@@ -795,7 +886,7 @@ railing(441, 742, 530, 912, 30); railing(747, 745, 832, 912, 40);
 
 // ---------- 이름표 (설비 = 갈색, 상품 = 주황·클릭) ----------
 const labels = [], prodLabels = [];
-const PRODUCTS = {"cushion": {"name": "일본풍 방석 2개", "at": [670, 612, 24], "subs": [{"sub": "머스터드 방석", "tier": "best", "title": "Ikeura 면 자부톤 55×59 (Yellow)", "shop": "Japanese Taste (일본 직배송)", "price": "111,000원/개 + 국제배송·관부가세", "url": "https://int.japanesetaste.com/products/ikeura-cotton-zabuton-traditional-japanese-floor-cushion-55-x-59cm", "note": "가운데 술 매듭 있는 정통 자부톤"}, {"sub": "베이지 방석", "tier": "budget", "title": "데코뷰 내츄럴 베이지 린넨 빵빵이 대방석 60×60×8", "shop": "29CM", "price": "38,700원", "url": "https://www.29cm.co.kr/products/2535205", "note": "린넨 100%, 누름 매듭형"}], "short": "방석"}, "rug": {"name": "거실 러그", "at": [560, 700, 8], "subs": [{"sub": "러그", "tier": "best", "title": "리튼 피치 그리드 러그 150×200", "shop": "29CM", "price": "339,000원 (150×200 옵션)", "url": "https://www.29cm.co.kr/products/1620735", "note": "크림 바탕 + 카라멜 격자, 폴리 100%"}, {"sub": "러그", "tier": "budget", "title": "보웰 BWTZ 워셔블 러그 체커보드(브라운) 150×200", "shop": "컬리", "price": "96,000원", "url": "https://www.kurly.com/goods/1001250208", "note": "크림+카라멜 체커보드, 세탁 가능"}], "short": "러그"}, "lowtable": {"name": "좌식 타일 테이블", "at": [605, 585, 55], "subs": [{"sub": "좌식 테이블", "tier": "best", "title": "빈티지 타일좌탁 93×52×42 (타일 포함)", "shop": "11번가 (해외직배송)", "price": "444,300원 + 배송 10,000원", "url": "https://www.11st.co.kr/products/9003550600", "note": "그린 타일이 사진상 진한 편 — 주문 전 타일 색 문의"}, {"sub": "좌식 테이블", "tier": "budget", "title": "THE DIY 타일테이블 반제품 1000×500×350", "shop": "THE DIY", "price": "108,000원 (타일 별도)", "url": "https://thediy.co.kr/goods/view?no=32298", "note": "세이지 타일을 직접 골라 붙이는 DIY"}], "short": "좌탁"}, "shelf": {"name": "스트링 선반 (깊이 20cm)", "at": [730, 640, 200], "subs": [{"sub": "선반", "tier": "best", "title": "String® 오크 선반 78×20 3개 + 화이트 월패널 75×20 2개", "shop": "루밍 (String 공식)", "price": "426,000원 (일시품절 시 예약 3~4개월)", "url": "https://www.rooming.co.kr/product/shelves-oak-3pcs-4sizes/5989/category/239/display/1/", "note": "월패널: rooming.co.kr/product/wall-panels-75x20-5colors/11051"}, {"sub": "선반", "tier": "budget", "title": "멀티 스트링 철제 벽선반 '로그 3단 80×20'", "shop": "11번가 (해외직배송)", "price": "71,300원", "url": "https://www.11st.co.kr/products/9505862360", "note": "흰 사다리 + 밝은 원목 선반 (주문 전 옵션 색 확인)"}], "short": "선반"}, "table": {"name": "긴 식탁 200×60", "at": [552, 450, 112], "subs": [{"sub": "식탁", "tier": "best", "title": "해찬솔 북미산 오크 통원목 테이블 2000 (w600)", "shop": "롯데ON", "price": "1,003,200원", "url": "https://www.lotteon.com/p/product/LO2612716380", "note": "통원목 오크"}, {"sub": "식탁", "tier": "budget", "title": "IKEA LAGKAPTEN 상판 200×60 + ADILS 다리 5개", "shop": "이케아", "price": "84,900원", "url": "https://www.ikea.com/kr/ko/p/lagkapten-table-top-white-stained-oak-effect-50460834/", "note": "다리: ikea.com/kr/ko/p/adils-leg-white-80217977 (200cm는 다리 5개)"}], "short": "식탁"}, "chair": {"name": "식탁 의자 2개", "at": [610, 500, 92], "subs": [{"sub": "의자", "tier": "best", "title": "&Tradition In Between Chair SK1 오크", "shop": "8colors", "price": "790,000원/개", "url": "https://8colors.co.kr/product/%EC%95%A4%ED%8A%B8%EB%A0%88%EB%94%94%EC%85%98-%EC%9D%B8-%EB%B9%84%ED%8A%B8%EC%9C%88-%EC%B2%B4%EC%96%B4-in-between-chair-sk1-oak/6701/", "note": ""}, {"sub": "의자", "tier": "budget", "title": "IKEA LISABO 리사보 의자, 물푸레나무", "shop": "이케아", "price": "79,900원/개", "url": "https://www.ikea.com/kr/ko/p/lisabo-chair-ash-80457236/", "note": ""}], "short": "의자"}, "pendant": {"name": "PH 스타일 펜던트 2개 (크림)", "at": [512, 450, 170], "subs": [{"sub": "펜던트", "tier": "best", "title": "Louis Poulsen PH 5 Mini 모노크롬 블랙", "shop": "아비타", "price": "1,351,000원/개", "url": "https://avita.co.kr/product/루이스폴센-ph-5-미니-펜던트-조명-모노크롬-블랙/4076/category/31/display/1/", "note": "3D는 크림 톤 — 구매 시 화이트/크림 색상 선택 권장 (링크는 블랙 옵션 기준)"}, {"sub": "펜던트", "tier": "budget", "title": "3단 갓 펜던트 Ø380 블랙", "shop": "라이트나라", "price": "83,000원/개", "url": "https://www.lightnara.com/goods/goods_view.php?goodsNo=1000001154", "note": "3D는 크림 톤 — 구매 시 화이트/크림 색상 선택 권장 (링크는 블랙 옵션 기준)"}], "short": "펜던트"}, "flowerpot": {"name": "오렌지 플라워팟 펜던트", "at": [532, 772, 190], "subs": [{"sub": "펜던트", "tier": "best", "title": "&Tradition Flowerpot VP1 Zesty Orange", "shop": "29CM", "price": "387,000원", "url": "https://www.29cm.co.kr/products/4282241", "note": ""}, {"sub": "펜던트", "tier": "budget", "title": "&Tradition Flowerpot VP10 Zesty Orange (작은 사이즈)", "shop": "29CM", "price": "259,200원", "url": "https://www.29cm.co.kr/products/4096437", "note": "VP1보다 7cm 작음"}], "short": "플라워팟"}, "floorlamp": {"name": "플리츠 플로어 스탠드", "at": [472, 705, 168], "subs": [{"sub": "스탠드", "tier": "best", "title": "GUBI Timberline Floor Lamp", "shop": "29CM", "price": "1,442,100원", "url": "https://www.29cm.co.kr/products/2643462", "note": ""}, {"sub": "스탠드", "tier": "budget", "title": "셀리나 플리츠 우드 장스탠드 SS-6500", "shop": "라이트나라", "price": "139,000원", "url": "https://www.lightnara.com/goods/goods_view.php?goodsNo=1000005455", "note": "화이트 받침대만 가능"}], "short": "장스탠드"}, "globe": {"name": "구형 무드등 (선반 위)", "at": [732, 690, 178], "subs": [{"sub": "무드등", "tier": "best", "title": "일광전구 SNOWBALL22 V2 Table (White)", "shop": "29CM", "price": "252,000원", "url": "https://www.29cm.co.kr/products/2487432", "note": "크롬 받침 위 타원 볼 (상위 대안)"}, {"sub": "무드등", "tier": "budget", "title": "IKEA FADO 파도 탁상스탠드 25cm", "shop": "이케아", "price": "24,900원", "url": "https://www.ikea.com/kr/ko/p/fado-table-lamp-white-30283899/", "note": "3D에 넣은 모양과 가장 비슷"}], "short": "무드등"}, "bed": {"name": "퀸 원목 저상 침대", "at": [970, 648, 92], "subs": [{"sub": "침대", "tier": "best", "title": "찰스 하나시 침대 01 (Q, 화이트오크)", "shop": "찰스퍼니처", "price": "1,900,000원 + 배송 50,000원", "url": "https://chals.co.kr/product/%ED%95%98%EB%82%98%EC%8B%9C-%EC%B9%A8%EB%8C%80-01/7141/display/1/", "note": "외경 156×206, 제작 14~30일"}, {"sub": "침대", "tier": "budget", "title": "IKEA TARVA 타르바 침대프레임 150×200 (갈빗살 포함)", "shop": "이케아", "price": "239,000원", "url": "https://www.ikea.com/kr/ko/p/tarva-bed-frame-pine-luroey-s09198515/", "note": "소나무 원목"}], "short": "침대"}, "nightstand": {"name": "협탁 · 플리츠 스탠드", "at": [1032, 518, 112], "subs": [{"sub": "협탁", "tier": "best", "title": "IKEA TONSTAD 톤스타드 침대협탁 참나무무늬목 40×40×59", "shop": "이케아", "price": "179,000원", "url": "https://www.ikea.com/kr/ko/p/tonstad-bedside-table-oak-veneer-60489323/", "note": ""}, {"sub": "협탁", "tier": "budget", "title": "IKEA KRONÖREN 크로뇌렌 침대협탁, 소나무", "shop": "이케아", "price": "30,000원", "url": "https://www.ikea.com/kr/ko/p/kronoeren-bedside-table-pine-80610808/", "note": ""}, {"sub": "테이블 스탠드", "tier": "best", "title": "GUBI Timberline Table Lamp", "shop": "29CM", "price": "900,600원", "url": "https://www.29cm.co.kr/products/3111816", "note": ""}, {"sub": "테이블 스탠드", "tier": "budget", "title": "아이린 우드 테이블 스탠드 (플리츠갓)", "shop": "29CM", "price": "17,900원", "url": "https://www.29cm.co.kr/products/1397661", "note": ""}], "short": "협탁·스탠드"}, "mirror": {"name": "원목 전신거울", "at": [900, 832, 182], "subs": [{"sub": "거울", "tier": "best", "title": "IKEA IKORNNES 이코르네스 전신거울 52×167, 물푸레", "shop": "이케아", "price": "139,000원", "url": "https://www.ikea.com/kr/ko/p/ikornnes-standing-mirror-ash-10298397/", "note": "폭 52cm (원하던 폭보다 2cm 넓음)"}, {"sub": "거울", "tier": "budget", "title": "원목 회전형 전신거울 40×165 (오크)", "shop": "옥션", "price": "120,240원", "url": "http://itempage3.auction.co.kr/DetailView.aspx?itemno=E977918932", "note": ""}], "short": "거울"}, "curtain": {"name": "쉬어 리넨 커튼", "at": [468, 820, 222], "subs": [{"sub": "커튼", "tier": "best", "title": "구다모 이태리 실키 린넨 시어 맞춤 (화이트)", "shop": "구다모", "price": "단가 70,000원 (창 크기 입력 시 총액)", "url": "https://gudamo.co.kr/products/copy-%EC%BB%A4%ED%8A%BC-%EA%B0%80%EB%93%B1%EB%A1%9D-4", "note": "주문제작, 봉·레일 별도"}, {"sub": "커튼", "tier": "budget", "title": "IKEA SILVERLÖNN 실벨뢴 속커튼 한쌍 145×250", "shop": "이케아", "price": "29,900원/쌍", "url": "https://www.ikea.com/kr/ko/p/silverloenn-sheer-curtains-1-pair-white-with-heading-tape-40491039/", "note": ""}], "short": "커튼"}, "plant": {"name": "대형 화분 · 행잉 플랜트", "at": [506, 797, 150], "subs": [{"sub": "대형 식물", "tier": "best", "title": "호프셀렘 130~140cm (화분 포함)", "shop": "심폴", "price": "100,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003010000000068304", "note": ""}, {"sub": "대형 식물", "tier": "budget", "title": "호프셀렘 110~120cm", "shop": "심폴", "price": "65,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003011000000056613", "note": "폭 30~40cm로 볼륨은 작음"}, {"sub": "화분 스탠드", "tier": "best", "title": "헤이핀 크라운 플랜트 스탠드 블랙 (소)", "shop": "심폴", "price": "22,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=022006000000003520", "note": "링 지름 약 26cm — 화분 크기 맞춰 구매"}, {"sub": "화분 스탠드", "tier": "budget", "title": "IKEA OLIVBLAD 올리브블라드 화분스탠드 블랙 35cm", "shop": "이케아", "price": "13,000~14,900원", "url": "https://www.ikea.com/kr/ko/p/olivblad-plant-stand-in-outdoor-black-90486653/", "note": "높이 35cm"}, {"sub": "행잉 플랜트", "tier": "best", "title": "스킨답서스 오레우스 행잉 1+1", "shop": "심폴", "price": "27,900원 (2개)", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003011000000121599", "note": ""}, {"sub": "행잉 플랜트", "tier": "budget", "title": "아이비 행잉 공중식물 중대품", "shop": "심폴", "price": "15,800원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003003000000011632", "note": ""}], "short": "화분"}, "basket": {"name": "라탄 바스켓", "at": [840, 840, 48], "subs": [{"sub": "바스켓", "tier": "best", "title": "파스텔 라탄 원형 빨래바구니", "shop": "헵번샵", "price": "95,000원", "url": "http://www.hepburnshop.com/shop/shopdetail.html?branduid=128752", "note": ""}, {"sub": "바스켓", "tier": "budget", "title": "IKEA BRANÄS 브라네스 라탄 바구니 32×34×32", "shop": "이케아", "price": "24,900원", "url": "https://www.ikea.com/kr/ko/p/branaes-basket-rattan-80173153/", "note": "사각형"}], "short": "바스켓"}, "art": {"name": "액자 2점", "at": [451, 575, 178], "subs": [{"sub": "그린 포스터", "tier": "best", "title": "Desenio Abstract Green Shapes No1 40×50", "shop": "데세니오", "price": "약 32,900원 (할인가, 10/26까지)", "url": "https://desenio.kr/p/posters-prints/art-prints/abstract-art/abstract-green-shapes-no1-print/", "note": ""}, {"sub": "오렌지 포스터", "tier": "best", "title": "Desenio Bauhaus Circles 30×40", "shop": "데세니오", "price": "약 24,700원 (할인가, 10/26까지)", "url": "https://desenio.kr/p/posters-prints/famous-painters/bauhaus/bauhaus-circles-print/", "note": ""}, {"sub": "액자", "tier": "best", "title": "Desenio 오크 원목 액자 40×50", "shop": "데세니오", "price": "약 76,100원", "url": "https://desenio.kr/p/frames/wood-frames/oak-picture-frames/40x50/", "note": ""}, {"sub": "액자", "tier": "budget", "title": "IKEA RÖDALM 뢰달름 액자 40×50 참나무무늬", "shop": "이케아", "price": "19,900원/개", "url": "https://www.ikea.com/kr/ko/p/roedalm-frame-oak-effect-20566399/", "note": ""}], "short": "액자"}};
+const PRODUCTS = {"cushion": {"name": "일본풍 방석 2개", "at": [670, 612, 24], "subs": [{"sub": "머스터드 방석", "tier": "best", "title": "Ikeura 면 자부톤 55×59 (Yellow)", "shop": "Japanese Taste (일본 직배송)", "price": "111,000원/개 + 국제배송·관부가세", "url": "https://int.japanesetaste.com/products/ikeura-cotton-zabuton-traditional-japanese-floor-cushion-55-x-59cm", "note": "가운데 술 매듭 있는 정통 자부톤"}, {"sub": "베이지 방석", "tier": "budget", "title": "데코뷰 내츄럴 베이지 린넨 빵빵이 대방석 60×60×8", "shop": "29CM", "price": "38,700원", "url": "https://www.29cm.co.kr/products/2535205", "note": "린넨 100%, 누름 매듭형"}], "short": "방석"}, "rug": {"name": "거실 러그", "at": [560, 700, 8], "subs": [{"sub": "러그", "tier": "best", "title": "리튼 피치 그리드 러그 150×200", "shop": "29CM", "price": "339,000원 (150×200 옵션)", "url": "https://www.29cm.co.kr/products/1620735", "note": "크림 바탕 + 카라멜 격자, 폴리 100%"}, {"sub": "러그", "tier": "budget", "title": "보웰 BWTZ 워셔블 러그 체커보드(브라운) 150×200", "shop": "컬리", "price": "96,000원", "url": "https://www.kurly.com/goods/1001250208", "note": "크림+카라멜 체커보드, 세탁 가능"}], "short": "러그"}, "lowtable": {"name": "좌식 타일 테이블", "at": [605, 585, 55], "subs": [{"sub": "좌식 테이블", "tier": "best", "title": "빈티지 타일좌탁 93×52×42 (타일 포함)", "shop": "11번가 (해외직배송)", "price": "444,300원 + 배송 10,000원", "url": "https://www.11st.co.kr/products/9003550600", "note": "그린 타일이 사진상 진한 편 — 주문 전 타일 색 문의"}, {"sub": "좌식 테이블", "tier": "budget", "title": "THE DIY 타일테이블 반제품 1000×500×350", "shop": "THE DIY", "price": "108,000원 (타일 별도)", "url": "https://thediy.co.kr/goods/view?no=32298", "note": "세이지 타일을 직접 골라 붙이는 DIY"}], "short": "좌탁"}, "shelf": {"name": "스트링 선반 (깊이 20cm)", "at": [730, 640, 200], "subs": [{"sub": "선반", "tier": "best", "title": "String® 오크 선반 78×20 3개 + 화이트 월패널 75×20 2개", "shop": "루밍 (String 공식)", "price": "426,000원 (일시품절 시 예약 3~4개월)", "url": "https://www.rooming.co.kr/product/shelves-oak-3pcs-4sizes/5989/category/239/display/1/", "note": "월패널: rooming.co.kr/product/wall-panels-75x20-5colors/11051"}, {"sub": "선반", "tier": "budget", "title": "멀티 스트링 철제 벽선반 '로그 3단 80×20'", "shop": "11번가 (해외직배송)", "price": "71,300원", "url": "https://www.11st.co.kr/products/9505862360", "note": "흰 사다리 + 밝은 원목 선반 (주문 전 옵션 색 확인)"}], "short": "선반"}, "table": {"name": "긴 식탁 200×60", "at": [552, 450, 112], "subs": [{"sub": "식탁", "tier": "best", "title": "해찬솔 북미산 오크 통원목 테이블 2000 (w600)", "shop": "롯데ON", "price": "1,003,200원", "url": "https://www.lotteon.com/p/product/LO2612716380", "note": "통원목 오크"}, {"sub": "식탁", "tier": "budget", "title": "IKEA LAGKAPTEN 상판 200×60 + ADILS 다리 5개", "shop": "이케아", "price": "84,900원", "url": "https://www.ikea.com/kr/ko/p/lagkapten-table-top-white-stained-oak-effect-50460834/", "note": "다리: ikea.com/kr/ko/p/adils-leg-white-80217977 (200cm는 다리 5개)"}], "short": "식탁"}, "chair": {"name": "식탁 의자 2개", "at": [610, 500, 92], "subs": [{"sub": "의자", "tier": "best", "title": "&Tradition In Between Chair SK1 오크", "shop": "8colors", "price": "790,000원/개", "url": "https://8colors.co.kr/product/%EC%95%A4%ED%8A%B8%EB%A0%88%EB%94%94%EC%85%98-%EC%9D%B8-%EB%B9%84%ED%8A%B8%EC%9C%88-%EC%B2%B4%EC%96%B4-in-between-chair-sk1-oak/6701/", "note": ""}, {"sub": "의자", "tier": "budget", "title": "IKEA LISABO 리사보 의자, 물푸레나무", "shop": "이케아", "price": "79,900원/개", "url": "https://www.ikea.com/kr/ko/p/lisabo-chair-ash-80457236/", "note": ""}], "short": "의자"}, "pendant": {"name": "PH 스타일 펜던트 2개 (크림)", "at": [512, 450, 170], "subs": [{"sub": "펜던트", "tier": "best", "title": "Louis Poulsen PH 5 Mini 모노크롬 블랙", "shop": "아비타", "price": "1,351,000원/개", "url": "https://avita.co.kr/product/루이스폴센-ph-5-미니-펜던트-조명-모노크롬-블랙/4076/category/31/display/1/", "note": "3D는 크림 톤 — 구매 시 화이트/크림 색상 선택 권장 (링크는 블랙 옵션 기준)"}, {"sub": "펜던트", "tier": "budget", "title": "3단 갓 펜던트 Ø380 블랙", "shop": "라이트나라", "price": "83,000원/개", "url": "https://www.lightnara.com/goods/goods_view.php?goodsNo=1000001154", "note": "3D는 크림 톤 — 구매 시 화이트/크림 색상 선택 권장 (링크는 블랙 옵션 기준)"}], "short": "펜던트"}, "flowerpot": {"name": "오렌지 플라워팟 펜던트", "at": [532, 772, 190], "subs": [{"sub": "펜던트", "tier": "best", "title": "&Tradition Flowerpot VP1 Zesty Orange", "shop": "29CM", "price": "387,000원", "url": "https://www.29cm.co.kr/products/4282241", "note": ""}, {"sub": "펜던트", "tier": "budget", "title": "&Tradition Flowerpot VP10 Zesty Orange (작은 사이즈)", "shop": "29CM", "price": "259,200원", "url": "https://www.29cm.co.kr/products/4096437", "note": "VP1보다 7cm 작음"}], "short": "플라워팟"}, "floorlamp": {"name": "플리츠 플로어 스탠드", "at": [472, 705, 168], "subs": [{"sub": "스탠드", "tier": "best", "title": "GUBI Timberline Floor Lamp", "shop": "29CM", "price": "1,442,100원", "url": "https://www.29cm.co.kr/products/2643462", "note": ""}, {"sub": "스탠드", "tier": "budget", "title": "셀리나 플리츠 우드 장스탠드 SS-6500", "shop": "라이트나라", "price": "139,000원", "url": "https://www.lightnara.com/goods/goods_view.php?goodsNo=1000005455", "note": "화이트 받침대만 가능"}], "short": "장스탠드"}, "globe": {"name": "구형 무드등 (선반 위)", "at": [732, 690, 178], "subs": [{"sub": "무드등", "tier": "best", "title": "일광전구 SNOWBALL22 V2 Table (White)", "shop": "29CM", "price": "252,000원", "url": "https://www.29cm.co.kr/products/2487432", "note": "크롬 받침 위 타원 볼 (상위 대안)"}, {"sub": "무드등", "tier": "budget", "title": "IKEA FADO 파도 탁상스탠드 25cm", "shop": "이케아", "price": "24,900원", "url": "https://www.ikea.com/kr/ko/p/fado-table-lamp-white-30283899/", "note": "3D에 넣은 모양과 가장 비슷"}], "short": "무드등"}, "bed": {"name": "퀸 원목 저상 침대", "at": [970, 648, 92], "subs": [{"sub": "침대", "tier": "best", "title": "찰스 하나시 침대 01 (Q, 화이트오크)", "shop": "찰스퍼니처", "price": "1,900,000원 + 배송 50,000원", "url": "https://chals.co.kr/product/%ED%95%98%EB%82%98%EC%8B%9C-%EC%B9%A8%EB%8C%80-01/7141/display/1/", "note": "외경 156×206, 제작 14~30일"}, {"sub": "침대", "tier": "budget", "title": "IKEA TARVA 타르바 침대프레임 150×200 (갈빗살 포함)", "shop": "이케아", "price": "239,000원", "url": "https://www.ikea.com/kr/ko/p/tarva-bed-frame-pine-luroey-s09198515/", "note": "소나무 원목"}], "short": "침대"}, "nightstand": {"name": "협탁 · 플리츠 스탠드", "at": [1032, 518, 112], "subs": [{"sub": "협탁", "tier": "best", "title": "IKEA TONSTAD 톤스타드 침대협탁 참나무무늬목 40×40×59", "shop": "이케아", "price": "179,000원", "url": "https://www.ikea.com/kr/ko/p/tonstad-bedside-table-oak-veneer-60489323/", "note": ""}, {"sub": "협탁", "tier": "budget", "title": "IKEA KRONÖREN 크로뇌렌 침대협탁, 소나무", "shop": "이케아", "price": "30,000원", "url": "https://www.ikea.com/kr/ko/p/kronoeren-bedside-table-pine-80610808/", "note": ""}, {"sub": "테이블 스탠드", "tier": "best", "title": "GUBI Timberline Table Lamp", "shop": "29CM", "price": "900,600원", "url": "https://www.29cm.co.kr/products/3111816", "note": ""}, {"sub": "테이블 스탠드", "tier": "budget", "title": "아이린 우드 테이블 스탠드 (플리츠갓)", "shop": "29CM", "price": "17,900원", "url": "https://www.29cm.co.kr/products/1397661", "note": ""}], "short": "협탁·스탠드"}, "mirror": {"name": "원목 전신거울", "at": [900, 832, 182], "subs": [{"sub": "거울", "tier": "best", "title": "IKEA IKORNNES 이코르네스 전신거울 52×167, 물푸레", "shop": "이케아", "price": "139,000원", "url": "https://www.ikea.com/kr/ko/p/ikornnes-standing-mirror-ash-10298397/", "note": "폭 52cm (원하던 폭보다 2cm 넓음)"}, {"sub": "거울", "tier": "budget", "title": "원목 회전형 전신거울 40×165 (오크)", "shop": "옥션", "price": "120,240원", "url": "http://itempage3.auction.co.kr/DetailView.aspx?itemno=E977918932", "note": ""}], "short": "거울"}, "curtain": {"name": "쉬어 리넨 커튼", "at": [468, 820, 222], "subs": [{"sub": "커튼", "tier": "best", "title": "구다모 이태리 실키 린넨 시어 맞춤 (화이트)", "shop": "구다모", "price": "단가 70,000원 (창 크기 입력 시 총액)", "url": "https://gudamo.co.kr/products/copy-%EC%BB%A4%ED%8A%BC-%EA%B0%80%EB%93%B1%EB%A1%9D-4", "note": "주문제작, 봉·레일 별도"}, {"sub": "커튼", "tier": "budget", "title": "IKEA SILVERLÖNN 실벨뢴 속커튼 한쌍 145×250", "shop": "이케아", "price": "29,900원/쌍", "url": "https://www.ikea.com/kr/ko/p/silverloenn-sheer-curtains-1-pair-white-with-heading-tape-40491039/", "note": ""}], "short": "커튼"}, "plant": {"name": "대형 화분 · 행잉 플랜트", "at": [506, 797, 150], "subs": [{"sub": "대형 식물", "tier": "best", "title": "호프셀렘 130~140cm (화분 포함)", "shop": "심폴", "price": "100,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003010000000068304", "note": ""}, {"sub": "대형 식물", "tier": "budget", "title": "호프셀렘 110~120cm", "shop": "심폴", "price": "65,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003011000000056613", "note": "폭 30~40cm로 볼륨은 작음"}, {"sub": "화분 스탠드", "tier": "best", "title": "헤이핀 크라운 플랜트 스탠드 블랙 (소)", "shop": "심폴", "price": "22,000원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=022006000000003520", "note": "링 지름 약 26cm — 화분 크기 맞춰 구매"}, {"sub": "화분 스탠드", "tier": "budget", "title": "IKEA OLIVBLAD 올리브블라드 화분스탠드 블랙 35cm", "shop": "이케아", "price": "13,000~14,900원", "url": "https://www.ikea.com/kr/ko/p/olivblad-plant-stand-in-outdoor-black-90486653/", "note": "높이 35cm"}, {"sub": "행잉 플랜트", "tier": "best", "title": "스킨답서스 오레우스 행잉 1+1", "shop": "심폴", "price": "27,900원 (2개)", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003011000000121599", "note": ""}, {"sub": "행잉 플랜트", "tier": "budget", "title": "아이비 행잉 공중식물 중대품", "shop": "심폴", "price": "15,800원", "url": "https://www.simpol.co.kr/front/productdetail.php?productcode=003003000000011632", "note": ""}], "short": "화분"}, "basket": {"name": "라탄 바스켓", "at": [819, 820, 48], "subs": [{"sub": "바스켓", "tier": "best", "title": "파스텔 라탄 원형 빨래바구니", "shop": "헵번샵", "price": "95,000원", "url": "http://www.hepburnshop.com/shop/shopdetail.html?branduid=128752", "note": ""}, {"sub": "바스켓", "tier": "budget", "title": "IKEA BRANÄS 브라네스 라탄 바구니 32×34×32", "shop": "이케아", "price": "24,900원", "url": "https://www.ikea.com/kr/ko/p/branaes-basket-rattan-80173153/", "note": "사각형"}], "short": "바스켓"}, "art": {"name": "액자 2점", "at": [451, 575, 178], "subs": [{"sub": "그린 포스터", "tier": "best", "title": "Desenio Abstract Green Shapes No1 40×50", "shop": "데세니오", "price": "약 32,900원 (할인가, 10/26까지)", "url": "https://desenio.kr/p/posters-prints/art-prints/abstract-art/abstract-green-shapes-no1-print/", "note": ""}, {"sub": "오렌지 포스터", "tier": "best", "title": "Desenio Bauhaus Circles 30×40", "shop": "데세니오", "price": "약 24,700원 (할인가, 10/26까지)", "url": "https://desenio.kr/p/posters-prints/famous-painters/bauhaus/bauhaus-circles-print/", "note": ""}, {"sub": "액자", "tier": "best", "title": "Desenio 오크 원목 액자 40×50", "shop": "데세니오", "price": "약 76,100원", "url": "https://desenio.kr/p/frames/wood-frames/oak-picture-frames/40x50/", "note": ""}, {"sub": "액자", "tier": "budget", "title": "IKEA RÖDALM 뢰달름 액자 40×50 참나무무늬", "shop": "이케아", "price": "19,900원/개", "url": "https://www.ikea.com/kr/ko/p/roedalm-frame-oak-effect-20566399/", "note": ""}], "short": "액자"}, "vacuum": {"name": "무선청소기 + 슬림 스탠드", "short": "청소기", "at": [708, 741, 150], "subs": [{"sub": "청소기 스탠드", "tier": "best", "title": "스토움 라르고 무선청소기 스탠드 거치대 (화이트)", "shop": "오늘의집 (다나와 가격비교)", "price": "25,800원", "url": "https://prod.danawa.com/info/?pcode=20645123", "note": "받침 22×29, 높이 127. 청소기 정품 벽걸이 브래킷을 끼우는 방식 — 다이슨 V12는 안 맞고, 비스포크 제트는 미확인"}, {"sub": "청소기 스탠드", "tier": "budget", "title": "라슈에뜨 무선청소기 철제 슬림 거치대 (화이트 S/L)", "shop": "오늘의집", "price": "11,900~13,900원 + 배송 3,000원", "url": "https://store.ohou.se/goods/2449315", "note": "헤드를 올리고 파이프를 기대는 방식(브래킷 불필요). 파이프 굵기 4.5cm 이하만"}, {"sub": "청소기 (스탠드 포함)", "tier": "budget", "title": "캐치웰 에이센스 VC234 자동충전 거치대 무선청소기", "shop": "11번가", "price": "139,000원", "url": "https://www.11st.co.kr/products/7093303724", "note": "아직 청소기가 없다면: 충전 스탠드가 같이 와서 거치대가 따로 필요 없음"}]}, "dehumidifier": {"name": "소형 제습기 (빨래 건조 겸용)", "short": "제습기", "at": [846, 859, 80], "subs": [{"sub": "제습기", "tier": "best", "title": "신일 패브릭 제습기 SDH-S530IF (하루 12L)", "shop": "11번가", "price": "287,000원", "url": "https://www.11st.co.kr/products/8359249228", "note": "30.5×23.5×49.5, 35dB, 물통 4.5L — 밤새 빨래 말려도 물통이 넉넉"}, {"sub": "제습기", "tier": "best", "title": "대성쎌틱 케어온1 DSD-6210W (하루 10L, 1등급)", "shop": "11번가", "price": "198,370원", "url": "https://www.11st.co.kr/products/9292967717", "note": "29×24×51.5, 35dB, 물통 3L, 전기료 유리"}, {"sub": "제습기", "tier": "budget", "title": "캐리어 12L 제습기 CDHC-120AUNWOXH", "shop": "11번가", "price": "179,550원", "url": "https://www.11st.co.kr/products/8439801880", "note": "30.5×23.4×49.5, 의류건조 모드. 손바닥만 한 미니(펠티어) 제습기는 빨래용으로 약해요"}]}, "rack": {"name": "접이식 빨래 건조대", "short": "건조대", "at": [640, 790, 80], "subs": [{"sub": "건조대", "tier": "best", "title": "브라반티아 행온 빨래건조대 15m (메탈릭그레이)", "shop": "11번가 (롯데백화점)", "price": "103,470원", "url": "https://www.11st.co.kr/products/9701896136", "note": "펼침 108×59, 접으면 두께 5cm — 책상 밑에 세워 보관"}, {"sub": "건조대", "tier": "budget", "title": "한샘 올데이 미니 건조대 (화이트)", "shop": "11번가", "price": "29,900원", "url": "https://www.11st.co.kr/products/5580385185", "note": "펼침 136×52, 접으면 두께 7cm"}, {"sub": "보조 건조대", "tier": "budget", "title": "IKEA JÄLL 옐 실내외건조대 (화이트)", "shop": "이케아", "price": "10,000원", "url": "https://www.ikea.com/kr/ko/p/jaell-drying-rack-in-outdoor-white-00242891/", "note": "수건·속옷용 작은 보조"}]}, "circulator": {"name": "무선 서큘레이터 (빨래용)", "short": "서큘레이터", "at": [786, 712, 62], "subs": [{"sub": "서큘레이터", "tier": "best", "title": "루메나 무선 써큘레이터 FAN PRIME 3 (퓨어화이트)", "shop": "루메나 공식몰", "price": "59,900원", "url": "https://www.lumena.co.kr/product/detail.html?product_no=355", "note": "20×16×35, 무선 — 건조대 끝에서 제습기 쪽으로 바람"}]}};
 function label(text, x, y, h, key) {
   const c = document.createElement("canvas"); const g0 = c.getContext("2d"); g0.font = "bold 30px 'Malgun Gothic', sans-serif";
   const tw = Math.ceil(g0.measureText(text).width) + 44; c.width = Math.max(160, tw); c.height = 72;
@@ -809,8 +900,9 @@ function label(text, x, y, h, key) {
   scene.add(sp); (key ? prodLabels : labels).push(sp);
 }
 label("드럼세탁기", 534, 300, 72); label("2구 인덕션", 532, 262, 118); label("냉장고", 466, 392, 175); label("싱크대", 614, 262, 118);
-label("보일러실", 985, 790, 150); label("화이트 장책상", 640, 830, 125); label("현관", 858, 262, 120); label("욕실", 1000, 420, 150);
+label("보일러실", 985, 770, 150); label("에어컨 실외기", 975, 800, 78); label("화이트 장책상", 640, 830, 125); label("현관", 858, 262, 120); label("욕실", 1000, 420, 150);
 for (const [k, pr] of Object.entries(PRODUCTS)) label(pr.short + " ›", pr.at[0], pr.at[1], pr.at[2], k);
+labels.forEach((l) => (l.visible = false)); prodLabels.forEach((l) => (l.visible = false)); // 기본 꺼짐
 
 // 상품 패널
 function esc(t) { return String(t).replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m])); }
@@ -843,10 +935,23 @@ let livingOn = true;
 function setLiving(on) {
   livingOn = on; livingSet.forEach((o) => (o.visible = on));
   prodLabels.forEach((l) => { if (["rug", "lowtable", "cushion"].includes(l.userData.key)) l.userData.hiddenBySet = !on; });
-  prodLabels.forEach((l) => (l.visible = document.getElementById("prodbtn").classList.contains("on") && !l.userData.hiddenBySet));
+  prodLabels.forEach((l) => (l.visible = document.getElementById("prodbtn").classList.contains("on") && !l.userData.hiddenBySet && !l.userData.hiddenByLaundry));
   const b = document.getElementById("livingbtn"); b.classList.toggle("on", !on); b.textContent = on ? "좌식 세트 빼기" : "좌식 세트 넣기";
 }
 window.__setLiving = setLiving;
+for (const l of prodLabels) { if (l.userData.key === "rack") l.userData.alt = [[640, 790, 80], [821, 777, 128]]; if (l.userData.key === "circulator") l.userData.hiddenByLaundry = true; }
+let laundryOn = false;
+function setLaundry(on) {
+  laundryOn = on; laundrySet.forEach((o) => (o.visible = on)); laundryOff.forEach((o) => (o.visible = !on));
+  if (window.__dehumLed) window.__dehumLed.material.emissiveIntensity = on ? 1.6 : 0;
+  for (const l of prodLabels) {
+    const a = l.userData.alt; if (a) { const q = a[on ? 1 : 0]; l.position.set(cm(q[0]), cm(q[2]), cm(q[1])); }
+    if (l.userData.key === "circulator") l.userData.hiddenByLaundry = !on;
+  }
+  prodLabels.forEach((l) => (l.visible = document.getElementById("prodbtn").classList.contains("on") && !l.userData.hiddenBySet && !l.userData.hiddenByLaundry));
+  const b = document.getElementById("laundrybtn"); b.classList.toggle("on", on); b.textContent = on ? "빨래 모드 끄기" : "빨래 모드";
+}
+window.__setLaundry = setLaundry;
 
 // ---------- 조명 ----------
 const hemi = new THREE.HemisphereLight("#fff0d8", "#d9b98a", 0.5); scene.add(hemi);
@@ -902,6 +1007,7 @@ const views = {
   dining: { pos: [705, 610, 160], tgt: [500, 430, 75] },
   kitchen: { pos: [680, 395, 150], tgt: [545, 255, 55] },
   bed:    { pos: [762, 712, 172], tgt: [1010, 560, 55] },
+  laundry: { pos: [915, 650, 185], tgt: [812, 815, 48] },
   plan:   { pos: [751, 568, 1450], tgt: [751, 567, 0], low: true },
 };
 let anim = null;
@@ -920,10 +1026,12 @@ document.getElementById("day").onclick = () => setMode(false);
 document.getElementById("night").onclick = () => setMode(true);
 document.getElementById("walls").onclick = () => setLow(!low);
 document.getElementById("labels").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); labels.forEach((l) => (l.visible = on)); };
-document.getElementById("prodbtn").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); prodLabels.forEach((l) => (l.visible = on && !l.userData.hiddenBySet)); };
+document.getElementById("prodbtn").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); prodLabels.forEach((l) => (l.visible = on && !l.userData.hiddenBySet && !l.userData.hiddenByLaundry)); };
 document.getElementById("prodlist").onclick = () => window.open("products.html", "_blank");
 document.getElementById("livingbtn").onclick = () => setLiving(!livingOn);
+document.getElementById("laundrybtn").onclick = () => { setLaundry(!laundryOn); if (laundryOn) go("laundry"); };
 if (/empty/.test(location.hash + location.search)) setLiving(false);
+if (/laundry/.test(location.hash + location.search)) setLaundry(true);
 
 function resize() {
   const w = window.innerWidth, h = window.innerHeight;

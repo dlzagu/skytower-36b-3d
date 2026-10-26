@@ -39,7 +39,8 @@
     <button data-v="all" class="on">전체</button>
     <button data-v="living">거실</button>
     <button data-v="desk">책상</button>
-    <button data-v="dining">식탁·주방</button>
+    <button data-v="kitchen">주방·세탁기</button>
+    <button data-v="dining">식탁</button>
     <button data-v="bed">침실</button>
     <button data-v="plan">위에서 보기</button>
   </div>
@@ -47,6 +48,7 @@
     <button id="day" class="on">낮</button>
     <button id="night">밤</button>
     <button id="walls">벽 낮추기</button>
+    <button id="labels" class="on">이름표</button>
   </div>
 </div>
 <div id="legend" class="panel">
@@ -67,7 +69,7 @@
   · 퀸 침대 150×200 (헤드 오른쪽 벽, 아래벽 쪽으로 붙임 → 붙박이장 앞 68cm)<br>
   · 협탁 + 플리츠 스탠드, 러그, 전신거울, 화분
   <div class="sec">기본 설비 (도면 기준)</div>
-  · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 2구 인덕션 아래 드럼세탁기, 흰 2도어 냉장고<br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
+  · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 2구 인덕션 아래 <b>드럼세탁기 빌트인</b>, 흰 2도어 냉장고<br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
 </div>
 <div id="note" class="panel">
   마우스 드래그 = 회전 · 휠 = 확대 · 오른쪽 드래그 = 이동<br>
@@ -419,10 +421,13 @@ wall(746, 224, 746, 340, IN);                                                   
   for (const sx of [-29, 13, 50]) B(g, 0.6, 74, 0.6, mat.seam, sx, 8, 53.4);
   B(g, 174, 8, 1, M("#e6e2da"), 0, 0, 50);
   // 드럼세탁기 (인덕션 아래, 왼쪽 끝)
-  B(g, 56, 80, 1, mat.whiteGloss, -58, 3, 53.6);
-  const dr = CY(g, 14, 14, 2, M("#2f3a40", { roughness: 0.08, metalness: 0.3 }), -58, 34, 54.6, 32); dr.rotation.x = Math.PI / 2;
-  const rg = CY(g, 16.5, 16.5, 1.2, mat.chrome, -58, 34.4, 54.2, 32); rg.rotation.x = Math.PI / 2;
-  B(g, 50, 6, 0.8, M("#e9e9e9"), -58, 72, 54.2);
+  B(g, 58, 82, 4, M("#fdfdfc", { roughness: 0.25 }), -58, 2, 55, 1.5);                        // 세탁기 본체 앞면 (상부장보다 3cm 돌출)
+  const rg = CY(g, 19, 19, 2, mat.chrome, -58, 28, 57.5, 40); rg.rotation.x = Math.PI / 2;    // 도어 링
+  const dr = CY(g, 15.5, 15.5, 2.4, M("#26323a", { roughness: 0.05, metalness: 0.4, transparent: true, opacity: 0.92 }), -58, 27.8, 58.2, 40); dr.rotation.x = Math.PI / 2; // 유리
+  B(g, 54, 9, 1, M("#eeeeee", { roughness: 0.4 }), -58, 70, 57.2);                            // 조작부
+  const dial = CY(g, 3.2, 3.2, 1.6, mat.chrome, -70, 71, 58, 24); dial.rotation.x = Math.PI / 2; // 다이얼
+  B(g, 14, 3.5, 0.6, M("#1c2a33", { roughness: 0.2 }), -50, 72.7, 57.9);                      // 표시창
+  B(g, 8, 3, 2, M("#e9e9e9"), -40, 6, 57);                                                      // 세제 투입구 아래 필터 덮개
   // 쿼츠 상판 + 대리석풍 벽타일
   B(g, 176, 4, 55, mat.quartz, 0, 84, 27.5);
   const bs = new THREE.Mesh(new THREE.PlaneGeometry(cm(174), cm(62)), mat.stone); bs.position.set(0, cm(119), cm(0.5)); g.add(bs);
@@ -765,6 +770,22 @@ railing(441, 742, 530, 912, 30); railing(747, 745, 832, 912, 40);
   for (const [x, y] of [[620, 560], [900, 560], [700, 360]]) { const d = new THREE.Mesh(new THREE.CylinderGeometry(cm(5), cm(5), cm(2), 20), M("#fbfbfb")); d.position.set(cm(x), cm(H - 1), cm(y)); scene.add(d); ceils.push(d); }
 }
 
+// ---------- 이름표 (가전·가구) ----------
+const labels = [];
+function label(text, x, y, h) {
+  const c = document.createElement("canvas"); c.width = 256; c.height = 72;
+  const g = c.getContext("2d");
+  g.fillStyle = "rgba(61,52,40,0.88)"; g.beginPath(); g.roundRect(4, 4, 248, 52, 26); g.fill();
+  g.beginPath(); g.moveTo(118, 56); g.lineTo(138, 56); g.lineTo(128, 70); g.fill();
+  g.fillStyle = "#fff"; g.font = "bold 30px 'Malgun Gothic', sans-serif"; g.textAlign = "center"; g.textBaseline = "middle"; g.fillText(text, 128, 31);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, depthTest: false, transparent: true, sizeAttenuation: false }));
+  sp.scale.set(0.14, 0.039, 1); sp.position.set(cm(x), cm(h), cm(y)); sp.renderOrder = 10; scene.add(sp); labels.push(sp);
+}
+label("드럼세탁기", 534, 300, 72); label("2구 인덕션", 532, 262, 118); label("냉장고", 466, 392, 175); label("싱크대", 614, 262, 118);
+label("보일러실", 985, 790, 150); label("화이트 장책상", 640, 830, 125); label("식탁 200×60", 552, 450, 105);
+label("방석 2개", 605, 612, 45); label("퀸 침대", 970, 648, 85); label("스트링 선반", 730, 662, 190); label("현관", 858, 262, 120); label("욕실", 1000, 420, 150);
+
 // ---------- 조명 ----------
 const hemi = new THREE.HemisphereLight("#fff4e2", "#cdb89a", 0.45); scene.add(hemi);
 const amb = new THREE.AmbientLight("#ffffff", 0.25); scene.add(amb);
@@ -798,6 +819,7 @@ const views = {
   living: { pos: [728, 452, 168], tgt: [505, 800, 70] },
   desk:   { pos: [585, 655, 160], tgt: [665, 845, 88] },
   dining: { pos: [705, 610, 160], tgt: [500, 430, 75] },
+  kitchen: { pos: [680, 395, 150], tgt: [545, 255, 55] },
   bed:    { pos: [762, 712, 172], tgt: [1010, 560, 55] },
   plan:   { pos: [751, 568, 1450], tgt: [751, 567, 0], low: true },
 };
@@ -816,6 +838,7 @@ document.querySelectorAll("#views button").forEach((b) => b.addEventListener("cl
 document.getElementById("day").onclick = () => setMode(false);
 document.getElementById("night").onclick = () => setMode(true);
 document.getElementById("walls").onclick = () => setLow(!low);
+document.getElementById("labels").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); labels.forEach((l) => (l.visible = on)); };
 
 function resize() {
   const w = window.innerWidth, h = window.innerHeight;

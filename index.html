@@ -69,6 +69,7 @@
     <button id="day" class="on">낮</button>
     <button id="night">밤</button>
     <button id="walls">벽 낮추기</button>
+    <button id="cutbtn">벽 자동 낮추기</button>
     <button id="labels">이름표</button>
     <button id="prodbtn">상품 링크</button>
     <button id="prodlist">상품 목록 ↗</button>
@@ -112,7 +113,7 @@
   · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 인덕션 아래 <b>드럼세탁기 빌트인</b><br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
 </div>
 <div id="note" class="panel">
-  드래그 = 둘러보기 · 휠·두 손가락·＋－ = 확대 (마우스 있는 곳으로) · 오른쪽 드래그·Shift+드래그·✋이동 = 이동<br>더블클릭(더블탭) = 그곳으로 다가가기 · WASD/방향키 = 걷기 · 밖에서 옆으로 보면 앞쪽 벽이 자동으로 낮아져요<br><b>👤 1인칭</b>: 구역 버튼으로 그 자리에 서서(눈높이 160) 드래그로 둘러보기 · 휠/WASD = 걷기 · 더블클릭 = 그 자리로 걸어가기<br>
+  드래그 = 둘러보기 · 휠·두 손가락·＋－ = 확대 (마우스 있는 곳으로) · 오른쪽 드래그·Shift+드래그·✋이동 = 이동<br>더블클릭(더블탭) = 그곳으로 다가가기 · WASD/방향키 = 걷기 · '벽 자동 낮추기'를 켜면 밖에서 옆으로 볼 때 앞쪽 벽이 낮아져요<br><b>👤 1인칭</b>: 구역 버튼으로 그 자리에 서서(눈높이 160) 드래그로 둘러보기 · 휠/WASD = 걷기 · 더블클릭 = 그 자리로 걸어가기<br>
   치수는 분양 평면도(36.75㎡) 비율로 추정한 값이라 ±10cm 오차가 있을 수 있어요. 가구 사기 전 실측 필요.
 </div>
 <button id="hide">설명 숨기기</button>
@@ -1228,12 +1229,12 @@ function segHit(p, q, a, b) {
   const t = ((a[0] - p[0]) * (b[1] - a[1]) - (a[1] - p[1]) * (b[0] - a[0])) / d, u = ((a[0] - p[0]) * (q[1] - p[1]) - (a[1] - p[1]) * (q[0] - p[0])) / d;
   return t > 0 && t < 1 && u > -0.03 && u < 1.03;
 }
-let lastCut = 0;
+let lastCut = 0, cutOn = false; // 벽 자동 낮추기: 옵션 (기본 꺼짐)
 function cutaway(instant = false, now = performance.now()) {
   const dt = instant ? 1 : Math.min(0.1, (now - (lastCut || now)) / 1000); lastCut = now; const k = instant ? 1 : Math.min(1, dt * 9);
   const cx = camera.position.x * 100, cy = camera.position.z * 100, tx = controls.target.x * 100, ty = controls.target.z * 100;
   const inside = pip(OUTLINE, cx, cy) && camera.position.y < cm(H);
-  const active = !inside && controls.getPolarAngle() > 0.5; // 밖에서 옆으로 볼 때만
+  const active = cutOn && !inside && controls.getPolarAngle() > 0.5; // 옵션 켰을 때 밖에서 옆으로 볼 때만
   const L = Math.hypot(tx - cx, ty - cy) || 1, nx = -(ty - cy) / L, ny = (tx - cx) / L;
   const ends = [0, -90, 90, -180, 180].map((o) => [tx + nx * o, ty + ny * o]);
   const lowered = [];
@@ -1244,7 +1245,7 @@ function cutaway(instant = false, now = performance.now()) {
   const near = (o, d) => { const x = o.position.x * 100, y = o.position.z * 100; return lowered.some((w) => segDist(x, y, w.a, w.b) < d); };
   for (const g of tall) { const want = (low ? 0.42 : 1) * (near(g, 75) ? (low ? 0.55 : 0.4) : 1); g.scale.y += (want - g.scale.y) * k; }
   for (const o of wallDecor) o.visible = !near(o, 45) && !(low && o.userData.wallMounted); // 벽 낮추기 땐 벽걸이 숨김
-  ceils.forEach((c) => (c.visible = !low && inside)); curtains.forEach((c) => (c.visible = !low && inside));
+  ceils.forEach((c) => (c.visible = !low && (!cutOn || inside))); curtains.forEach((c) => (c.visible = !low && (!cutOn || inside)));
 }
 function clampTarget() {
   const t = controls.target, c = camera.position;
@@ -1263,6 +1264,7 @@ function setPanMode(on) {
   panMode = on; controls.mouseButtons.LEFT = on ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE; controls.touches.ONE = on ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE;
   document.getElementById("panmode").classList.toggle("on", on);
 }
+document.getElementById("cutbtn").onclick = (e) => { cutOn = !cutOn; e.target.classList.toggle("on", cutOn); };
 document.getElementById("zin").onclick = () => zoomStep(0.65);
 document.getElementById("zout").onclick = () => zoomStep(1.5);
 document.getElementById("panmode").onclick = () => setPanMode(!panMode);

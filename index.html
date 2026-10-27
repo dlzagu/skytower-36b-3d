@@ -60,6 +60,11 @@
     <button data-v="bath">욕실</button>
     <button data-v="plan">위에서 보기</button>
   </div>
+  <div class="row"><button id="fpbtn">👤 1인칭으로 둘러보기</button></div>
+  <div class="row" id="fpzones" style="display:none">
+    <button data-z="현관">현관</button><button data-z="주방">주방</button><button data-z="식탁">식탁</button><button data-z="거실">거실</button>
+    <button data-z="LP">LP·사이드보드</button><button data-z="책상">책상</button><button data-z="침실">침실</button><button data-z="화장대">화장대</button><button data-z="욕실">욕실</button>
+  </div>
   <div class="row">
     <button id="day" class="on">낮</button>
     <button id="night">밤</button>
@@ -107,7 +112,7 @@
   · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 인덕션 아래 <b>드럼세탁기 빌트인</b><br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
 </div>
 <div id="note" class="panel">
-  드래그 = 둘러보기 · 휠·두 손가락·＋－ = 확대 (마우스 있는 곳으로) · 오른쪽 드래그·Shift+드래그·✋이동 = 이동<br>더블클릭(더블탭) = 그곳으로 다가가기 · WASD/방향키 = 걷기 · 밖에서 옆으로 보면 앞쪽 벽이 자동으로 낮아져요<br>
+  드래그 = 둘러보기 · 휠·두 손가락·＋－ = 확대 (마우스 있는 곳으로) · 오른쪽 드래그·Shift+드래그·✋이동 = 이동<br>더블클릭(더블탭) = 그곳으로 다가가기 · WASD/방향키 = 걷기 · 밖에서 옆으로 보면 앞쪽 벽이 자동으로 낮아져요<br><b>👤 1인칭</b>: 구역 버튼으로 그 자리에 서서(눈높이 160) 드래그로 둘러보기 · 휠/WASD = 걷기 · 더블클릭 = 그 자리로 걸어가기<br>
   치수는 분양 평면도(36.75㎡) 비율로 추정한 값이라 ±10cm 오차가 있을 수 있어요. 가구 사기 전 실측 필요.
 </div>
 <button id="hide">설명 숨기기</button>
@@ -1307,6 +1312,48 @@ function navTick(now) {
   const z = (keys.has("+") || keys.has("=") ? -1 : 0) + (keys.has("-") || keys.has("_") ? 1 : 0);
   if (z) { const t = controls.target, dir = camera.position.clone().sub(t); let d = dir.length() * Math.pow(z < 0 ? 0.35 : 2.8, dt); dir.normalize(); if (d < 0.35) { t.addScaledVector(dir, -(0.35 - d)); d = 0.35; } camera.position.copy(t).addScaledVector(dir, Math.min(controls.maxDistance, d)); }
 }
+// ---------- 1인칭: 구역에 서서 둘러보기 ----------
+const EYE = 1.6;
+let fp = false, curZone = "거실";
+const ZONES = { 현관: [[858, 272], [640, 620]], 주방: [[600, 368], [560, 250]], 식탁: [[655, 525], [520, 445]], 거실: [[705, 470], [500, 770]], LP: [[665, 590], [450, 595]],
+  책상: [[598, 688], [652, 850]], 침실: [[790, 545], [1000, 660]], 화장대: [[885, 610], [755, 640]], 욕실: [[930, 398], [1035, 470]] };
+function fpGo(name, instant = false) {
+  curZone = name; const [[sx, sy], [tx, ty]] = ZONES[name];
+  const pnt = new THREE.Vector3(cm(sx), EYE, cm(sy)), dir = new THREE.Vector3(cm(tx - sx), -0.012, cm(ty - sy)).normalize();
+  const t = pnt.clone().addScaledVector(dir, 0.05);
+  if (instant) { anim = null; camera.position.copy(pnt); controls.target.copy(t); controls.update(); }
+  else anim = { p0: camera.position.clone(), t0: controls.target.clone(), p: pnt, t, start: performance.now(), dur: 900 };
+  document.querySelectorAll("#fpzones button").forEach((b) => b.classList.toggle("on", b.dataset.z === name));
+}
+function setFP(on, keepCam = false) {
+  fp = on; if (on) setLow(false);
+  controls.minDistance = on ? 0.01 : 0.25; controls.enableZoom = !on; controls.enablePan = !on; controls.zoomToCursor = !on;
+  controls.minPolarAngle = on ? Math.PI * 0.18 : 0; controls.maxPolarAngle = on ? Math.PI * 0.82 : Math.PI * 0.495; controls.rotateSpeed = on ? 0.45 : 0.85;
+  camera.fov = on ? 72 : 55; camera.updateProjectionMatrix();
+  document.getElementById("fpbtn").classList.toggle("on", on); document.getElementById("fpbtn").textContent = on ? "👤 1인칭 끄기" : "👤 1인칭으로 둘러보기";
+  document.getElementById("fpzones").style.display = on ? "" : "none";
+  if (on) { document.querySelectorAll("#views button").forEach((b) => b.classList.remove("on")); if (!keepCam) fpGo(curZone); }
+}
+document.getElementById("fpbtn").onclick = () => { setFP(!fp); if (!fp) go(curView); };
+document.querySelectorAll("#fpzones button").forEach((b) => (b.onclick = () => fpGo(b.dataset.z)));
+document.querySelectorAll("#views button").forEach((b) => b.addEventListener("click", () => { if (fp) setFP(false, true); }, true));
+document.getElementById("resetv").onclick = () => (fp ? fpGo(curZone) : go(curView));
+canvas.addEventListener("wheel", (e) => { // 1인칭: 휠 = 앞뒤로 걷기
+  if (!fp) return; const f = new THREE.Vector3(); camera.getWorldDirection(f); f.y = 0; f.normalize();
+  const st = -Math.sign(e.deltaY) * 0.25; camera.position.addScaledVector(f, st); controls.target.addScaledVector(f, st);
+}, { passive: true });
+function fpTick() { if (!fp) return; const dy = EYE - camera.position.y; camera.position.y += dy; controls.target.y += dy; }
+{ const fly0 = window.__flyTo; window.__flyTo = (x, y) => { // 1인칭: 더블클릭한 곳으로 걸어가기 (바라보는 방향 유지)
+  if (!fp) return fly0(x, y);
+  const r = canvas.getBoundingClientRect(), rc = new THREE.Raycaster(); rc.setFromCamera(new THREE.Vector2(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1), camera);
+  const hit = rc.intersectObjects(scene.children, true).find((h) => h.object.isMesh && h.object.visible && h.object.material && h.object.material.colorWrite !== false && h.object.material !== window.__treeMat);
+  if (!hit) return false;
+  const d = new THREE.Vector3().subVectors(hit.point, camera.position); d.y = 0; const len = d.length(); if (len < 0.05) return false;
+  const pnt = camera.position.clone().addScaledVector(d.normalize(), Math.max(0, len - 0.45)); pnt.y = EYE;
+  const look = new THREE.Vector3().subVectors(controls.target, camera.position);
+  anim = { p0: camera.position.clone(), t0: controls.target.clone(), p: pnt, t: pnt.clone().add(look), start: performance.now(), dur: 700 }; return true; }; }
+if (/fp/.test(location.hash + location.search)) setFP(true);
+window.__fp = { setFP, fpGo };
 window.__nav = { zoomStep, setPanMode, cutaway, walls: wallParts, camera, controls, setLow: (v) => setLow(v) };
 
 function resize() {
@@ -1322,7 +1369,7 @@ function loop(now) {
     camera.position.lerpVectors(anim.p0, anim.p, e); controls.target.lerpVectors(anim.t0, anim.t, e);
     if (k >= 1) anim = null;
   }
-  navTick(now); controls.update(); clampTarget(); cutaway(false, now); renderer.render(scene, camera); requestAnimationFrame(loop);
+  navTick(now); controls.update(); fpTick(); clampTarget(); cutaway(false, now); renderer.render(scene, camera); requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
 

@@ -26,6 +26,10 @@
     #legend, #note { display: none; }
     #hide { right: 8px; bottom: 8px; }
   }
+  #nav { position: absolute; left: 50%; transform: translateX(-50%); bottom: 14px; display: flex; gap: 6px; }
+  #nav button { min-width: 44px; font-size: 14px; box-shadow: 0 2px 8px rgba(80, 60, 30, 0.14); }
+  #nav .z { font-size: 20px; line-height: 1; padding: 4px 14px; font-weight: bold; }
+  @media (max-width: 760px) { #nav { left: 8px; transform: none; bottom: 8px; } #nav .t { display: none; } #nav button { padding: 8px 12px; } }
   #prod { right: 14px; top: 14px; width: 330px; max-height: calc(100% - 70px); overflow: auto; font-size: 13px; line-height: 1.5; }
   #prod h2 { font-size: 15px; margin: 0 0 6px; }
   #prod .sub { font-weight: bold; color: #8a5a22; margin-top: 10px; }
@@ -78,6 +82,7 @@
   · 스트링 선반 145×20 슬림 (침실 문 아래 벽)<br>
   
   · 티크 낮은 사이드보드 120×35 (라탄 문) + 무선 유리 램프<br>
+  · <b>LP 플레이어</b> + 소형 스피커 2 (사이드보드 위, LP판은 안에 세워 보관)<br>
   · 롱암 스윙 벽등 (좌탁 위로 160cm)<br>
   · 대형 화분(몬스테라) + 스탠드 / 행잉 플랜트<br>
   · 쉬어 커튼, 플리츠 플로어 램프, 액자 2점
@@ -95,10 +100,11 @@
   · 주방: 흰 하부장·쿼츠 상판·대리석풍 벽타일, 2구 인덕션 아래 <b>드럼세탁기 빌트인</b>, 흰 2도어 냉장고<br>· 현관 대리석 타일, 흰 걸레받이·몰딩, 천장 환기장치, 보일러실(루버창)<br>· (블로그 실사진 36형 기준)
 </div>
 <div id="note" class="panel">
-  마우스 드래그 = 회전 · 휠 = 확대 · 오른쪽 드래그 = 이동<br>
+  드래그 = 둘러보기 · 휠·두 손가락·＋－ = 확대 (마우스 있는 곳으로) · 오른쪽 드래그·Shift+드래그·✋이동 = 이동<br>더블클릭(더블탭) = 그곳으로 다가가기 · WASD/방향키 = 걷기 · 밖에서 옆으로 보면 앞쪽 벽이 자동으로 낮아져요<br>
   치수는 분양 평면도(36.75㎡) 비율로 추정한 값이라 ±10cm 오차가 있을 수 있어요. 가구 사기 전 실측 필요.
 </div>
 <button id="hide">설명 숨기기</button>
+<div id="nav"><button id="zin" class="z" title="확대">+</button><button id="zout" class="z" title="축소">−</button><button id="panmode" title="켜면 한 손가락·왼쪽 드래그로 이동">✋<span class="t"> 이동</span></button><button id="resetv" title="처음 시점으로">⟲<span class="t"> 처음</span></button></div>
 <div id="fail" class="panel" style="display:none; left:50%; top:50%; transform:translate(-50%,-50%); width:min(92vw,1100px); max-height:88vh; overflow:auto; font-size:14px;">
   3D 화면을 불러오지 못했어요. 크롬 또는 엣지로 열면 3D로 볼 수 있어요. 아래는 미리 렌더링한 이미지예요.
   <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:8px; margin-top:8px;">
@@ -144,7 +150,9 @@ const camera = new THREE.PerspectiveCamera(55, 1, 0.05, 100);
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.maxPolarAngle = Math.PI * 0.495;
-controls.minDistance = 0.3; controls.maxDistance = 25;
+controls.minDistance = 0.25; controls.maxDistance = 25;
+controls.dampingFactor = 0.12; controls.zoomToCursor = true; controls.screenSpacePanning = false;
+controls.zoomSpeed = 1.3; controls.panSpeed = 1.1; controls.rotateSpeed = 0.85;
 
 const H = 240; // 천장 높이 cm
 const cm = (v) => v / 100;
@@ -347,7 +355,9 @@ function place(x, y, nx = 0, ny = 1, isTall = false) {
 const wallGroup = new THREE.Group(); scene.add(wallGroup);
 
 // 벽: 중심선 (x1,y1)->(x2,y2), 두께 t, 개구부 ops [{s,e,b,t,win}] (cm, 시작점부터 거리)
+const wallParts = []; // {g, a, b, cur, want} — 벽 한 줄 단위
 function wall(x1, y1, x2, y2, t, ops = []) {
+  const wg = new THREE.Group(); wallGroup.add(wg); wallParts.push({ g: wg, a: [x1, y1], b: [x2, y2], cur: 1, want: 1 });
   const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ang = Math.atan2(dy, dx);
   const ux = dx / L, uy = dy / L;
   const piece = (a, b, h0, h1, material = mat.wall) => {
@@ -355,7 +365,7 @@ function wall(x1, y1, x2, y2, t, ops = []) {
     const c = (a + b) / 2;
     const m = shadowy(new THREE.Mesh(new THREE.BoxGeometry(cm(b - a), cm(h1 - h0), cm(t)), material));
     m.position.set(cm(x1 + ux * c), cm((h0 + h1) / 2), cm(y1 + uy * c));
-    m.rotation.y = -ang; wallGroup.add(m); return m;
+    m.rotation.y = -ang; wg.add(m); return m;
   };
   let cur = 0;
   for (const op of ops.sort((a, b) => a.s - b.s)) {
@@ -365,7 +375,7 @@ function wall(x1, y1, x2, y2, t, ops = []) {
     if (op.win) {
       const c = (op.s + op.e) / 2, len = op.e - op.s, hh = op.t - op.b;
       const g = new THREE.Mesh(new THREE.BoxGeometry(cm(len), cm(hh), cm(1)), mat.glass);
-      g.position.set(cm(x1 + ux * c), cm(op.b + hh / 2), cm(y1 + uy * c)); g.rotation.y = -ang; wallGroup.add(g);
+      g.position.set(cm(x1 + ux * c), cm(op.b + hh / 2), cm(y1 + uy * c)); g.rotation.y = -ang; wg.add(g);
       const fr = (a, b, h0, h1) => piece(a, b, h0, h1, mat.frame);
       // 창틀
       const ft = 4;
@@ -379,6 +389,10 @@ function wall(x1, y1, x2, y2, t, ops = []) {
   }
   piece(cur, L, 0, H);
 }
+
+function segDist(px, py, a, b) { const dx = b[0] - a[0], dy = b[1] - a[1], t = Math.max(0, Math.min(1, ((px - a[0]) * dx + (py - a[1]) * dy) / (dx * dx + dy * dy))); return Math.hypot(px - a[0] - t * dx, py - a[1] - t * dy); }
+function wallFor(px, py) { let best = null, bd = 16; for (const w of wallParts) { const d = segDist(px, py, w.a, w.b); if (d < bd) { bd = d; best = w.g; } } return best; }
+const wallDecor = []; // 벽에 붙은 액자·조명 — 그 벽이 낮아지면 숨김
 
 // ---------- 바닥 ----------
 function floor(points, material, h = 0) {
@@ -501,7 +515,7 @@ wall(746, 224, 746, 340, IN);                                                   
 }
 { // 보일러실 루버창 (검정 가로 날개)
   const x1 = 832, y1 = 912, x2 = 1062, y2 = 762, L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L, c = 185;
-  const grp = new THREE.Group(); grp.position.set(cm(x1 + ux * c), 0, cm(y1 + uy * c)); grp.rotation.y = -Math.atan2(uy, ux); wallGroup.add(grp);
+  const grp = new THREE.Group(); grp.position.set(cm(x1 + ux * c), 0, cm(y1 + uy * c)); grp.rotation.y = -Math.atan2(uy, ux); (wallFor(x1 + ux * c, y1 + uy * c) || wallGroup).add(grp);
   const lm = M("#2b2d2f", { roughness: 0.5 });
   for (let h = 95; h < 202; h += 8) { const sl = B(grp, 62, 1, 6, lm, 0, h, 0); sl.rotation.x = 0.5; }
 }
@@ -648,7 +662,7 @@ function foldedRack(parent, x, z) { // 접은 건조대 (긴 변을 바닥에 �
   B(t, 16, 2.5, 22, M("#7a5b3a"), 6, 40, -10);
 }
 { // 스트링 선반 (침실 문 아래 벽) — 깊이 20cm 슬림형
-  const s = place(741, 662, -1, 0);
+  const s = place(741, 662, -1, 0); wallDecor.push(s);
   const wire = M("#f4f2ee", { roughness: 0.5 });
   for (const x of [-71, 71]) {
     B(s, 1.2, 175, 1.2, wire, x, 0, 1.5); B(s, 1.2, 175, 1.2, wire, x, 0, 19);
@@ -675,7 +689,7 @@ function foldedRack(parent, x, z) { // 접은 건조대 (긴 변을 바닥에 �
 }
 { // 액자 2점 (소파 위 벽)
   const a = place(451, 535, 1, 0); B(a, 42, 54, 2, M("#c9a072"), 0, 120, 1); const p1 = new THREE.Mesh(new THREE.PlaneGeometry(cm(36), cm(48)), mat.art1); p1.position.set(0, cm(147), cm(2.1)); a.add(p1);
-  const b = place(451, 615, 1, 0); B(b, 42, 54, 2, M("#c9a072"), 0, 130, 1); const p2 = new THREE.Mesh(new THREE.PlaneGeometry(cm(36), cm(48)), mat.art2); p2.position.set(0, cm(157), cm(2.1)); b.add(p2);
+  const b = place(451, 615, 1, 0); B(b, 42, 54, 2, M("#c9a072"), 0, 130, 1); const p2 = new THREE.Mesh(new THREE.PlaneGeometry(cm(36), cm(48)), mat.art2); p2.position.set(0, cm(157), cm(2.1)); b.add(p2); wallDecor.push(a, b); a.userData.wallMounted = b.userData.wallMounted = true;
 }
 
 { // 낮은 티크 사이드보드 120×35×56 (액자 아래, 라탄 문)
@@ -691,21 +705,41 @@ function foldedRack(parent, x, z) { // 접은 건조대 (긴 변을 바닥에 �
   for (let i = 0; i < 3; i++) B(sb, 36, 35, 1, cane, -38.5 + i * 38.5, 15.5, 34.6);
   for (const x of [-57.8, -19.3, 19.3, 57.8]) B(sb, 1.8, 40, 1.6, mat.teak, x, 13, 34.8);
   for (const x of [-25, 13, 52]) B(sb, 1, 6, 1.2, mat.teakDark, x, 30, 35.6);
-  // 위: 도자기 화병 + 책 + 작은 그릇
-  CY(sb, 5, 7, 22, mat.ceramic2, -40, 56, 16, 24); CY(sb, 2, 3, 6, mat.ceramic2, -40, 78, 16, 16);
-  for (let i = 0; i < 3; i++) B(sb, 24 - i * 2, 2.2, 17 - i, [M("#d9c7a5"), M("#3b3a37"), M("#c96b2c")][i], -8, 56 + i * 2.2, 15);
-  CY(sb, 7, 4, 4, mat.ceramic, 14, 56, 18, 20);
+  // 위: LP 플레이어 + 소형 스피커 2 + 지금 듣는 앨범 (LP판은 사이드보드 안에 세워 보관)
+  { const tt = new THREE.Group(); tt.position.set(cm(-19), cm(56), cm(18)); sb.add(tt);
+    B(tt, 42, 8, 33, M("#c69a68", { roughness: 0.45 }), 0, 1.2, 0, 1.2);                       // 원목 받침
+    for (const [fx, fz] of [[-18, -13], [18, -13], [-18, 13], [18, 13]]) CY(tt, 1.6, 1.8, 1.2, M("#2a2a2a"), fx, 0, fz, 12);
+    CY(tt, 15, 15, 1.4, M("#2b2b2b", { roughness: 0.5, metalness: 0.3 }), -5, 9.2, 1, 48);   // 플래터
+    CY(tt, 14.8, 14.8, 0.3, M("#141414", { roughness: 0.25 }), -5, 10.6, 1, 48);          // 레코드
+    CY(tt, 4.4, 4.4, 0.32, M("#d9772e", { roughness: 0.6 }), -5, 10.62, 1, 32);            // 라벨
+    CY(tt, 0.35, 0.35, 1.6, mat.chrome, -5, 10.6, 1, 8);                                   // 스핀들
+    CY(tt, 1.2, 1.2, 1, mat.chrome, 15, 9.2, 12, 16);                                       // 속도 노브
+    const arm = new THREE.Group(); arm.position.set(cm(15), cm(9.2), cm(-10)); arm.rotation.y = -0.32; tt.add(arm); // 톤암
+    CY(arm, 1.4, 1.6, 2.6, mat.chrome, 0, 0, 0, 16);
+    const tube = new THREE.Mesh(new THREE.CylinderGeometry(cm(0.45), cm(0.45), cm(20), 8), mat.chrome); tube.rotation.x = Math.PI / 2; tube.position.set(0, cm(3.2), cm(10)); arm.add(tube);
+    B(arm, 2.2, 0.8, 3.4, M("#2a2a2a"), 0, 2.6, 20.5);
+    const cw = new THREE.Mesh(new THREE.CylinderGeometry(cm(1.4), cm(1.4), cm(3), 16), M("#3a3a3a")); cw.rotation.x = Math.PI / 2; cw.position.set(0, cm(3.2), cm(-3.5)); arm.add(cw); }
+  for (const sx of [-53, 53]) { // 소형 액티브 스피커 13×21×17
+    B(sb, 13, 21, 17, M("#7a4a28", { roughness: 0.5 }), sx, 56, 17, 1); B(sb, 11, 17, 0.4, M("#2b2b2b", { roughness: 0.9 }), sx, 58, 25.6);
+    const wf = new THREE.Mesh(new THREE.CircleGeometry(cm(3.6), 24), M("#1a1a1a", { roughness: 0.7 })); wf.position.set(cm(sx), cm(63), cm(25.85)); sb.add(wf); }
+  { const art = new THREE.MeshStandardMaterial({ map: canvasTex(256, 256, (g, w, h) => { // 지금 듣는 앨범 (벽에 기대어)
+      g.fillStyle = "#e3b04b"; g.fillRect(0, 0, w, h); g.fillStyle = "#1d1d1d"; g.beginPath(); g.arc(150, 128, 78, 0, 7); g.fill();
+      g.fillStyle = "#d9772e"; g.beginPath(); g.arc(150, 128, 24, 0, 7); g.fill(); g.fillStyle = "#f4ead8"; g.fillRect(24, 24, 70, 10); g.fillRect(24, 42, 46, 6);
+    }), roughness: 0.8 });
+    const side = M("#d9c7a5");
+    const sl = new THREE.Mesh(new THREE.BoxGeometry(cm(31.4), cm(31.4), cm(0.5)), [side, side, side, side, art, side]);
+    sl.position.set(cm(31), cm(56 + 15.6), cm(4.5)); sl.rotation.x = -0.12; sl.castShadow = true; sb.add(sl); }
   // 무선 유리 램프 (충전식)
   const brass = M("#c9a35a", { roughness: 0.3, metalness: 0.7 });
-  CY(sb, 5.5, 6, 1.6, brass, 40, 56, 16, 24);
-  CY(sb, 4.2, 4.2, 15, new THREE.MeshStandardMaterial({ color: "#fff7e8", roughness: 0.05, transparent: true, opacity: 0.45 }), 40, 57.6, 16, 24);
+  CY(sb, 5.5, 6, 1.6, brass, 9, 56, 24, 24);
+  CY(sb, 4.2, 4.2, 15, new THREE.MeshStandardMaterial({ color: "#fff7e8", roughness: 0.05, transparent: true, opacity: 0.45 }), 9, 57.6, 24, 24);
   const coreMat = new THREE.MeshStandardMaterial({ color: "#fff1d6", emissive: "#ffb85c", emissiveIntensity: 0 });
-  CY(sb, 1.4, 1.4, 7, coreMat, 40, 61, 16, 12); CY(sb, 3.2, 4.4, 2, brass, 40, 72.6, 16, 24);
-  const cl = new THREE.PointLight("#ffbe73", 0, 2.2, 2); cl.position.set(cm(40), cm(66), cm(18)); sb.add(cl);
+  CY(sb, 1.4, 1.4, 7, coreMat, 9, 61, 24, 12); CY(sb, 3.2, 4.4, 2, brass, 9, 72.6, 24, 24);
+  const cl = new THREE.PointLight("#ffbe73", 0, 2.2, 2); cl.position.set(cm(9), cm(66), cm(26)); sb.add(cl);
   window.__accentLights.push([cl, coreMat, 0.6, 2.2]);
 }
 { // 롱암 스윙 벽등 (포텐스 스타일): 왼쪽 벽 높이 205에서 좌탁 쪽으로 160cm
-  const w = place(450, 560, 0.939, 0.344);
+  const w = place(450, 560, 0.939, 0.344); wallDecor.push(w); w.userData.wallMounted = true;
   const blk = M("#232323", { roughness: 0.4, metalness: 0.3 });
   B(w, 6, 16, 2, blk, 0, 196, 1, 0.6); B(w, 2, 2, 8, blk, 0, 204, 5);
   B(w, 1.3, 1.3, 160, blk, 0, 204.5, 88); B(w, 0.6, 22, 0.6, blk, 0, 186, 2); // 팔 + 지지선
@@ -751,7 +785,7 @@ function curtain(x1, y1, x2, y2, from, to) { // 쉬어 커튼 (사선 창 안쪽
 curtain(441, 742, 530, 912, 8, 52); curtain(441, 742, 530, 912, 140, 184);
 curtain(747, 745, 832, 912, 8, 48); curtain(747, 745, 832, 912, 140, 180);
 { // 행잉 플랜트 (창가)
-  const h = place(484, 760, 1, 0);
+  const h = place(484, 760, 1, 0); wallDecor.push(h);
   CY(h, 0.2, 0.2, 60, mat.black, 0, 180, 0); CY(h, 9, 7, 12, mat.ceramic, 0, 168, 0);
   for (let i = 0; i < 9; i++) { const lf = new THREE.Mesh(new THREE.SphereGeometry(cm(4.5), 8, 6), mat.leaf2); lf.scale.set(1, 0.5, 0.8); lf.position.set(cm(Math.sin(i * 1.7) * 9), cm(170 - i * 6), cm(Math.cos(i * 1.7) * 9)); h.add(lf); }
 }
@@ -829,7 +863,7 @@ curtain(747, 745, 832, 912, 8, 48); curtain(747, 745, 832, 912, 140, 180);
   r.position.set(cm(927), cm(0.45), cm(633)); r.receiveShadow = true; scene.add(r);
 }
 { // 전신거울 (다용도실 벽)
-  const m = place(905, 832, -1, 0);
+  const m = place(905, 832, -1, 0); wallDecor.push(m);
   B(m, 46, 160, 3, mat.oak, 0, 0, 2, 1); const g = new THREE.Mesh(new THREE.PlaneGeometry(cm(40), cm(150)), mat.mirror); g.position.set(0, cm(80), cm(3.6)); m.add(g);
   m.children.forEach((c) => (c.rotation.x = -0.08));
 }
@@ -926,9 +960,9 @@ railing(441, 742, 530, 912, 30); railing(747, 745, 832, 912, 40);
       for (const [a, b] of spans) {
         const c = (a + b) / 2, len = b - a, px = ax + ux * c, py = ay + uy * c;
         const mk = (h0, h, th, group, material) => { const m = shadowy(new THREE.Mesh(new THREE.BoxGeometry(cm(len), cm(h), cm(th)), material)); m.position.set(cm(px + nx * (off + th / 2)), cm(h0 + h / 2), cm(py + ny * (off + th / 2))); m.rotation.y = -Math.atan2(uy, ux); group.add(m); if (group === scene) ceils.push(m); };
-        if (withBase) mk(0, 7, 1.2, wallGroup, bm);
+        if (withBase) mk(0, 7, 1.2, wallFor(px, py) || wallGroup, bm);
         if (withCrown) mk(H - 5, 5, 2.5, scene, bm);
-        if (panelMat) mk(0, 228, 0.6, wallGroup, panelMat);
+        if (panelMat) mk(0, 228, 0.6, wallFor(px, py) || wallGroup, panelMat);
       }
     }
   }
@@ -1069,10 +1103,11 @@ const views = {
   plan:   { pos: [751, 568, 1450], tgt: [751, 567, 0], low: true },
 };
 let anim = null;
+let curView = "all";
 let low = false;
 function setLow(v) { low = v; wallGroup.scale.y = v ? 0.42 : 1; tall.forEach((g) => (g.scale.y = v ? 0.42 : 1)); ceils.forEach((c) => (c.visible = !v)); curtains.forEach((c) => (c.visible = !v)); document.getElementById("walls").classList.toggle("on", v); }
 function go(name, instant = false) {
-  const v = views[name];
+  const v = views[name]; curView = name;
   setLow(!!v.low);
   const p = P(v.pos[0], v.pos[1], v.pos[2]), t = P(v.tgt[0], v.tgt[1], v.tgt[2]);
   document.querySelectorAll("#views button").forEach((b) => b.classList.toggle("on", b.dataset.v === name));
@@ -1091,6 +1126,100 @@ document.getElementById("laundrybtn").onclick = () => { setLaundry(!laundryOn); 
 if (/empty/.test(location.hash + location.search)) setLiving(false);
 if (/laundry/.test(location.hash + location.search)) setLaundry(true);
 
+// ---------- 보기 편의: 확대·이동 + 시선 앞 벽 자동 낮추기 ----------
+const OUTLINE = [[441, 224], [1062, 224], [1062, 762], [832, 912], [747, 745], [530, 912], [441, 742]];
+function pip(poly, x, y) { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i], [xj, yj] = poly[j]; if (((yi > y) !== (yj > y)) && (x < ((xj - xi) * (y - yi)) / (yj - yi) + xi)) c = !c; } return c; }
+function segHit(p, q, a, b) {
+  const d = (q[0] - p[0]) * (b[1] - a[1]) - (q[1] - p[1]) * (b[0] - a[0]); if (Math.abs(d) < 1e-9) return false;
+  const t = ((a[0] - p[0]) * (b[1] - a[1]) - (a[1] - p[1]) * (b[0] - a[0])) / d, u = ((a[0] - p[0]) * (q[1] - p[1]) - (a[1] - p[1]) * (q[0] - p[0])) / d;
+  return t > 0 && t < 1 && u > -0.03 && u < 1.03;
+}
+let lastCut = 0;
+function cutaway(instant = false, now = performance.now()) {
+  const dt = instant ? 1 : Math.min(0.1, (now - (lastCut || now)) / 1000); lastCut = now; const k = instant ? 1 : Math.min(1, dt * 9);
+  const cx = camera.position.x * 100, cy = camera.position.z * 100, tx = controls.target.x * 100, ty = controls.target.z * 100;
+  const inside = pip(OUTLINE, cx, cy) && camera.position.y < cm(H);
+  const active = !inside && controls.getPolarAngle() > 0.5; // 밖에서 옆으로 볼 때만
+  const L = Math.hypot(tx - cx, ty - cy) || 1, nx = -(ty - cy) / L, ny = (tx - cx) / L;
+  const ends = [0, -90, 90, -180, 180].map((o) => [tx + nx * o, ty + ny * o]);
+  const lowered = [];
+  for (const w of wallParts) {
+    w.want = active && ends.some((e) => segHit([cx, cy], e, w.a, w.b)) ? 0.18 : 1;
+    w.cur += (w.want - w.cur) * k; w.g.scale.y = Math.max(0.01, w.cur); if (w.want < 1) lowered.push(w);
+  }
+  const near = (o, d) => { const x = o.position.x * 100, y = o.position.z * 100; return lowered.some((w) => segDist(x, y, w.a, w.b) < d); };
+  for (const g of tall) { const want = (low ? 0.42 : 1) * (near(g, 75) ? (low ? 0.55 : 0.4) : 1); g.scale.y += (want - g.scale.y) * k; }
+  for (const o of wallDecor) o.visible = !near(o, 45) && !(low && o.userData.wallMounted); // 벽 낮추기 땐 벽걸이 숨김
+  ceils.forEach((c) => (c.visible = !low && inside)); curtains.forEach((c) => (c.visible = !low && inside));
+}
+function clampTarget() {
+  const t = controls.target, c = camera.position;
+  const nx = Math.min(11, Math.max(4, t.x)), ny = Math.min(2.4, Math.max(0, t.y)), nz = Math.min(9.6, Math.max(1.8, t.z));
+  const dx = nx - t.x, dy = ny - t.y, dz = nz - t.z; if (dx || dy || dz) { t.set(nx, ny, nz); c.x += dx; c.y += dy; c.z += dz; }
+  if (c.y < 0.12) c.y = 0.12;
+}
+function zoomStep(f) { // 버튼·키 확대: 너무 가까우면 보는 점을 앞으로 밀어 계속 다가감
+  const t = controls.target.clone(), dir = camera.position.clone().sub(t); let d = dir.length() * f; dir.normalize();
+  if (d < 0.35) { t.addScaledVector(dir, -(0.35 - d)); d = 0.35; }
+  d = Math.min(controls.maxDistance, d);
+  anim = { p0: camera.position.clone(), t0: controls.target.clone(), p: t.clone().addScaledVector(dir, d), t, start: performance.now(), dur: 260 };
+}
+let panMode = false;
+function setPanMode(on) {
+  panMode = on; controls.mouseButtons.LEFT = on ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE; controls.touches.ONE = on ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE;
+  document.getElementById("panmode").classList.toggle("on", on);
+}
+document.getElementById("zin").onclick = () => zoomStep(0.65);
+document.getElementById("zout").onclick = () => zoomStep(1.5);
+document.getElementById("panmode").onclick = () => setPanMode(!panMode);
+document.getElementById("resetv").onclick = () => go(curView);
+canvas.addEventListener("wheel", (e) => { // 가까이서 휠을 더 굴리면 앞으로 걸어 들어감
+  anim = null;
+  if (e.deltaY < 0 && camera.position.distanceTo(controls.target) <= controls.minDistance * 1.3) {
+    const d = new THREE.Vector3(); camera.getWorldDirection(d); const st = Math.min(0.4, 0.08 + Math.abs(e.deltaY) * 0.0015);
+    camera.position.addScaledVector(d, st); controls.target.addScaledVector(d, st);
+  }
+}, { passive: true });
+{ // 더블클릭·더블탭 = 그 지점으로 다가가기
+  const rc = new THREE.Raycaster(), v2 = new THREE.Vector2(); let dn = null, lastTap = null;
+  const shown = (o) => { for (let x = o; x; x = x.parent) if (x.visible === false) return false; return true; };
+  window.__flyTo = (x, y) => {
+    const r = canvas.getBoundingClientRect(); v2.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1); rc.setFromCamera(v2, camera);
+    const hit = rc.intersectObjects(scene.children, true).find((h) => h.object.isMesh && shown(h.object) && h.object.material && h.object.material.colorWrite !== false && h.object.material !== window.__treeMat && !(h.object.material.transparent && h.object.material.opacity < 0.5));
+    if (!hit) return false;
+    const t = hit.point.clone(); t.y = Math.min(t.y, 2.2);
+    const dir = camera.position.clone().sub(controls.target).normalize(), d = Math.min(3, Math.max(0.9, camera.position.distanceTo(controls.target) * 0.55));
+    anim = { p0: camera.position.clone(), t0: controls.target.clone(), p: t.clone().addScaledVector(dir, d), t, start: performance.now(), dur: 650 };
+    return true;
+  };
+  canvas.addEventListener("pointerdown", (e) => { anim = null; dn = [e.clientX, e.clientY]; });
+  canvas.addEventListener("dblclick", (e) => window.__flyTo(e.clientX, e.clientY)); // 마우스
+  canvas.addEventListener("pointerup", (e) => { // 터치 더블탭
+    if (e.pointerType !== "touch") return;
+    if (!dn || Math.hypot(e.clientX - dn[0], e.clientY - dn[1]) > 8) { lastTap = null; return; }
+    const now = e.timeStamp;
+    if (lastTap && now - lastTap.t < 340 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 30) { lastTap = null; window.__flyTo(e.clientX, e.clientY); }
+    else lastTap = { t: now, x: e.clientX, y: e.clientY };
+  });
+}
+// 키보드: WASD·방향키 = 걷기, +/- = 확대·축소
+const keys = new Set();
+window.addEventListener("keydown", (e) => { const k = e.key.toLowerCase(); if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright", "+", "=", "-", "_"].includes(k)) { keys.add(k); if (k.startsWith("arrow")) e.preventDefault(); } });
+window.addEventListener("keyup", (e) => keys.delete(e.key.toLowerCase()));
+window.addEventListener("blur", () => keys.clear());
+let lastNav = 0;
+function navTick(now) {
+  const dt = Math.min(0.05, (now - (lastNav || now)) / 1000); lastNav = now; if (!keys.size) return; anim = null;
+  const f = new THREE.Vector3(); camera.getWorldDirection(f); f.y = 0; if (f.lengthSq() < 1e-6) f.set(0, 0, -1); f.normalize();
+  const r = new THREE.Vector3(-f.z, 0, f.x), mv = new THREE.Vector3();
+  if (keys.has("w") || keys.has("arrowup")) mv.add(f); if (keys.has("s") || keys.has("arrowdown")) mv.sub(f);
+  if (keys.has("d") || keys.has("arrowright")) mv.add(r); if (keys.has("a") || keys.has("arrowleft")) mv.sub(r);
+  if (mv.lengthSq()) { mv.normalize().multiplyScalar(dt * 1.6 * Math.max(0.6, camera.position.distanceTo(controls.target) / 3)); camera.position.add(mv); controls.target.add(mv); }
+  const z = (keys.has("+") || keys.has("=") ? -1 : 0) + (keys.has("-") || keys.has("_") ? 1 : 0);
+  if (z) { const t = controls.target, dir = camera.position.clone().sub(t); let d = dir.length() * Math.pow(z < 0 ? 0.35 : 2.8, dt); dir.normalize(); if (d < 0.35) { t.addScaledVector(dir, -(0.35 - d)); d = 0.35; } camera.position.copy(t).addScaledVector(dir, Math.min(controls.maxDistance, d)); }
+}
+window.__nav = { zoomStep, setPanMode, cutaway, walls: wallParts, camera, controls, setLow: (v) => setLow(v) };
+
 function resize() {
   const w = window.innerWidth, h = window.innerHeight;
   renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
@@ -1104,14 +1233,14 @@ function loop(now) {
     camera.position.lerpVectors(anim.p0, anim.p, e); controls.target.lerpVectors(anim.t0, anim.t, e);
     if (k >= 1) anim = null;
   }
-  controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop);
+  navTick(now); controls.update(); clampTarget(); cutaway(false, now); renderer.render(scene, camera); requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
 
 // 스크린샷용 (외부 자동화)
 window.__shot = (name, night = false, lowWalls = false) => {
   setMode(night); go(name, true); if (lowWalls !== null) setLow(lowWalls);
-  renderer.render(scene, camera); return renderer.domElement.toDataURL("image/jpeg", 0.9);
+  controls.update(); cutaway(true); renderer.render(scene, camera); return renderer.domElement.toDataURL("image/jpeg", 0.9);
 };
 window.__ready = true;
 </script>

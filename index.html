@@ -76,7 +76,7 @@
     <button id="budgetbtn">가성비 예산 ↗</button>
     <button id="livingbtn">좌탁·방석 빼기</button>
     <button id="laundrybtn">빨래 모드</button>
-    <button id="varbtn">B안 보기 (책상 위 작은 책장)</button>
+    <button data-var="A" class="var on">A안 · 서쪽 벽 책장</button><button data-var="B" class="var">B안 · 책상 위 책장</button><button data-var="C" class="var">C안 · 인터폰 벽 책장</button>
   </div>
 </div>
 <div id="prod" class="panel" style="display:none"></div>
@@ -89,9 +89,10 @@
   · 일본풍 방석 2개 (좌탁 동쪽에 나란히, LP 쪽을 봄)<br>
   · 좌식 그린 타일 테이블 90×50<br>
   · 패턴 러그 200×150<br>
-  · 낮은 월넛 서랍장 140×40 (서쪽 벽): 위 = 화이트 턴테이블 + 화이트 스피커 2 + 무선 유리 램프 / 아래 깊은 서랍 = LP판<br>
+  · 낮은 월넛 서랍장 140×40 (서쪽 벽): 위 = 우드 턴테이블 + 우드 스피커 2 + 무선 유리 램프 / 아래 깊은 서랍 = LP판<br>
   · <b>A안</b>: 그 위 스트링 벽선반 2칸 3단 (책·소품만) + 인터폰 벽에 프렌즈 포스터<br>
   · <b>B안</b>(버튼): 스트링은 책상 위 작은 1칸, 서랍장 위엔 포스터만, 인터폰 벽은 비움 → 개방감<br>
+  · <b>C안</b>(버튼): 스트링 작은 1칸을 인터폰 벽(월패드 옆)에, 책상 벽은 비움, 서랍장 위엔 포스터만<br>
   
   · <b>LP 플레이어</b> + 소형 스피커 2 (서랍장 위, 방석에 앉으면 정면)<br>
   · 액자: 프렌즈 단체 포스터 50×70 / 현관 들어서면 정면 복도 벽 = 뉴욕 거리 사진 40×50<br>
@@ -724,7 +725,7 @@ function foldedRack(parent, x, z) { // 접은 건조대 (긴 변을 바닥에 �
   CY(t, 4, 4, 9, mat.ceramic, -10, 40, -20); CY(t, 6, 6, 2, mat.ceramic2, 8, 40, 18);
   B(t, 16, 2.5, 22, M("#7a5b3a"), 6, 40, -10);
 }
-const grpA = new THREE.Group(), grpB = new THREE.Group(); scene.add(grpA, grpB); grpB.visible = false; // 배치 A안 / B안
+const grpA = new THREE.Group(), grpB = new THREE.Group(), grpC = new THREE.Group(), grpBC = new THREE.Group(); scene.add(grpA, grpB, grpC, grpBC); grpB.visible = grpC.visible = grpBC.visible = false; // 배치 A·B·C안
 { // 낮은 월넛 서랍장 140×40×62 (서쪽 벽, 얇은 다리): 위 = 턴테이블 + 스피커 2 + 지금 듣는 앨범 + 무선 유리 램프 / 아래 깊은 서랍 = LP판
   const c = place(450, 572, 1, 0); // 로컬 +x = 북쪽(식탁 쪽)
   const wal = M("#5f3e28", { roughness: 0.5 }), walD = M("#3f281a");
@@ -738,7 +739,7 @@ const grpA = new THREE.Group(), grpB = new THREE.Group(); scene.add(grpA, grpB);
     B(c, 67, 33.5, 1.6, front, x, 13, 39.6); B(c, 22, 1, 0.4, groove, x, 44, 40.5);    // 아래 깊은 서랍 2 (LP판 세로 수납)
   }
   { const tt = new THREE.Group(); tt.position.set(cm(-27.5), cm(62), cm(20)); c.add(tt); // 턴테이블
-    B(tt, 42, 8, 33, M("#f3f1ec", { roughness: 0.35 }), 0, 1.2, 0, 1.2); // TN-180BT 화이트
+    B(tt, 42, 8, 33, M("#c69a68", { roughness: 0.45 }), 0, 1.2, 0, 1.2); // 우드 플린스
     for (const [fx, fz] of [[-18, -13], [18, -13], [-18, 13], [18, 13]]) CY(tt, 1.6, 1.8, 1.2, M("#2a2a2a"), fx, 0, fz, 12);
     CY(tt, 15, 15, 1.4, M("#2b2b2b", { roughness: 0.5, metalness: 0.3 }), -5, 9.2, 1, 48);
     CY(tt, 14.8, 14.8, 0.3, M("#141414", { roughness: 0.25 }), -5, 10.6, 1, 48);
@@ -751,8 +752,8 @@ const grpA = new THREE.Group(), grpB = new THREE.Group(); scene.add(grpA, grpB);
     B(arm, 2.2, 0.8, 3.4, M("#2a2a2a"), 0, 2.6, 20.5);
     const cw = new THREE.Mesh(new THREE.CylinderGeometry(cm(1.4), cm(1.4), cm(3), 16), M("#3a3a3a")); cw.rotation.x = Math.PI / 2; cw.position.set(0, cm(3.2), cm(-3.5)); arm.add(cw); }
   for (const sx of [-58, 3]) { // 소형 액티브 스피커 11×18×16 (턴테이블 양옆)
-    B(c, 11, 18, 16, M("#f1efe9", { roughness: 0.4 }), sx, 62, 18, 1); B(c, 9, 14, 0.4, M("#e4e2dd", { roughness: 0.6 }), sx, 64, 26.2); // MR3 화이트
-    const wf = new THREE.Mesh(new THREE.CircleGeometry(cm(3), 24), M("#3a3a3a", { roughness: 0.7 })); wf.position.set(cm(sx), cm(68), cm(26.45)); c.add(wf); }
+    B(c, 11, 18, 16, M("#b07a45", { roughness: 0.5 }), sx, 62, 18, 1); B(c, 9, 14, 0.4, M("#2b2b2b", { roughness: 0.9 }), sx, 64, 26.2); // 우드 스피커
+    const wf = new THREE.Mesh(new THREE.CircleGeometry(cm(3), 24), M("#1a1a1a", { roughness: 0.7 })); wf.position.set(cm(sx), cm(68), cm(26.45)); c.add(wf); }
   { const art = new THREE.MeshStandardMaterial({ map: canvasTex(256, 256, (g, w, h) => { // 지금 듣는 앨범 (벽에 기대어)
       g.fillStyle = "#e3b04b"; g.fillRect(0, 0, w, h); g.fillStyle = "#1d1d1d"; g.beginPath(); g.arc(150, 128, 78, 0, 7); g.fill();
       g.fillStyle = "#d9772e"; g.beginPath(); g.arc(150, 128, 24, 0, 7); g.fill(); g.fillStyle = "#f4ead8"; g.fillRect(24, 24, 70, 10); g.fillRect(24, 42, 46, 6);
@@ -794,8 +795,19 @@ const grpA = new THREE.Group(), grpB = new THREE.Group(); scene.add(grpA, grpB);
   CY(s, 5, 4, 14, mat.ceramic, 14, 170, 9); CY(s, 3, 3, 9, mat.ceramic2, 24, 170, 12);
   for (let i = 0; i < 5; i++) B(s, 2.6, 19 + (i % 2) * 3, 15, [M("#e8dcc6"), mat.terracotta, M("#b9c7a8"), M("#efe7da"), M("#d9c7a5")][i], -32 + i * 3, 170, 9);
   for (const [x, h] of [[24, 203], [-8, 170]]) { CY(s, 6, 5, 10, mat.ceramic, x, h, 10); for (let i = 0; i < 7; i++) { const lf = new THREE.Mesh(new THREE.SphereGeometry(cm(4.5), 8, 6), mat.leaf2); lf.scale.set(1, 0.4, 0.7); lf.position.set(cm(x + Math.sin(i) * 8), cm(h + 8 - i * 5), cm(13 + Math.cos(i) * 4)); s.add(lf); } }
-  const a = place(451, 572, 1, 0); grpB.add(a); wallDecor.push(a); a.userData.wallMounted = true; // 서랍장 위 프렌즈 포스터 50×70
+  const a = place(451, 572, 1, 0); grpBC.add(a); wallDecor.push(a); a.userData.wallMounted = true; // 서랍장 위 프렌즈 포스터 50×70
   B(a, 53, 73, 2, M("#c9a072"), 0, 108, 1); const p1 = new THREE.Mesh(new THREE.PlaneGeometry(cm(50), cm(70)), mat.art1); p1.position.set(0, cm(143.5), cm(2.1)); a.add(p1);
+}
+{ // C안: 인터폰 벽(월패드 남쪽) 작은 스트링 1칸 3단 — 책상 벽은 비우고, 서쪽 벽은 서랍장 + 포스터 (B안과 같음)
+  const s = place(741, 679, -1, 0); wallDecor.push(s); s.userData.wallMounted = true; grpC.add(s); // 로컬 +x = 남쪽
+  const wire = M("#f4f2ee", { roughness: 0.5 });
+  for (const x of [-35, 35]) { B(s, 1.2, 75, 1.2, wire, x, 106, 1.5); B(s, 1.2, 75, 1.2, wire, x, 106, 19); for (let h = 110; h < 181; h += 9) B(s, 1, 1, 17, wire, x, h, 10.25); }
+  for (const h of [112, 146, 180]) B(s, 78, 2, 20, mat.oak, 0, h, 10);
+  { const ball = shadowy(new THREE.Mesh(new THREE.SphereGeometry(cm(8), 24, 16), window.__ball.material)); ball.position.set(cm(-18), cm(123), cm(10)); s.add(ball); CY(s, 4.5, 5.5, 3, mat.oak, -18, 114, 10); } // 구형 무드등
+  CY(s, 3, 4, 12, mat.ceramic2, 16, 114, 9); for (let i = 0; i < 5; i++) { const st = B(s, 0.4, 16 + i * 2, 0.4, M("#c8a46b"), 16 + (i - 2) * 1.5, 124, 9); st.rotation.z = (i - 2) * 0.12; } // 말린 꽃
+  for (let i = 0; i < 7; i++) B(s, 2.6, 19 + (i % 3) * 3, 15, [M("#e8dcc6"), mat.terracotta, M("#b9c7a8"), M("#efe7da"), M("#d9c7a5")][i % 5], -32 + i * 3, 148, 9); // 책
+  CY(s, 5, 4, 14, mat.ceramic, 14, 148, 9); CY(s, 3, 3, 9, mat.ceramic2, 26, 148, 12); // 도자기
+  for (const [x, h] of [[-20, 182], [22, 182]]) { CY(s, 6, 5, 10, mat.ceramic, x, h, 10); for (let i = 0; i < 7; i++) { const lf = new THREE.Mesh(new THREE.SphereGeometry(cm(4.5), 8, 6), mat.leaf2); lf.scale.set(1, 0.4, 0.7); lf.position.set(cm(x + Math.sin(i) * 8), cm(h + 8 - i * 5), cm(13 + Math.cos(i) * 4)); s.add(lf); } } // 스킨답서스 2
 }
 { // 플리츠 플로어 램프 (소파 옆)
   const l = place(473, 680, 1, 0); // 스트링 남쪽 끝 옆
@@ -1141,19 +1153,16 @@ function setLaundry(on) {
 }
 window.__setLaundry = setLaundry;
 // ---------- 배치 A/B 전환: A = 서쪽 벽 스트링 + 인터폰 벽 포스터 / B = 책상 위 작은 스트링 + 서쪽 벽 포스터만 (인터폰 벽 비움) ----------
-let isB = false;
-for (const l of prodLabels) {
-  if (l.userData.key === "shelf") l.userData.varAt = [[455, 572, 200], [661, 796, 216]];
-  if (l.userData.key === "art") l.userData.varAt = [[741, 678, 196], [451, 572, 192]];
-  if (l.userData.key === "globe") l.userData.varAt = [[460, 630, 150], [669, 781, 160]];
+let curVar = "A";
+const VAR_AT = { shelf: { A: [455, 572, 200], B: [661, 796, 216], C: [730, 679, 200] }, art: { A: [741, 678, 196], B: [451, 572, 192], C: [451, 572, 192] }, globe: { A: [460, 630, 150], B: [669, 781, 160], C: [731, 661, 135] } };
+function setVariant(v) {
+  if (v === true) v = "B"; if (v === false) v = "A"; curVar = v;
+  grpA.visible = v === "A"; grpB.visible = v === "B"; grpC.visible = v === "C"; grpBC.visible = v !== "A";
+  for (const l of prodLabels) { const at = VAR_AT[l.userData.key]; if (at) { const q = at[v]; l.position.set(cm(q[0]), cm(q[2]), cm(q[1])); } }
+  document.querySelectorAll("button.var").forEach((b) => b.classList.toggle("on", b.dataset.var === v));
 }
-function setVariant(b) {
-  isB = b; grpA.visible = !b; grpB.visible = b;
-  for (const l of prodLabels) { const v = l.userData.varAt; if (v) { const q = v[b ? 1 : 0]; l.position.set(cm(q[0]), cm(q[2]), cm(q[1])); } }
-  const e = document.getElementById("varbtn"); e.classList.toggle("on", b); e.textContent = b ? "A안 보기 (서쪽 벽 책장)" : "B안 보기 (책상 위 작은 책장)";
-}
-document.getElementById("varbtn").onclick = () => setVariant(!isB);
-if (location.hash.split(/[#&,]/).includes("b")) setVariant(true);
+document.querySelectorAll("button.var").forEach((b) => (b.onclick = () => setVariant(b.dataset.var)));
+{ const h = location.hash.split(/[#&,]/); if (h.includes("b")) setVariant("B"); else if (h.includes("c")) setVariant("C"); }
 window.__setVariant = setVariant;
 
 // ---------- 조명 ----------

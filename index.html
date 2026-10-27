@@ -72,8 +72,7 @@
     <button id="cutbtn">벽 자동 낮추기</button>
     <button id="labels">이름표</button>
     <button id="prodbtn">상품 링크</button>
-    <button id="prodlist">상품 목록 ↗</button>
-    <button id="budgetbtn">가성비 예산 ↗</button>
+    <button id="prodlist">상품 모아보기 👉 사진·선택지·조합별 예산 ↗</button>
     <button id="livingbtn">좌탁·방석 빼기</button>
     <button id="rugbtn">러그 빼기</button>
     <button id="laundrybtn">빨래 모드</button>
@@ -1281,8 +1280,7 @@ document.getElementById("night").onclick = () => setMode(true);
 document.getElementById("walls").onclick = () => setLow(!low);
 document.getElementById("labels").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); labels.forEach((l) => (l.visible = on)); };
 document.getElementById("prodbtn").onclick = (e) => { const on = !e.target.classList.contains("on"); e.target.classList.toggle("on", on); prodLabels.forEach((l) => (l.visible = on && !l.userData.hiddenBySet && !l.userData.hiddenByLaundry && !l.userData.hiddenByRug)); };
-document.getElementById("prodlist").onclick = () => window.open("products.html", "_blank");
-document.getElementById("budgetbtn").onclick = () => window.open("budget.html", "_blank");
+document.getElementById("prodlist").onclick = () => window.open("selection.html", "_blank"); // 상품 모아보기 (Codex가 관리하는 상품 사진·선택지·조합별 예산 페이지)
 document.getElementById("livingbtn").onclick = () => setLiving(!livingOn);
 document.getElementById("rugbtn").onclick = () => setRug(!rugOn);
 document.getElementById("laundrybtn").onclick = () => setLaundry(!laundryOn); // 카메라 이동 없음

@@ -18,6 +18,10 @@
     @media(max-width:850px){.breakdown{grid-template-columns:repeat(3,1fr)}.pending-grid{grid-template-columns:1fr}}
     @media(max-width:560px){main{padding:18px 14px 44px}nav{gap:10px 16px;margin-bottom:23px}.total{padding:20px}.breakdown{grid-template-columns:repeat(2,1fr);gap:9px}.breakdown>div{padding:12px}.breakdown dd{font-size:18px}h2{font-size:21px}.section-head{gap:10px}col.product-col{width:54%}col.amount-col{width:27%}col.shipping-col{width:19%}th,td{padding:12px 5px}.group th{padding:10px 9px}.product a{font-size:13px}.product small{font-size:11px}.amount{font-size:12px}.shipping{font-size:11px}caption{padding:12px;font-size:11px}.print{padding:7px 9px;font-size:12px}.total strong{font-size:36px}.boundary{padding-left:12px}}
     @media print{@page{size:A4;margin:12mm}body{background:#fff;font-size:10pt;color:#222}main{max-width:none;padding:0}nav,.print{display:none}h1{font-size:24pt;margin-bottom:12px}h2{font-size:16pt;margin-top:20px}.total{padding:15px;border-radius:0;background:#f1ede6}.total strong{font-size:30pt}.total p,.note,.muted{font-size:9pt}.breakdown{grid-template-columns:repeat(5,1fr);gap:6px}.breakdown>div{padding:9px;border-radius:0}.breakdown dd{font-size:12pt}.breakdown dt,.breakdown small{font-size:8pt}.table-wrap{overflow:visible;border-radius:0}table{font-size:9pt}thead{display:table-header-group}th,td{padding:8px}.group th{padding:7px 8px}tr,.pending-item,.total,.separate{break-inside:avoid}.product small{font-size:8pt}.product .role{font-size:8pt}.shipping{font-size:8pt}a{color:#222;text-decoration:none}.pending-grid{grid-template-columns:1fr;gap:7px}.pending-item{padding:10px;border-radius:0}.pending-item p{font-size:8pt}footer{font-size:8pt}tfoot{display:table-row-group}}
+    .product-layout{display:flex;gap:18px;align-items:center}.product-info{flex:1;min-width:0}.product-photo{display:block;flex:0 0 144px;position:relative;border:1px solid #e9e3da;border-radius:10px;overflow:hidden;background:#fff;text-decoration:none}.product-photo img{display:block;width:144px;height:144px;object-fit:contain}.product-photo span{display:block;text-align:center;background:#faf7f2;color:#8a755e;font-size:10px;line-height:24px;font-weight:400}.product-photo:hover{border-color:#b28e65}.product-row .amount,.product-row .shipping{vertical-align:middle}
+    @media(max-width:700px){.table-wrap table,.table-wrap tbody,.table-wrap tfoot{display:block}.table-wrap colgroup{display:none}.table-wrap thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}caption{display:block}.product-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line);padding:16px}.product-row td{display:block;border:0;padding:0}.product-row .product{grid-column:1/-1}.product-layout{gap:14px;align-items:flex-start}.product-photo{flex-basis:112px}.product-photo img{width:112px;height:112px}.product-info a{font-size:14px}.product-info small{font-size:12px}.product-row .amount,.product-row .shipping{padding:12px 0 0;margin-top:12px;border-top:1px solid #eee7dc;font-size:14px}.product-row .amount{text-align:left}.product-row .amount:before,.product-row .shipping:before{content:attr(data-label);font-weight:400;font-size:11px;color:var(--muted);margin-right:8px}.group,.group th{display:block}.group th{padding:12px 16px}.group th:after{content:"";display:block;clear:both}tfoot tr{display:flex;flex-wrap:wrap;padding:14px 16px;background:#e9dfce}tfoot th{width:100%;padding:0 0 8px}tfoot td{width:50%;padding:0}tfoot td.amount{text-align:left}}
+    .product-photo[data-product="ribe900-natural"] img{object-fit:cover;object-position:50% 7%}
+    @media print{.product-layout{gap:10px}.product-photo{flex-basis:64px;border-radius:0}.product-photo img{width:64px;height:64px}.product-photo span{display:none}}
   </style>
 </head>
 <body><main>
@@ -39,208 +43,208 @@
     <div class="section-head"><h2 id="items-title">선택 품목 38개 묶음</h2><button class="print" type="button" onclick="window.print()">인쇄 / PDF 저장</button></div>
     <p class="note">의자 2개, 거울 8장처럼 여러 개로 구성된 품목은 필요한 수량 전체의 금액입니다. 러그·좌탁·방석도 포함하며, 보유품은 아래 표에서 제외했습니다.</p>
     <div class="table-wrap"><table>
-      <caption>제품명을 누르면 구매 페이지가 열립니다. 큐커 계획비·예비비는 이 상품 표와 별도로 상단에 더했습니다.</caption>
+      <caption>사진을 누르면 크게 볼 수 있고, 제품명을 누르면 구매 페이지가 열립니다. 사진은 대표 이미지이며 구매 수량·색상은 각 품목의 선택 옵션을 기준으로 확인하세요. 큐커 계획비·예비비는 상단에 별도로 더했습니다.</caption>
       <colgroup><col class="product-col"><col class="amount-col"><col class="shipping-col"></colgroup>
       <thead><tr><th scope="col">제품·선택 옵션</th><th scope="col">상품 합계</th><th scope="col">배송</th></tr></thead>
 
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>조명</span><span>443,500원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">식탁 상부 1등</span><a href="https://www.kolamp.com/product/플리츠-펜던트조명-식탁등-1등고정홀더형/1897/category/292/display/1/" target="_blank" rel="noopener noreferrer">코램프 플리츠 펜던트 고정홀더형 40cm <span aria-hidden="true">↗</span></a><small>4m 기본선 + 8W LED 전구 3000K 1개</small></td>
-      <td class="amount">203,000원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">거실 플로어등 1개</span><a href="https://www.ikea.com/kr/ko/p/taellbyn-floor-lamp-nickel-plated-opal-white-glass-10437751/" target="_blank" rel="noopener noreferrer">IKEA TÄLLBYN 텔뷘 플로어스탠드 <span aria-hidden="true">↗</span></a><small>니켈 도금 / 오팔 화이트 유리</small></td>
-      <td class="amount">149,000원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">침대 옆 단스탠드 1개</span><a href="https://www.ikea.com/kr/ko/p/dejsa-table-lamp-beige-opal-white-glass-20404991/" target="_blank" rel="noopener noreferrer">IKEA DEJSA 데이사 탁상스탠드 <span aria-hidden="true">↗</span></a><small>베이지 / 오팔 화이트 유리</small></td>
-      <td class="amount">49,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">스마트플러그 3개</span><a href="https://kr.store.tapo.com/products/tapo-p100m1-pack" target="_blank" rel="noopener noreferrer">Tapo P100M · 2팩 + 1팩 <span aria-hidden="true">↗</span></a><small>한국용10A / 총3개</small></td>
-      <td class="amount">41,600원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="r2-light-kolamp-pleats-large" href="selection-assets/v2-r2-light-kolamp-pleats-large.jpg" target="_blank" rel="noopener noreferrer" aria-label="코램프 플리츠 펜던트 고정홀더형 40cm 사진 크게 보기"><img src="selection-assets/v2-r2-light-kolamp-pleats-large.jpg" alt="코램프 플리츠 펜던트 고정홀더형 40cm 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">식탁 상부 1등</span><a href="https://www.kolamp.com/product/플리츠-펜던트조명-식탁등-1등고정홀더형/1897/category/292/display/1/" target="_blank" rel="noopener noreferrer">코램프 플리츠 펜던트 고정홀더형 40cm <span aria-hidden="true">↗</span></a><small>4m 기본선 + 8W LED 전구 3000K 1개</small></div></div></td>
+      <td class="amount" data-label="상품 합계">203,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="r2-light-tallbyn" href="selection-assets/v2-r2-light-tallbyn.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA TÄLLBYN 텔뷘 플로어스탠드 사진 크게 보기"><img src="selection-assets/v2-r2-light-tallbyn.jpg" alt="IKEA TÄLLBYN 텔뷘 플로어스탠드 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">거실 플로어등 1개</span><a href="https://www.ikea.com/kr/ko/p/taellbyn-floor-lamp-nickel-plated-opal-white-glass-10437751/" target="_blank" rel="noopener noreferrer">IKEA TÄLLBYN 텔뷘 플로어스탠드 <span aria-hidden="true">↗</span></a><small>니켈 도금 / 오팔 화이트 유리</small></div></div></td>
+      <td class="amount" data-label="상품 합계">149,000원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="r2-light-dejsa" href="selection-assets/v2-r2-light-dejsa.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA DEJSA 데이사 탁상스탠드 사진 크게 보기"><img src="selection-assets/v2-r2-light-dejsa.jpg" alt="IKEA DEJSA 데이사 탁상스탠드 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">침대 옆 단스탠드 1개</span><a href="https://www.ikea.com/kr/ko/p/dejsa-table-lamp-beige-opal-white-glass-20404991/" target="_blank" rel="noopener noreferrer">IKEA DEJSA 데이사 탁상스탠드 <span aria-hidden="true">↗</span></a><small>베이지 / 오팔 화이트 유리</small></div></div></td>
+      <td class="amount" data-label="상품 합계">49,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="root-tapo" href="selection-assets/v2-root-tapo.jpg" target="_blank" rel="noopener noreferrer" aria-label="Tapo P100M · 2팩 + 1팩 사진 크게 보기"><img src="selection-assets/v2-root-tapo.jpg" alt="Tapo P100M · 2팩 + 1팩 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">스마트플러그 3개</span><a href="https://kr.store.tapo.com/products/tapo-p100m1-pack" target="_blank" rel="noopener noreferrer">Tapo P100M · 2팩 + 1팩 <span aria-hidden="true">↗</span></a><small>한국용10A / 총3개</small></div></div></td>
+      <td class="amount" data-label="상품 합계">41,600원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>식탁·의자</span><span>508,800원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">식탁 1개</span><a href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener noreferrer">IKEA LISABO 리사보 200 <span aria-hidden="true">↗</span></a><small>물푸레무늬목 · 200×78×74cm · 테이블 단품</small></td>
-      <td class="amount">349,000원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">식탁 의자 2개</span><a href="https://www.ikea.com/kr/ko/p/lisabo-chair-ash-80457236/" target="_blank" rel="noopener noreferrer">IKEA LISABO 리사보 의자 <span aria-hidden="true">↗</span></a><small>물푸레나무 / 804.572.36</small></td>
-      <td class="amount">159,800원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="r2-table-lisabo200" href="selection-assets/v2-r2-table-lisabo200.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA LISABO 리사보 200 사진 크게 보기"><img src="selection-assets/v2-r2-table-lisabo200.jpg" alt="IKEA LISABO 리사보 200 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">식탁 1개</span><a href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener noreferrer">IKEA LISABO 리사보 200 <span aria-hidden="true">↗</span></a><small>물푸레무늬목 · 200×78×74cm · 테이블 단품</small></div></div></td>
+      <td class="amount" data-label="상품 합계">349,000원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="ikea-lisabo-chair" href="selection-assets/v2-ikea-lisabo-chair.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA LISABO 리사보 의자 사진 크게 보기"><img src="selection-assets/v2-ikea-lisabo-chair.jpg" alt="IKEA LISABO 리사보 의자 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">식탁 의자 2개</span><a href="https://www.ikea.com/kr/ko/p/lisabo-chair-ash-80457236/" target="_blank" rel="noopener noreferrer">IKEA LISABO 리사보 의자 <span aria-hidden="true">↗</span></a><small>물푸레나무 / 804.572.36</small></div></div></td>
+      <td class="amount" data-label="상품 합계">159,800원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>컴퓨터 의자</span><span>299,000원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">컴퓨터 의자 1개</span><a href="https://www.ikea.com/kr/ko/p/alefjaell-office-chair-grann-golden-brown-20419983/" target="_blank" rel="noopener noreferrer">IKEA 알레피엘 <span aria-hidden="true">↗</span></a><small>그란 골드브라운 · 204.199.83</small></td>
-      <td class="amount">299,000원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="work-alefjall-tan" href="selection-assets/v2-work-alefjall-tan.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA 알레피엘 사진 크게 보기"><img src="selection-assets/v2-work-alefjall-tan.jpg" alt="IKEA 알레피엘 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">컴퓨터 의자 1개</span><a href="https://www.ikea.com/kr/ko/p/alefjaell-office-chair-grann-golden-brown-20419983/" target="_blank" rel="noopener noreferrer">IKEA 알레피엘 <span aria-hidden="true">↗</span></a><small>그란 골드브라운 · 204.199.83</small></div></div></td>
+      <td class="amount" data-label="상품 합계">299,000원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>수납장·선반</span><span>628,600원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">턴테이블 수납장 1개</span><a href="https://store.ohou.se/goods/4211291" target="_blank" rel="noopener noreferrer">장미맨숀 리브 원목 사이드보드 01 <span aria-hidden="true">↗</span></a><small>1400 / 내추럴</small></td>
-      <td class="amount">473,200원</td>
-      <td class="shipping ">30,000원</td>
-    </tr><tr>
-      <td class="product"><span class="role">책·오브제 선반</span><a href="https://www.ikea.com/kr/ko/p/bergshult-granhult-wall-shelf-combination-white-nickel-plated-s59291083/" target="_blank" rel="noopener noreferrer">IKEA BERGSHULT / GRANHULT 2열3단 <span aria-hidden="true">↗</span></a><small>화이트 선반80×20cm 6장 + 니켈도금 브래킷2개입 6팩(총12개)</small><small class="install">벽 타공 필수 · 타공 허용·퇴거 보수 범위와 벽 재질에 맞는 앵커 확인 후 구매. 접착식 고정으로 대체할 수 없습니다.</small></td>
-      <td class="amount">155,400원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="r2-storage-liv140-natural" href="selection-assets/v2-r2-storage-liv140-natural.jpg" target="_blank" rel="noopener noreferrer" aria-label="장미맨숀 리브 원목 사이드보드 01 사진 크게 보기"><img src="selection-assets/v2-r2-storage-liv140-natural.jpg" alt="장미맨숀 리브 원목 사이드보드 01 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">턴테이블 수납장 1개</span><a href="https://store.ohou.se/goods/4211291" target="_blank" rel="noopener noreferrer">장미맨숀 리브 원목 사이드보드 01 <span aria-hidden="true">↗</span></a><small>1400 / 내추럴</small></div></div></td>
+      <td class="amount" data-label="상품 합계">473,200원</td>
+      <td class="shipping " data-label="배송">30,000원</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="ikea-shelf-granhult-2x3" href="images/shelf-alt-0.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA BERGSHULT / GRANHULT 2열3단 사진 크게 보기"><img src="images/shelf-alt-0.jpg" alt="IKEA BERGSHULT / GRANHULT 2열3단 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">책·오브제 선반</span><a href="https://www.ikea.com/kr/ko/p/bergshult-granhult-wall-shelf-combination-white-nickel-plated-s59291083/" target="_blank" rel="noopener noreferrer">IKEA BERGSHULT / GRANHULT 2열3단 <span aria-hidden="true">↗</span></a><small>화이트 선반80×20cm 6장 + 니켈도금 브래킷2개입 6팩(총12개)</small><small>사진은 1열3단. 견적은 같은 구성 2열3단 전체입니다.</small><small class="install">벽 타공 필수 · 타공 허용·퇴거 보수 범위와 벽 재질에 맞는 앵커 확인 후 구매. 접착식 고정으로 대체할 수 없습니다.</small></div></div></td>
+      <td class="amount" data-label="상품 합계">155,400원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>LP·스피커</span><span>429,000원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">턴테이블 1대</span><a href="https://store.ohou.se/goods/3152578" target="_blank" rel="noopener noreferrer">TEAC TN-180BT <span aria-hidden="true">↗</span></a><small>TN-180BT Black</small></td>
-      <td class="amount">320,000원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">스피커 1조</span><a href="https://store.ohou.se/goods/4005935" target="_blank" rel="noopener noreferrer">Edifier MR3 국내 정발 <span aria-hidden="true">↗</span></a><small>블랙</small></td>
-      <td class="amount">109,000원</td>
-      <td class="shipping ">무료</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="teac180_black" href="selection-assets/v2-teac180_black.jpg" target="_blank" rel="noopener noreferrer" aria-label="TEAC TN-180BT 사진 크게 보기"><img src="selection-assets/v2-teac180_black.jpg" alt="TEAC TN-180BT 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">턴테이블 1대</span><a href="https://store.ohou.se/goods/3152578" target="_blank" rel="noopener noreferrer">TEAC TN-180BT <span aria-hidden="true">↗</span></a><small>TN-180BT Black</small></div></div></td>
+      <td class="amount" data-label="상품 합계">320,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="mr3_black" href="selection-assets/v2-mr3_black.jpg" target="_blank" rel="noopener noreferrer" aria-label="Edifier MR3 국내 정발 사진 크게 보기"><img src="selection-assets/v2-mr3_black.jpg" alt="Edifier MR3 국내 정발 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">스피커 1조</span><a href="https://store.ohou.se/goods/4005935" target="_blank" rel="noopener noreferrer">Edifier MR3 국내 정발 <span aria-hidden="true">↗</span></a><small>블랙</small></div></div></td>
+      <td class="amount" data-label="상품 합계">109,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>화장대</span><span>97,500원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">화장대 1개</span><a href="https://store.ohou.se/goods/133575" target="_blank" rel="noopener noreferrer">바우미스트 리베 원목 콘솔 900 <span aria-hidden="true">↗</span></a><small>리베900 / 네츄럴</small></td>
-      <td class="amount">65,600원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">화장대 스툴 1개</span><a href="https://store.ohou.se/goods/163611" target="_blank" rel="noopener noreferrer">바우미스트 하제 원목스툴 <span aria-hidden="true">↗</span></a><small>샤벨 / 밝은 꿀빛 소나무</small></td>
-      <td class="amount">31,900원</td>
-      <td class="shipping ">3,300원</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="ribe900-natural" href="selection-assets/v2-ribe900-natural.jpg" target="_blank" rel="noopener noreferrer" aria-label="바우미스트 리베 원목 콘솔 900 사진 크게 보기"><img src="selection-assets/v2-ribe900-natural.jpg" alt="바우미스트 리베 원목 콘솔 900 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">화장대 1개</span><a href="https://store.ohou.se/goods/133575" target="_blank" rel="noopener noreferrer">바우미스트 리베 원목 콘솔 900 <span aria-hidden="true">↗</span></a><small>리베900 / 네츄럴</small><small>상단 내추럴 색상 사진. 확대하면 다른 색상이 포함된 전체 상세 이미지가 열립니다.</small></div></div></td>
+      <td class="amount" data-label="상품 합계">65,600원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="stool" href="selection-assets/stool.jpg" target="_blank" rel="noopener noreferrer" aria-label="바우미스트 하제 원목스툴 사진 크게 보기"><img src="selection-assets/stool.jpg" alt="바우미스트 하제 원목스툴 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">화장대 스툴 1개</span><a href="https://store.ohou.se/goods/163611" target="_blank" rel="noopener noreferrer">바우미스트 하제 원목스툴 <span aria-hidden="true">↗</span></a><small>샤벨 / 밝은 꿀빛 소나무</small></div></div></td>
+      <td class="amount" data-label="상품 합계">31,900원</td>
+      <td class="shipping " data-label="배송">3,300원</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>식물</span><span>38,500원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">늘어지는 식물 1개</span><a href="https://store.ohou.se/goods/1908316" target="_blank" rel="noopener noreferrer">플래니스트 스킨답서스 수경재배 식물+심플화병 <span aria-hidden="true">↗</span></a><small>스킨답서스+심플화병</small></td>
-      <td class="amount">14,500원</td>
-      <td class="shipping ">4,000원</td>
-    </tr><tr>
-      <td class="product"><span class="role">선인장 1개</span><a href="https://store.ohou.se/goods/966463" target="_blank" rel="noopener noreferrer">티에라선인장 용신목 군생 선인장L 통통 멕시코 반려선인장 - 화이트마블토분 <span aria-hidden="true">↗</span></a><small>화이트 마블 토분 (받침 불포함)</small></td>
-      <td class="amount">24,000원</td>
-      <td class="shipping ">4,000원</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="pothos" href="selection-assets/pothos.jpg" target="_blank" rel="noopener noreferrer" aria-label="플래니스트 스킨답서스 수경재배 식물+심플화병 사진 크게 보기"><img src="selection-assets/pothos.jpg" alt="플래니스트 스킨답서스 수경재배 식물+심플화병 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">늘어지는 식물 1개</span><a href="https://store.ohou.se/goods/1908316" target="_blank" rel="noopener noreferrer">플래니스트 스킨답서스 수경재배 식물+심플화병 <span aria-hidden="true">↗</span></a><small>스킨답서스+심플화병</small><small>스킨답서스 1개 구성. 사진 속 고사리는 포함되지 않습니다.</small></div></div></td>
+      <td class="amount" data-label="상품 합계">14,500원</td>
+      <td class="shipping " data-label="배송">4,000원</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="cactus" href="selection-assets/cactus.jpg" target="_blank" rel="noopener noreferrer" aria-label="티에라선인장 용신목 군생 선인장L 통통 멕시코 반려선인장 - 화이트마블토분 사진 크게 보기"><img src="selection-assets/cactus.jpg" alt="티에라선인장 용신목 군생 선인장L 통통 멕시코 반려선인장 - 화이트마블토분 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">선인장 1개</span><a href="https://store.ohou.se/goods/966463" target="_blank" rel="noopener noreferrer">티에라선인장 용신목 군생 선인장L 통통 멕시코 반려선인장 - 화이트마블토분 <span aria-hidden="true">↗</span></a><small>화이트 마블 토분 (받침 불포함)</small></div></div></td>
+      <td class="amount" data-label="상품 합계">24,000원</td>
+      <td class="shipping " data-label="배송">4,000원</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>정수기·비데</span><span>429,000원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">비데 1대</span><a href="https://store.ohou.se/goods/3480404" target="_blank" rel="noopener noreferrer">노비타 슬림 컴팩트 BD-ECS3-01SB <span aria-hidden="true">↗</span></a><small>화이트 · 일반형 · 방문설치(현장결제)</small><small class="install">설치비 20,000원 별도 · 상단 설치비 항목에 포함</small></td>
-      <td class="amount">189,000원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">정수기 1대</span><a href="https://store.ohou.se/goods/304151" target="_blank" rel="noopener noreferrer">청호나이스 Compact WP-10C6500N <span aria-hidden="true">↗</span></a><small>화이트 · 무전원 정수 전용 · 구매</small></td>
-      <td class="amount">240,000원</td>
-      <td class="shipping ">무료</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="novita_ecs3" href="selection-assets/v2-novita_ecs3.jpg" target="_blank" rel="noopener noreferrer" aria-label="노비타 슬림 컴팩트 BD-ECS3-01SB 사진 크게 보기"><img src="selection-assets/v2-novita_ecs3.jpg" alt="노비타 슬림 컴팩트 BD-ECS3-01SB 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">비데 1대</span><a href="https://store.ohou.se/goods/3480404" target="_blank" rel="noopener noreferrer">노비타 슬림 컴팩트 BD-ECS3-01SB <span aria-hidden="true">↗</span></a><small>화이트 · 일반형 · 방문설치(현장결제)</small><small class="install">설치비 20,000원 별도 · 상단 설치비 항목에 포함</small></div></div></td>
+      <td class="amount" data-label="상품 합계">189,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="chungho_compact" href="selection-assets/v2-chungho_compact.jpg" target="_blank" rel="noopener noreferrer" aria-label="청호나이스 Compact WP-10C6500N 사진 크게 보기"><img src="selection-assets/v2-chungho_compact.jpg" alt="청호나이스 Compact WP-10C6500N 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">정수기 1대</span><a href="https://store.ohou.se/goods/304151" target="_blank" rel="noopener noreferrer">청호나이스 Compact WP-10C6500N <span aria-hidden="true">↗</span></a><small>화이트 · 무전원 정수 전용 · 구매</small></div></div></td>
+      <td class="amount" data-label="상품 합계">240,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>싱크대 용품</span><span>65,500원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">식기건조대 1개</span><a href="https://store.ohou.se/goods/4090468" target="_blank" rel="noopener noreferrer">무표 304 스테인리스 행잉 식기건조대 <span aria-hidden="true">↗</span></a><small>상부장 클립형 40×26.5×32.5cm · 분리 물받이 포함</small></td>
-      <td class="amount">37,900원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">세제 디스펜서 1개</span><a href="https://www.ikea.com/kr/ko/p/ekoln-soap-dispenser-beige-30493005/" target="_blank" rel="noopener noreferrer">IKEA EKOLN 에콜른 물비누통 <span aria-hidden="true">↗</span></a><small>베이지 · 300ml · 304.930.05</small></td>
-      <td class="amount">7,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">수세미 홀더 1개</span><a href="https://www.ikea.com/kr/ko/p/skolaest-sink-container-extendable-20561014/" target="_blank" rel="noopener noreferrer">IKEA SKOLÄST 스콜레스트 싱크통 <span aria-hidden="true">↗</span></a><small>길이 연장형 · 205.610.14</small></td>
-      <td class="amount">3,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">원목 도마 1개</span><a href="https://www.ikea.com/kr/ko/p/fascinera-chopping-board-acacia-80503361/" target="_blank" rel="noopener noreferrer">IKEA FASCINERA 파시네라 도마 <span aria-hidden="true">↗</span></a><small>아카시아 · 28×19cm · 805.033.61</small></td>
-      <td class="amount">9,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">조리도구 꽂이 1개</span><a href="https://www.ikea.com/kr/ko/p/ordning-kitchen-utensil-rack-stainless-steel-80179579/" target="_blank" rel="noopener noreferrer">IKEA ORDNING 오르드닝 조리용품통 <span aria-hidden="true">↗</span></a><small>스테인리스 · 높이 18cm · 801.795.79</small></td>
-      <td class="amount">5,900원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="sink-mupyo-hanging-304" href="images/dishrack-mupyo.jpg" target="_blank" rel="noopener noreferrer" aria-label="무표 304 스테인리스 행잉 식기건조대 사진 크게 보기"><img src="images/dishrack-mupyo.jpg" alt="무표 304 스테인리스 행잉 식기건조대 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">식기건조대 1개</span><a href="https://store.ohou.se/goods/4090468" target="_blank" rel="noopener noreferrer">무표 304 스테인리스 행잉 식기건조대 <span aria-hidden="true">↗</span></a><small>상부장 클립형 40×26.5×32.5cm · 분리 물받이 포함</small></div></div></td>
+      <td class="amount" data-label="상품 합계">37,900원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="sink-ekoln-beige" href="selection-assets/v2-sink-ekoln-beige.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA EKOLN 에콜른 물비누통 사진 크게 보기"><img src="selection-assets/v2-sink-ekoln-beige.jpg" alt="IKEA EKOLN 에콜른 물비누통 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">세제 디스펜서 1개</span><a href="https://www.ikea.com/kr/ko/p/ekoln-soap-dispenser-beige-30493005/" target="_blank" rel="noopener noreferrer">IKEA EKOLN 에콜른 물비누통 <span aria-hidden="true">↗</span></a><small>베이지 · 300ml · 304.930.05</small></div></div></td>
+      <td class="amount" data-label="상품 합계">7,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="sink-skolaest" href="selection-assets/v2-sink-skolaest.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA SKOLÄST 스콜레스트 싱크통 사진 크게 보기"><img src="selection-assets/v2-sink-skolaest.jpg" alt="IKEA SKOLÄST 스콜레스트 싱크통 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">수세미 홀더 1개</span><a href="https://www.ikea.com/kr/ko/p/skolaest-sink-container-extendable-20561014/" target="_blank" rel="noopener noreferrer">IKEA SKOLÄST 스콜레스트 싱크통 <span aria-hidden="true">↗</span></a><small>길이 연장형 · 205.610.14</small></div></div></td>
+      <td class="amount" data-label="상품 합계">3,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="sink-fascinera" href="selection-assets/v2-sink-fascinera.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA FASCINERA 파시네라 도마 사진 크게 보기"><img src="selection-assets/v2-sink-fascinera.jpg" alt="IKEA FASCINERA 파시네라 도마 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">원목 도마 1개</span><a href="https://www.ikea.com/kr/ko/p/fascinera-chopping-board-acacia-80503361/" target="_blank" rel="noopener noreferrer">IKEA FASCINERA 파시네라 도마 <span aria-hidden="true">↗</span></a><small>아카시아 · 28×19cm · 805.033.61</small></div></div></td>
+      <td class="amount" data-label="상품 합계">9,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="sink-ordning" href="selection-assets/v2-sink-ordning.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA ORDNING 오르드닝 조리용품통 사진 크게 보기"><img src="selection-assets/v2-sink-ordning.jpg" alt="IKEA ORDNING 오르드닝 조리용품통 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">조리도구 꽂이 1개</span><a href="https://www.ikea.com/kr/ko/p/ordning-kitchen-utensil-rack-stainless-steel-80179579/" target="_blank" rel="noopener noreferrer">IKEA ORDNING 오르드닝 조리용품통 <span aria-hidden="true">↗</span></a><small>스테인리스 · 높이 18cm · 801.795.79</small></div></div></td>
+      <td class="amount" data-label="상품 합계">5,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>생활가전·빨래</span><span>373,800원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">제습기 1대</span><a href="https://store.ohou.se/goods/3375760" target="_blank" rel="noopener noreferrer">위닉스 뽀송 12L 제습기 <span aria-hidden="true">↗</span></a><small>DXAE120-NEK · 화이트/카밍베이지</small></td>
-      <td class="amount">229,000원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">접이식 미니 건조대 1개</span><a href="https://www.ikea.com/kr/ko/p/jaell-drying-rack-in-outdoor-white-00242891/" target="_blank" rel="noopener noreferrer">IKEA JÄLL 옐 실내외 건조대 <span aria-hidden="true">↗</span></a><small>화이트 · 002.428.91</small></td>
-      <td class="amount">10,000원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">욕실 문걸이 건조대 1개</span><a href="https://store.ohou.se/goods/2539630" target="_blank" rel="noopener noreferrer">웰렉스 접이식 도어행거 <span aria-hidden="true">↗</span></a><small>1단 43cm · 화이트</small></td>
-      <td class="amount">20,000원</td>
-      <td class="shipping ">3,000원</td>
-    </tr><tr>
-      <td class="product"><span class="role">소형 서큘레이터 1대</span><a href="https://store.ohou.se/goods/3711467" target="_blank" rel="noopener noreferrer">루메나 FAN PRIME 3 <span aria-hidden="true">↗</span></a><small>모던 베이지</small></td>
-      <td class="amount">59,900원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">빨래바구니 1개</span><a href="https://www.ikea.com/kr/ko/p/saluding-laundry-basket-handmade-bamboo-50503584/" target="_blank" rel="noopener noreferrer">IKEA SALUDING 살루딩 빨래바구니 <span aria-hidden="true">↗</span></a><small>핸드메이드 대나무 · 50L · 내부 세탁물 주머니 포함</small></td>
-      <td class="amount">54,900원</td>
-      <td class="shipping pending">미확정</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="utility-winix-12" href="selection-assets/v2-utility-winix-12.jpg" target="_blank" rel="noopener noreferrer" aria-label="위닉스 뽀송 12L 제습기 사진 크게 보기"><img src="selection-assets/v2-utility-winix-12.jpg" alt="위닉스 뽀송 12L 제습기 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">제습기 1대</span><a href="https://store.ohou.se/goods/3375760" target="_blank" rel="noopener noreferrer">위닉스 뽀송 12L 제습기 <span aria-hidden="true">↗</span></a><small>DXAE120-NEK · 화이트/카밍베이지</small></div></div></td>
+      <td class="amount" data-label="상품 합계">229,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="utility-jaell" href="selection-assets/v2-utility-jaell.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA JÄLL 옐 실내외 건조대 사진 크게 보기"><img src="selection-assets/v2-utility-jaell.jpg" alt="IKEA JÄLL 옐 실내외 건조대 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">접이식 미니 건조대 1개</span><a href="https://www.ikea.com/kr/ko/p/jaell-drying-rack-in-outdoor-white-00242891/" target="_blank" rel="noopener noreferrer">IKEA JÄLL 옐 실내외 건조대 <span aria-hidden="true">↗</span></a><small>화이트 · 002.428.91</small></div></div></td>
+      <td class="amount" data-label="상품 합계">10,000원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="utility-wellex-door43" href="selection-assets/v2-utility-wellex-door43.jpg" target="_blank" rel="noopener noreferrer" aria-label="웰렉스 접이식 도어행거 사진 크게 보기"><img src="selection-assets/v2-utility-wellex-door43.jpg" alt="웰렉스 접이식 도어행거 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">욕실 문걸이 건조대 1개</span><a href="https://store.ohou.se/goods/2539630" target="_blank" rel="noopener noreferrer">웰렉스 접이식 도어행거 <span aria-hidden="true">↗</span></a><small>1단 43cm · 화이트</small></div></div></td>
+      <td class="amount" data-label="상품 합계">20,000원</td>
+      <td class="shipping " data-label="배송">3,000원</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="utility-lumena-prime3" href="selection-assets/v2-utility-lumena-prime3.jpg" target="_blank" rel="noopener noreferrer" aria-label="루메나 FAN PRIME 3 사진 크게 보기"><img src="selection-assets/v2-utility-lumena-prime3.jpg" alt="루메나 FAN PRIME 3 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">소형 서큘레이터 1대</span><a href="https://store.ohou.se/goods/3711467" target="_blank" rel="noopener noreferrer">루메나 FAN PRIME 3 <span aria-hidden="true">↗</span></a><small>모던 베이지</small></div></div></td>
+      <td class="amount" data-label="상품 합계">59,900원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="utility-saluding-laundry-basket" href="selection-assets/v2-utility-saluding-laundry-basket.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA SALUDING 살루딩 빨래바구니 사진 크게 보기"><img src="selection-assets/v2-utility-saluding-laundry-basket.jpg" alt="IKEA SALUDING 살루딩 빨래바구니 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">빨래바구니 1개</span><a href="https://www.ikea.com/kr/ko/p/saluding-laundry-basket-handmade-bamboo-50503584/" target="_blank" rel="noopener noreferrer">IKEA SALUDING 살루딩 빨래바구니 <span aria-hidden="true">↗</span></a><small>핸드메이드 대나무 · 50L · 내부 세탁물 주머니 포함</small></div></div></td>
+      <td class="amount" data-label="상품 합계">54,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>거실 소품</span><span>339,800원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">거실 러그 1개</span><a href="https://store.ohou.se/goods/2359100" target="_blank" rel="noopener noreferrer">이씨라메종 올리 워셔블 러그 <span aria-hidden="true">↗</span></a><small>베이지 · 오리지널 타입 · 150×200cm</small></td>
-      <td class="amount">155,400원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">좌식 방석 2개</span><a href="https://store.ohou.se/goods/574348" target="_blank" rel="noopener noreferrer">데코뷰 베이지 린넨 빵빵이 대방석 <span aria-hidden="true">↗</span></a><small>솜일체형 60×60×8cm · 베이지 2개</small></td>
-      <td class="amount">63,800원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">좌식 테이블 1개</span><a href="https://www.ikea.com/kr/ko/p/moxboda-coffee-table-foldable-bamboo-90543088/" target="_blank" rel="noopener noreferrer">IKEA MOXBODA 목스보다 <span aria-hidden="true">↗</span></a><small>접이식 대나무 · 지름70×높이30cm</small></td>
-      <td class="amount">69,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">프렌즈 이미지용 액자 2개</span><a href="https://www.ikea.com/kr/ko/p/roedalm-frame-oak-effect-20566399/" target="_blank" rel="noopener noreferrer">IKEA RÖDALM 뢰달름 액자 <span aria-hidden="true">↗</span></a><small>참나무무늬40×50cm ×2개 · 이미지 인화 별도</small></td>
-      <td class="amount">39,800원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">듣는 LP 앨범 거치대 1개</span><a href="https://store.ohou.se/goods/2027947" target="_blank" rel="noopener noreferrer">스튜디오투명 LP거치대 DST012 <span aria-hidden="true">↗</span></a><small>투명 · 탁상 조립형1개</small></td>
-      <td class="amount">10,900원</td>
-      <td class="shipping ">2,500원</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="rug_ici_olli_beige_150" href="selection-assets/v2-rug_ici_olli_beige_150.jpg" target="_blank" rel="noopener noreferrer" aria-label="이씨라메종 올리 워셔블 러그 사진 크게 보기"><img src="selection-assets/v2-rug_ici_olli_beige_150.jpg" alt="이씨라메종 올리 워셔블 러그 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">거실 러그 1개</span><a href="https://store.ohou.se/goods/2359100" target="_blank" rel="noopener noreferrer">이씨라메종 올리 워셔블 러그 <span aria-hidden="true">↗</span></a><small>베이지 · 오리지널 타입 · 150×200cm</small></div></div></td>
+      <td class="amount" data-label="상품 합계">155,400원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="cushions_decoview_linen_pair" href="selection-assets/v2-cushions_decoview_linen_pair.jpg" target="_blank" rel="noopener noreferrer" aria-label="데코뷰 베이지 린넨 빵빵이 대방석 사진 크게 보기"><img src="selection-assets/v2-cushions_decoview_linen_pair.jpg" alt="데코뷰 베이지 린넨 빵빵이 대방석 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">좌식 방석 2개</span><a href="https://store.ohou.se/goods/574348" target="_blank" rel="noopener noreferrer">데코뷰 베이지 린넨 빵빵이 대방석 <span aria-hidden="true">↗</span></a><small>솜일체형 60×60×8cm · 베이지 2개</small></div></div></td>
+      <td class="amount" data-label="상품 합계">63,800원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="lowtable_ikea_moxboda" href="selection-assets/v2-lowtable_ikea_moxboda.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA MOXBODA 목스보다 사진 크게 보기"><img src="selection-assets/v2-lowtable_ikea_moxboda.jpg" alt="IKEA MOXBODA 목스보다 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">좌식 테이블 1개</span><a href="https://www.ikea.com/kr/ko/p/moxboda-coffee-table-foldable-bamboo-90543088/" target="_blank" rel="noopener noreferrer">IKEA MOXBODA 목스보다 <span aria-hidden="true">↗</span></a><small>접이식 대나무 · 지름70×높이30cm</small></div></div></td>
+      <td class="amount" data-label="상품 합계">69,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="frames_ikea_rodalm_oak_pair" href="selection-assets/v2-frames_ikea_rodalm_oak_pair.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA RÖDALM 뢰달름 액자 사진 크게 보기"><img src="selection-assets/v2-frames_ikea_rodalm_oak_pair.jpg" alt="IKEA RÖDALM 뢰달름 액자 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">프렌즈 이미지용 액자 2개</span><a href="https://www.ikea.com/kr/ko/p/roedalm-frame-oak-effect-20566399/" target="_blank" rel="noopener noreferrer">IKEA RÖDALM 뢰달름 액자 <span aria-hidden="true">↗</span></a><small>참나무무늬40×50cm ×2개 · 이미지 인화 별도</small><small>빈 액자 2개. 프렌즈 이미지 인쇄비는 포함되지 않습니다.</small></div></div></td>
+      <td class="amount" data-label="상품 합계">39,800원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="lp_display_studio_dst012" href="selection-assets/v2-lp_display_studio_dst012.jpg" target="_blank" rel="noopener noreferrer" aria-label="스튜디오투명 LP거치대 DST012 사진 크게 보기"><img src="selection-assets/v2-lp_display_studio_dst012.jpg" alt="스튜디오투명 LP거치대 DST012 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">듣는 LP 앨범 거치대 1개</span><a href="https://store.ohou.se/goods/2027947" target="_blank" rel="noopener noreferrer">스튜디오투명 LP거치대 DST012 <span aria-hidden="true">↗</span></a><small>투명 · 탁상 조립형1개</small></div></div></td>
+      <td class="amount" data-label="상품 합계">10,900원</td>
+      <td class="shipping " data-label="배송">2,500원</td>
     </tr>
   </tbody>
   <tbody>
     <tr class="group"><th colspan="3" scope="colgroup"><span>침실·거울·커튼</span><span>316,600원</span></th></tr>
-    <tr>
-      <td class="product"><span class="role">퀸 원목 깔판 1개</span><a href="https://allfloor.co.kr/product/detail.html?product_no=29" target="_blank" rel="noopener noreferrer">올플로어 피너스 원목 침대 깔판 <span aria-hidden="true">↗</span></a><small>기본 2단 접이식 Q150 · 내추럴</small></td>
-      <td class="amount">75,100원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">흰 퀸 매트리스 커버 1개</span><a href="https://www.ikea.com/kr/ko/p/dvala-fitted-sheet-white-50357219/" target="_blank" rel="noopener noreferrer">IKEA DVALA 드발라 매트리스커버 <span aria-hidden="true">↗</span></a><small>화이트150×200 · 최대 매트리스 두께26cm</small></td>
-      <td class="amount">23,900원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">거실·침실 쉬어 커튼 2세트</span><a href="https://www.ikea.com/kr/ko/p/silverloenn-sheer-curtains-1-pair-white-with-heading-tape-40491039/" target="_blank" rel="noopener noreferrer">IKEA SILVERLÖNN 실벨뢴 속커튼 <span aria-hidden="true">↗</span></a><small>화이트145×250 · 한쌍2장 구성 ×2세트</small></td>
-      <td class="amount">59,800원</td>
-      <td class="shipping pending">미확정</td>
-    </tr><tr>
-      <td class="product"><span class="role">침대 옆 서랍형 협탁 1개</span><a href="https://store.ohou.se/goods/443184" target="_blank" rel="noopener noreferrer">나누벨 베르 고무나무 서랍형 협탁 <span aria-hidden="true">↗</span></a><small>내추럴 / 폭 40 × 깊이 32 × 높이 50cm / 1개</small></td>
-      <td class="amount">62,800원</td>
-      <td class="shipping ">5,000원</td>
-    </tr><tr>
-      <td class="product"><span class="role">화장대 원형 거울 1개</span><a href="https://store.ohou.se/goods/929949" target="_blank" rel="noopener noreferrer">서운아트 브라운 원목 원형 벽거울 <span aria-hidden="true">↗</span></a><small>지름50cm · 브라운</small></td>
-      <td class="amount">59,000원</td>
-      <td class="shipping ">무료</td>
-    </tr><tr>
-      <td class="product"><span class="role">문 부착 전신거울 2곳용</span><a href="https://store.ohou.se/goods/1691192" target="_blank" rel="noopener noreferrer">엘로몽키 아크릴 사각 거울 <span aria-hidden="true">↗</span></a><small>30×30cm8장 · 문마다4장 이어30×120 구성</small></td>
-      <td class="amount">36,000원</td>
-      <td class="shipping ">3,000원</td>
+    <tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="bedbase_allfloor_pinus_q" href="selection-assets/v2-bedbase_allfloor_pinus_q.jpg" target="_blank" rel="noopener noreferrer" aria-label="올플로어 피너스 원목 침대 깔판 사진 크게 보기"><img src="selection-assets/v2-bedbase_allfloor_pinus_q.jpg" alt="올플로어 피너스 원목 침대 깔판 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">퀸 원목 깔판 1개</span><a href="https://allfloor.co.kr/product/detail.html?product_no=29" target="_blank" rel="noopener noreferrer">올플로어 피너스 원목 침대 깔판 <span aria-hidden="true">↗</span></a><small>기본 2단 접이식 Q150 · 내추럴</small><small>여러 크기 참고 사진이며 구매 구성은 Q 1개입니다.</small></div></div></td>
+      <td class="amount" data-label="상품 합계">75,100원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="cover_ikea_dvala_white_q" href="selection-assets/v2-cover_ikea_dvala_white_q.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA DVALA 드발라 매트리스커버 사진 크게 보기"><img src="selection-assets/v2-cover_ikea_dvala_white_q.jpg" alt="IKEA DVALA 드발라 매트리스커버 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">흰 퀸 매트리스 커버 1개</span><a href="https://www.ikea.com/kr/ko/p/dvala-fitted-sheet-white-50357219/" target="_blank" rel="noopener noreferrer">IKEA DVALA 드발라 매트리스커버 <span aria-hidden="true">↗</span></a><small>화이트150×200 · 최대 매트리스 두께26cm</small></div></div></td>
+      <td class="amount" data-label="상품 합계">23,900원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="curtains_ikea_silverlonn_two_pairs" href="selection-assets/v2-curtains_ikea_silverlonn_two_pairs.jpg" target="_blank" rel="noopener noreferrer" aria-label="IKEA SILVERLÖNN 실벨뢴 속커튼 사진 크게 보기"><img src="selection-assets/v2-curtains_ikea_silverlonn_two_pairs.jpg" alt="IKEA SILVERLÖNN 실벨뢴 속커튼 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">거실·침실 쉬어 커튼 2세트</span><a href="https://www.ikea.com/kr/ko/p/silverloenn-sheer-curtains-1-pair-white-with-heading-tape-40491039/" target="_blank" rel="noopener noreferrer">IKEA SILVERLÖNN 실벨뢴 속커튼 <span aria-hidden="true">↗</span></a><small>화이트145×250 · 한쌍2장 구성 ×2세트</small></div></div></td>
+      <td class="amount" data-label="상품 합계">59,800원</td>
+      <td class="shipping pending" data-label="배송">미확정</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="bedside_drawer_nanoobile_ver_natural" href="selection-assets/v2-bedside_drawer_nanoobile_ver_natural.jpg" target="_blank" rel="noopener noreferrer" aria-label="나누벨 베르 고무나무 서랍형 협탁 사진 크게 보기"><img src="selection-assets/v2-bedside_drawer_nanoobile_ver_natural.jpg" alt="나누벨 베르 고무나무 서랍형 협탁 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">침대 옆 서랍형 협탁 1개</span><a href="https://store.ohou.se/goods/443184" target="_blank" rel="noopener noreferrer">나누벨 베르 고무나무 서랍형 협탁 <span aria-hidden="true">↗</span></a><small>내추럴 / 폭 40 × 깊이 32 × 높이 50cm / 1개</small></div></div></td>
+      <td class="amount" data-label="상품 합계">62,800원</td>
+      <td class="shipping " data-label="배송">5,000원</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="round_mirror_seoun_50" href="selection-assets/v2-round_mirror_seoun_50.jpg" target="_blank" rel="noopener noreferrer" aria-label="서운아트 브라운 원목 원형 벽거울 사진 크게 보기"><img src="selection-assets/v2-round_mirror_seoun_50.jpg" alt="서운아트 브라운 원목 원형 벽거울 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">화장대 원형 거울 1개</span><a href="https://store.ohou.se/goods/929949" target="_blank" rel="noopener noreferrer">서운아트 브라운 원목 원형 벽거울 <span aria-hidden="true">↗</span></a><small>지름50cm · 브라운</small></div></div></td>
+      <td class="amount" data-label="상품 합계">59,000원</td>
+      <td class="shipping " data-label="배송">무료</td>
+    </tr><tr class="product-row">
+      <td class="product"><div class="product-layout"><a class="product-photo" data-product="door_mirrors_ellomonkey_acrylic_eight" href="selection-assets/v2-door_mirrors_ellomonkey_acrylic_eight.jpg" target="_blank" rel="noopener noreferrer" aria-label="엘로몽키 아크릴 사각 거울 사진 크게 보기"><img src="selection-assets/v2-door_mirrors_ellomonkey_acrylic_eight.jpg" alt="엘로몽키 아크릴 사각 거울 대표 제품 사진" width="144" height="144" loading="lazy" decoding="async"><span aria-hidden="true">사진 확대 ↗</span></a><div class="product-info"><span class="role">문 부착 전신거울 2곳용</span><a href="https://store.ohou.se/goods/1691192" target="_blank" rel="noopener noreferrer">엘로몽키 아크릴 사각 거울 <span aria-hidden="true">↗</span></a><small>30×30cm8장 · 문마다4장 이어30×120 구성</small></div></div></td>
+      <td class="amount" data-label="상품 합계">36,000원</td>
+      <td class="shipping " data-label="배송">3,000원</td>
     </tr>
   </tbody>
       <tfoot><tr><th scope="row">상품 / 확인된 배송 합계</th><td class="amount">3,969,600원</td><td class="shipping">54,800원</td></tr></tfoot>

@@ -1537,6 +1537,7 @@ function setVariant(v) {
   window.__hangerLabel.position.set(cm(isD?881:839),cm(165),cm(isD?800:832));
   grpD.visible=isD;grpE.visible=isE;eReplacedD.visible=!isE;dLegacy.forEach(o=>o.visible=!isD);dOnly.forEach(o=>o.visible=isD);
   dTree.scale.setScalar(isE?3:2);dTree.userData.dimensions=isE?[48,48,120]:[32,32,80];
+  dTree.position.x=cm(isE?476:468);
   dLighting.floorGroup.position.set(cm(488),0,cm(685));
   for(const l of labels)l.visible=document.getElementById('labels').classList.contains('on')&&!(isD&&l.userData.hideInD);
   window.__flowerpotFixture.visible=!isD;

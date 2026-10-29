@@ -55,7 +55,7 @@
     <button data-v="desk">책상</button>
     <button data-v="kitchen">주방·세탁기</button>
     <button data-v="dining">식탁</button><button data-v="lpwall">LP·책장</button><button data-v="tree" id="d-tree-view" style="display:none">트리·장스탠드</button><button data-v="entry" id="e-hall-view" style="display:none">복도·액자</button>
-    <button data-v="bed">침실</button><button data-v="bedcorner" id="d-bedcorner-view" style="display:none">행거</button>
+    <button data-v="bed">침실</button><button data-v="bedcorner" id="d-bedcorner-view" style="display:none">행거</button><button data-v="dryer" id="e-dryer-view" style="display:none">건조기</button>
     <button data-v="vanity">화장대</button>
     <button data-v="bath">욕실</button>
     <button data-v="plan">위에서 보기</button>
@@ -147,6 +147,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { createMiniDryer } from './mini-dryer.js?v=20261030';
 
 window.__errors = [];
 window.addEventListener("error", (e) => window.__errors.push(String(e.message)));
@@ -964,7 +965,7 @@ const grpA = new THREE.Group(), grpB = new THREE.Group(), grpC = new THREE.Group
   dm(909.8, 333, -1, 0, 30, 120, 50);  // 신발장 남쪽 문 (y313~353) 30×120
 }
 { // 침실 창가 화분 (창 북쪽 끝 — 창 가운데는 옷 행거)
-  const p = place(778, 749, 1, 0); CY(p, 14, 11, 30, mat.ceramic2, 0, 0, 0);
+  const p = place(778, 749, 1, 0); window.__bedroomPlant=p; CY(p, 14, 11, 30, mat.ceramic2, 0, 0, 0);
   const r = rnd(9);
   for (let i = 0; i < 10; i++) { const lf = new THREE.Mesh(new THREE.SphereGeometry(cm(9), 8, 6), i % 2 ? mat.leaf : mat.leaf2); lf.scale.set(0.5, 1.4, 0.25); lf.position.set(cm((r() - 0.5) * 22), cm(50 + r() * 50), cm((r() - 0.5) * 22)); lf.rotation.y = r() * 3; p.add(lf); }
 }
@@ -1751,6 +1752,8 @@ const eArt=dPlace(450.5,556.5,1,0,grpE);eArt.name='E Friends above LP';eArt.user
 B(eArt,44,54,2,dBlack,0,118,1,.15);
 const ePicture1=new THREE.Mesh(new THREE.PlaneGeometry(cm(40),cm(50)),mat.art1);ePicture1.position.set(0,cm(145),cm(2.1));eArt.add(ePicture1);
 const eProductAt={...dProductAt,shelf:[483,633,185],lpcabinet:[484,556.5,85],turntable:[480,556.5,112],art:[452,556.5,178],floorlamp:[488,685,149]};
+const eDryer=createMiniDryer({THREE,B,M,cm});grpE.add(eDryer);window.__miniDryer=eDryer;
+const eDryerNotice='<p><b>침실 창가 · 쿠쿠 미니 건조기</b><br>53.5×42×65cm · 뒤 벽 약15cm 여유<br>전원 위치·커튼 간섭은 현장 확인 필요<br>건조기는 배치 검토용이며 견적 별도<br><a href="e.html#dryer">건조기 배치 사진·설치 조건 ↗</a></p>';
 const measurementNotice=`<p style="padding:10px;background:#f0e5d3;border-radius:8px"><b>10/29 실측 반영</b><br>침실 폭338 · 붙박이장 앞부터282<br>거실 길이370/384 · 가구 제품 크기 유지<br>냉장고 칸100×189 · 레인지 칸53×33<br>큐커는 칸에서 제거, 설치 위치 미정.<br>보일러실 단차·각도·가전 깊이는 임시/미확인.<br><a href="measured-fit.html">실측표·냉장고 후보 보기 ↗</a></p>`;
 const eLegend=`<h2>E안 · 무지 SUS L + 아레초</h2><p>왼쪽: 떡갈나무 기본 L 58×41×175.5cm<br>2단 와이드 서랍 52×37×34.5cm<br>서랍은 바닥에서 약25.5cm 띄워 배치<br>오른쪽: 아레초 오크 93×40×75cm</p><p>가구 폭151cm + 사이 틈1cm.<br>최상단155cm: 헬멧·도자기 오브제.<br>118cm 커피 도구 · 81cm LP4장.<br>선반 액자는 복도 벽으로 이동.<br>리사보200·보유 책상 등은 D안과 같아요.</p><p><a href="e.html">E안 사진·구성 보기 ↗</a><br><a href="e-budget.html">E안 전용 견적 ↗</a></p><p>구매 계획 <b>4,963,700원</b><br>무지 합배송5만원·예비비30만원 포함<br>서랍 품절 · 분리배송 시5만원 추가 가능<br>커피 도구·LP판·오브제 비용 별도<br>냉장고·매트리스·청소기 본체 별도</p><p style="font-size:11px;color:#70695f">선반 높이는 개략 배치이며 실제 조립 때 확인해야 합니다. 전도 방지 방법은 제품 설명서를 따르며 무타공 설치는 확정하지 않았습니다. LP장 내부의 레코드 수납 가능 높이는 미확인입니다.</p>`;
 window.__E={group:grpE,replacedD:eReplacedD,shelf:eShelf,drawer:eDrawer,cabinet:eCabinet,tree:dTree,coffee:eCoffee,topDecor:eTopDecor,records:eRecords,hallArt:eHallArt,total:4963700,dimensions:{shelf:[58,41,175.5],drawer:[52,37,34.5],drawerBottom:25.5,cabinet:[93,40,75],tree:[48,48,120],combinedWidth:151,gap:1,overall:152},revision:'muji-oak-l-top155-coffee-four-lps-user-cover-20261029'};
@@ -1838,6 +1841,7 @@ function setLaundry(on) {
   if (window.__dehumLed) window.__dehumLed.material.emissiveIntensity = on ? 1.6 : 0;
   for (const l of prodLabels) {
     const a = l.userData.alt; if (a) { const q = a[on ? 1 : 0]; l.position.copy(PP(q[0],q[1],q[2])); }
+    if(l.userData.key==='dehumidifier'&&!on&&curVar==='E')l.position.set(cm(1045),cm(70),cm(559));
     if (l.userData.key === "circulator" || l.userData.key === "doorrack") l.userData.hiddenByLaundry = !on;
   }
   prodLabels.forEach((l) => (l.visible = document.getElementById("prodbtn").classList.contains("on") && !l.userData.hiddenBySet && !l.userData.hiddenByLaundry && !l.userData.hiddenByRug && !l.userData.hiddenByVariant));
@@ -1853,6 +1857,10 @@ function setVariant(v) {
   window.__ownedHanger.position.copy(PP(isD?881:838.6,isD?800:832.4));
   const hangerFacing=measured.normal(838.6,832.4,.8912,-.4536);window.__ownedHanger.rotation.y=isD?-Math.PI/2:Math.atan2(...hangerFacing);
   window.__bedroomDehumidifier.position.copy(PP(isD?818:895,isD?775:830));
+  window.__bedroomDehumidifier.rotation.y=isE?0:-Math.PI/2;
+  if(isE)window.__bedroomDehumidifier.position.set(cm(1045),0,cm(559));
+  window.__bedroomPlant.position.copy(PP(778,749));
+  if(isE)window.__bedroomPlant.position.set(cm(823),0,cm(770));
   window.__hangerLabel.position.copy(PP(isD?881:839,isD?800:832,165));
   grpD.visible=isD;grpE.visible=isE;eReplacedD.visible=!isE;dLegacy.forEach(o=>o.visible=!isD);dOnly.forEach(o=>o.visible=isD);
   dTree.scale.setScalar(isE?3:2);dTree.userData.dimensions=isE?[48,48,120]:[32,32,80];
@@ -1866,11 +1874,13 @@ function setVariant(v) {
   document.getElementById('d-tree-view').style.display=isD?'':'none';
   document.getElementById('e-hall-view').style.display=isE?'':'none';
   document.getElementById('d-bedcorner-view').style.display=isD?'':'none';
-  document.getElementById('legend').innerHTML=measurementNotice+(isE?eLegend:isD?dLegend:dLegendOriginal);
+  document.getElementById('e-dryer-view').style.display=isE?'':'none';
+  document.getElementById('legend').innerHTML=measurementNotice+(isE?eDryerNotice+eLegend:isD?dLegend:dLegendOriginal);
   document.getElementById('prod').style.display='none';
   for(const l of prodLabels){const k=l.userData.key;l.userData.hiddenByVariant=(l.userData.onlyD&&!isD)||(isD&&['globe','cordless','portable','flowerpot'].includes(k));
     if(k==='dehumidifier'&&l.userData.alt)l.userData.alt[0]=isD?[818,775,80]:[895,830,80];
     const at=l.userData.alt?l.userData.alt[laundryOn?1:0]:(isE?eProductAt[k]:isD?dProductAt[k]:VAR_AT[k]?.[v]);if(at)l.position.copy(PP(at[0],at[1],at[2]));else l.position.copy(l.userData.originalPosition);
+    if(k==='dehumidifier'&&isE&&!laundryOn)l.position.set(cm(1045),cm(70),cm(559));
     l.material.map=l.userData.originalMap;
     const vp=isE?E_PRODUCTS:D_PRODUCTS, mapKey=isE?'eMap':'dMap';
     if(isD&&vp[k]?.short){if(!l.userData[mapKey]){const tmp=document.createElement('canvas');tmp.width=512;tmp.height=72;const g=tmp.getContext('2d');g.fillStyle='#a96134';g.beginPath();g.roundRect(3,3,506,54,26);g.fill();g.fillStyle='#fff';g.font="bold 29px 'Malgun Gothic',sans-serif";g.textAlign='center';g.fillText(vp[k].short+' ›',256,40);l.userData[mapKey]=new THREE.CanvasTexture(tmp);}l.material.map=l.userData[mapKey];}
@@ -1959,7 +1969,8 @@ function go(name, instant = false) {
   camera.fov=viewFov(name);camera.updateProjectionMatrix();
   const dv={lpwall:{pos:[704,600,145],tgt:[462,584,106]},desk:{pos:[540,590,164],tgt:[629,803,95]},tree:{pos:[665,730,135],tgt:[500,700,75]},bedcorner:{pos:[782,675,145],tgt:[861,817,98]},plan:{pos:[751,568,980],tgt:[751,567,0]}}; const ev={lpwall:{pos:[736,586,148],tgt:[466,586,99]}}; const v = (curVar==="E"&&ev[name]) || (["D","E"].includes(curVar)&&dv[name]) || views[name] || views.all; curView = name;
   setLow(!!v.low);
-  const p = P(v.pos[0], v.pos[1], v.pos[2]), t = P(v.tgt[0], v.tgt[1], v.tgt[2]);
+  const raw=(q)=>new THREE.Vector3(cm(q[0]),cm(q[2]),cm(q[1]));
+  const p = name==='dryer'?raw([900,655,145]):P(v.pos[0], v.pos[1], v.pos[2]), t = name==='dryer'?raw([879,805,37]):P(v.tgt[0], v.tgt[1], v.tgt[2]);
   document.querySelectorAll("#views button").forEach((b) => b.classList.toggle("on", b.dataset.v === name));
   if (instant) { camera.position.copy(p); controls.target.copy(t); controls.update(); return; }
   anim = { p0: camera.position.clone(), t0: controls.target.clone(), p, t, start: performance.now(), dur: 900 };
@@ -2120,7 +2131,7 @@ function resize() {
   camera.fov=viewFov(curView);camera.updateProjectionMatrix();
 }
 window.addEventListener("resize", resize); resize();
-setMode(false); go(curVar === "E" ? "lpwall" : curVar === "D" ? "dining" : "all", true);
+setMode(false); go(curVar === "E" ? (/dryer/.test(location.hash)?"dryer":"lpwall") : curVar === "D" ? "dining" : "all", true);
 
 function loop(now) {
   if (anim) {

@@ -34,20 +34,79 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   return {vanity,mirror,stool,drawers,setDrawersOpen(on){for(const d of drawers)d.position.z=cm(on?25:0);},revision:'liv-drawers-tabletop-mirror-20261031'};
 }
 
+// The legacy export name is retained so the caller's existing import remains valid.
+// Product envelope is IKEA 994.244.63; the woven back and curved supports are
+// visual approximations, not an engineering model or a desk-clearance guarantee.
 export function buildHattefjallChair({THREE,cm,B,CY,M,rod,parent}) {
-  const chair=new THREE.Group();parent.add(chair);chair.position.set(cm(25),0,cm(82));chair.name='HATTEFJALL dark grey black';
-  chair.userData.productDimensionsCm={width:68,depth:68,maxHeight:114,seatWidth:50,seatDepth:40,seatHeightRange:[46,56]};
-  chair.userData.poseNote='시각화용 조절 자세: 좌판46, 등판상단104, 팔걸이64cm. 전체 최소높이와 팔걸이 최저높이는 제조사 미표기이며 이 그림은 책상 수납 보장이 아닙니다.';
-  const fabric=M('#73746f',{roughness:1}),black=M('#292c2a',{roughness:.72}),rim=M('#737774',{roughness:.7});
-  CY(chair,2.1,2.1,33,black,0,7,0,24);CY(chair,3.7,3.7,5,black,0,34,0,24);
-  for(let i=0;i<5;i++){const a=i*Math.PI*2/5,px=Math.sin(a)*31,pz=Math.cos(a)*31;rod(chair,[0,9,0],[px,5,pz],1.5,black);const wheel=CY(chair,3,3,4,black,px,0,pz,18);wheel.rotation.z=Math.PI/2;const w=CY(chair,2.5,2.5,4.15,rim,px,.5,pz,18);w.rotation.z=Math.PI/2;}
-  B(chair,50,6,40,fabric,0,40,0,3);
-  for(const x of [-23.5,23.5]){const wing=B(chair,3,8,29,fabric,x,42,4,1.5);wing.rotation.z=x<0?-.12:.12;}
-  B(chair,5,20,4,black,0,39,20,1);
-  const back=new THREE.Group();chair.add(back);back.position.set(0,cm(51),cm(21));back.rotation.x=.08;
-  const shape=new THREE.Shape();shape.moveTo(cm(-17),0);shape.bezierCurveTo(cm(-26),cm(2),cm(-27),cm(11),cm(-24),cm(22));shape.lineTo(cm(-21),cm(45));shape.bezierCurveTo(cm(-20),cm(56),cm(20),cm(56),cm(21),cm(45));shape.lineTo(cm(24),cm(22));shape.bezierCurveTo(cm(27),cm(11),cm(26),cm(2),cm(17),0);shape.quadraticCurveTo(0,cm(-2),cm(-17),0);
-  const cushion=new THREE.Mesh(new THREE.ExtrudeGeometry(shape,{depth:cm(3.5),bevelEnabled:true,bevelThickness:cm(.7),bevelSize:cm(.7),bevelSegments:3,curveSegments:20,steps:1}),fabric);cushion.castShadow=true;back.add(cushion);
-  for(const x of [-28,28]){rod(chair,[x*.79,42,10],[x,51,11],1.2,black);rod(chair,[x,51,11],[x,62,6],1.1,black);B(chair,6,2,25,black,x,62,-1,1);}
-  rod(chair,[13,39,0],[27,38,-4],.5,black);B(chair,6,1.3,3,black,28,37.5,-4,.5);
+  const chair=new THREE.Group();parent.add(chair);
+  chair.position.set(cm(25),0,cm(88));chair.name='FLINTAN beige with armrests 994.244.63';
+  chair.userData.productId='994.244.63';
+  chair.userData.productName='IKEA FLINTAN 플린탄 사무용 팔걸이의자 · 베이지';
+  chair.userData.productDimensionsCm={width:71,depth:71,heightRange:[103,114],seatWidth:46,seatDepth:49,seatHeightRange:[45,58],armrestHeightRange:[69,81]};
+  chair.userData.poseCm={seatTop:45,backTop:103,armrestTop:69};
+  chair.userData.poseNote='공식 조절범위 중 낮은 자세를 개략 재현: 좌판45, 등판상단103, 팔걸이69cm. 팔걸이는 고정식이며 좌판 높이와 함께 올라갑니다. 책상 상판 아래 모델값69.2cm와 명목상2mm 차이뿐이므로 완전 수납을 보장하지 않고 의자를 조금 빼두었습니다.';
+  const beige=M('#c9c4b8',{roughness:.8}),fabric=M('#d0c8bb',{roughness:1});
+  const meshBeige=M('#bfb7a8',{roughness:1}),hub=M('#c5c1b5',{roughness:.75});
+  const rubber=M('#363b40',{roughness:.9}),piston=M('#333536',{roughness:.4,metalness:.5});
+  // Lowest seat pose: fabric seat top45cm. The five-star base remains beige;
+  // only the piston and wheel tread are dark in the verified product photo.
+  CY(chair,2,2,30,piston,0,8,0,24);CY(chair,3,3,17,beige,0,7,0,24);
+  for(let i=0;i<5;i++){
+    const a=i*Math.PI*2/5,px=Math.sin(a)*32.5,pz=Math.cos(a)*32.5;
+    const leg=B(chair,4.5,4,31,beige,Math.sin(a)*16,5,Math.cos(a)*16,.7);leg.rotation.y=a;
+    const caster=new THREE.Group();chair.add(caster);caster.position.set(cm(px),0,cm(pz));caster.rotation.y=a;
+    CY(caster,.8,.8,3,beige,0,5,0,12);
+    for(const x of [-1.35,1.35]){
+      const tire=new THREE.Mesh(new THREE.CylinderGeometry(cm(2.7),cm(2.7),cm(1.5),20),rubber);
+      tire.rotation.z=Math.PI/2;tire.position.set(cm(x),cm(2.7),0);tire.castShadow=true;caster.add(tire);
+      const cap=new THREE.Mesh(new THREE.CylinderGeometry(cm(2.05),cm(2.05),cm(.25),20),hub);
+      cap.rotation.z=Math.PI/2;cap.position.set(cm(x+(x<0?-.82:.82)),cm(2.7),0);caster.add(cap);
+    }
+  }
+  B(chair,43,2.5,43,beige,0,38.5,0,1.2);
+  B(chair,46,5,49,fabric,0,40,0,2.5);
+  B(chair,10,3.5,22,piston,0,35,3,.8);
+  // Open, rounded mesh back. ShapeGeometry keeps the same rounded outline as
+  // the frame; a repeating alpha grid allows the room to show through it.
+  const outline=(half,bottom,top)=>{
+    const s=new THREE.Shape();s.moveTo(cm(-half+7),cm(bottom));
+    s.quadraticCurveTo(cm(-half),cm(bottom),cm(-half),cm(bottom+8));
+    s.lineTo(cm(-half),cm(top-10));
+    s.quadraticCurveTo(cm(-half),cm(top),cm(-half+11),cm(top));
+    s.lineTo(cm(half-11),cm(top));
+    s.quadraticCurveTo(cm(half),cm(top),cm(half),cm(top-10));
+    s.lineTo(cm(half),cm(bottom+8));s.quadraticCurveTo(cm(half),cm(bottom),cm(half-7),cm(bottom));s.closePath();return s;
+  };
+  const back=new THREE.Group();chair.add(back);back.position.set(0,cm(47),cm(24));
+  const outer=outline(23.5,0,56),inner=outline(20.6,3,53.2);
+  outer.holes.push(new THREE.Path(inner.getPoints(48).reverse()));
+  const frame=new THREE.Mesh(new THREE.ExtrudeGeometry(outer,{depth:cm(1.7),bevelEnabled:false,curveSegments:24,steps:1}),beige);
+  frame.castShadow=true;back.add(frame);
+  const canvas=document.createElement('canvas');canvas.width=32;canvas.height=32;
+  const ctx=canvas.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,32,32);
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,4,32);ctx.fillRect(0,0,32,4);
+  const weave=new THREE.CanvasTexture(canvas);weave.wrapS=weave.wrapT=THREE.RepeatWrapping;weave.repeat.set(90,110);
+  const net=meshBeige.clone();net.alphaMap=weave;net.alphaTest=.35;net.side=THREE.DoubleSide;
+  const meshGeometry=new THREE.ShapeGeometry(inner,32);
+  // ShapeGeometry uses raw positions for UVs. Normalize to the opening so the
+  // weave density is independent of the global cm-to-scene-unit scale.
+  const uv=meshGeometry.attributes.uv,pos=meshGeometry.attributes.position;
+  for(let i=0;i<uv.count;i++)uv.setXY(i,(pos.getX(i)/cm(1)+20.6)/41.2,(pos.getY(i)/cm(1)-3)/50.2);
+  uv.needsUpdate=true;
+  const mesh=new THREE.Mesh(meshGeometry,net);mesh.position.z=cm(.7);back.add(mesh);
+  // Narrow lumbar support remains behind the mesh, rather than filling it.
+  for(const x of [-19,19])rod(chair,[x,39,18],[x,57,26],.8,beige);
+  for(const y of [22,29]){
+    rod(back,[-19,y,2.2],[0,y+1.4,3.1],1.15,hub);
+    rod(back,[0,y+1.4,3.1],[19,y,2.2],1.15,hub);
+  }
+  // Fixed beige armrests at69cm in this low-seat pose; no independent height
+  // adjustment is implied. They stop short of the desk rather than clipping it.
+  for(const x of [-27,27]){
+    rod(chair,[x*.76,39,9],[x,46,11],1,beige);
+    rod(chair,[x,46,11],[x,66.5,11],1,beige);
+    B(chair,7,2.5,25,beige,x,66.5,-.5,1.2);
+  }
+  rod(chair,[13,37,-2],[25,36,-7],.45,piston);B(chair,6,1.2,3,beige,26,35.4,-7,.5);
   return chair;
 }

@@ -1,65 +1,83 @@
-// 1-person coffee & lounge chair + side table + JooyonTech V28UE monitor on arm for option F, 2026-11-01.
-// Chair & side table are layout placeholders (product/price unconfirmed, excluded from 5,035,100 KRW total).
+// Two 1-person lounge chairs + shared round coffee table + JooyonTech V28UE monitor on arm for option F, 2026-11-02.
+// Chairs & side table are layout placeholders (product/price unconfirmed, excluded from 5,035,100 KRW total).
 export function buildTwoSeatSofa({THREE,cm,B,CY,M,parent,wood}) {
   const root=new THREE.Group();parent.add(root);
   root.userData={
-    role:'1-person lounge chair and coffee side table',
-    dimensionsCm:[68,72,75],
-    sideTableDimensionsCm:[36,36,52],
+    role:'Two 1-person lounge chairs and shared coffee side table',
+    chairCount:2,
+    chairDimensionsCm:[60,64,75],
+    sideTableDimensionsCm:[35,35,52],
     seatHeightCm:41,
     productSelected:false,
     priced:false
   };
   const fabric=M('#d2c7b4',{roughness:.95}),cushion=M('#ded4c3',{roughness:.92});
-  const darkWood=M('#9c7b50',{roughness:.55}),steel=M('#cfd2d4',{roughness:.25,metalness:.82});
+  const pillowMat=M('#c4b49b',{roughness:.95});
+  const steel=M('#cfd2d4',{roughness:.25,metalness:.82});
   const ceramic=M('#f6f3ec',{roughness:.25}),coffeeMat=M('#3b2416',{roughness:.2});
 
-  // 1-person lounge chair centered at local (0, 0, 0), facing +z (w=68, d=72, h=75)
-  const chair=new THREE.Group();chair.name='F lounge chair 68x72x75';root.add(chair);
-  // Open sculpted oak legs (front and slightly splayed rear legs)
-  for(const x of [-28,28]){
-    const fLeg=CY(chair,1.7,1.2,34,wood,x,0,22,16);fLeg.rotation.x=.06;
-    const rLeg=CY(chair,1.8,1.2,33,wood,x,0,-24,16);rLeg.rotation.x=-.14;
-    // Side stretcher bar
-    const sideBar=B(chair,2.6,3.2,50,wood,x,22,-1,.4);sideBar.rotation.x=-.05;
-    // Armrest support post & warm oak curved armrest
-    const post=B(chair,2.8,22,3.4,wood,x,33,18,.4);post.rotation.x=-.08;
-    const arm=B(chair,5.2,2.6,54,wood,x,53,-2,.8);arm.rotation.x=-.04;
+  function makeLoungeChair(name) {
+    // Compact 1-person lounge chair centered at local (0, 0, 0), facing +z (w=60, d=64, h=75)
+    const chair=new THREE.Group();chair.name=name;
+    for(const x of [-25,25]){
+      const fLeg=CY(chair,1.6,1.15,34,wood,x,0,19,16);fLeg.rotation.x=.06;
+      const rLeg=CY(chair,1.7,1.15,33,wood,x,0,-21,16);rLeg.rotation.x=-.14;
+      const sideBar=B(chair,2.4,3.0,44,wood,x,22,-1,.4);sideBar.rotation.x=-.05;
+      const post=B(chair,2.6,22,3.2,wood,x,33,15,.4);post.rotation.x=-.08;
+      const arm=B(chair,4.8,2.5,48,wood,x,53,-2,.8);arm.rotation.x=-.04;
+    }
+    B(chair,48,3,3.0,wood,0,24,15,.4);
+    B(chair,48,3,3.0,wood,0,21,-17,.4);
+
+    const seatBase=B(chair,50,6,48,fabric,0,26,2,2);seatBase.rotation.x=-.06;
+    const seatCushion=B(chair,50,11,50,cushion,0,31,3.5,3.2);seatCushion.rotation.x=-.06;
+
+    const backGroup=new THREE.Group();backGroup.position.set(0,cm(36),cm(-16));backGroup.rotation.x=-.24;chair.add(backGroup);
+    B(backGroup,48,36,6.5,fabric,0,0,-3.5,2.2);
+    B(backGroup,46,35,9.5,cushion,0,2,2,3.2);
+    const pillow=B(backGroup,32,15,5,pillowMat,0,4,7.5,2.0);pillow.rotation.x=.08;
+    return chair;
   }
-  // Cross rails under seat
-  B(chair,54,3,3.2,wood,0,24,18,.4);
-  B(chair,54,3,3.2,wood,0,21,-20,.4);
 
-  // Seat base & plush angled seat cushion (seat height ~41cm)
-  const seatBase=B(chair,56,6,54,fabric,0,26,2,2);seatBase.rotation.x=-.06;
-  const seatCushion=B(chair,56,11,56,cushion,0,31,4,3.5);seatCushion.rotation.x=-.06;
+  const ang=parent.rotation.y||(-65*Math.PI/180);
+  const toLocal=(dx,dz)=>[
+    cm(dx*Math.cos(ang)-dz*Math.sin(ang)),
+    0,
+    cm(dx*Math.sin(ang)+dz*Math.cos(ang))
+  ];
 
-  // Reclined backrest frame & tufted back cushion (top at ~75cm)
-  const backGroup=new THREE.Group();backGroup.position.set(0,cm(36),cm(-18));backGroup.rotation.x=-.24;chair.add(backGroup);
-  B(backGroup,54,36,7,fabric,0,0,-4,2.5);
-  B(backGroup,52,35,10,cushion,0,2,2,3.5);
-  // Subtle lumbar/accent pillow
-  const pillow=B(backGroup,36,16,5.5,M('#c4b49b',{roughness:.95}),0,4,8,2.2);pillow.rotation.x=.08;
+  // Chair 1 (North): at parent origin world (746, 641), rotation -65 deg
+  const chair1=makeLoungeChair('F lounge chair 1 (north) 60x64x75');
+  root.add(chair1);
 
-  // Compact round coffee side table at world (756, 758) — placed via parent-relative transform
-  const table=new THREE.Group();table.name='F coffee side table 36x36x52';
-  // Chair is at world (742, 696) with rotation.y = -70 deg. Convert world delta (14, 62) to chair local:
-  const ang=parent.rotation.y||(-70*Math.PI/180),dx=14,dz=62;
-  table.position.set(cm(dx*Math.cos(ang)-dz*Math.sin(ang)),0,cm(dx*Math.sin(ang)+dz*Math.cos(ang)));
+  // Chair 2 (South): at world (743, 750) -> delta (-3, 109) from (746, 641), world rotation -84 deg
+  const chair2=makeLoungeChair('F lounge chair 2 (south) 60x64x75');
+  chair2.position.set(...toLocal(-3,109));
+  chair2.rotation.y=(-84*Math.PI/180)-ang;
+  root.add(chair2);
+
+  // Shared round coffee side table between the two chairs at world (761, 697) -> delta (15, 56)
+  const table=new THREE.Group();table.name='F coffee side table 35x35x52';
+  table.position.set(...toLocal(15,56));
   table.rotation.y=-ang;
   root.add(table);
 
-  // Pedestal base + slim stainless column + round oak top (diameter 36cm, height 52cm)
-  CY(table,13,13.5,1.4,steel,0,0,0,36);
+  // Pedestal base + slim stainless column + round oak top (diameter 35cm, height 52cm)
+  CY(table,12.5,13,1.4,steel,0,0,0,36);
   CY(table,1.3,1.3,48.6,steel,0,1.4,0,24);
-  CY(table,18,18,2,wood,0,50,0,48);
-  // Coffee saucer, mug & book on the side table
-  CY(table,5.2,4.2,.7,ceramic,-4,52,3,28);
-  CY(table,3.3,2.9,6.2,ceramic,-4,52.7,3,28);
-  CY(table,2.9,2.9,.3,coffeeMat,-4,58.7,3,24);
-  const handle=new THREE.Mesh(new THREE.TorusGeometry(cm(1.4),cm(.35),8,20,Math.PI),ceramic);
-  handle.rotation.y=Math.PI/4;handle.position.set(cm(-1.2),cm(55.8),cm(4.2));table.add(handle);
-  const book=B(table,13,1.6,18,M('#dfd8ca',{roughness:.85}),5,52,-3,.3);book.rotation.y=.35;
+  CY(table,17.5,17.5,2,wood,0,50,0,48);
+
+  // Two coffee cups on saucers + small book for two people
+  for(const [cx,cz,hRot] of [[-5.5,-5,Math.PI/5],[5,5.5,-Math.PI/3]]){
+    CY(table,4.8,3.9,.65,ceramic,cx,52,cz,26);
+    CY(table,3.1,2.7,5.8,ceramic,cx,52.65,cz,26);
+    CY(table,2.7,2.7,.3,coffeeMat,cx,58.2,cz,22);
+    const handle=new THREE.Mesh(new THREE.TorusGeometry(cm(1.3),cm(.32),8,18,Math.PI),ceramic);
+    handle.rotation.y=hRot;
+    handle.position.set(cm(cx+Math.cos(hRot)*2.6),cm(55.6),cm(cz+Math.sin(hRot)*2.6));
+    table.add(handle);
+  }
+  const book=B(table,11,1.4,15,M('#dfd8ca',{roughness:.85}),-4,52,6,.3);book.rotation.y=.28;
 
   return root;
 }
@@ -99,10 +117,10 @@ export function buildV28UEMonitorArm({THREE,cm,B,CY,M,parent,screenMat}) {
   B(upperArm,3.0,3.6,19.8,armSilver,0,0,9.5,1);
   B(upperArm,1.4,1.2,12,armDark,0,1.9,9,.4);
 
-  // Monitor head at (13, 108.5, 23), swiveled -34 deg toward the East-wall lounge chair
+  // Monitor head at (13, 108.5, 23), swiveled -34 deg toward the East-wall lounge chairs
   const head=new THREE.Group();head.name='V28UE panel 63.9x36.9x4.3';
   head.position.set(cm(13),cm(108.5),cm(23));
-  head.rotation.y=-0.59; // ~ -34 deg toward living room / lounge chair
+  head.rotation.y=-0.59; // ~ -34 deg toward living room / lounge chairs
   grp.add(head);
 
   // VESA 100x100mm bracket (10x10cm) + pivot knuckle

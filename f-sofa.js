@@ -148,20 +148,24 @@ export function buildGTwoPersonSofa({THREE,cm,B,CY,M,parent,wood}) {
     role:'Two-person fabric sofa on West wall',
     dimensionsCm:[150,85,78],
     seatHeightCm:42,
+    color:'cognac-terracotta orange-brown',
     productSelected:false,
     priced:false
   };
-  const fabric=M('#cbbfa9',{roughness:.95}),cushion=M('#d7ccb8',{roughness:.92}),pillowMat=M('#bba98e',{roughness:.95});
-  for(const x of [-65,65])for(const z of [8,76])CY(sofa,1.8,1.2,14,wood,x,0,z,16);
-  B(sofa,150,14,85,fabric,0,14,42.5,3);
+  const fabric=M('#c65826',{roughness:.72}),cushion=M('#d86932',{roughness:.68});
+  const pillowCream=M('#f4ead8',{roughness:.85}),pillowAmber=M('#e68438',{roughness:.74});
+  const walnut=M('#6b3f22',{roughness:.45});
+  for(const x of [-65,65])for(const z of [8,76])CY(sofa,1.9,1.25,12,walnut,x,0,z,16);
+  B(sofa,148,2.5,83,walnut,0,12,42.5,.8);
+  B(sofa,150,13.5,85,fabric,0,14.5,42.5,3.2);
   B(sofa,150,50,17,fabric,0,28,8.5,5);
-  for(const x of [-68,68])B(sofa,14,32,85,fabric,x,28,42.5,5);
+  for(const x of [-68,68])B(sofa,14,32,85,fabric,x,28,42.5,5.5);
   for(const x of [-30.5,30.5]){
-    B(sofa,60,14,66,cushion,x,28,50,5);
-    const back=B(sofa,60,34,14,cushion,x,41,23,6);back.rotation.x=-.12;
+    B(sofa,60.5,14.5,66,cushion,x,28,50,5.2);
+    const back=B(sofa,60,34,14.5,cushion,x,41,23.5,6.2);back.rotation.x=-.12;
   }
-  for(const [px,rotZ,rotY] of [[-52,-.18,.22],[52,.18,-.22]]){
-    const p=B(sofa,26,24,9,pillowMat,px,43,33,3.5);
+  for(const [px,rotZ,rotY,pMat] of [[-51,-.18,.22,pillowCream],[51,.18,-.22,pillowAmber]]){
+    const p=B(sofa,26,24,9.5,pMat,px,43,33.5,3.8);
     p.rotation.z=rotZ;p.rotation.y=rotY;
   }
   return sofa;

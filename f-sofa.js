@@ -139,3 +139,30 @@ export function buildV28UEMonitorArm({THREE,cm,B,CY,M,parent,screenMat}) {
 
   return grp;
 }
+
+// 2-person fabric sofa (150 x 85 x 78 cm) for option G (West wall facing East toward Arrezzo + MUJI on East wall).
+// Origin: floor / width centre / rear edge (z = 0..85, x = -75..75).
+export function buildGTwoPersonSofa({THREE,cm,B,CY,M,parent,wood}) {
+  const sofa=new THREE.Group();sofa.name='G two-seat sofa 150x85x78';parent.add(sofa);
+  sofa.userData={
+    role:'Two-person fabric sofa on West wall',
+    dimensionsCm:[150,85,78],
+    seatHeightCm:42,
+    productSelected:false,
+    priced:false
+  };
+  const fabric=M('#cbbfa9',{roughness:.95}),cushion=M('#d7ccb8',{roughness:.92}),pillowMat=M('#bba98e',{roughness:.95});
+  for(const x of [-65,65])for(const z of [8,76])CY(sofa,1.8,1.2,14,wood,x,0,z,16);
+  B(sofa,150,14,85,fabric,0,14,42.5,3);
+  B(sofa,150,50,17,fabric,0,28,8.5,5);
+  for(const x of [-68,68])B(sofa,14,32,85,fabric,x,28,42.5,5);
+  for(const x of [-30.5,30.5]){
+    B(sofa,60,14,66,cushion,x,28,50,5);
+    const back=B(sofa,60,34,14,cushion,x,41,23,6);back.rotation.x=-.12;
+  }
+  for(const [px,rotZ,rotY] of [[-52,-.18,.22],[52,.18,-.22]]){
+    const p=B(sofa,26,24,9,pillowMat,px,43,33,3.5);
+    p.rotation.z=rotZ;p.rotation.y=rotY;
+  }
+  return sofa;
+}

@@ -1,37 +1,102 @@
-// Product-sized D/E replacement, 2026-10-31. Shapes are visual approximations.
+// Product-sized D/E/F vanity replacement, 2026-11-03:
+// 리샘 바이엘 와이드거울 수납 화장대 (오크 · 110×41.1×134.3cm) + 리샘 스위트 원형의자 (베이지) — 받는 제품(예산 제외)
 export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
-  const timber=wood('#ccaa79','#a38354');
-  const vanity=place(753,632,1,0);vanity.name='LIV console 01 natural 90x39x76';
-  vanity.userData.dimensionsCm=[90,39,76];
-  vanity.userData.kneeClearanceCm={width:59,height:59.7};
-  B(vanity,90,1.8,39,timber,0,74.2,19.5,.3);
-  B(vanity,90,1.8,39,timber,0,59.7,19.5,.3);
-  for(const x of [-44.1,44.1])B(vanity,1.8,12.7,39,timber,x,61.5,19.5,.25);
-  B(vanity,86.4,12.7,1.5,timber,0,61.5,.75);
-  B(vanity,1.2,12.7,36,timber,0,61.5,19);
-  const drawers=[];
-  for(const x of [-21.9,21.9]){
-    const d=new THREE.Group();vanity.add(d);d.position.x=cm(x);d.name='LIV closed drawer';
-    B(d,42.7,13.4,1.6,timber,0,60.2,38.2,.25);
-    B(d,39.8,.8,31,timber,0,61.2,21.7,.15);
-    const shadow=M('#8e704c',{roughness:1});B(d,9.5,1.1,.2,shadow,0,66.1,39.05,.2);
-    B(d,10,1.5,1.1,timber,0,66.5,39.5,.45);drawers.push(d);
+  const timber=wood('#cfa978','#a47e4f'),innerOak=wood('#c39b69','#967144');
+  const shadow=M('#7d5f3b',{roughness:.92}),darkSlot=M('#5e462b',{roughness:.95});
+  const vanity=place(753,632,1,0);
+  vanity.position.set(cm(804),0,cm(702));
+  vanity.name='Resam Bayer wide mirror storage vanity oak 110x41.1x134.3';
+  vanity.userData.dimensionsCm=[110,41.1,134.3];
+  vanity.userData.kneeClearanceCm={width:76,height:61.5};
+  vanity.userData.gifted=true;
+
+  // 1. Lower Left: 2 splayed tapered round oak legs (x = -50cm, open knee space x = -48 ~ +25cm)
+  B(vanity,5.2,3.2,36,timber,-50,58.3,20.5,.3);
+  for(const z of [6.5,34.5]){
+    const leg=CY(vanity,2.05,1.35,60,timber,-50,0,z,20);
+    leg.rotation.z=-0.045;
   }
-  for(const x of [-31.2,31.2])for(const z of [5,34])B(vanity,3.4,59.7,3.4,timber,x,0,z,.25);
-  B(vanity,59,3,2.6,timber,0,28,5,.2);
-  for(const x of [-31.2,31.2])B(vanity,2.5,2.5,29,timber,x,18,19.5,.2);
-  const mirror=new THREE.Group();vanity.add(mirror);mirror.name='LIV tabletop mirror natural 29x16x42.5';mirror.position.set(0,cm(76),cm(15));
-  mirror.userData.dimensionsCm=[29,16,42.5];
-  for(const x of [-13.3,13.3]){B(mirror,2.4,1.6,16,timber,x,0,0,.35);B(mirror,1.6,36,1.5,timber,x,1.6,0,.2);}
-  B(mirror,24.2,1.4,1.8,timber,0,6.8,0,.2);
-  const frame=new THREE.Group();mirror.add(frame);frame.position.set(0,cm(24.8),0);frame.rotation.x=-.055;
-  B(frame,25.5,35.2,1.2,timber,0,-17.6,0,.35);
-  const glass=new THREE.Mesh(new THREE.PlaneGeometry(cm(23),cm(32.7)),mat.mirror);glass.position.z=cm(.65);frame.add(glass);
-  for(const x of [-13.5,13.5]){const pivot=CY(mirror,.7,.7,.8,M('#88765c',{metalness:.65,roughness:.35}),x,24,0,16);pivot.rotation.z=Math.PI/2;}
-  B(vanity,19,.8,12,mat.ceramic2,-28,76,22,.8);CY(vanity,2,2,8,mat.ceramic,-31,76.8,22,16);CY(vanity,1.6,1.6,6,M('#b4a27e'),-24,76.8,22,16);
-  const stool=place(775,632,1,0);stool.name='Haje stool retained 41x24x45';
-  B(stool,41,3,24,timber,0,42,0,1);for(const x of [-17,17])for(const z of [-9,9])B(stool,3,42,3,timber,x,0,z,.3);
-  return {vanity,mirror,stool,drawers,setDrawersOpen(on){for(const d of drawers)d.position.z=cm(on?25:0);},revision:'liv-drawers-tabletop-mirror-20261031'};
+
+  // 2. Lower Right: Tall pull-out 2-tier sliding cabinet (x = +25 ~ +55cm, W30 × D41.1 × H61.5cm)
+  B(vanity,30,3.2,40.5,timber,40,0,20.4,.2);
+  for(const x of [25.9,54.1])B(vanity,1.8,58.3,40.5,timber,x,3.2,20.4,.2);
+  B(vanity,26.4,58.3,1.5,innerOak,40,3.2,.9);
+  B(vanity,26.4,1.6,37,innerOak,40,31.5,20);
+  const lowerPullout=B(vanity,29.2,57.5,1.8,timber,40,3.4,40.2,.25);
+  lowerPullout.name='Bayer lower pull-out cabinet door';
+  B(vanity,.55,57.5,.4,shadow,25.25,3.4,40.85);
+  B(vanity,29.2,.55,.4,shadow,40,61.1,40.85);
+
+  // 3. Middle Section: Wide desktop & 2 side-by-side handleless drawers (W110 × D41.1cm, y = 61.5 ~ 76cm)
+  B(vanity,110,1.8,41.1,timber,0,61.5,20.55,.28);
+  B(vanity,110,1.8,41.1,timber,0,74.2,20.55,.28);
+  for(const x of [-54.1,0,54.1])B(vanity,1.8,10.9,39.5,innerOak,x,63.3,19.8,.15);
+  B(vanity,106.4,10.9,1.5,innerOak,0,63.3,.85);
+  const drawers=[];
+  for(const x of [-27.2,27.2]){
+    const d=new THREE.Group();vanity.add(d);d.position.x=cm(x);d.name='Bayer wide drawer';
+    B(d,53.6,11.6,1.8,timber,0,62.1,40.2,.25);
+    B(d,50.8,1,34,innerOak,0,62.8,22.5,.15);
+    B(d,53.6,.55,.5,darkSlot,0,73.85,40.6);
+    if(x<0){
+      B(d,.8,7.5,33,innerOak,0,63.8,22.5,.1);
+      B(d,50,7.5,.8,innerOak,0,63.8,22.5,.1);
+    }
+    drawers.push(d);
+  }
+  B(vanity,.6,11.8,.5,shadow,0,62.0,40.85);
+
+  // 4. Upper Section (y = 76 ~ 134.3cm, H58.3 × D18cm):
+  //    Left: Wide mirror (W80cm, x = -55 ~ +25cm) + Right: Hinged door cabinet (W30cm, x = +25 ~ +55cm)
+  const mirror=new THREE.Group();vanity.add(mirror);
+  mirror.name='Bayer integrated wide mirror and upper cabinet 110x18x58.3';
+  mirror.position.set(0,cm(76),0);
+  mirror.userData.dimensionsCm=[110,18,58.3];
+  // Top continuous crown board (W110 × D18cm)
+  B(mirror,110,1.8,18,timber,0,56.5,9,.25);
+  // Left wide mirror frame & glass (x = -55 ~ +25cm, W80cm)
+  B(mirror,80,1.8,15.5,timber,-15,0,7.75,.2);
+  B(mirror,1.8,54.7,15.5,timber,-54.1,1.8,7.75,.2);
+  B(mirror,78.2,54.7,1.6,timber,-14.1,1.8,1.2,.15);
+  const glass=new THREE.Mesh(new THREE.PlaneGeometry(cm(76.2),cm(53.2)),mat.mirror);
+  glass.position.set(cm(-14.2),cm(29.15),cm(2.25));
+  mirror.add(glass);
+  // Right upper door storage cabinet (x = +25 ~ +55cm, W30 × D18 × H58.3cm)
+  B(mirror,30,1.8,18,timber,40,0,9,.2);
+  for(const x of [25.9,54.1])B(mirror,1.8,54.7,18,timber,x,1.8,9,.2);
+  B(mirror,26.4,54.7,1.5,innerOak,40,1.8,.85);
+  for(const y of [18.5,36.5])B(mirror,26.4,1.5,15.5,innerOak,40,y,8.6);
+  B(mirror,29.2,55.8,1.8,timber,40,1.25,17.1,.25).name='Bayer upper cabinet door';
+  B(mirror,.55,56.2,.4,shadow,25.25,1.05,17.75);
+
+  // Subtle vanity desktop tray & bottles on left front deck (z = 18 ~ 41.1cm is open desktop)
+  B(vanity,19,.8,12,mat.ceramic2,-34,76,28,.8);
+  CY(vanity,2,2,8,mat.ceramic,-37,76.8,28,16);
+  CY(vanity,1.6,1.6,6,M('#b4a27e'),-30,76.8,28,16);
+
+  // 5. Stool: 리샘 스위트 원형의자 · 베이지 (Ø32 × H44cm, cylindrical beige fabric drum + 4 splayed oak legs)
+  const stool=place(775,632,1,0);
+  stool.position.set(cm(834),0,cm(716));
+  stool.name='Resam Sweet round stool beige 32x32x44';
+  stool.userData.dimensionsCm=[32,32,44];
+  stool.userData.gifted=true;
+  const stoolFabric=M('#c8b6ab',{roughness:.92}),stoolPiping=M('#b5a195',{roughness:.88});
+  const stoolLegWood=wood('#cc9e69','#9f7342'),feltPad=M('#3a3530',{roughness:.95});
+  // Tall cylindrical drum cushion (y = 21.5 ~ 43.5cm) + soft domed top + stitched piping ring
+  CY(stool,15.8,15.6,21.5,stoolFabric,0,21.5,0,36);
+  CY(stool,14.8,15.8,1.2,stoolFabric,0,43.0,0,36);
+  const piping=new THREE.Mesh(new THREE.TorusGeometry(cm(15.65),cm(.32),10,36),stoolPiping);
+  piping.rotation.x=Math.PI/2;piping.position.y=cm(41.2);stool.add(piping);
+  // 4 slightly splayed solid round oak legs (y = 0 ~ 22cm)
+  for(let i=0;i<4;i++){
+    const ang=(i/4)*Math.PI*2+Math.PI/4;
+    const legGroup=new THREE.Group();stool.add(legGroup);
+    legGroup.rotation.y=ang;
+    const leg=CY(legGroup,2.05,1.65,22.5,stoolLegWood,0,0,10.2,18);
+    leg.rotation.x=-0.11;
+    CY(legGroup,1.6,1.6,.4,feltPad,0,0,11.4,16);
+  }
+  return {vanity,mirror,stool,drawers,setDrawersOpen(on){for(const d of drawers)d.position.z=cm(on?25:0);},revision:'resam-bayer-oak-sweet-stool-20261103'};
 }
 
 // The legacy export name is retained so the caller's existing import remains valid.

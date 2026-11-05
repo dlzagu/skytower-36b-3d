@@ -1,8 +1,10 @@
-// Product-sized D/E/F vanity replacement, 2026-11-03:
-// 리샘 바이엘 와이드거울 수납 화장대 (오크 · 110×41.1×134.3cm) + 리샘 스위트 원형의자 (베이지) — 받는 제품(예산 제외)
+// Product-sized D/E/F vanity replacement:
+// - D/F안: 리샘 바이엘 와이드거울 수납 화장대 (오크 · 110×41.1×134.3cm) + 리샘 스위트 원형의자 (베이지) — 받는 제품(예산 제외)
+// - E안: DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (오크 · 80×42×180cm) + 리샘 스위트 원형의자 (베이지) — 받는 제품(예산 제외)
 export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   const timber=wood('#cfa978','#a47e4f'),innerOak=wood('#c39b69','#967144');
   const shadow=M('#7d5f3b',{roughness:.92}),darkSlot=M('#5e462b',{roughness:.95});
+  const railSteel=M('#25272a',{metalness:.65,roughness:.35});
   const vanity=place(753,632,1,0);
   vanity.position.set(cm(804),0,cm(702));
   vanity.name='Resam Bayer wide mirror storage vanity oak 110x41.1x134.3';
@@ -74,6 +76,196 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   CY(vanity,2,2,8,mat.ceramic,-37,76.8,28,16);
   CY(vanity,1.6,1.6,6,M('#b4a27e'),-30,76.8,28,16);
 
+  // ============================================================================
+  // E안 전용: DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (오크 · 80×42×180cm)
+  // - 좌측 수납 타워 (폭40cm, x = -40 ~ 0cm):
+  //   · 하부 3단 서랍장 (폭40 × 깊이42 × 높이70cm, y = 0 ~ 70cm)
+  //   · 중부 좌우 슬라이딩 서랍 겸 화장대 상판 (폭40 × 깊이30 × 높이14.8cm, y = 70 ~ 84.8cm, z = 12 ~ 42cm)
+  //   · 상부 3단 오픈형 선반 (폭40 × 깊이12 × 높이70cm, y = 70 ~ 140cm, z = 0 ~ 12cm)
+  // - 우측 아치형 전신거울 (폭40 × 높이180cm, x = 0 ~ +40cm, y = 0 ~ 180cm; 상단 반원 아치 R=20cm)
+  // ============================================================================
+  const moabelVanity=place(753,632,1,0);
+  moabelVanity.position.set(cm(804),0,cm(682));
+  moabelVanity.visible=false;
+  moabelVanity.name='DF Dongsuh Moabel LPM full-mirror 4-drawer sliding vanity oak 80x42x180';
+  moabelVanity.userData={
+    productId:'3554392',
+    shortUrl:'https://ozip.me/kt6GUZ7',
+    productName:'DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (오크)',
+    dimensionsCm:[80,42,180],
+    leftTowerWidthCm:40,
+    mirrorWidthCm:40,
+    mirrorHeightCm:180,
+    lowerChestHeightCm:70,
+    slidingDrawerCm:[40,30,14.8],
+    upperShelfCm:[40,12,70],
+    gifted:true
+  };
+
+  // M1. Left Lower 3-Drawer Chest (x = -40 ~ 0cm, W40 × D42 × H70cm)
+  B(moabelVanity,40,5.2,40.4,timber,-20,0,20.2,.18);
+  B(moabelVanity,39.4,.55,.5,darkSlot,-20,5.0,40.5);
+  for(const x of [-39.1,-.9])B(moabelVanity,1.8,64.8,41.2,timber,x,5.2,20.6,.2);
+  B(moabelVanity,36.4,64.8,1.4,innerOak,-20,5.2,.7);
+  B(moabelVanity,40,1.8,42,timber,-20,68.2,21,.22);
+  for(const y of [6.0,26.8,47.6]){
+    B(moabelVanity,36.8,1.2,2.2,darkSlot,-20,y+19.3,40.0);
+    B(moabelVanity,39.4,19.5,1.8,timber,-20,y,41.1,.22);
+    B(moabelVanity,39.4,.45,.45,shadow,-20,y+19.4,41.85);
+  }
+
+  // M2. Left Upper 3-Tier Open Shelf (x = -40 ~ 0cm, y = 70 ~ 140cm, z = 0 ~ 12cm, W40 × D12 × H70cm)
+  for(const x of [-39.1,-.9])B(moabelVanity,1.8,70,12,timber,x,70,6,.2);
+  B(moabelVanity,36.4,70,1.4,innerOak,-20,70,.7);
+  B(moabelVanity,40,1.8,12,timber,-20,138.2,6,.22);
+  // Top 7cm front valance & 2 open shelf boards (clear heights 23cm / 21cm per official spec sheet)
+  B(moabelVanity,36.4,7.0,1.6,timber,-20,133.0,11.2,.15);
+  B(moabelVanity,36.4,1.6,11.2,timber,-20,83.2,5.8,.15);
+  B(moabelVanity,36.4,1.6,11.2,timber,-20,107.8,5.8,.15);
+  // Cosmetics & reed diffuser on open shelves
+  CY(moabelVanity,2.1,2.1,9.5,mat.ceramic,-29,84.8,6.2,18);
+  CY(moabelVanity,1.7,1.7,7.6,mat.ceramic2,-23,84.8,6.5,18);
+  CY(moabelVanity,1.3,1.3,5.8,M('#8b5a2b',{roughness:.3}),-18,84.8,6.4,16);
+  CY(moabelVanity,2.2,1.9,7.2,M('#e8dfd1',{roughness:.25}),-27,109.4,6.2,20);
+  for(const [dx,ang] of [[-.8,-.14],[0,.04],[.8,.15]]){
+    const st=B(moabelVanity,.22,13.5,.22,M('#cdb48c'),-27+dx,114,6.2);
+    st.rotation.z=ang;
+  }
+  B(moabelVanity,3.8,5.4,2.2,M('#d8c39e',{roughness:.3}),-15,109.4,6.2,.3);
+
+  // M3. Middle 4th Drawer: Lateral Ball-Bearing Sliding Drawer/Tabletop (W40 × D30 × H14.8cm, y = 70 ~ 84.8cm, z = 12 ~ 42cm)
+  // Black steel ball-bearing slide rail connecting left tower and mirror side
+  B(moabelVanity,54,1.5,.8,railSteel,-11,71.2,12.35,.08);
+  B(moabelVanity,48,.9,.5,railSteel,-8,82.4,12.35,.06);
+  const moabelSlideDrawer=new THREE.Group();
+  moabelSlideDrawer.name='Moabel lateral sliding drawer 40x30x14.8';
+  // Slid 16cm to the right in front of the full-length mirror for seated use
+  moabelSlideDrawer.position.x=cm(16);
+  moabelVanity.add(moabelSlideDrawer);
+  B(moabelSlideDrawer,39.6,1.4,29.2,innerOak,-20,70.2,26.6,.12);
+  for(const x of [-39.1,-.9])B(moabelSlideDrawer,1.6,14.2,29.2,timber,x,70.2,26.6,.15);
+  B(moabelSlideDrawer,36.4,13.8,1.4,innerOak,-20,70.4,12.7,.1);
+  // Front oak drawer face with recessed top finger groove
+  B(moabelSlideDrawer,36.8,1.1,2.0,darkSlot,-20,83.4,40.1);
+  B(moabelSlideDrawer,39.8,14.4,1.8,timber,-20,70.2,41.1,.22);
+  B(moabelSlideDrawer,39.8,.45,.45,shadow,-20,84.2,41.85);
+  // Right half of sliding drawer has a smooth top deck; left half exposes internal organizer grid
+  B(moabelSlideDrawer,21.5,1.5,29.2,timber,-10.2,83.3,26.6,.18);
+  B(moabelSlideDrawer,.8,10.5,27.6,innerOak,-29.5,71.6,26.6,.08);
+  B(moabelSlideDrawer,17.2,10.5,.8,innerOak,-29.5,71.6,26.6,.08);
+  CY(moabelSlideDrawer,2.2,2.2,1.6,mat.ceramic2,-10,84.8,28,20);
+
+  // M4. Right Full-Length Arched Mirror (x = 0 ~ +40cm, y = 0 ~ 180cm, W40 × H180cm, top semicircle R=20cm)
+  const archShape=new THREE.Shape();
+  archShape.moveTo(cm(0),0);
+  archShape.lineTo(cm(40),0);
+  archShape.lineTo(cm(40),cm(160));
+  archShape.absarc(cm(20),cm(160),cm(20),0,Math.PI,false);
+  archShape.lineTo(cm(0),0);
+  const archFrame=new THREE.Mesh(
+    new THREE.ExtrudeGeometry(archShape,{depth:cm(2.2),bevelEnabled:false,curveSegments:36,steps:1}),
+    timber
+  );
+  archFrame.castShadow=true;archFrame.receiveShadow=true;
+  archFrame.name='Moabel full-length arched mirror frame 40x180';
+  moabelVanity.add(archFrame);
+
+  const glassShape=new THREE.Shape();
+  glassShape.moveTo(cm(1.6),cm(1.6));
+  glassShape.lineTo(cm(38.4),cm(1.6));
+  glassShape.lineTo(cm(38.4),cm(160));
+  glassShape.absarc(cm(20),cm(160),cm(18.4),0,Math.PI,false);
+  glassShape.lineTo(cm(1.6),cm(1.6));
+  const archGlass=new THREE.Mesh(new THREE.ShapeGeometry(glassShape,36),mat.mirror);
+  archGlass.position.z=cm(2.35);
+  archGlass.name='Moabel full-length arched mirror glass';
+  moabelVanity.add(archGlass);
+
+  // ============================================================================
+  // E안 전용: 위니아 NEW mini 건조기 3kg 소형 · 화이트 (49 × 41 × 63.1cm)
+  // - 침실 서쪽 벽(x=804cm) 모아벨 화장대(z=642~722cm) 바로 남쪽 옆(z=728~777cm, 중심 z=752.5cm) 배치
+  // - 쿠팡 링크: https://link.coupang.com/a/iqQEeFQovs (6674097574 · 370,000원 · 무료배송)
+  // ============================================================================
+  const miniDryer=place(753,632,1,0);
+  miniDryer.position.set(cm(804),0,cm(752.5));
+  miniDryer.visible=false;
+  miniDryer.name='Winia NEW mini dryer 3kg white 49x41x63.1';
+  miniDryer.userData={
+    productId:'6674097574',
+    shortUrl:'https://link.coupang.com/a/iqQEeFQovs',
+    productName:'위니아 미니 건조기 3kg 소형 · 화이트 (EWR-03SEW / WWR-03SEW 계열)',
+    dimensionsCm:[49,41,63.1],
+    price:370000,
+    shipping:0
+  };
+  const dryerWhite=M('#f6f6f3',{roughness:.22,metalness:.04});
+  const dryerSoftGray=M('#dcdfe2',{roughness:.35,metalness:.12});
+  const dryerSilver=M('#94999d',{roughness:.26,metalness:.68});
+  const dryerDarkRing=M('#26292c',{roughness:.24,metalness:.45});
+  const dryerDoorGlass=M('#14171a',{roughness:.10,metalness:.22});
+  const dryerFootMat=M('#222426',{roughness:.88});
+  // 4 rubber leveling feet (H 1.5cm)
+  for(const fx of [-18.5,18.5])for(const fz of [6,34]){
+    CY(miniDryer,2.1,1.9,1.5,dryerFootMat,fx,0,fz,18);
+  }
+  // Main rounded white squircle body (W49 × H61.6 × D39.2cm, y = 1.5 ~ 63.1cm)
+  B(miniDryer,49,61.6,39.2,dryerWhite,0,1.5,19.6,3.2);
+  // Subtle front face contour & side recessed carry handles
+  B(miniDryer,45.6,58.4,.8,dryerWhite,0,3.1,39.1,2.6);
+  for(const sx of [-24.3,24.3]){
+    B(miniDryer,.7,7.6,10.5,dryerSoftGray,sx,45.5,20,.25);
+    B(miniDryer,.4,5.8,8.8,dryerFootMat,sx+(sx<0?-.15:.15),46.4,20,.15);
+  }
+  // Circular front door (centered at x=0, y=36.5cm, z=39.6~41cm, outer Ø37.5cm)
+  const doorOuterRing=new THREE.Mesh(new THREE.TorusGeometry(cm(17.6),cm(1.2),18,48),dryerSilver);
+  doorOuterRing.position.set(0,cm(36.5),cm(39.7));
+  doorOuterRing.castShadow=true;
+  miniDryer.add(doorOuterRing);
+  const doorInnerRing=new THREE.Mesh(new THREE.TorusGeometry(cm(16.3),cm(.45),14,48),dryerDarkRing);
+  doorInnerRing.position.set(0,cm(36.5),cm(40.25));
+  miniDryer.add(doorInnerRing);
+  const doorWindow=new THREE.Mesh(new THREE.CylinderGeometry(cm(16.6),cm(16.6),cm(.9),48),dryerDoorGlass);
+  doorWindow.rotation.x=Math.PI/2;
+  doorWindow.position.set(0,cm(36.5),cm(40.0));
+  miniDryer.add(doorWindow);
+  // Right-side integrated door handle indent on the circular bezel
+  B(miniDryer,1.3,9.2,1.1,dryerSilver,17.2,32.0,40.1,.35);
+  // Center "mini" badge & lower circular LED touch display ("0:53")
+  const dryerUiCanvas=document.createElement('canvas');
+  dryerUiCanvas.width=256;dryerUiCanvas.height=256;
+  const dctx=dryerUiCanvas.getContext('2d');
+  dctx.clearRect(0,0,256,256);
+  // Top half of canvas: "mini" logo for center of door glass
+  dctx.fillStyle='rgba(255,255,255,0.88)';
+  dctx.font='bold 44px system-ui, -apple-system, sans-serif';
+  dctx.textAlign='center';dctx.textBaseline='middle';
+  dctx.fillText('mini',128,64);
+  // Bottom half of canvas: circular black LED timer display ("0:53")
+  dctx.fillStyle='#101316';
+  dctx.beginPath();dctx.arc(128,192,54,0,Math.PI*2);dctx.fill();
+  dctx.strokeStyle='#8f959a';dctx.lineWidth=4;dctx.stroke();
+  dctx.fillStyle='#e9f3ff';
+  dctx.font='bold 34px monospace';
+  dctx.fillText('0:53',128,194);
+  const dryerUiTex=new THREE.CanvasTexture(dryerUiCanvas);
+  dryerUiTex.colorSpace=THREE.SRGBColorSpace;
+  const miniLogoGeo=new THREE.PlaneGeometry(cm(9.5),cm(4.5));
+  const uvL=miniLogoGeo.attributes.uv;
+  for(let i=0;i<uvL.count;i++)uvL.setY(i,uvL.getY(i)*0.5+0.5);
+  const miniLogoMesh=new THREE.Mesh(miniLogoGeo,new THREE.MeshBasicMaterial({map:dryerUiTex,transparent:true}));
+  miniLogoMesh.position.set(0,cm(36.5),cm(40.52));
+  miniDryer.add(miniLogoMesh);
+  const ledGeo=new THREE.PlaneGeometry(cm(6.8),cm(6.8));
+  const uvD=ledGeo.attributes.uv;
+  for(let i=0;i<uvD.count;i++)uvD.setY(i,uvD.getY(i)*0.5);
+  const ledMesh=new THREE.Mesh(ledGeo,new THREE.MeshBasicMaterial({map:dryerUiTex,transparent:true}));
+  ledMesh.position.set(0,cm(9.2),cm(39.62));
+  miniDryer.add(ledMesh);
+  // Touch button icons flanking the circular LED display
+  for(const bx of [-5.4,5.4])for(const by of [7.6,10.8]){
+    CY(miniDryer,.65,.65,.2,dryerSilver,bx,by,39.5,16).rotation.x=Math.PI/2;
+  }
+
   // 5. Stool: 리샘 스위트 원형의자 · 베이지 (Ø32 × H44cm, cylindrical beige fabric drum + 4 splayed oak legs)
   const stool=place(775,632,1,0);
   stool.position.set(cm(834),0,cm(716));
@@ -96,7 +288,28 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
     leg.rotation.x=-0.11;
     CY(legGroup,1.6,1.6,.4,feltPad,0,0,11.4,16);
   }
-  return {vanity,mirror,stool,drawers,setDrawersOpen(on){for(const d of drawers)d.position.z=cm(on?25:0);},revision:'resam-bayer-oak-sweet-stool-20261103'};
+  function setVariantMode(v){
+    const onlyE=v==='E';
+    vanity.visible=!onlyE;
+    moabelVanity.visible=onlyE;
+    miniDryer.visible=onlyE;
+    stool.position.set(cm(onlyE?838:834),0,cm(onlyE?666:716));
+  }
+  return {
+    vanity,
+    moabelVanity,
+    miniDryer,
+    mirror,
+    stool,
+    drawers,
+    moabelSlideDrawer,
+    setVariantMode,
+    setDrawersOpen(on){
+      for(const d of drawers)d.position.z=cm(on?25:0);
+      moabelSlideDrawer.position.x=cm(on?24:16);
+    },
+    revision:'moabel-e-winia-dryer-bayer-df-sweet-stool-20261105'
+  };
 }
 
 // The legacy export name is retained so the caller's existing import remains valid.

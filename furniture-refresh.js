@@ -289,7 +289,7 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
     CY(legGroup,1.6,1.6,.4,feltPad,0,0,11.4,16);
   }
   function setVariantMode(v){
-    const onlyE=v==='E';
+    const onlyE=v==='E'||v==='G';
     vanity.visible=!onlyE;
     moabelVanity.visible=onlyE;
     miniDryer.visible=onlyE;

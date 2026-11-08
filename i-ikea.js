@@ -1,8 +1,11 @@
 // I안: E안 기준(서쪽 선반·아레초 LP장·침실 모아벨 화장대·미니건조기 유지) + 이케아 매장 픽(Google Drive) 풀세트 대체안 (2026-11-08)
-// - 서쪽 벽 선반(무인양품 SUS 떡갈나무 와이드 L + 2단 서랍) 및 아레초930 오크 LP장은 E안 그대로 유지 ("선반은 제외")
-// - 식탁·의자 대체: TONSTAD 톤스타드 참나무무늬목 테이블(150×80×75cm · 399,000원) + HÖGVED 회그베드 의자 그린 2개(40×51×86cm · 129,000원×2 = 258,000원 · 406.070.11) [스톡홀름 2025 Ø115 원형식탁 전환 지원]
+// - 서쪽 벽 선반(무인양품 SUS 떡갈나무 와이드 L + 2단 서랍) 및 아레초930 오크 LP장은 E안 그대로 유지하되, 원형 식탁 적용으로 여유가 생긴 북쪽(턴테이블 옆쪽)으로 34cm씩 이동 배치
+// - 식탁·의자 대체: STOCKHOLM 2025 스톡홀름 2025 참나무무늬목 원형 테이블(Ø115×75cm · 649,000원 · s79606586 / 505.964.65) + HÖGVED 회그베드 의자 그린 2개(40×51×86cm · 129,000원×2 = 258,000원 · 406.070.11) [톤스타드 150×80 사각식탁 전환 지원]
 // - 의자·쇼파·커피테이블·러그 대체: POÄNG 포엥 호두나무/다크옐로 코듀로이 암체어(149,900원) + LÅNESPELARE 컵홀더(11,900원) + POÄNG 자작나무/보슬뢰브 레드 로우백암체어(104,900원) + HOLMERUD 홀메루드 커피테이블(90×55×45cm · 64,900원) + STOENSE 스토엔세 페일그린 단모러그(133×195cm · 79,900원)
-// - 조명 대체: ÖKENSAND 외켄산드 플로어스탠드(154cm · 99,900원) + SAMBORD 삼보르드 독서등(128cm · 39,900원) + MARKFROST 마르크프로스트 대리석 탁상등(19,900원)
+// - 조명 대체:
+//   1) 무지 선반 바로 옆: ÖKENSAND 외켄산드 플로어스탠드 · 너도밤나무/화이트(154cm · 99,900원 · 405.415.34)
+//   2) 동쪽 포엥 의자 2개 사이: IKEA PS 2026 상향식플로어스탠드 · 다크레드(182cm · 149,000원 · 106.085.16)
+//   3) 커피테이블 선반: MARKFROST 마르크프로스트 대리석 탁상등(35,000원 · 205.415.25)
 // - 남서 창가 식물·트리 대체: VINTERFINT 빈테르핀트 인조 크리스마스트리(150cm · 35,000원) + STRÅLA 스트롤라 160구 LED 체인조명(29,900원) + RISATORP 리사토르프 레드 바구니(7,900원) + FEJKA 페이카 스트렐리치아 극락조화 인조식물(23cm 화분 / H165cm · 89,900원)
 // - 욕실 거울수납장 밑 세트 부착: HUMLESJÖN 훔레셴 흡착식거울 오렌지(9,900원 · 006.289.73) + HUMLESJÖN 훔레셴 흡착식후크 2개입 오렌지/터콰이즈(4,900원 · 306.009.63) 세트로 화장실 장 밑 타일벽(h=121cm)에 부착
 
@@ -40,7 +43,7 @@ export function buildIIkeaLayout({
   const redCushion = M('#b84632', { roughness: 0.86 });
   const blackMetal = M('#222426', { metalness: 0.55, roughness: 0.38 });
   const chromeMetal = M('#d8dddf', { metalness: 0.88, roughness: 0.16 });
-  const anthracite = M('#2d3033', { metalness: 0.45, roughness: 0.45 });
+  const psDarkRedMat = M('#7d201e', { roughness: 0.28, metalness: 0.24 });
   const risatorpRed = M('#c43428', { metalness: 0.25, roughness: 0.45 });
   const humlesjonOrange = M('#d96528', { roughness: 0.32, metalness: 0.05 });
   const humlesjonMint = M('#6bb8b4', { roughness: 0.34, metalness: 0.05 });
@@ -64,15 +67,16 @@ export function buildIIkeaLayout({
   }
 
   // ============================================================================
-  // 1. 북서 다이닝 존: TONSTAD 톤스타드 참나무무늬목 식탁 (150×80×75cm · 805.940.64)
+  // 1. 북서 다이닝 존 (기본: STOCKHOLM 2025 원형 식탁 Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
   //    + HÖGVED 회그베드 의자 그린 2개 (40×51×86cm · 시트높이 45cm · 406.070.11 · 129,000원×2)
-  //    + (전환 옵션) STOCKHOLM 2025 원형 식탁 (Ø115×75cm · 505.964.65)
+  //    + (전환 옵션) TONSTAD 톤스타드 참나무무늬목 식탁 (150×80×75cm · 805.940.64 · 399,000원)
   // ============================================================================
-  const diningTonstad = placeI(529, 500, 0);
+  const diningTonstad = placeI(529, 492, 0);
   diningTonstad.name = 'I IKEA TONSTAD Oak Table 150x80x75 + 2 HOGVED Green Chairs';
+  diningTonstad.visible = false;
   diningTonstad.userData = {
     dimensions: [150, 80, 75],
-    bounds: [454, 604, 460, 540],
+    bounds: [454, 604, 452, 532],
     productId: '805.940.64',
     price: 399000
   };
@@ -157,7 +161,6 @@ export function buildIIkeaLayout({
     return c;
   }
 
-  // User request: "식탁의자는 이걸로 두개로 대체" -> 2 HÖGVED green chairs facing each other
   addHogvedChair(diningTonstad, 12, -52, 0, 'I HOGVED Green Chair 1 (North)');
   addHogvedChair(diningTonstad, 12, 52, Math.PI, 'I HOGVED Green Chair 2 (South)');
 
@@ -169,18 +172,18 @@ export function buildIIkeaLayout({
   // - VINTERSAGA 빈테르사가 미니 진저브레드 하우스 (606.038.61)
   function addTableDecor(parent, yTop) {
     // FRUKTSKAL bamboo tray (35×23cm) with black wire handles
-    B(parent, 35, 1.6, 23, voxlovBamboo, -24, yTop, -4, 0.5);
-    dRod(parent, [-40.5, yTop + 1.6, -9], [-40.5, yTop + 4.2, 1], 0.35, blackMetal);
-    dRod(parent, [-7.5, yTop + 1.6, -9], [-7.5, yTop + 4.2, 1], 0.35, blackMetal);
+    B(parent, 35, 1.6, 23, voxlovBamboo, -18, yTop, -4, 0.5);
+    dRod(parent, [-34.5, yTop + 1.6, -9], [-34.5, yTop + 4.2, 1], 0.35, blackMetal);
+    dRod(parent, [-1.5, yTop + 1.6, -9], [-1.5, yTop + 4.2, 1], 0.35, blackMetal);
     // UPPHETTA French Press on tray
-    CY(parent, 5.2, 5.2, 16, glassClear, -30, yTop + 1.6, -5, 24);
-    CY(parent, 5.4, 5.4, 2.5, blackMetal, -30, yTop + 1.6, -5, 24);
-    CY(parent, 5.5, 5.3, 1.8, chromeMetal, -30, yTop + 17.6, -5, 24);
-    CY(parent, 0.8, 0.8, 2.2, chromeMetal, -30, yTop + 19.4, -5, 16);
+    CY(parent, 5.2, 5.2, 16, glassClear, -24, yTop + 1.6, -5, 24);
+    CY(parent, 5.4, 5.4, 2.5, blackMetal, -24, yTop + 1.6, -5, 24);
+    CY(parent, 5.5, 5.3, 1.8, chromeMetal, -24, yTop + 17.6, -5, 24);
+    CY(parent, 0.8, 0.8, 2.2, chromeMetal, -24, yTop + 19.4, -5, 16);
     // KORKEN 1L glass bottle
-    CY(parent, 4.4, 4.4, 15, glassClear, -16, yTop + 1.6, -4, 24);
-    CY(parent, 4.4, 1.8, 6.5, glassClear, -16, yTop + 16.6, -4, 24);
-    CY(parent, 1.9, 1.9, 1.2, mat.ceramic, -16, yTop + 23.1, -4, 16);
+    CY(parent, 4.4, 4.4, 15, glassClear, -10, yTop + 1.6, -4, 24);
+    CY(parent, 4.4, 1.8, 6.5, glassClear, -10, yTop + 16.6, -4, 24);
+    CY(parent, 1.9, 1.9, 1.2, mat.ceramic, -10, yTop + 23.1, -4, 16);
     // OSTBIT bamboo plate rack (27×12×8.5cm)
     B(parent, 24, 1.2, 1.4, voxlovBamboo, 18, yTop, -14, 0.2);
     B(parent, 24, 1.2, 1.4, voxlovBamboo, 18, yTop, -4, 0.2);
@@ -190,33 +193,37 @@ export function buildIIkeaLayout({
       dRod(parent, [px, yTop + 1, -4], [px, yTop + 8.5, -4], 0.3, voxlovBamboo);
     }
     // VINTERSAGA mini gingerbread house display on a small plate
-    CY(parent, 8, 8, 0.6, mat.ceramic, 24, yTop, 14, 28);
-    B(parent, 7.5, 6.5, 6.5, M('#8c4f2b', { roughness: 0.85 }), 24, yTop + 0.6, 14, 0.3);
+    CY(parent, 8, 8, 0.6, mat.ceramic, 20, yTop, 14, 28);
+    B(parent, 7.5, 6.5, 6.5, M('#8c4f2b', { roughness: 0.85 }), 20, yTop + 0.6, 14, 0.3);
     const roof = new THREE.Mesh(new THREE.ConeGeometry(cm(6.2), cm(5.2), 4), M('#7a4222', { roughness: 0.8 }));
     roof.rotation.y = Math.PI / 4;
-    roof.position.set(cm(24), cm(yTop + 9.5), cm(14));
+    roof.position.set(cm(20), cm(yTop + 9.5), cm(14));
     parent.add(roof);
   }
   addTableDecor(diningTonstad, 75);
 
-  // Alternative Table (1-click toggleable): STOCKHOLM 2025 Round Dining Table (Ø115×75cm · 505.964.65)
-  const diningStockholm = placeI(565, 500, 0);
-  diningStockholm.name = 'I IKEA STOCKHOLM 2025 Round Oak Table 115x115x75';
-  diningStockholm.visible = false;
+  // Primary Dining Table (User selected): STOCKHOLM 2025 Round Dining Table (Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
+  // Placed at (568, 492) so West wall north of turntable cabinet is open, allowing LP cabinet & MUJI shelf to shift 34cm North!
+  const diningStockholm = placeI(568, 492, 0);
+  diningStockholm.name = 'I IKEA STOCKHOLM 2025 Round Oak Table 115x115x75 s79606586';
+  diningStockholm.visible = true;
   diningStockholm.userData = {
     dimensions: [115, 115, 75],
-    bounds: [507.5, 622.5, 442.5, 557.5],
-    productId: '505.964.65',
+    bounds: [510.5, 625.5, 434.5, 549.5],
+    productId: 's79606586',
+    articleId: '505.964.65',
     price: 649000
   };
+  // Sculpted Stockholm 2025 oak veneer circular top (Ø115cm, y=72.2..75cm) + recessed under-frame + 4 architectural cylindrical oak legs
   CY(diningStockholm, 57.5, 57.2, 2.8, stockholmOak, 0, 72.2, 0, 64);
+  CY(diningStockholm, 44.0, 44.0, 3.2, stockholmOak, 0, 69.0, 0, 48);
   for (let i = 0; i < 4; i++) {
     const a = (i * Math.PI) / 2 + Math.PI / 4;
     const lx = Math.cos(a) * 34, lz = Math.sin(a) * 34;
-    CY(diningStockholm, 3.6, 3.2, 72.2, stockholmOak, lx, 0, lz, 24);
+    CY(diningStockholm, 3.8, 3.4, 72.2, stockholmOak, lx, 0, lz, 24);
   }
-  addHogvedChair(diningStockholm, 0, -68, 0, 'I STOCKHOLM HOGVED Green Chair 1 (North)');
-  addHogvedChair(diningStockholm, 0, 68, Math.PI, 'I STOCKHOLM HOGVED Green Chair 2 (South)');
+  addHogvedChair(diningStockholm, 0, -64, 0, 'I STOCKHOLM HOGVED Green Chair 1 (North)');
+  addHogvedChair(diningStockholm, 0, 64, Math.PI, 'I STOCKHOLM HOGVED Green Chair 2 (South)');
   addTableDecor(diningStockholm, 75);
 
   // ============================================================================
@@ -224,7 +231,7 @@ export function buildIIkeaLayout({
   //    - POÄNG 포엥 암체어 (호두나무무늬 / 셸링에 다크옐로 코듀로이 · 68×82×100cm · s89625283)
   //      + LÅNESPELARE 로네스펠라레 원목 컵홀더 (105.715.27)
   //    - POÄNG 포엥 로우백암체어 (자작나무무늬 / 보슬뢰브 레드 · 68×83×71cm · s49551590)
-  //    - SAMBORD 삼보르드 독서등 (128cm · 505.733.55)
+  //    - 의자 사이 조명: IKEA PS 2026 상향식플로어스탠드 · 다크레드 (182cm · 149,000원 · 106.085.16)
   //    - HOLMERUD 홀메루드 커피테이블 (90×55×45cm · 참나무무늬 · 205.300.94)
   //    - STOENSE 스토엔세 단모러그 페일그린 (133×195cm · 806.291.48)
   // ============================================================================
@@ -294,7 +301,7 @@ export function buildIIkeaLayout({
   // North POÄNG: High-back Walnut + Dark Yellow Corduroy + LÅNESPELARE Cup Holder
   const poangYellow = buildPoangChair({
     x: 742,
-    z: 642,
+    z: 638,
     rotY: (-75 * Math.PI) / 180,
     frameMat: poangWalnut,
     cushionMat: yellowCorduroy,
@@ -306,7 +313,7 @@ export function buildIIkeaLayout({
   // South POÄNG: Low-back Birch + Red Cushion (under wallpad h=104cm)
   const poangRed = buildPoangChair({
     x: 742,
-    z: 744,
+    z: 748,
     rotY: (-105 * Math.PI) / 180,
     frameMat: poangBirch,
     cushionMat: redCushion,
@@ -315,31 +322,55 @@ export function buildIIkeaLayout({
     name: 'I POANG Low-Back Armchair Birch + Red s49551590'
   });
 
-  // SAMBORD 삼보르드 플로어스탠드/독서등 (128cm · 옐로베이지/앤트러사이트 · 505.733.55) between the 2 POÄNG chairs
-  const sambordLamp = placeI(764, 693, -Math.PI / 2);
-  sambordLamp.name = 'I IKEA SAMBORD Reading Floor Lamp 128cm 505.733.55';
-  CY(sambordLamp, 11.5, 12, 1.4, anthracite, 0, 0, 0, 32);
-  dRod(sambordLamp, [0, 1.4, 0], [0, 118, 0], 0.85, anthracite);
-  dRod(sambordLamp, [0, 118, 0], [0, 126, 14], 0.7, anthracite);
-  const sambordShadeMat = new THREE.MeshStandardMaterial({
-    color: '#e6cf99',
-    emissive: '#ffcf82',
-    emissiveIntensity: 0,
-    roughness: 0.38,
+  // 동쪽 포엥 의자 2개 사이 조명 (사용자 지정: "이거가 의자사이에 들어가야돼 그리고 이색이야"):
+  // IKEA PS 2026 상향식플로어스탠드 · 다크레드 (높이 182cm · 받침 Ø28cm · 갓 Ø16cm · 149,000원 · 106.085.16)
+  const psDarkRedInnerMat = new THREE.MeshStandardMaterial({
+    color: '#fff1d0',
+    emissive: '#ffc966',
+    emissiveIntensity: 0.38,
+    roughness: 0.25,
     side: THREE.DoubleSide
   });
-  const sambordShade = new THREE.Mesh(
-    new THREE.ConeGeometry(cm(9.5), cm(14), 32, 1, true),
-    sambordShadeMat
+  const sambordLamp = placeI(756, 693, 0);
+  sambordLamp.name = 'I IKEA PS 2026 Floor Uplighter Dark Red 182cm 106.085.16';
+  sambordLamp.userData = {
+    productId: '106.085.16',
+    productName: 'IKEA PS 2026 이케아 피에스 2026 상향식플로어스탠드 · 다크레드 (182cm)',
+    dimensions: [28, 28, 182],
+    price: 149000
+  };
+  // Flat circular Dark Red steel base (Ø28cm => R=14cm) + central collar
+  CY(sambordLamp, 14.0, 14.0, 1.4, psDarkRedMat, 0, 0, 0, 40);
+  CY(sambordLamp, 2.4, 2.8, 3.5, psDarkRedMat, 0, 1.4, 0, 24);
+  // Tall tubular Dark Red steel pole rising to adjustable knuckle joint at y=156.5cm
+  CY(sambordLamp, 1.25, 1.25, 152, psDarkRedMat, 0, 4.5, 0, 24);
+  // Articulated tilt joint at y=156.5..162cm
+  CY(sambordLamp, 1.6, 1.6, 5.5, blackMetal, 0, 156.5, 0, 20);
+  // Sculpted IKEA PS 2026 conical/bell Dark Red steel uplighter head (Ø16cm => R=8cm, y=162..182cm, tilted slightly toward living room)
+  const psRedHead = new THREE.Group();
+  psRedHead.position.set(0, cm(161.5), 0);
+  psRedHead.rotation.z = 0.18;
+  psRedHead.rotation.x = 0.06;
+  sambordLamp.add(psRedHead);
+  CY(psRedHead, 3.2, 1.8, 6.5, psDarkRedMat, 0, 0, 0, 28);
+  const psRedCone = new THREE.Mesh(
+    new THREE.CylinderGeometry(cm(8.2), cm(3.2), cm(14.5), 36, 1, true),
+    psDarkRedMat
   );
-  sambordShade.position.set(0, cm(120), cm(16));
-  sambordShade.rotation.x = 0.25;
-  sambordShade.castShadow = true;
-  sambordLamp.add(sambordShade);
-  const sambordLight = new THREE.PointLight('#ffd28e', 0, 2.8, 1.8);
-  sambordLight.position.set(0, cm(114), cm(16));
+  psRedCone.position.set(0, cm(13.5), 0);
+  psRedCone.castShadow = true;
+  psRedHead.add(psRedCone);
+  const psRedReflector = new THREE.Mesh(
+    new THREE.CircleGeometry(cm(7.6), 32),
+    psDarkRedInnerMat
+  );
+  psRedReflector.rotation.x = -Math.PI / 2;
+  psRedReflector.position.set(0, cm(19.2), 0);
+  psRedHead.add(psRedReflector);
+  const sambordLight = new THREE.PointLight('#ffd284', 0, 4.6, 1.6);
+  sambordLight.position.set(cm(-3), cm(180), 0);
   sambordLamp.add(sambordLight);
-  if (addAccent) addAccent(sambordLight, sambordShadeMat, 0.95, 1.4);
+  if (addAccent) addAccent(sambordLight, psDarkRedInnerMat, 1.65, 1.6);
 
   // HOLMERUD 홀메루드 커피테이블 (90×55×45cm · 참나무무늬 · 205.300.94)
   const holmerud = placeI(636, 694, Math.PI / 2);
@@ -384,59 +415,59 @@ export function buildIIkeaLayout({
   });
 
   // ============================================================================
-  // 3. 거실 플로어장스탠드 (사용자 지정: "플로어장스텐드는 옐로우컬러로"):
-  //    - IKEA PS 2026 상향식플로어스탠드 · 옐로 (높이 182cm · 받침 Ø28cm · 갓 Ø16cm · 149,000원 · 106.085.40)
-  //    - MARKFROST 마르크프로스트 대리석 탁상스탠드 (19,900원 · 205.415.25)
+  // 3. 무지 선반 바로 옆 길쭉한 플로어스탠드 (사용자 지정: "이거가 선반 옆으로 가고" + "무지선반 옆에 길쭉한 조명 배치"):
+  //    - IKEA ÖKENSAND 외켄산드 플로어스탠드 · 너도밤나무/화이트 (높이 154cm · Ø35cm · 99,900원 · 405.415.34)
+  //    - 위치: 북쪽으로 34cm 이동한 무지 와이드L 선반(z=613.5..699.5) 바로 남쪽 옆 (476, 728)
+  //    - MARKFROST 마르크프로스트 대리석 탁상스탠드 (35,000원 · 205.415.25)
   // ============================================================================
-  const psYellowMat = M('#f0c224', { roughness: 0.28, metalness: 0.22 });
-  const psYellowInnerMat = new THREE.MeshStandardMaterial({
-    color: '#fff4c2',
-    emissive: '#ffcf6e',
-    emissiveIntensity: 0.35,
-    roughness: 0.25,
+  const okensandShadeMat = new THREE.MeshStandardMaterial({
+    color: '#f8f5ec',
+    emissive: '#ffcf7c',
+    emissiveIntensity: 0.25,
+    roughness: 0.55,
     side: THREE.DoubleSide
   });
-  const okensand = placeI(488, 750, 0);
-  okensand.name = 'I IKEA PS 2026 Floor Uplighter Yellow 182cm 106.085.40';
+  const okensand = placeI(476, 728, 0);
+  okensand.name = 'I IKEA OKENSAND Floor Lamp Beech White 154cm 405.415.34';
   okensand.userData = {
-    productId: '106.085.40',
-    productName: 'IKEA PS 2026 이케아 피에스 2026 상향식플로어스탠드 · 옐로 (182cm)',
-    dimensions: [28, 28, 182],
-    price: 149000
+    productId: '405.415.34',
+    productName: 'IKEA ÖKENSAND 외켄산드 플로어스탠드 · 너도밤나무/화이트 (154cm)',
+    dimensions: [35, 35, 154],
+    price: 99900
   };
-  // Flat circular yellow steel base (Ø28cm => R=14cm) + central collar
-  CY(okensand, 14.0, 14.0, 1.4, psYellowMat, 0, 0, 0, 40);
-  CY(okensand, 2.4, 2.8, 3.5, psYellowMat, 0, 1.4, 0, 24);
-  // Tall tubular yellow steel pole rising to adjustable knuckle joint at y=156cm
-  CY(okensand, 1.25, 1.25, 152, psYellowMat, 0, 4.5, 0, 24);
-  // Black/yellow articulated tilt joint at y=156..162cm
-  CY(okensand, 1.6, 1.6, 5.5, blackMetal, 0, 156.5, 0, 20);
-  // Sculpted IKEA PS 2026 conical/bell yellow metal uplighter head (Ø16cm => R=8cm, y=162..182cm, tilted slightly toward living room)
-  const psHead = new THREE.Group();
-  psHead.position.set(0, cm(161.5), 0);
-  psHead.rotation.z = -0.18;
-  psHead.rotation.x = 0.12;
-  okensand.add(psHead);
-  CY(psHead, 3.2, 1.8, 6.5, psYellowMat, 0, 0, 0, 28);
-  const psCone = new THREE.Mesh(
-    new THREE.CylinderGeometry(cm(8.2), cm(3.2), cm(14.5), 36, 1, true),
-    psYellowMat
+  // 3 tapered solid beechwood tripod legs splaying from upper frame (R=5.5cm at y=112cm) to floor (R=16.5cm at y=0)
+  for (let i = 0; i < 3; i++) {
+    const a = (i * Math.PI * 2) / 3 + Math.PI / 6;
+    const fx = Math.cos(a) * 16.5, fz = Math.sin(a) * 16.5;
+    const tx = Math.cos(a) * 5.2, tz = Math.sin(a) * 5.2;
+    dRod(okensand, [fx, 0, fz], [tx, 118, tz], 1.15, beechWood);
+  }
+  // Central beech/metal triangular hub at y=52cm and upper bulb socket ring at y=116cm
+  CY(okensand, 7.8, 8.2, 1.4, beechWood, 0, 52, 0, 24);
+  CY(okensand, 5.6, 5.6, 1.2, mat.ceramic, 0, 116, 0, 24);
+  // Signature tall pleated white fabric skirt shade (y=90..154cm, height 64cm, top R=10.5cm, bottom R=17.5cm)
+  const okensandShade = new THREE.Mesh(
+    new THREE.CylinderGeometry(cm(10.5), cm(17.5), cm(64), 36, 1, true),
+    okensandShadeMat
   );
-  psCone.position.set(0, cm(13.5), 0);
-  psCone.castShadow = true;
-  psHead.add(psCone);
-  // Inner glowing reflector disc at top of uplighter cone
-  const psReflector = new THREE.Mesh(
-    new THREE.CircleGeometry(cm(7.6), 32),
-    psYellowInnerMat
-  );
-  psReflector.rotation.x = -Math.PI / 2;
-  psReflector.position.set(0, cm(19.2), 0);
-  psHead.add(psReflector);
-  const okensandLight = new THREE.PointLight('#ffd484', 0, 4.6, 1.6);
-  okensandLight.position.set(cm(3), cm(180), cm(2));
+  okensandShade.position.set(0, cm(122), 0);
+  okensandShade.castShadow = true;
+  okensand.add(okensandShade);
+  // Subtle vertical pleat ribs along the elongated white fabric shade
+  for (let p = 0; p < 18; p++) {
+    const pa = (p * Math.PI * 2) / 18;
+    dRod(
+      okensand,
+      [Math.cos(pa) * 17.5, 90.2, Math.sin(pa) * 17.5],
+      [Math.cos(pa) * 10.5, 153.8, Math.sin(pa) * 10.5],
+      0.16,
+      M('#ebe5d8', { roughness: 0.65 })
+    );
+  }
+  const okensandLight = new THREE.PointLight('#ffd288', 0, 4.4, 1.6);
+  okensandLight.position.set(0, cm(124), 0);
   okensand.add(okensandLight);
-  if (addAccent) addAccent(okensandLight, psYellowInnerMat, 1.75, 1.65);
+  if (addAccent) addAccent(okensandLight, okensandShadeMat, 1.55, 1.55);
 
   // MARKFROST 마르크프로스트 대리석 탁상스탠드 on HOLMERUD Coffee Table stepped shelf (lx=31, y=18.4cm)
   const markfrost = new THREE.Group();

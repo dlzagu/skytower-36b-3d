@@ -103,7 +103,9 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
     lowerChestHeightCm:70,
     slidingDrawerCm:[40,30,14.8],
     upperShelfCm:[40,12,70],
-    gifted:true
+    price:149000,
+    shipping:20000,
+    gifted:false
   };
 
   // M1. Left Lower 3-Drawer Chest (x = -40 ~ 0cm, W40 × D42 × H70cm)
@@ -297,6 +299,7 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
     vanity.visible=!onlyE;
     moabelVanity.visible=onlyE;
     miniDryer.visible=onlyE;
+    stool.visible=v!=='I';
     stool.position.set(cm(onlyE?838:834),0,cm(onlyE?666:716));
   }
   return {

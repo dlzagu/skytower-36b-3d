@@ -93,114 +93,74 @@ export function buildIIkeaLayout({
     }
   }
 
-  // Helper: HÖGVED 회그베드 의자, 그린 (폭 40 × 깊이 51 × 높이 86cm, 시트폭 40 × 시트깊이 36 × 시트높이 45cm · 406.070.11)
-  // 1970년대 클래식 자작나무 스핀들(살 7개) 등받이 + 그린 스테인/래커 마감 + H자 하부 스트레처 다리
-  function addHogvedChair(parent, lx, lz, rotY, name) {
+  // Helper: IKEA KYRRE 쉬레 스툴 (폭 42 × 깊이 48 × 높이 45cm, 시트높이 45cm · 오프화이트 506.081.33 / 그린 706.081.32 · 각 29,900원)
+  // 곡선 삼각형 좌판(중앙 손잡이 홀) + 3개의 ㄱ자 벤트우드 자작나무 적층 원목 다리
+  const kyrreOffWhite = M('#f2efe8', { roughness: 0.42 });
+  const kyrreGreen = dWood('#1f7a4c', '#155936');
+  function addKyrreStool(parent, lx, lz, rotY, isGreen, name) {
+    const sMat = isGreen ? kyrreGreen : kyrreOffWhite;
     const c = new THREE.Group();
     c.name = name;
     c.position.set(cm(lx), 0, cm(lz));
     c.rotation.y = rotY;
     c.userData = {
-      productId: '406.070.11',
-      productName: 'IKEA HÖGVED 회그베드 의자 · 그린',
-      dimensions: [40, 51, 86],
+      productId: isGreen ? '706.081.32' : '506.081.33',
+      productName: isGreen ? 'IKEA KYRRE 쉬레 스툴 · 그린' : 'IKEA KYRRE 쉬레 스툴 · 오프화이트',
+      dimensions: [42, 48, 45],
       seatHeight: 45,
-      price: 129000
+      price: 29900
     };
     parent.add(c);
 
-    // 4 splayed tapered round birch legs in green lacquer + H-stretcher rails
-    for (const sx of [-1, 1]) {
-      dRod(c, [sx * 18.5, 0, 16.5], [sx * 15.5, 43.2, 13.5], 1.35, hogvedGreen); // front legs
-      dRod(c, [sx * 19.0, 0, -19.5], [sx * 15.5, 43.2, -14.5], 1.4, hogvedGreen); // rear legs
-      // Side stretcher bar (front to back leg at y=16.5cm)
-      dRod(c, [sx * 17.3, 16.5, 15.2], [sx * 17.6, 16.5, -17.5], 0.9, hogvedGreen);
-      // Under-seat apron rails
-      dRod(c, [sx * 15.2, 41.2, 13.0], [sx * 15.2, 41.2, -14.0], 1.0, hogvedGreen);
+    // Rounded triangular birch seat (y=43.2..45.0cm, radius ~18cm)
+    const seatShape = new THREE.Shape();
+    const lobes = 3, rLobe = 7.2, dCenter = 10.5;
+    for (let i = 0; i < lobes; i++) {
+      const a0 = (i * Math.PI * 2) / 3 - Math.PI / 2;
+      const aStart = a0 - Math.PI / 3;
+      const aEnd = a0 + Math.PI / 3;
+      const cx = Math.cos(a0) * dCenter;
+      const cz = Math.sin(a0) * dCenter;
+      seatShape.absarc(cm(cx), cm(cz), cm(rLobe), aStart, aEnd, false);
     }
-    // Center cross stretcher bar connecting left & right side stretchers
-    dRod(c, [-17.4, 16.5, -1.0], [17.4, 16.5, -1.0], 0.9, hogvedGreen);
-    dRod(c, [-15.2, 41.2, 13.0], [15.2, 41.2, 13.0], 1.0, hogvedGreen);
+    seatShape.closePath();
+    // Central elongated finger slot hole (9cm × 2.2cm)
+    const slotHole = new THREE.Path();
+    slotHole.absellipse(0, 0, cm(4.2), cm(1.1), 0, Math.PI * 2, true, 0);
+    seatShape.holes.push(slotHole);
 
-    // Sculpted D-shaped birch veneer seat in green (W40 × D36cm at y=43.0..45.2cm)
-    B(c, 40, 2.2, 36, hogvedGreen, 0, 43.0, 0, 1.0);
+    const seatGeo = new THREE.ExtrudeGeometry(seatShape, {
+      depth: cm(1.8),
+      bevelEnabled: true,
+      bevelThickness: cm(0.25),
+      bevelSize: cm(0.25),
+      bevelSegments: 2,
+      curveSegments: 24
+    });
+    const seatMesh = new THREE.Mesh(seatGeo, sMat);
+    seatMesh.rotation.x = Math.PI / 2;
+    seatMesh.position.y = cm(45.0);
+    seatMesh.castShadow = true;
+    seatMesh.receiveShadow = true;
+    c.add(seatMesh);
 
-    // 7 classic vertical/fanned spindle rods rising from rear seat curve (y=45cm) to curved top rail (y=84cm)
-    const spindleCount = 7;
-    for (let i = 0; i < spindleCount; i++) {
-      const t = (i / (spindleCount - 1)) * 2 - 1; // -1 .. +1
-      const ang = t * 0.62;
-      const bx = Math.sin(ang) * 16.5;
-      const bz = -15.0 + (1 - Math.cos(ang)) * 7.5;
-      const tx = Math.sin(ang) * 19.2;
-      const tz = -21.5 + (1 - Math.cos(ang)) * 8.5;
-      dRod(c, [bx, 44.8, bz], [tx, 83.8, tz], 0.62, hogvedGreen);
-    }
-
-    // Curved wrap-around top backrest rail at y=83.0..86.0cm matching rear spindle curve (-z)
-    const railPts = [];
-    for (let k = 0; k <= 16; k++) {
-      const u = (k / 16) * 2 - 1; // -1 .. +1
-      const ang = u * 0.68;
-      const rx = Math.sin(ang) * 19.2;
-      const rz = -21.5 + (1 - Math.cos(ang)) * 8.5;
-      railPts.push(new THREE.Vector3(cm(rx), cm(84.4), cm(rz)));
-    }
-    const railCurve = new THREE.CatmullRomCurve3(railPts);
-    const topRail = new THREE.Mesh(
-      new THREE.TubeGeometry(railCurve, 28, cm(1.55), 12, false),
-      hogvedGreen
-    );
-    topRail.castShadow = true;
-    c.add(topRail);
-    for (const endPt of [railPts[0], railPts[railPts.length - 1]]) {
-      const cap = new THREE.Mesh(new THREE.SphereGeometry(cm(1.55), 10, 10), hogvedGreen);
-      cap.position.copy(endPt);
-      c.add(cap);
+    // 3 curved L-shaped laminated birch legs attached along the 3 straight sides of the triangle
+    for (let i = 0; i < 3; i++) {
+      const sideAng = (i * Math.PI * 2) / 3 + Math.PI / 6;
+      const legGrp = new THREE.Group();
+      legGrp.rotation.y = sideAng;
+      c.add(legGrp);
+      // Upper horizontal under-seat flange (z = 8.5..15.5cm, y = 41.6..43.2cm)
+      B(legGrp, 5.2, 1.6, 7.5, sMat, 0, 41.6, 12.0, 0.35);
+      // Curved knee & tapered splayed leg descending from (z=15.5, y=42.2) to floor (z=20.8, y=0)
+      const legLeg = B(legGrp, 5.2, 43.2, 1.8, sMat, 0, 0, 18.2, 0.35);
+      legLeg.rotation.x = -0.125;
     }
     return c;
   }
 
-  addHogvedChair(diningTonstad, 12, -52, 0, 'I HOGVED Green Chair 1 (North)');
-  addHogvedChair(diningTonstad, 12, 52, Math.PI, 'I HOGVED Green Chair 2 (South)');
-
-  // Table accessories from Drive folder:
-  // - FRUKTSKAL 프룩트스칼 대나무 서빙트레이 (35×23cm · 405.879.04)
-  // - UPPHETTA 우프헤타 프렌치프레스 (1L · 802.413.88)
-  // - KORKEN 코르켄 유리병 (1L · 102.135.46)
-  // - OSTBIT 오스트비트 대나무 접시꽂이 (903.223.60)
-  // - VINTERSAGA 빈테르사가 미니 진저브레드 하우스 (606.038.61)
-  function addTableDecor(parent, yTop) {
-    // FRUKTSKAL bamboo tray (35×23cm) with black wire handles
-    B(parent, 35, 1.6, 23, voxlovBamboo, -18, yTop, -4, 0.5);
-    dRod(parent, [-34.5, yTop + 1.6, -9], [-34.5, yTop + 4.2, 1], 0.35, blackMetal);
-    dRod(parent, [-1.5, yTop + 1.6, -9], [-1.5, yTop + 4.2, 1], 0.35, blackMetal);
-    // UPPHETTA French Press on tray
-    CY(parent, 5.2, 5.2, 16, glassClear, -24, yTop + 1.6, -5, 24);
-    CY(parent, 5.4, 5.4, 2.5, blackMetal, -24, yTop + 1.6, -5, 24);
-    CY(parent, 5.5, 5.3, 1.8, chromeMetal, -24, yTop + 17.6, -5, 24);
-    CY(parent, 0.8, 0.8, 2.2, chromeMetal, -24, yTop + 19.4, -5, 16);
-    // KORKEN 1L glass bottle
-    CY(parent, 4.4, 4.4, 15, glassClear, -10, yTop + 1.6, -4, 24);
-    CY(parent, 4.4, 1.8, 6.5, glassClear, -10, yTop + 16.6, -4, 24);
-    CY(parent, 1.9, 1.9, 1.2, mat.ceramic, -10, yTop + 23.1, -4, 16);
-    // OSTBIT bamboo plate rack (27×12×8.5cm)
-    B(parent, 24, 1.2, 1.4, voxlovBamboo, 18, yTop, -14, 0.2);
-    B(parent, 24, 1.2, 1.4, voxlovBamboo, 18, yTop, -4, 0.2);
-    for (let i = 0; i < 6; i++) {
-      const px = 8 + i * 4;
-      dRod(parent, [px, yTop + 1, -14], [px, yTop + 8.5, -14], 0.3, voxlovBamboo);
-      dRod(parent, [px, yTop + 1, -4], [px, yTop + 8.5, -4], 0.3, voxlovBamboo);
-    }
-    // VINTERSAGA mini gingerbread house display on a small plate
-    CY(parent, 8, 8, 0.6, mat.ceramic, 20, yTop, 14, 28);
-    B(parent, 7.5, 6.5, 6.5, M('#8c4f2b', { roughness: 0.85 }), 20, yTop + 0.6, 14, 0.3);
-    const roof = new THREE.Mesh(new THREE.ConeGeometry(cm(6.2), cm(5.2), 4), M('#7a4222', { roughness: 0.8 }));
-    roof.rotation.y = Math.PI / 4;
-    roof.position.set(cm(20), cm(yTop + 9.5), cm(14));
-    parent.add(roof);
-  }
-  addTableDecor(diningTonstad, 75);
+  addKyrreStool(diningTonstad, 12, -48, 0, false, 'I KYRRE Off-White Stool 1 (North)');
+  addKyrreStool(diningTonstad, 12, 48, Math.PI, true, 'I KYRRE Green Stool 2 (South)');
 
   // Primary Dining Table (User selected): STOCKHOLM 2025 Round Dining Table (Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
   // Placed at (568, 492) so West wall north of turntable cabinet is open, allowing LP cabinet & MUJI shelf to shift 34cm North!
@@ -222,21 +182,18 @@ export function buildIIkeaLayout({
     const lx = Math.cos(a) * 34, lz = Math.sin(a) * 34;
     CY(diningStockholm, 3.8, 3.4, 72.2, stockholmOak, lx, 0, lz, 24);
   }
-  addHogvedChair(diningStockholm, 0, -64, 0, 'I STOCKHOLM HOGVED Green Chair 1 (North)');
-  addHogvedChair(diningStockholm, 0, 64, Math.PI, 'I STOCKHOLM HOGVED Green Chair 2 (South)');
-  addTableDecor(diningStockholm, 75);
+  addKyrreStool(diningStockholm, 0, -60, 0, false, 'I STOCKHOLM KYRRE Off-White Stool 1 (North)');
+  addKyrreStool(diningStockholm, 0, 60, Math.PI, true, 'I STOCKHOLM KYRRE Green Stool 2 (South)');
 
   // ============================================================================
   // 2. 동쪽 벽 & 거실 라운지:
-  //    - POÄNG 포엥 암체어 (호두나무무늬 / 셸링에 다크옐로 코듀로이 · 68×82×100cm · s89625283)
-  //      + LÅNESPELARE 로네스펠라레 원목 컵홀더 (105.715.27)
-  //    - POÄNG 포엥 로우백암체어 (자작나무무늬 / 보슬뢰브 레드 · 68×83×71cm · s49551590)
+  //    - POÄNG 포엥 암체어 (자작나무무늬목 / 셸링에 다크옐로 코듀로이 · 68×82×100cm · s29617714 · 149,900원)
+  //    - POÄNG 포엥 로우백암체어 (내추럴컬러/베이지 / 비슬레 레드 · 68×83×71cm · s49551590 · 104,900원)
+  //    - LÅNESPELARE 로네스펠라레 원목 컵홀더 × 2개 (105.715.27 · 11,900원×2 = 23,800원)
   //    - 의자 사이 조명: IKEA PS 2026 상향식플로어스탠드 · 다크레드 (182cm · 149,000원 · 106.085.16)
-  //    - HOLMERUD 홀메루드 커피테이블 (90×55×45cm · 참나무무늬 · 205.300.94)
-  //    - STOENSE 스토엔세 단모러그 페일그린 (133×195cm · 806.291.48)
   // ============================================================================
   const loungeGroup = new THREE.Group();
-  loungeGroup.name = 'I POANG Armchairs + HOLMERUD Coffee Table';
+  loungeGroup.name = 'I POANG Armchairs';
   grpI.add(loungeGroup);
 
   function buildPoangChair({ x, z, rotY, frameMat, cushionMat, highBack, withCupHolder, name }) {
@@ -298,19 +255,19 @@ export function buildIIkeaLayout({
     return ch;
   }
 
-  // North POÄNG: High-back Walnut + Dark Yellow Corduroy + LÅNESPELARE Cup Holder
+  // North POÄNG: High-back Birch Veneer + Dark Yellow Corduroy (s29617714 · 149,900원) + LÅNESPELARE Cup Holder #1
   const poangYellow = buildPoangChair({
     x: 742,
     z: 638,
     rotY: (-75 * Math.PI) / 180,
-    frameMat: poangWalnut,
+    frameMat: poangBirch,
     cushionMat: yellowCorduroy,
     highBack: true,
     withCupHolder: true,
-    name: 'I POANG Armchair Walnut + Dark Yellow Corduroy s89625283'
+    name: 'I POANG Armchair Birch + Dark Yellow Corduroy s29617714'
   });
 
-  // South POÄNG: Low-back Birch + Red Cushion (under wallpad h=104cm)
+  // South POÄNG: Low-back Birch + Vissle Red Cushion (s49551590 · 104,900원) + LÅNESPELARE Cup Holder #2
   const poangRed = buildPoangChair({
     x: 742,
     z: 748,
@@ -318,7 +275,7 @@ export function buildIIkeaLayout({
     frameMat: poangBirch,
     cushionMat: redCushion,
     highBack: false,
-    withCupHolder: false,
+    withCupHolder: true,
     name: 'I POANG Low-Back Armchair Birch + Red s49551590'
   });
 
@@ -372,53 +329,22 @@ export function buildIIkeaLayout({
   sambordLamp.add(sambordLight);
   if (addAccent) addAccent(sambordLight, psDarkRedInnerMat, 1.65, 1.6);
 
-  // HOLMERUD 홀메루드 커피테이블 (90×55×45cm · 참나무무늬 · 205.300.94)
-  const holmerud = placeI(636, 694, Math.PI / 2);
-  holmerud.name = 'I IKEA HOLMERUD Oak Coffee Table 90x55x45 205.300.94';
-  holmerud.userData = {
-    dimensions: [90, 55, 45],
-    bounds: [608.5, 663.5, 649, 739],
-    productId: '205.300.94',
-    price: 64900
-  };
-  loungeGroup.add(holmerud);
-  // Stepped architectural oak slabs of HOLMERUD (90×55×45cm)
-  B(holmerud, 90, 2.4, 55, holmerudOak, 0, 42.6, 0, 0.25); // top board
-  B(holmerud, 62, 2.4, 55, holmerudOak, -14, 16.0, 0, 0.25); // lower shelf board
-  B(holmerud, 2.4, 42.6, 55, holmerudOak, -43.8, 0, 0, 0.25); // left full side panel
-  B(holmerud, 2.4, 26.6, 55, holmerudOak, 16, 16.0, 0, 0.25); // inner vertical divider
-  B(holmerud, 2.4, 16.0, 55, holmerudOak, 43.8, 0, 0, 0.25); // right lower leg panel
-  B(holmerud, 28, 2.4, 55, holmerudOak, 31, 16.0, 0, 0.25); // right step horizontal
-  // Books & tray on HOLMERUD
-  B(holmerud, 24, 2.4, 18, M('#d8cfc0', { roughness: 0.8 }), -20, 18.4, 0, 0.2);
-  B(holmerud, 28, 1.5, 19, voxlovBamboo, -8, 45.0, 0, 0.4);
-  CY(holmerud, 3.4, 3.0, 7.5, humlesjonOrange, -14, 46.5, -2, 20);
-  CY(holmerud, 3.4, 3.0, 7.5, humlesjonMint, -2, 46.5, 3, 20);
+  // HOLMERUD 커피테이블 및 MARKFROST 탁상등은 사용자 요청("위목록 예산에서 빼")에 따라 숨김 처리
+  const holmerud = new THREE.Group();
+  holmerud.visible = false;
+  const markfrost = new THREE.Group();
+  markfrost.visible = false;
 
-  // STOENSE 스토엔세 단모러그 (133×195cm · 페일그린 · 806.291.48) texture
-  const stoenseWeave = canvasTex(512, 768, (g, w, h) => {
+  // STOENSE 스토엔세 단모러그 (예비 텍스처 유지, 실제 I안은 G안 노미아 오트밀 러그 사용)
+  const stoenseWeave = canvasTex(64, 64, (g, w, h) => {
     g.fillStyle = '#b8c7b4';
     g.fillRect(0, 0, w, h);
-    // Subtle pile border & mottled low-pile texture
-    g.strokeStyle = '#9fb29a';
-    g.lineWidth = 10;
-    g.strokeRect(8, 8, w - 16, h - 16);
-    const r = rnd(308);
-    for (let i = 0; i < 65000; i++) {
-      g.fillStyle = i % 3 === 0
-        ? 'rgba(235, 242, 232, 0.16)'
-        : i % 3 === 1
-          ? 'rgba(132, 154, 128, 0.14)'
-          : 'rgba(168, 188, 162, 0.12)';
-      g.fillRect(r() * w, r() * h, 1.5, 2.0);
-    }
   });
 
   // ============================================================================
-  // 3. 무지 선반 바로 옆 길쭉한 플로어스탠드 (사용자 지정: "이거가 선반 옆으로 가고" + "무지선반 옆에 길쭉한 조명 배치"):
+  // 3. 무지 선반 바로 옆 길쭉한 플로어스탠드 (사용자 지정: "조명은 저렇게 길어 다리가 저렇게 길지 않아"):
   //    - IKEA ÖKENSAND 외켄산드 플로어스탠드 · 너도밤나무/화이트 (높이 154cm · Ø35cm · 99,900원 · 405.415.34)
   //    - 위치: 북쪽으로 34cm 이동한 무지 와이드L 선반(z=613.5..699.5) 바로 남쪽 옆 (476, 728)
-  //    - MARKFROST 마르크프로스트 대리석 탁상스탠드 (35,000원 · 205.415.25)
   // ============================================================================
   const okensandPleatTex = canvasTex(512, 512, (g, w, h) => {
     const grad = g.createLinearGradient(0, 0, 0, h);
@@ -459,25 +385,25 @@ export function buildIIkeaLayout({
     dimensions: [35, 35, 154],
     price: 99900
   };
-  // 3 solid beechwood tripod legs: only the bottom 25cm (y=0..25cm) is exposed below the long pleated shade!
+  // 3 solid beechwood tripod legs: only the bottom 22cm (y=0..22cm) is exposed below the long pleated shade!
   for (let i = 0; i < 3; i++) {
     const a = (i * Math.PI * 2) / 3 + Math.PI / 6;
-    const fx = Math.cos(a) * 16.5, fz = Math.sin(a) * 16.5;
+    const fx = Math.cos(a) * 16.0, fz = Math.sin(a) * 16.0;
     const mx = Math.cos(a) * 13.5, mz = Math.sin(a) * 13.5;
     const tx = Math.cos(a) * 8.0, tz = Math.sin(a) * 8.0;
-    // Exposed lower leg segment (y=0..26cm, slightly thicker tapered beechwood)
-    dRod(okensand, [fx, 0, fz], [mx, 26, mz], 1.25, beechWood);
-    // Internal frame leg continuing up inside the tall shade (y=26..151cm)
-    dRod(okensand, [mx, 26, mz], [tx, 151, tz], 0.85, beechWood);
+    // Exposed lower leg segment (y=0..23cm, tapered beechwood)
+    dRod(okensand, [fx, 0, fz], [mx, 23, mz], 1.25, beechWood);
+    // Internal frame leg continuing up inside the tall shade (y=23..151cm)
+    dRod(okensand, [mx, 23, mz], [tx, 151, tz], 0.85, beechWood);
   }
-  // Internal 3-socket vertical light tree & rings at y=26cm, 85cm, 151cm
-  CY(okensand, 13.6, 13.6, 0.8, mat.ceramic, 0, 26, 0, 32);
+  // Internal 3-socket vertical light tree & rings at y=23cm, 88cm, 151cm
+  CY(okensand, 13.6, 13.6, 0.8, mat.ceramic, 0, 23, 0, 32);
   CY(okensand, 11.0, 11.0, 0.6, mat.ceramic, 0, 88, 0, 32);
   CY(okensand, 8.2, 8.2, 0.8, mat.ceramic, 0, 151, 0, 32);
   // Signature long accordion-pleated white fabric column shade:
-  // Extends from y=25cm (bottom R=14.8cm) all the way to y=154cm (top R=9.2cm), height = 129cm (84% of lamp height!)
+  // Extends from y=22cm (bottom R=14.8cm) all the way to y=154cm (top R=9.2cm), height = 132cm (86% of lamp height!)
   const pleatSegs = 72; // 36 sharp accordion pleats (alternating outer peak & inner valley)
-  const okensandShadeGeo = new THREE.CylinderGeometry(cm(9.2), cm(14.8), cm(129), pleatSegs, 1, true);
+  const okensandShadeGeo = new THREE.CylinderGeometry(cm(9.2), cm(14.8), cm(132), pleatSegs, 1, true);
   const sPos = okensandShadeGeo.attributes.position;
   for (let vi = 0; vi < sPos.count; vi++) {
     const vx = sPos.getX(vi), vz = sPos.getZ(vi);
@@ -492,7 +418,7 @@ export function buildIIkeaLayout({
   sPos.needsUpdate = true;
   okensandShadeGeo.computeVertexNormals();
   const okensandShade = new THREE.Mesh(okensandShadeGeo, okensandShadeMat);
-  okensandShade.position.set(0, cm(89.5), 0); // y = 25 .. 154cm
+  okensandShade.position.set(0, cm(88.0), 0); // y = 22 .. 154cm
   okensandShade.castShadow = true;
   okensand.add(okensandShade);
   const okensandLight = new THREE.PointLight('#ffd288', 0, 4.6, 1.6);
@@ -500,49 +426,27 @@ export function buildIIkeaLayout({
   okensand.add(okensandLight);
   if (addAccent) addAccent(okensandLight, okensandShadeMat, 1.55, 1.55);
 
-  // MARKFROST 마르크프로스트 대리석 탁상스탠드 on HOLMERUD Coffee Table stepped shelf (lx=31, y=18.4cm)
-  const markfrost = new THREE.Group();
-  markfrost.name = 'I IKEA MARKFROST Marble Table Lamp 205.415.25';
-  markfrost.position.set(cm(31), cm(18.4), 0);
-  holmerud.add(markfrost);
-  CY(markfrost, 4.6, 4.6, 9.5, M('#1f2123', { roughness: 0.25, metalness: 0.15 }), 0, 0, 0, 28);
-  const markBulbMat = new THREE.MeshStandardMaterial({
-    color: '#f5dec0',
-    emissive: '#ffbe6b',
-    emissiveIntensity: 0.35,
-    roughness: 0.18,
-    transparent: true,
-    opacity: 0.88
-  });
-  const markBulb = new THREE.Mesh(new THREE.SphereGeometry(cm(6.2), 24, 20), markBulbMat);
-  markBulb.position.set(0, cm(15), 0);
-  markfrost.add(markBulb);
-  const markLight = new THREE.PointLight('#ffc478', 0, 2.2, 1.9);
-  markLight.position.set(0, cm(15), 0);
-  markfrost.add(markLight);
-  if (addAccent) addAccent(markLight, markBulbMat, 0.75, 1.6);
-
   // ============================================================================
-  // 4. 남서 창가 코너 (사용자 스크린샷 1·2·3):
-  //    - VINTERFINT 빈테르핀트 인조 크리스마스트리 (150cm 그린 · 35,000원 · 606.363.76)
-  //    - STRÅLA 스트롤라 160구 LED 체인조명 (29,900원 · 505.630.83)
-  //    - RISATORP 리사토르프 바구니 레드 (7,900원 · 906.181.73)
-  //    - FEJKA 페이카 스트렐리치아 극락조화 인조식물 (23cm 화분 / H165cm · 89,900원 · 306.106.03)
+  // 4. 남서 창가 코너 (이케아 위시리스트 반영):
+  //    - VINTERFINT 빈테르핀트 인조 크리스마스트리 (150cm 그린 · 35,000원 · 606.363.76, 리사토르프 레드 바구니 제외)
+  //    - FEJKA 페이카 인조식물 · 실내외겸용 몬스테라 19cm (높이 약 90cm · 42,900원 · 606.152.46)
   // ============================================================================
   const treeGroup = placeI(476, 796, 0);
-  treeGroup.name = 'I VINTERFINT 150cm Christmas Tree + STRALA 160 LED Chain + RISATORP Red Basket';
+  treeGroup.name = 'I VINTERFINT 150cm Christmas Tree 606.363.76';
   treeGroup.userData = {
     dimensions: [58, 58, 150],
     treeProductId: '606.363.76',
-    lightProductId: '505.630.83',
-    basketProductId: '906.181.73'
+    price: 35000
   };
-  // RISATORP red mesh basket base + birch handle around tree base
-  CY(treeGroup, 14.5, 11.5, 18, risatorpRed, 0, 0, 0, 28);
-  CY(treeGroup, 14.8, 14.8, 1.2, risatorpRed, 0, 17.5, 0, 28);
-  dRod(treeGroup, [-14.5, 18, 0], [14.5, 18, 0], 0.85, poangBirch);
+  // VINTERFINT 150cm tree's own dark green/charcoal 3-legged stand (RISATORP red basket removed per user request)
+  const treeStandMat = M('#263228', { roughness: 0.7 });
+  CY(treeGroup, 3.2, 3.6, 16, treeStandMat, 0, 0, 0, 18);
+  for (let i = 0; i < 3; i++) {
+    const a = (i * Math.PI * 2) / 3;
+    dRod(treeGroup, [0, 10, 0], [Math.cos(a) * 18, 0.8, Math.sin(a) * 18], 1.1, treeStandMat);
+  }
   // Trunk (H 150cm)
-  CY(treeGroup, 2.2, 2.8, 132, M('#594433', { roughness: 0.9 }), 0, 12, 0, 14);
+  CY(treeGroup, 2.2, 2.8, 136, M('#594433', { roughness: 0.9 }), 0, 10, 0, 14);
   // Lush pine tiers up to 150cm
   const pineMats = [
     M('#2e5233', { roughness: 0.92 }),
@@ -550,7 +454,7 @@ export function buildIIkeaLayout({
     M('#446d46', { roughness: 0.88 })
   ];
   for (let tier = 0; tier < 6; tier++) {
-    const y0 = 22 + tier * 20;
+    const y0 = 20 + tier * 20.5;
     const rad = 29 - tier * 3.8;
     const h = 28 - tier * 1.5;
     CY(treeGroup, 1.2, rad, h, pineMats[tier % 3], 0, y0, 0, 16);
@@ -560,84 +464,50 @@ export function buildIIkeaLayout({
       dRod(treeGroup, [0, y0 + h * 0.65, 0], [Math.cos(a) * r, y0 + 2, Math.sin(a) * r], 0.85, pineMats[(tier + b) % 3]);
     }
   }
-  // STRÅLA 스트롤라 160구 LED 체인조명 (black cord spiraling up the tree + warm glowing LED bulbs)
-  const stralaLedMat = new THREE.MeshStandardMaterial({
-    color: '#fff4d2',
-    emissive: '#ffca68',
-    emissiveIntensity: 1.15,
-    roughness: 0.2
-  });
-  const spiralPts = [];
-  for (let i = 0; i <= 54; i++) {
-    const t = i / 54;
-    const y = 25 + t * 118;
-    const r = (28.5 - t * 22.5) * 0.96;
-    const a = t * Math.PI * 11;
-    const px = Math.cos(a) * r;
-    const pz = Math.sin(a) * r;
-    spiralPts.push(new THREE.Vector3(cm(px), cm(y), cm(pz)));
-    const led = new THREE.Mesh(new THREE.SphereGeometry(cm(0.95), 10, 8), stralaLedMat);
-    led.position.set(cm(px), cm(y), cm(pz));
-    treeGroup.add(led);
-  }
-  const stralaCord = new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(spiralPts), 140, cm(0.22), 6, false),
-    blackMetal
-  );
-  treeGroup.add(stralaCord);
-  // Red ornaments + VINTERFINT Santa ornament at base
-  for (const [oh, oa, orad] of [[38, 0.8, 22], [58, 2.4, 19], [78, 4.1, 15], [98, 1.5, 12], [116, 3.3, 8.5]]) {
-    const orn = new THREE.Mesh(new THREE.SphereGeometry(cm(2.1), 14, 12), risatorpRed);
-    orn.position.set(cm(Math.cos(oa) * orad), cm(oh), cm(Math.sin(oa) * orad));
-    treeGroup.add(orn);
-  }
-  const stralaLight = new THREE.PointLight('#ffcb74', 0.45, 3.2, 1.8);
-  stralaLight.position.set(0, cm(88), 0);
-  treeGroup.add(stralaLight);
-  if (addAccent) addAccent(stralaLight, stralaLedMat, 1.35, 2.2);
 
-  // FEJKA 페이카 인조식물 (23cm 화분 / H165cm 스트렐리치아 극락조화 · 306.106.03)
+  // FEJKA 페이카 인조식물 · 실내외겸용 몬스테라 19cm (화분 Ø19cm / 총높이 90cm · 42,900원 · 606.152.46)
   const fejkaPlant = placeI(534, 826, 0);
-  fejkaPlant.name = 'I IKEA FEJKA Strelitzia Bird of Paradise 23cm Pot H165cm 306.106.03';
+  fejkaPlant.name = 'I IKEA FEJKA Monstera 19cm Pot H90cm 606.152.46';
   fejkaPlant.userData = {
-    dimensions: [65, 65, 165],
-    productId: '306.106.03',
-    price: 89900
+    dimensions: [55, 55, 90],
+    productId: '606.152.46',
+    price: 42900
   };
-  // 23cm diameter planter pot (H 24cm)
-  CY(fejkaPlant, 12.2, 9.8, 24, M('#282a29', { roughness: 0.75 }), 0, 0, 0, 28);
-  CY(fejkaPlant, 11.4, 11.4, 1.5, M('#3b2f24', { roughness: 0.95 }), 0, 22.8, 0, 24);
-  const leafDark = M('#2d5a34', { roughness: 0.55, side: THREE.DoubleSide });
-  const leafMid = M('#3b6e41', { roughness: 0.52, side: THREE.DoubleSide });
-  // 8 tall arching Strelitzia stems with broad paddle leaves (up to H=165cm)
-  const leafSpecs = [
-    [0, 0, 148, 0.12, 0, 38, 15],
-    [-2.5, 1.5, 134, -0.24, 0.6, 36, 14],
-    [2.5, -1.5, 126, 0.26, -0.5, 35, 14],
-    [-1.5, -2.5, 115, -0.22, -0.8, 33, 13.5],
-    [2.0, 2.2, 106, 0.28, 0.9, 32, 13],
-    [-3.0, 0.5, 94, -0.35, 0.2, 30, 12.5],
-    [1.2, -2.8, 86, 0.32, -1.2, 28, 12],
-    [0.5, 2.8, 156, 0.16, 1.4, 40, 15.5]
+  // 19cm diameter dark planter pot (H 18cm)
+  CY(fejkaPlant, 9.8, 7.8, 18, M('#282a29', { roughness: 0.75 }), 0, 0, 0, 28);
+  CY(fejkaPlant, 9.2, 9.2, 1.4, M('#3b2f24', { roughness: 0.95 }), 0, 16.8, 0, 24);
+  const leafDark = M('#28572f', { roughness: 0.48, side: THREE.DoubleSide });
+  const leafMid = M('#366b3d', { roughness: 0.45, side: THREE.DoubleSide });
+  // 9 spreading heart-shaped Monstera stems & leaves (up to H=90cm)
+  const monsteraSpecs = [
+    [0, 0, 86, 0.22, 0.1, 22, 19],
+    [-2.0, 1.2, 80, -0.34, 0.8, 21, 18],
+    [2.0, -1.2, 76, 0.36, -0.7, 20, 17.5],
+    [-1.4, -2.0, 70, -0.38, -1.4, 19, 16.5],
+    [1.8, 1.8, 66, 0.40, 1.5, 18.5, 16],
+    [-2.4, 0.4, 60, -0.45, 2.2, 17.5, 15],
+    [1.0, -2.2, 54, 0.44, -2.1, 16.5, 14.5],
+    [0.4, 2.2, 88, 0.26, 2.8, 23, 20],
+    [-0.8, -0.8, 62, 0.32, -2.8, 18, 15.5]
   ];
-  for (let i = 0; i < leafSpecs.length; i++) {
-    const [sx, sz, topH, tiltX, rotY, lLen, lWid] = leafSpecs[i];
+  for (let i = 0; i < monsteraSpecs.length; i++) {
+    const [sx, sz, topH, tiltX, rotY, lLen, lWid] = monsteraSpecs[i];
     const stemG = new THREE.Group();
-    stemG.position.set(cm(sx), cm(22), cm(sz));
+    stemG.position.set(cm(sx), cm(17), cm(sz));
     stemG.rotation.y = rotY;
     fejkaPlant.add(stemG);
-    const tipX = Math.sin(tiltX) * (topH - 22) * 0.45;
-    const tipY = topH - 22;
-    dRod(stemG, [0, 0, 0], [tipX, tipY, 0], 0.65, i % 2 ? leafDark : leafMid);
-    // Broad paddle-shaped Strelitzia leaf blade at tip
+    const tipX = Math.sin(tiltX) * (topH - 17) * 0.55;
+    const tipY = topH - 17;
+    dRod(stemG, [0, 0, 0], [tipX, tipY, 0], 0.52, i % 2 ? leafDark : leafMid);
+    // Heart-shaped Monstera leaf blade
     const bladeShape = new THREE.Shape();
-    bladeShape.moveTo(0, 0);
-    bladeShape.bezierCurveTo(cm(lWid * 0.55), cm(lLen * 0.25), cm(lWid * 0.52), cm(lLen * 0.78), 0, cm(lLen));
-    bladeShape.bezierCurveTo(cm(-lWid * 0.52), cm(lLen * 0.78), cm(-lWid * 0.55), cm(lLen * 0.25), 0, 0);
+    bladeShape.moveTo(0, cm(2));
+    bladeShape.bezierCurveTo(cm(lWid * 0.65), cm(-lLen * 0.12), cm(lWid * 0.62), cm(lLen * 0.65), 0, cm(lLen));
+    bladeShape.bezierCurveTo(cm(-lWid * 0.62), cm(lLen * 0.65), cm(-lWid * 0.65), cm(-lLen * 0.12), 0, cm(2));
     const blade = new THREE.Mesh(new THREE.ShapeGeometry(bladeShape, 18), i % 2 ? leafDark : leafMid);
-    blade.position.set(cm(tipX), cm(tipY - lLen * 0.35), 0);
-    blade.rotation.z = -tiltX * 1.35;
-    blade.rotation.x = 0.35;
+    blade.position.set(cm(tipX), cm(tipY - lLen * 0.3), 0);
+    blade.rotation.z = -tiltX * 1.25;
+    blade.rotation.x = 0.52;
     blade.castShadow = true;
     stemG.add(blade);
   }

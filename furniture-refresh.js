@@ -77,21 +77,25 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   CY(vanity,1.6,1.6,6,M('#b4a27e'),-30,76.8,28,16);
 
   // ============================================================================
-  // E안 전용: DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (오크 · 80×42×180cm)
+  // E·G·H·I안: DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (화이트 · 80×42×180cm)
   // - 좌측 수납 타워 (폭40cm, x = -40 ~ 0cm):
   //   · 하부 3단 서랍장 (폭40 × 깊이42 × 높이70cm, y = 0 ~ 70cm)
   //   · 중부 좌우 슬라이딩 서랍 겸 화장대 상판 (폭40 × 깊이30 × 높이14.8cm, y = 70 ~ 84.8cm, z = 12 ~ 42cm)
   //   · 상부 3단 오픈형 선반 (폭40 × 깊이12 × 높이70cm, y = 70 ~ 140cm, z = 0 ~ 12cm)
   // - 우측 아치형 전신거울 (폭40 × 높이180cm, x = 0 ~ +40cm, y = 0 ~ 180cm; 상단 반원 아치 R=20cm)
   // ============================================================================
+  const mTimber=M('#f5f3ef',{roughness:.26,metalness:.02});
+  const mInner=M('#eae6df',{roughness:.34});
+  const mShadow=M('#d6d1c8',{roughness:.56});
+  const mDarkSlot=M('#c5bfb5',{roughness:.66});
   const moabelVanity=place(753,632,1,0);
   moabelVanity.position.set(cm(804),0,cm(682));
   moabelVanity.visible=false;
-  moabelVanity.name='DF Dongsuh Moabel LPM full-mirror 4-drawer sliding vanity oak 80x42x180';
+  moabelVanity.name='DF Dongsuh Moabel LPM full-mirror 4-drawer sliding vanity white 80x42x180';
   moabelVanity.userData={
     productId:'3554392',
     shortUrl:'https://ozip.me/kt6GUZ7',
-    productName:'DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (오크)',
+    productName:'DF동서가구 모아벨 LPM 전신거울 4단 슬라이딩 서랍 수납 화장대 (화이트)',
     dimensionsCm:[80,42,180],
     leftTowerWidthCm:40,
     mirrorWidthCm:40,
@@ -103,25 +107,25 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   };
 
   // M1. Left Lower 3-Drawer Chest (x = -40 ~ 0cm, W40 × D42 × H70cm)
-  B(moabelVanity,40,5.2,40.4,timber,-20,0,20.2,.18);
-  B(moabelVanity,39.4,.55,.5,darkSlot,-20,5.0,40.5);
-  for(const x of [-39.1,-.9])B(moabelVanity,1.8,64.8,41.2,timber,x,5.2,20.6,.2);
-  B(moabelVanity,36.4,64.8,1.4,innerOak,-20,5.2,.7);
-  B(moabelVanity,40,1.8,42,timber,-20,68.2,21,.22);
+  B(moabelVanity,40,5.2,40.4,mTimber,-20,0,20.2,.18);
+  B(moabelVanity,39.4,.55,.5,mDarkSlot,-20,5.0,40.5);
+  for(const x of [-39.1,-.9])B(moabelVanity,1.8,64.8,41.2,mTimber,x,5.2,20.6,.2);
+  B(moabelVanity,36.4,64.8,1.4,mInner,-20,5.2,.7);
+  B(moabelVanity,40,1.8,42,mTimber,-20,68.2,21,.22);
   for(const y of [6.0,26.8,47.6]){
-    B(moabelVanity,36.8,1.2,2.2,darkSlot,-20,y+19.3,40.0);
-    B(moabelVanity,39.4,19.5,1.8,timber,-20,y,41.1,.22);
-    B(moabelVanity,39.4,.45,.45,shadow,-20,y+19.4,41.85);
+    B(moabelVanity,36.8,1.2,2.2,mDarkSlot,-20,y+19.3,40.0);
+    B(moabelVanity,39.4,19.5,1.8,mTimber,-20,y,41.1,.22);
+    B(moabelVanity,39.4,.45,.45,mShadow,-20,y+19.4,41.85);
   }
 
   // M2. Left Upper 3-Tier Open Shelf (x = -40 ~ 0cm, y = 70 ~ 140cm, z = 0 ~ 12cm, W40 × D12 × H70cm)
-  for(const x of [-39.1,-.9])B(moabelVanity,1.8,70,12,timber,x,70,6,.2);
-  B(moabelVanity,36.4,70,1.4,innerOak,-20,70,.7);
-  B(moabelVanity,40,1.8,12,timber,-20,138.2,6,.22);
+  for(const x of [-39.1,-.9])B(moabelVanity,1.8,70,12,mTimber,x,70,6,.2);
+  B(moabelVanity,36.4,70,1.4,mInner,-20,70,.7);
+  B(moabelVanity,40,1.8,12,mTimber,-20,138.2,6,.22);
   // Top 7cm front valance & 2 open shelf boards (clear heights 23cm / 21cm per official spec sheet)
-  B(moabelVanity,36.4,7.0,1.6,timber,-20,133.0,11.2,.15);
-  B(moabelVanity,36.4,1.6,11.2,timber,-20,83.2,5.8,.15);
-  B(moabelVanity,36.4,1.6,11.2,timber,-20,107.8,5.8,.15);
+  B(moabelVanity,36.4,7.0,1.6,mTimber,-20,133.0,11.2,.15);
+  B(moabelVanity,36.4,1.6,11.2,mTimber,-20,83.2,5.8,.15);
+  B(moabelVanity,36.4,1.6,11.2,mTimber,-20,107.8,5.8,.15);
   // Cosmetics & reed diffuser on open shelves
   CY(moabelVanity,2.1,2.1,9.5,mat.ceramic,-29,84.8,6.2,18);
   CY(moabelVanity,1.7,1.7,7.6,mat.ceramic2,-23,84.8,6.5,18);
@@ -142,17 +146,17 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   // Slid 16cm to the right in front of the full-length mirror for seated use
   moabelSlideDrawer.position.x=cm(16);
   moabelVanity.add(moabelSlideDrawer);
-  B(moabelSlideDrawer,39.6,1.4,29.2,innerOak,-20,70.2,26.6,.12);
-  for(const x of [-39.1,-.9])B(moabelSlideDrawer,1.6,14.2,29.2,timber,x,70.2,26.6,.15);
-  B(moabelSlideDrawer,36.4,13.8,1.4,innerOak,-20,70.4,12.7,.1);
-  // Front oak drawer face with recessed top finger groove
-  B(moabelSlideDrawer,36.8,1.1,2.0,darkSlot,-20,83.4,40.1);
-  B(moabelSlideDrawer,39.8,14.4,1.8,timber,-20,70.2,41.1,.22);
-  B(moabelSlideDrawer,39.8,.45,.45,shadow,-20,84.2,41.85);
+  B(moabelSlideDrawer,39.6,1.4,29.2,mInner,-20,70.2,26.6,.12);
+  for(const x of [-39.1,-.9])B(moabelSlideDrawer,1.6,14.2,29.2,mTimber,x,70.2,26.6,.15);
+  B(moabelSlideDrawer,36.4,13.8,1.4,mInner,-20,70.4,12.7,.1);
+  // Front white drawer face with recessed top finger groove
+  B(moabelSlideDrawer,36.8,1.1,2.0,mDarkSlot,-20,83.4,40.1);
+  B(moabelSlideDrawer,39.8,14.4,1.8,mTimber,-20,70.2,41.1,.22);
+  B(moabelSlideDrawer,39.8,.45,.45,mShadow,-20,84.2,41.85);
   // Right half of sliding drawer has a smooth top deck; left half exposes internal organizer grid
-  B(moabelSlideDrawer,21.5,1.5,29.2,timber,-10.2,83.3,26.6,.18);
-  B(moabelSlideDrawer,.8,10.5,27.6,innerOak,-29.5,71.6,26.6,.08);
-  B(moabelSlideDrawer,17.2,10.5,.8,innerOak,-29.5,71.6,26.6,.08);
+  B(moabelSlideDrawer,21.5,1.5,29.2,mTimber,-10.2,83.3,26.6,.18);
+  B(moabelSlideDrawer,.8,10.5,27.6,mInner,-29.5,71.6,26.6,.08);
+  B(moabelSlideDrawer,17.2,10.5,.8,mInner,-29.5,71.6,26.6,.08);
   CY(moabelSlideDrawer,2.2,2.2,1.6,mat.ceramic2,-10,84.8,28,20);
 
   // M4. Right Full-Length Arched Mirror (x = 0 ~ +40cm, y = 0 ~ 180cm, W40 × H180cm, top semicircle R=20cm)
@@ -164,7 +168,7 @@ export function buildDrawerVanity({THREE,cm,B,CY,M,mat,place,wood}) {
   archShape.lineTo(cm(0),0);
   const archFrame=new THREE.Mesh(
     new THREE.ExtrudeGeometry(archShape,{depth:cm(2.2),bevelEnabled:false,curveSegments:36,steps:1}),
-    timber
+    mTimber
   );
   archFrame.castShadow=true;archFrame.receiveShadow=true;
   archFrame.name='Moabel full-length arched mirror frame 40x180';

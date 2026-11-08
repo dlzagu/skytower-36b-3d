@@ -420,11 +420,35 @@ export function buildIIkeaLayout({
   //    - 위치: 북쪽으로 34cm 이동한 무지 와이드L 선반(z=613.5..699.5) 바로 남쪽 옆 (476, 728)
   //    - MARKFROST 마르크프로스트 대리석 탁상스탠드 (35,000원 · 205.415.25)
   // ============================================================================
+  const okensandPleatTex = canvasTex(512, 512, (g, w, h) => {
+    const grad = g.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0.0, '#fcf8ee');
+    grad.addColorStop(0.25, '#fff9e6');
+    grad.addColorStop(0.55, '#fff6dc');
+    grad.addColorStop(0.82, '#fff9e6');
+    grad.addColorStop(1.0, '#f7f1e1');
+    g.fillStyle = grad;
+    g.fillRect(0, 0, w, h);
+    const pleats = 36;
+    for (let i = 0; i < pleats; i++) {
+      const x0 = (i / pleats) * w;
+      const pw = w / pleats;
+      const pGrad = g.createLinearGradient(x0, 0, x0 + pw, 0);
+      pGrad.addColorStop(0.0, 'rgba(185, 168, 138, 0.24)');
+      pGrad.addColorStop(0.48, 'rgba(255, 253, 245, 0.14)');
+      pGrad.addColorStop(0.52, 'rgba(165, 148, 118, 0.30)');
+      pGrad.addColorStop(1.0, 'rgba(255, 252, 242, 0.10)');
+      g.fillStyle = pGrad;
+      g.fillRect(x0, 0, pw, h);
+    }
+  });
   const okensandShadeMat = new THREE.MeshStandardMaterial({
-    color: '#f8f5ec',
+    color: '#fdfaf0',
+    map: okensandPleatTex,
     emissive: '#ffcf7c',
-    emissiveIntensity: 0.25,
-    roughness: 0.55,
+    emissiveMap: okensandPleatTex,
+    emissiveIntensity: 0.38,
+    roughness: 0.52,
     side: THREE.DoubleSide
   });
   const okensand = placeI(476, 728, 0);
@@ -435,37 +459,44 @@ export function buildIIkeaLayout({
     dimensions: [35, 35, 154],
     price: 99900
   };
-  // 3 tapered solid beechwood tripod legs splaying from upper frame (R=5.5cm at y=112cm) to floor (R=16.5cm at y=0)
+  // 3 solid beechwood tripod legs: only the bottom 25cm (y=0..25cm) is exposed below the long pleated shade!
   for (let i = 0; i < 3; i++) {
     const a = (i * Math.PI * 2) / 3 + Math.PI / 6;
     const fx = Math.cos(a) * 16.5, fz = Math.sin(a) * 16.5;
-    const tx = Math.cos(a) * 5.2, tz = Math.sin(a) * 5.2;
-    dRod(okensand, [fx, 0, fz], [tx, 118, tz], 1.15, beechWood);
+    const mx = Math.cos(a) * 13.5, mz = Math.sin(a) * 13.5;
+    const tx = Math.cos(a) * 8.0, tz = Math.sin(a) * 8.0;
+    // Exposed lower leg segment (y=0..26cm, slightly thicker tapered beechwood)
+    dRod(okensand, [fx, 0, fz], [mx, 26, mz], 1.25, beechWood);
+    // Internal frame leg continuing up inside the tall shade (y=26..151cm)
+    dRod(okensand, [mx, 26, mz], [tx, 151, tz], 0.85, beechWood);
   }
-  // Central beech/metal triangular hub at y=52cm and upper bulb socket ring at y=116cm
-  CY(okensand, 7.8, 8.2, 1.4, beechWood, 0, 52, 0, 24);
-  CY(okensand, 5.6, 5.6, 1.2, mat.ceramic, 0, 116, 0, 24);
-  // Signature tall pleated white fabric skirt shade (y=90..154cm, height 64cm, top R=10.5cm, bottom R=17.5cm)
-  const okensandShade = new THREE.Mesh(
-    new THREE.CylinderGeometry(cm(10.5), cm(17.5), cm(64), 36, 1, true),
-    okensandShadeMat
-  );
-  okensandShade.position.set(0, cm(122), 0);
+  // Internal 3-socket vertical light tree & rings at y=26cm, 85cm, 151cm
+  CY(okensand, 13.6, 13.6, 0.8, mat.ceramic, 0, 26, 0, 32);
+  CY(okensand, 11.0, 11.0, 0.6, mat.ceramic, 0, 88, 0, 32);
+  CY(okensand, 8.2, 8.2, 0.8, mat.ceramic, 0, 151, 0, 32);
+  // Signature long accordion-pleated white fabric column shade:
+  // Extends from y=25cm (bottom R=14.8cm) all the way to y=154cm (top R=9.2cm), height = 129cm (84% of lamp height!)
+  const pleatSegs = 72; // 36 sharp accordion pleats (alternating outer peak & inner valley)
+  const okensandShadeGeo = new THREE.CylinderGeometry(cm(9.2), cm(14.8), cm(129), pleatSegs, 1, true);
+  const sPos = okensandShadeGeo.attributes.position;
+  for (let vi = 0; vi < sPos.count; vi++) {
+    const vx = sPos.getX(vi), vz = sPos.getZ(vi);
+    const r = Math.hypot(vx, vz);
+    if (r > 0) {
+      const ang = Math.atan2(vz, vx);
+      const wave = Math.cos(ang * 36) * 0.038; // crisp 3D accordion pleat ridges
+      sPos.setX(vi, vx * (1 + wave));
+      sPos.setZ(vi, vz * (1 + wave));
+    }
+  }
+  sPos.needsUpdate = true;
+  okensandShadeGeo.computeVertexNormals();
+  const okensandShade = new THREE.Mesh(okensandShadeGeo, okensandShadeMat);
+  okensandShade.position.set(0, cm(89.5), 0); // y = 25 .. 154cm
   okensandShade.castShadow = true;
   okensand.add(okensandShade);
-  // Subtle vertical pleat ribs along the elongated white fabric shade
-  for (let p = 0; p < 18; p++) {
-    const pa = (p * Math.PI * 2) / 18;
-    dRod(
-      okensand,
-      [Math.cos(pa) * 17.5, 90.2, Math.sin(pa) * 17.5],
-      [Math.cos(pa) * 10.5, 153.8, Math.sin(pa) * 10.5],
-      0.16,
-      M('#ebe5d8', { roughness: 0.65 })
-    );
-  }
-  const okensandLight = new THREE.PointLight('#ffd288', 0, 4.4, 1.6);
-  okensandLight.position.set(0, cm(124), 0);
+  const okensandLight = new THREE.PointLight('#ffd288', 0, 4.6, 1.6);
+  okensandLight.position.set(0, cm(92), 0);
   okensand.add(okensandLight);
   if (addAccent) addAccent(okensandLight, okensandShadeMat, 1.55, 1.55);
 

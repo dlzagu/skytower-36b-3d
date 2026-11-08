@@ -159,8 +159,56 @@ export function buildIIkeaLayout({
     return c;
   }
 
+  // Helper: IKEA PS 2026 이케아 피에스 2026 접이식의자 · 자작나무 블루/블랙 레드 (폭 45 × 깊이 51 × 높이 76cm · 시트높이 46cm · 206.179.59 · 79,900원)
+  const psChairBlue = M('#6ca0cf', { roughness: 0.36 });
+  const psChairRed = M('#d9383a', { roughness: 0.36 });
+  const psChairBlack = M('#1f2022', { roughness: 0.42, metalness: 0.18 });
+  function addPs2026FoldingChair(parent, lx, lz, rotY, name) {
+    const c = new THREE.Group();
+    c.name = name;
+    c.position.set(cm(lx), 0, cm(lz));
+    c.rotation.y = rotY;
+    c.userData = {
+      productId: '206.179.59',
+      productName: 'IKEA PS 2026 이케아 피에스 2026 접이식의자 · 자작나무 블루/블랙 레드',
+      dimensions: [45, 51, 76],
+      seatHeight: 46,
+      price: 79900
+    };
+    parent.add(c);
+
+    // 1. 앞다리 + 등받이 기둥 일체형 자작나무 프레임: 바닥 앞쪽 (y=0, z=+20.0) → 등받이 상단 (y=75.5, z=-16.5)
+    //    중점 (y=37.75, z=1.75), 길이 83.8cm, 기울기 rx = -0.45rad
+    for (const sx of [-20.4, 20.4]) {
+      const birchStile = B(c, 3.6, 83.8, 2.2, poangBirch, sx, -4.15, 1.75, 0.25);
+      birchStile.rotation.x = -0.45;
+      // 2. 블랙 경첩 브래킷 (y=55cm, z=-6.6) 및 뒷다리 블랙 프레임: 바닥 뒤쪽 (y=0, z=-22.5) → 경첩 (y=55.5, z=-6.6)
+      //    중점 (y=27.75, z=-14.55), 길이 57.7cm, 기울기 rx = +0.279rad
+      B(c, 4.3, 4.6, 3.8, psChairBlack, sx, 53.0, -6.6, 0.2);
+      const blackRearLeg = B(c, 3.4, 57.7, 2.2, psChairBlack, sx, -1.1, -14.55, 0.22);
+      blackRearLeg.rotation.x = 0.279;
+    }
+
+    // 3. 하단 가로 지지대 (앞다리 자작나무 가로바 + 뒷다리 블랙 가로바 + 시트 뒤쪽 블랙 금속 지지봉)
+    const frontStretcher = B(c, 37.6, 2.8, 1.8, poangBirch, 0, 14.0, 12.75, 0.2);
+    frontStretcher.rotation.x = -0.45;
+    const rearStretcher = B(c, 37.6, 3.2, 1.8, psChairBlack, 0, 16.5, -17.5, 0.2);
+    rearStretcher.rotation.x = 0.279;
+    dRod(c, [-19.5, 45.2, -11.2], [19.5, 45.2, -11.2], 0.72, psChairBlack);
+
+    // 4. 스카이블루 시트 상판 (시트 폭 38 × 시트 깊이 35 × 두께 2.2cm, 시트 상면 높이 46cm)
+    B(c, 38.4, 2.2, 35.0, psChairBlue, 0, 43.8, 4.5, 0.28);
+
+    // 5. 레드 등받이 상단 패널 (폭 37.6 × 높이 8.4 × 두께 1.8cm, 자작나무 기둥 상단 y=67~75cm 지점에 밀착)
+    const redBack = B(c, 37.6, 8.4, 1.8, psChairRed, 0, 66.8, -14.3, 0.24);
+    redBack.rotation.x = -0.45;
+
+    return c;
+  }
+
   addKyrreStool(diningTonstad, 12, -48, 0, false, 'I KYRRE Off-White Stool 1 (North)');
   addKyrreStool(diningTonstad, 12, 48, Math.PI, true, 'I KYRRE Green Stool 2 (South)');
+  addPs2026FoldingChair(diningTonstad, 82, 0, -Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair (East)');
 
   // Primary Dining Table (User selected): STOCKHOLM 2025 Round Dining Table (Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
   // Placed at (568, 492) so West wall north of turntable cabinet is open, allowing LP cabinet & MUJI shelf to shift 34cm North!
@@ -184,6 +232,7 @@ export function buildIIkeaLayout({
   }
   addKyrreStool(diningStockholm, 0, -60, 0, false, 'I STOCKHOLM KYRRE Off-White Stool 1 (North)');
   addKyrreStool(diningStockholm, 0, 60, Math.PI, true, 'I STOCKHOLM KYRRE Green Stool 2 (South)');
+  const ps2026Chair = addPs2026FoldingChair(diningStockholm, 62, 0, -Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 206.179.59 (East)');
 
   // ============================================================================
   // 2. 동쪽 벽 & 거실 라운지:
@@ -674,6 +723,7 @@ export function buildIIkeaLayout({
     fejkaPlant,
     bathSet,
     nightAcc,
-    vanityKyrreStool
+    vanityKyrreStool,
+    ps2026Chair
   };
 }

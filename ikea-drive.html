@@ -1,0 +1,1665 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>이케아 매장 촬영 제품 전수 모음 (구글 드라이브 36장) | 강변 36B</title>
+<style>
+:root{
+  --paper:#f5f1e8;
+  --card:#fffdf9;
+  --ink:#2c2823;
+  --muted:#6c6357;
+  --line:#ddd4c4;
+  --ikea-blue:#0058a3;
+  --ikea-yellow:#ffdb00;
+  --wood:#855b38;
+  --sage:#526650;
+  --accent:#b84b29;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.65 system-ui,-apple-system,'Malgun Gothic',sans-serif}
+a{color:var(--ikea-blue);text-underline-offset:3px}
+main{width:min(1240px,calc(100% - 36px));margin:auto;padding:20px 0 80px}
+nav.top-nav{display:flex;flex-wrap:wrap;gap:10px 18px;padding:14px 0 18px;border-bottom:1px solid var(--line);font-size:13.5px}
+nav.top-nav a{color:var(--ink);text-decoration:none}
+nav.top-nav a:hover{text-decoration:underline;color:var(--ikea-blue)}
+header.hero{padding:36px 0 24px;max-width:940px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--ikea-blue);background:#e3eef8;padding:4px 10px;border-radius:99px}
+.eyebrow span.ylw{background:var(--ikea-yellow);color:#111;padding:1px 6px;border-radius:4px}
+h1{font-size:clamp(30px,4.5vw,48px);line-height:1.18;letter-spacing:-.045em;margin:14px 0 16px}
+h2{font-size:23px;line-height:1.32;letter-spacing:-.03em;margin:44px 0 12px}
+h3{font-size:18px;line-height:1.35;margin:6px 0 8px;letter-spacing:-.02em}
+.lead{font-size:17px;color:#4f473d;margin:0 0 16px}
+.summary-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 28px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.stat b{display:block;font-size:24px;color:var(--ikea-blue);letter-spacing:-.03em}
+.stat span{font-size:13px;color:var(--muted)}
+.quick-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:8px;font-size:13.5px;font-weight:700;text-decoration:none;background:var(--ikea-blue);color:#fff}
+.btn.secondary{background:var(--card);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.filters{position:sticky;top:0;z-index:10;background:rgba(245,241,232,.95);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:20px 0 24px}
+.filters button{border:1px solid #c9beac;background:var(--card);color:var(--ink);border-radius:99px;padding:7px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ikea-blue);color:#fff;border-color:var(--ikea-blue)}
+.filters .right-controls{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}
+.filters input[type="search"]{padding:7px 12px;border:1px solid #c9beac;border-radius:8px;background:#fff;font:inherit;font-size:13px;min-width:200px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+article.card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+article.card[hidden]{display:none!important}
+.photo-wrap{position:relative;background:#fff;height:260px;display:block;border-bottom:1px solid #eee8dc}
+.photo-wrap img{width:100%;height:100%;object-fit:contain;padding:14px;display:block}
+.badge-ikea{position:absolute;top:12px;left:12px;background:var(--ikea-yellow);color:var(--ikea-blue);font-weight:900;font-size:11.5px;padding:3px 8px;border-radius:4px;letter-spacing:.06em}
+.badge-role{position:absolute;top:12px;right:12px;background:#eef3ee;color:var(--sage);font-weight:700;font-size:11.5px;padding:3px 8px;border-radius:4px}
+.badge-role.sub{background:#f3ede2;color:#7a6a53}
+.card-body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.drive-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.drive-chip{font-size:11.5px;background:#eef2f7;color:var(--ikea-blue);padding:2px 8px;border-radius:5px;text-decoration:none;font-weight:600}
+.drive-chip:hover{background:#d7e5f5}
+.sub-title{font-size:13px;color:var(--muted);margin:0 0 8px}
+.price-row{display:flex;align-items:baseline;gap:8px;margin:6px 0 4px}
+.price{font-size:23px;font-weight:800;letter-spacing:-.03em}
+.price-note{font-size:12px;color:var(--muted)}
+.sku-box{font-size:12.5px;background:#f4efe4;padding:7px 10px;border-radius:6px;margin:8px 0 10px;color:#4a4238}
+.sku-box code{font-weight:700;color:var(--ink)}
+.desc{font-size:13.5px;color:#3f3931;margin:0 0 12px;line-height:1.58}
+.fit-note{font-size:12.5px;background:#edf3ec;border-left:3px solid var(--sage);padding:8px 10px;border-radius:4px;margin:0 0 14px;color:#334231}
+.card-actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.buy-btn{flex:1;text-align:center;background:var(--ikea-blue);color:#fff;text-decoration:none;padding:9px 12px;border-radius:7px;font-size:13px;font-weight:700}
+.buy-btn:hover{background:#004682}
+.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:16px 0}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:#eae2d3;font-weight:700;white-space:nowrap}
+tbody tr:hover{background:#faf6ee}
+.tag-pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:4px;background:#e6eef7;color:var(--ikea-blue);margin-right:4px}
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media(max-width:960px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.summary-bar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.summary-bar{grid-template-columns:1fr}.filters .right-controls{width:100%;margin-left:0}.filters input[type="search"]{width:100%}}
+</style>
+</head>
+<body>
+<main>
+  <nav class="top-nav">
+    <a href="index.html#h" style="color:#b84b29;font-weight:700">★ H안 3D (최적안)</a>
+    <a href="h.html" style="color:#b84b29;font-weight:700">H안 사진·5대 혁신</a>
+    <a href="h-budget.html">H안 견적</a>
+    <a href="index.html#f"><b>F안 3D (기준안)</b></a>
+    <a href="f.html">F안 사진·비교</a>
+    <a href="f-budget.html">F안 견적</a>
+    <a href="g.html">G안(확장식탁)</a>
+    <a href="e.html">E안(좌식)</a>
+    <a href="ohou.html">오늘의집 선택지</a>
+    <a href="selection.html">전체 브랜드 비교</a>
+    <a href="#photo-index"><b>사진 36장 번호별 색인 ↓</b></a>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow"><span class="ylw">IKEA</span> GOOGLE DRIVE 36 PHOTOS · 2026.11.08 전수 매칭</div>
+    <h1>구글 드라이브 ‘이케아’ 폴더 36장,<br>나오는 모든 제품 공식몰 전수 모음.</h1>
+    <p class="lead">공유해 주신 구글 드라이브 폴더(<code>IMG_5984.HEIC</code> ~ <code>IMG_6035.JPG</code>, 총 36장)의 매장 가격표·박스 라벨·진열 상품을 빠짐없이 판독해 <b>이케아 코리아 공식몰(ikea.com/kr/ko)</b>의 정확한 품번·치수·가격·구매 링크로 정리했습니다. 메인으로 찍으신 제품뿐 아니라 같은 프레임에 함께 코디된 주변 조명·바구니·의자·소품까지 모두 찾았습니다.</p>
+    <div class="quick-links">
+      <a class="btn" href="https://drive.google.com/drive/folders/1z3Kf0Q3GIiTRwgMpt2GUGGBYdrCKWtAP" target="_blank" rel="noopener">구글 드라이브 원본 폴더 열기 (36장) ↗</a>
+      <a class="btn secondary" href="#photo-index">사진 번호별(IMG_5984~6035) 매칭표 바로가기 ↓</a>
+      <a class="btn secondary" href="#fit-summary">강변 36B(F·H·E안) 배치 호환 요약 ↓</a>
+    </div>
+  </header>
+
+  <section class="summary-bar" aria-label="요약 지표">
+    <div class="stat"><b>36장 전수 확인</b><span>HEIC 9장 (5984~5992) + JPG 27장 (6004~6035)</span></div>
+    <div class="stat"><b>총 49개 제품</b><span>메인 태그·촬영 제품 34종 + 함께 진열된 코디 상품 15종</span></div>
+    <div class="stat"><b>품번·가격 100% 대조</b><span>매장 태그 가격 vs 온라인 공식몰 가격(할인·단품/세트) 병기</span></div>
+    <div class="stat"><b>36B 치수 대조</b><span>동쪽 벽 1인의자·서쪽 선반·북서 식탁·장스탠드 실측 호환성 표기</span></div>
+  </section>
+
+  <div class="filters" role="group" aria-label="카테고리 필터">
+    <button type="button" data-filter="전체" aria-pressed="true">전체 (48)</button>
+    <button type="button" data-filter="암체어·의자" aria-pressed="false">암체어·의자 (10)</button>
+    <button type="button" data-filter="식탁·커피테이블" aria-pressed="false">식탁·커피테이블 (5)</button>
+    <button type="button" data-filter="장스탠드·조명" aria-pressed="false">장스탠드·조명 (11)</button>
+    <button type="button" data-filter="선반·수납" aria-pressed="false">선반·수납 (6)</button>
+    <button type="button" data-filter="거울·욕실·시계·주방" aria-pressed="false">거울·욕실·시계·주방 (8)</button>
+    <button type="button" data-filter="크리스마스·식물·러그·소품" aria-pressed="false">크리스마스·식물·러그·소품 (8)</button>
+    <div class="right-controls">
+      <label><input type="checkbox" id="main-only"> 메인 촬영·태그 제품만 보기</label>
+      <input type="search" id="q" placeholder="제품명·품번·사진번호(예: 6015, 포엥) 검색">
+      <span id="visible-count" style="color:var(--muted);font-weight:600">33개 카드 표시 중</span>
+    </div>
+  </div>
+
+  <section class="grid" id="product-grid">
+    <article class="card" data-cat="암체어·의자" data-main="true" data-search="poäng 포엥 암체어 (호두나무무늬 / 셸링에 다크옐로) 코듀로이 쿠션 단품 89,900원 (306.248.98) · 프레임 포함 완제품 149,900원 (s89625283) 쿠션 <code>306.248.98</code> (진열대 31 섹션 6) / 세트 <code>s89625283</code> img_5984·6006·6014에서 직접 앉아보신 다크옐로(머스터드) 굵은 골 코듀로이 포엥입니다. img_6006 태그의 89,900원(306.248.98)은 '셸링에 다크옐로 쿠션 단품' 가격이며, 호두나무무늬 또는 자작나무 프레임(60,000원)과 합친 완제품은 149,900원입니다. f안 동쪽 벽 1인 라운지 의자 후보: 폭 68×깊이 82cm로 기본 모형(60×64cm)보다 깊이가 18cm 깊어 대각선 배치 시 통로 여유를 확인해야 합니다. 머스터드 코듀로이 색감은 h안·f안 포인트 컬러와 매우 잘 어울립니다. img_5984 img_6006 img_6008 img_6014">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/poaeng-armchair-walnut-effect-kelinge-dark-yellow-s89625283/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/poaeng-armchair-walnut-effect-kelinge-dark-yellow__1507267_pe1009207_s5.jpg" alt="POÄNG 포엥 암체어 (호두나무무늬 / 셸링에 다크옐로)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mWVfSDam2EP-f9t9y6WmRpoaTbOrCY8A/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5984 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1oOBoFWugxeCJcKkLI6xbvjNXmpnqD58E/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6006 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1GERQdRtL6vTFiPL3ytFuOmZEjKeEs9VW/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6008 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1iYxIF3QgHjtG17VBacfz0aOlLvBvuhKZ/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6014 ↗</a></div>
+        <h3>POÄNG 포엥 암체어 (호두나무무늬 / 셸링에 다크옐로)</h3>
+        <p class="sub-title">코듀로이 쿠션 단품 89,900원 (306.248.98) · 프레임 포함 완제품 149,900원 (s89625283)</p>
+        <div class="price-row">
+          <span class="price">89,900원 / 149,900원</span>
+          <span class="price-note">쿠션 단품 ₩89,900 · 암체어 세트 ₩149,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 쿠션 <code>306.248.98</code> (진열대 31 섹션 6) / 세트 <code>s89625283</code></div>
+          <div><b>규격:</b> 암체어 68×82×100 cm (좌폭 56 · 좌깊이 50 · 좌고 42 cm)</div>
+        </div>
+        <p class="desc">IMG_5984·6006·6014에서 직접 앉아보신 다크옐로(머스터드) 굵은 골 코듀로이 포엥입니다. IMG_6006 태그의 89,900원(306.248.98)은 '셸링에 다크옐로 쿠션 단품' 가격이며, 호두나무무늬 또는 자작나무 프레임(60,000원)과 합친 완제품은 149,900원입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> F안 동쪽 벽 1인 라운지 의자 후보: 폭 68×깊이 82cm로 기본 모형(60×64cm)보다 깊이가 18cm 깊어 대각선 배치 시 통로 여유를 확인해야 합니다. 머스터드 코듀로이 색감은 H안·F안 포인트 컬러와 매우 잘 어울립니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/poaeng-armchair-walnut-effect-kelinge-dark-yellow-s89625283/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/poaeng-armchair-cushion-kelinge-dark-yellow-30624898/" target="_blank" rel="noopener">쿠션 단품(306.248.98) 보기 ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="true" data-search="poäng 포엥 로우백 암체어 (자작나무·내추럴 / 보슬뢰브 레드) nytillverkad 컬렉션 · 헤드레스트 없는 낮은 등받이 (높이 71cm) 세트 <code>s49551590</code> (레드 프레임 <code>s79551584</code>) / 쿠션 <code>705.822.07</code> (태그 <code>705.922.57</code>) img_5985·5986에서 촬영하신 로우백(low-back) 포엥입니다. noboru nakamura의 1978년 오리지널 디자인에서 머리받침을 없애 전체 높이를 100cm→71cm로 낮춘 모델입니다. ★ 36b 동쪽 벽 최고 궁합: 높이가 71cm라 동쪽 벽 월패드·스위치(하단 높이 104cm) 아래로 33cm 여유가 남아 시야가 훨씬 탁 트입니다! img_5985 img_5986">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-vissle-red-s49551590/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/poaeng-low-back-armchair-natural-colour-beige-vissle-red__1315063_pe940385_s5.jpg" alt="POÄNG 포엥 로우백 암체어 (자작나무·내추럴 / 보슬뢰브 레드)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1xwzC1ULMzdeBNE0RnoarimMAaPvk8TC_/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5985 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1L_QAqYw2Xt1zinVzGBEwpvo5YXQPtwE8/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5986 ↗</a></div>
+        <h3>POÄNG 포엥 로우백 암체어 (자작나무·내추럴 / 보슬뢰브 레드)</h3>
+        <p class="sub-title">Nytillverkad 컬렉션 · 헤드레스트 없는 낮은 등받이 (높이 71cm)</p>
+        <div class="price-row">
+          <span class="price">104,900원</span>
+          <span class="price-note">프레임 ₩55,000 + 쿠션 ₩49,900 (레드 프레임 조합은 ₩109,900)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 세트 <code>s49551590</code> (레드 프레임 <code>s79551584</code>) / 쿠션 <code>705.822.07</code> (태그 <code>705.922.57</code>)</div>
+          <div><b>규격:</b> 68×83×71 cm (좌폭 56 · 좌깊이 50 · 좌고 41 cm)</div>
+        </div>
+        <p class="desc">IMG_5985·5986에서 촬영하신 로우백(Low-back) 포엥입니다. Noboru Nakamura의 1978년 오리지널 디자인에서 머리받침을 없애 전체 높이를 100cm→71cm로 낮춘 모델입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 36B 동쪽 벽 최고 궁합: 높이가 71cm라 동쪽 벽 월패드·스위치(하단 높이 104cm) 아래로 33cm 여유가 남아 시야가 훨씬 탁 트입니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-vissle-red-s49551590/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/poaeng-armchair-cushion-with-low-back-vissle-red-70582207/" target="_blank" rel="noopener">쿠션 단품(49,900원) 보기 ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="true" data-search="poäng 포엥 로우백 암체어 (내추럴·블랙 / 비슬레 블랙 & 베이지) img_6011 매장 태그 제품 (디자인 noboru nakamura · 10년 보증) 매장 태그 <code>940.459.06</code> / 온라인 블랙 <code>s09551573</code> · 베이지 <code>s69551607</code> img_6011 가격표에서 직접 찍으신 자작나무(내추럴)+비슬레 블랙 로우백 모델과 옆에 나란히 진열된 베이지 쿠션 로우백 모델입니다. 레드와 블랙/베이지를 1개씩 믹스매치해 f안 동쪽 벽에 2개 배치하기 좋습니다. f안 동쪽 벽 1인 라운지 의자 2개(예산 약 21만원)로 구성할 때 가장 현실적이고 편안한 후보입니다. img_5985 img_6011">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-katorp-natural-colour-beige-s69551607/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/poaeng-low-back-armchair-natural-colour-beige-katorp-natural-colour-beige__1315067_pe940386_s5.jpg" alt="POÄNG 포엥 로우백 암체어 (내추럴·블랙 / 비슬레 블랙 & 베이지)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1xwzC1ULMzdeBNE0RnoarimMAaPvk8TC_/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5985 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1F2pKhOdCupNOCmQud1HNOgTHRQruM1R7/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6011 ↗</a></div>
+        <h3>POÄNG 포엥 로우백 암체어 (내추럴·블랙 / 비슬레 블랙 & 베이지)</h3>
+        <p class="sub-title">IMG_6011 매장 태그 제품 (디자인 Noboru Nakamura · 10년 보증)</p>
+        <div class="price-row">
+          <span class="price">104,900원</span>
+          <span class="price-note">내추럴 프레임 ₩104,900 · 블랙브라운 프레임 ₩109,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 매장 태그 <code>940.459.06</code> / 온라인 블랙 <code>s09551573</code> · 베이지 <code>s69551607</code></div>
+          <div><b>규격:</b> 68×83×71 cm (좌폭 56 · 좌깊이 50 · 좌고 41 cm)</div>
+        </div>
+        <p class="desc">IMG_6011 가격표에서 직접 찍으신 자작나무(내추럴)+비슬레 블랙 로우백 모델과 옆에 나란히 진열된 베이지 쿠션 로우백 모델입니다. 레드와 블랙/베이지를 1개씩 믹스매치해 F안 동쪽 벽에 2개 배치하기 좋습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> F안 동쪽 벽 1인 라운지 의자 2개(예산 약 21만원)로 구성할 때 가장 현실적이고 편안한 후보입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-katorp-natural-colour-beige-s69551607/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-black-brown-vissle-black-s09551573/" target="_blank" rel="noopener">블랙 쿠션 조합 보기 ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="true" data-search="lånespelare 로네스펠라레 컵홀더 (물푸레무늬목) 포엥 암체어 팔걸이나 테이블 상판(최대 4.2cm)에 클램프로 고정하는 원목 머그홀더 품번 <code>105.715.27</code> img_5984·6014에서 포엥 다크옐로 암체어의 오른쪽 팔걸이에 끼워져 있던 원목 컵홀더입니다(img_6006 하단 태그 확인). 손잡이 있는 머그컵도 옆 홈으로 쏙 들어가며, 창가 화이트 책상 모서리에도 장착 가능합니다. 포엥 암체어를 선택하시면 별도 사이드테이블 없이도 팔걸이에 커피잔을 올릴 수 있어 거실 동선이 한결 넓어집니다. img_5984 img_6006 img_6014">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/lanespelare-mug-holder-ash-veneer-10571527/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/lanespelare-mug-holder-ash-veneer__1248932_pe923290_s5.jpg" alt="LÅNESPELARE 로네스펠라레 컵홀더 (물푸레무늬목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mWVfSDam2EP-f9t9y6WmRpoaTbOrCY8A/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5984 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1oOBoFWugxeCJcKkLI6xbvjNXmpnqD58E/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6006 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1iYxIF3QgHjtG17VBacfz0aOlLvBvuhKZ/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6014 ↗</a></div>
+        <h3>LÅNESPELARE 로네스펠라레 컵홀더 (물푸레무늬목)</h3>
+        <p class="sub-title">포엥 암체어 팔걸이나 테이블 상판(최대 4.2cm)에 클램프로 고정하는 원목 머그홀더</p>
+        <div class="price-row">
+          <span class="price">11,900원</span>
+          <span class="price-note">물푸레무늬목 / 블랙 동일가</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>105.715.27</code></div>
+          <div><b>규격:</b> 높이 11 cm · 내경 약 9 cm (최대 두께 4.2 cm 상판/팔걸이 고정)</div>
+        </div>
+        <p class="desc">IMG_5984·6014에서 포엥 다크옐로 암체어의 오른쪽 팔걸이에 끼워져 있던 원목 컵홀더입니다(IMG_6006 하단 태그 확인). 손잡이 있는 머그컵도 옆 홈으로 쏙 들어가며, 창가 화이트 책상 모서리에도 장착 가능합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 포엥 암체어를 선택하시면 별도 사이드테이블 없이도 팔걸이에 커피잔을 올릴 수 있어 거실 동선이 한결 넓어집니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/lanespelare-mug-holder-ash-veneer-10571527/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="false" data-search="skålboda 스콜보다 암체어 (오렌지 / 블랙) img_5985 우측 상단 배경에 진열된 nytillverkad 와이어 라운지 체어 품번 <code>305.619.66</code> 1983년 niels gammelgaard의 järpen 의자를 복각한 중공 스틸 와이어 암체어입니다. 시선이 투과되는 망사 구조라 작은 거실에서도 답답함이 전혀 없습니다. 폭 64×깊이 69×높이 71cm로 f안 동쪽 벽 라운지 의자 모형(60×64×75cm)과 치수가 거의 일치합니다. img_5985">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/skalboda-armchair-orange-30561966/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/skalboda-armchair-orange__1180835_pe896475_s5.jpg" alt="SKÅLBODA 스콜보다 암체어 (오렌지 / 블랙)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1xwzC1ULMzdeBNE0RnoarimMAaPvk8TC_/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5985 ↗</a></div>
+        <h3>SKÅLBODA 스콜보다 암체어 (오렌지 / 블랙)</h3>
+        <p class="sub-title">IMG_5985 우측 상단 배경에 진열된 Nytillverkad 와이어 라운지 체어</p>
+        <div class="price-row">
+          <span class="price">99,900원</span>
+          <span class="price-note">오렌지 / 블랙 동일가</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>305.619.66</code></div>
+          <div><b>규격:</b> 64×69×71 cm (좌폭 63 · 좌깊이 46 · 좌고 34 cm)</div>
+        </div>
+        <p class="desc">1983년 Niels Gammelgaard의 JÄRPEN 의자를 복각한 중공 스틸 와이어 암체어입니다. 시선이 투과되는 망사 구조라 작은 거실에서도 답답함이 전혀 없습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 폭 64×깊이 69×높이 71cm로 F안 동쪽 벽 라운지 의자 모형(60×64×75cm)과 치수가 거의 일치합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/skalboda-armchair-orange-30561966/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="true" data-search="stockholm 2025 스톡홀름 2025 의자 (다크브라운 / 참나무·라탄) img_6024 스톡홀름 원형 테이블 우측 상단 가격표(₩299,000)에 걸린 다이닝 체어 다크브라운 <code>205.909.45</code> · 가죽좌판 <code>105.909.55</code> · 참나무/라탄 <code>005.909.51</code> img_6024 우측 상단에 걸린 ₩299,000 가격표의 스톡홀름 2025 컬렉션 다이닝 의자입니다. 곡목 등받이와 팔걸이가 라운지 체어처럼 몸을 감싸줍니다. 스톡홀름 2025 원형 테이블(ø115cm)과 공식 세트로 디자인된 의자입니다. img_6024">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/stockholm-2025-chair-dark-brown-leather-10590955/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/stockholm-2025-chair-dark-brown-leather__1370460_pe958725_s5.jpg" alt="STOCKHOLM 2025 스톡홀름 2025 의자 (다크브라운 / 참나무·라탄)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6024 ↗</a></div>
+        <h3>STOCKHOLM 2025 스톡홀름 2025 의자 (다크브라운 / 참나무·라탄)</h3>
+        <p class="sub-title">IMG_6024 스톡홀름 원형 테이블 우측 상단 가격표(₩299,000)에 걸린 다이닝 체어</p>
+        <div class="price-row">
+          <span class="price">299,000원 / 199,000원</span>
+          <span class="price-note">다크브라운(가죽/목재) ₩299,000 · 참나무/라탄 ₩199,000</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 다크브라운 <code>205.909.45</code> · 가죽좌판 <code>105.909.55</code> · 참나무/라탄 <code>005.909.51</code></div>
+          <div><b>규격:</b> 폭 53 × 깊이 51 × 높이 76 cm (좌고 46 cm)</div>
+        </div>
+        <p class="desc">IMG_6024 우측 상단에 걸린 ₩299,000 가격표의 스톡홀름 2025 컬렉션 다이닝 의자입니다. 곡목 등받이와 팔걸이가 라운지 체어처럼 몸을 감싸줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 스톡홀름 2025 원형 테이블(Ø115cm)과 공식 세트로 디자인된 의자입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/stockholm-2025-chair-dark-brown-leather-10590955/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/stockholm-2025-chair-oak-rattan-00590951/" target="_blank" rel="noopener">참나무/라탄(199,000원) 보기 ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="false" data-search="voxlöv 복슬뢰브 의자 (라이트대나무) img_6024 스톡홀름 원형 식탁 뒤쪽 벽면 상단에 걸린 ₩139,000 페이퍼코드 의자 품번 <code>104.492.64</code> 밝은 대나무 프레임과 꼬임 종이끈(페이퍼코드) 좌판으로 만든 내추럴 다이닝 체어입니다. 약간 뒤로 기울어진 등받이 덕에 착석감이 편안합니다. 밝은 우드 톤이라 리사보·톤스타드·스톡홀름 식탁 어디에나 잘 어울립니다. img_6024">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/voxloev-chair-light-bamboo-10449264/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/voxloev-chair-light-bamboo__0948161_pe798889_s5.jpg" alt="VOXLÖV 복슬뢰브 의자 (라이트대나무)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6024 ↗</a></div>
+        <h3>VOXLÖV 복슬뢰브 의자 (라이트대나무)</h3>
+        <p class="sub-title">IMG_6024 스톡홀름 원형 식탁 뒤쪽 벽면 상단에 걸린 ₩139,000 페이퍼코드 의자</p>
+        <div class="price-row">
+          <span class="price">139,000원</span>
+          <span class="price-note">단품 기준</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>104.492.64</code></div>
+          <div><b>규격:</b> 54×54×77 cm (좌폭 45 · 좌깊이 41 · 좌고 45 cm)</div>
+        </div>
+        <p class="desc">밝은 대나무 프레임과 꼬임 종이끈(페이퍼코드) 좌판으로 만든 내추럴 다이닝 체어입니다. 약간 뒤로 기울어진 등받이 덕에 착석감이 편안합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 밝은 우드 톤이라 리사보·톤스타드·스톡홀름 식탁 어디에나 잘 어울립니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/voxloev-chair-light-bamboo-10449264/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="false" data-search="salnö 살뇌 팔걸이의자 / gryttom 그뤼톰 쿠션 세트 (라탄) img_6024 뒤쪽 벽면 중앙에 진열된 수공예 라탄 라운지/다이닝 체어 단품 <code>105.512.04</code> / 쿠션 세트 <code>s59564605</code> (로우 암체어 <code>705.643.74</code> ₩119,000) img_6024 뒤쪽 벽면에서 139,000원 / 159,000원 태그와 함께 진열된 수공예 천연 라탄 팔걸이 의자입니다. 식탁 의자 겸 거실 보조 라운지 체어로 활용할 수 있는 따뜻한 휴양지 무드 제품입니다. img_6024">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/salnoe-gryttom-chair-with-cushion-armrests-rattan-gransel-natural-s59564605/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/salnoe-gryttom-chair-with-cushion-with-armrests-rattan-gransel-natural__1342528_pe949050_s5.jpg" alt="SALNÖ 살뇌 팔걸이의자 / GRYTTOM 그뤼톰 쿠션 세트 (라탄)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6024 ↗</a></div>
+        <h3>SALNÖ 살뇌 팔걸이의자 / GRYTTOM 그뤼톰 쿠션 세트 (라탄)</h3>
+        <p class="sub-title">IMG_6024 뒤쪽 벽면 중앙에 진열된 수공예 라탄 라운지/다이닝 체어</p>
+        <div class="price-row">
+          <span class="price">139,000원 / 159,000원</span>
+          <span class="price-note">의자 단품 ₩139,000 · 쿠션 포함 ₩159,000</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 단품 <code>105.512.04</code> / 쿠션 세트 <code>s59564605</code> (로우 암체어 <code>705.643.74</code> ₩119,000)</div>
+          <div><b>규격:</b> 62×62×79 cm (좌폭 45 · 좌깊이 45 · 좌고 44 cm)</div>
+        </div>
+        <p class="desc">IMG_6024 뒤쪽 벽면에서 139,000원 / 159,000원 태그와 함께 진열된 수공예 천연 라탄 팔걸이 의자입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 식탁 의자 겸 거실 보조 라운지 체어로 활용할 수 있는 따뜻한 휴양지 무드 제품입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/salnoe-gryttom-chair-with-cushion-armrests-rattan-gransel-natural-s59564605/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="false" data-search="agen 아겐 라탄 의자 (단품 / 노르나 쿠션 포함) img_6024 뒤쪽 벽면 우측에 진열된 라탄·대나무 암체어 (₩69,900 / ₩79,900) 단품 <code>701.581.34</code> / 쿠션 세트 <code>s39390772</code> 폭 58×깊이 56cm로 콤팩트하고 가벼운 천연 라탄·대나무 암체어입니다. f안 동쪽 벽 라운지 의자(60×64cm)보다도 작아 좁은 공간에 2개 두기 가장 부담 없는 사이즈입니다. img_6024">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/agen-armchair-with-cushion-rattan-norna-natural-s39390772/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/agen-armchair-with-cushion-rattan-norna-natural__0920440_pe787034_s5.jpg" alt="AGEN 아겐 라탄 의자 (단품 / 노르나 쿠션 포함)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6024 ↗</a></div>
+        <h3>AGEN 아겐 라탄 의자 (단품 / 노르나 쿠션 포함)</h3>
+        <p class="sub-title">IMG_6024 뒤쪽 벽면 우측에 진열된 라탄·대나무 암체어 (₩69,900 / ₩79,900)</p>
+        <div class="price-row">
+          <span class="price">69,900원 / 79,900원</span>
+          <span class="price-note">의자 단품 ₩69,900 · 방석 포함 ₩79,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 단품 <code>701.581.34</code> / 쿠션 세트 <code>s39390772</code></div>
+          <div><b>규격:</b> 58×56×79 cm (좌폭 43 · 좌깊이 40 · 좌고 44 cm)</div>
+        </div>
+        <p class="desc">폭 58×깊이 56cm로 콤팩트하고 가벼운 천연 라탄·대나무 암체어입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> F안 동쪽 벽 라운지 의자(60×64cm)보다도 작아 좁은 공간에 2개 두기 가장 부담 없는 사이즈입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/agen-armchair-with-cushion-rattan-norna-natural-s39390772/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="암체어·의자" data-main="false" data-search="tobias 토비아스 투명/스모크 의자 (크롬도금) img_6017·6018 리사보 200cm 식탁에 함께 세팅된 폴리카보네이트 캔틸레버 체어 품번 <code>106.351.24</code> (투명 <code>603.496.72</code>) 리사보 식탁 뒤편에 코디된 투명 아크릴(폴리카보네이트) 의자입니다. 빛이 투과되어 식탁 주변이 넓어 보이고 우드 상판에 모던한 포인트를 줍니다. 우드 식탁에 의자까지 모두 나무로 통일하기보다 1~2개 투명/크롬 의자를 섞고 싶을 때 좋은 후보입니다. img_6017 img_6018">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/tobias-chair-black-grey-black-10635124/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/tobias-chair-black-grey-black__1524209_pe1013908_s5.jpg" alt="TOBIAS 토비아스 투명/스모크 의자 (크롬도금)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/12y8S3hOaKvULoeRN_0gCps6IdEEoUpXv/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6017 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/172ewZdY2klVESNetPDzKbBv14c47mFDI/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6018 ↗</a></div>
+        <h3>TOBIAS 토비아스 투명/스모크 의자 (크롬도금)</h3>
+        <p class="sub-title">IMG_6017·6018 리사보 200cm 식탁에 함께 세팅된 폴리카보네이트 캔틸레버 체어</p>
+        <div class="price-row">
+          <span class="price">129,000원</span>
+          <span class="price-note">투명 / 브라운레드 / 블랙그레이 동일가</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>106.351.24</code> (투명 <code>603.496.72</code>)</div>
+          <div><b>규격:</b> 55×56×82 cm (좌폭 48 · 좌깊이 46 · 좌고 44 cm)</div>
+        </div>
+        <p class="desc">리사보 식탁 뒤편에 코디된 투명 아크릴(폴리카보네이트) 의자입니다. 빛이 투과되어 식탁 주변이 넓어 보이고 우드 상판에 모던한 포인트를 줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 우드 식탁에 의자까지 모두 나무로 통일하기보다 1~2개 투명/크롬 의자를 섞고 싶을 때 좋은 후보입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/tobias-chair-black-grey-black-10635124/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="식탁·커피테이블" data-main="true" data-search="stockholm 2025 스톡홀름 2025 원형 테이블 (115 cm 참나무무늬목) img_5989 가격표 & img_6024 전체 샷 · 디자인 ola wihlborg · 4인용 원형 다이닝 매장 태그 <code>905.914.21</code> / 온라인 세트 품번 <code>s79606586</code> img_5989(가격표 클로즈업)와 img_6024(전신 샷)에서 중점 촬영하신 스톡홀름 2025 신제품 원형 식탁입니다. 두꺼운 원통형 참나무 다리 4개와 매끈한 참나무 무늬목 원형 상판이 고급스러운 북유럽 미드센추리 조형미를 보여줍니다. ★ h안의 '북서 원형 오크 다이닝(기본 ø96cm)' 자리에 바로 대입 가능한 상위 프리미엄 대안입니다! 지름 115cm 적용 시에도 동쪽 통로가 약 139cm로 넉넉하게 확보됩니다. img_5989 img_6024">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/stockholm-2025-table-oak-veneer-oak-veneer-s79606586/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/stockholm-2025-table-oak-veneer-oak-veneer__1373056_pe959868_s5.jpg" alt="STOCKHOLM 2025 스톡홀름 2025 원형 테이블 (115 cm 참나무무늬목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/17FNfK5zlUGU9lxJeiEsmxfzExhUIbxEX/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5989 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6024 ↗</a></div>
+        <h3>STOCKHOLM 2025 스톡홀름 2025 원형 테이블 (115 cm 참나무무늬목)</h3>
+        <p class="sub-title">IMG_5989 가격표 & IMG_6024 전체 샷 · 디자인 Ola Wihlborg · 4인용 원형 다이닝</p>
+        <div class="price-row">
+          <span class="price">649,000원</span>
+          <span class="price-note">4인용 원형 식탁</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 매장 태그 <code>905.914.21</code> / 온라인 세트 품번 <code>s79606586</code></div>
+          <div><b>규격:</b> 지름 115 × 높이 75 cm</div>
+        </div>
+        <p class="desc">IMG_5989(가격표 클로즈업)와 IMG_6024(전신 샷)에서 중점 촬영하신 스톡홀름 2025 신제품 원형 식탁입니다. 두꺼운 원통형 참나무 다리 4개와 매끈한 참나무 무늬목 원형 상판이 고급스러운 북유럽 미드센추리 조형미를 보여줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ H안의 '북서 원형 오크 다이닝(기본 Ø96cm)' 자리에 바로 대입 가능한 상위 프리미엄 대안입니다! 지름 115cm 적용 시에도 동쪽 통로가 약 139cm로 넉넉하게 확보됩니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/stockholm-2025-table-oak-veneer-oak-veneer-s79606586/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="식탁·커피테이블" data-main="true" data-search="lisabo 리사보 테이블 (200×78 cm 물푸레무늬목) img_6017·6018 촬영 · 현재 d·e·f안 기준 식탁 (red dot 디자인 어워드 수상) 온라인 품번 <code>305.637.72</code> (매장 태그 <code>305.692.22</code>) 현재 d·e·f안의 기본 식탁으로 들어가 있는 리사보 200cm 실물을 매장에서 직접 확인하신 사진입니다. 비스듬하게 깎은 상판 엣지와 공구 없이 끼워 조립하는 자작나무 원목 다리가 특징입니다. 현재 d·e·f안 기준 식탁(200×78×74cm, 349,000원)과 동일한 제품입니다. img_6017 img_6018">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/lisabo-table-ash-veneer__1265108_pe927510_s5.jpg" alt="LISABO 리사보 테이블 (200×78 cm 물푸레무늬목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/12y8S3hOaKvULoeRN_0gCps6IdEEoUpXv/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6017 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/172ewZdY2klVESNetPDzKbBv14c47mFDI/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6018 ↗</a></div>
+        <h3>LISABO 리사보 테이블 (200×78 cm 물푸레무늬목)</h3>
+        <p class="sub-title">IMG_6017·6018 촬영 · 현재 D·E·F안 기준 식탁 (Red Dot 디자인 어워드 수상)</p>
+        <div class="price-row">
+          <span class="price">349,000원</span>
+          <span class="price-note">6인용 와이드 식탁 (140×78cm는 ₩249,000)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 온라인 품번 <code>305.637.72</code> (매장 태그 <code>305.692.22</code>)</div>
+          <div><b>규격:</b> 길이 200 × 폭 78 × 높이 74 cm</div>
+        </div>
+        <p class="desc">현재 D·E·F안의 기본 식탁으로 들어가 있는 리사보 200cm 실물을 매장에서 직접 확인하신 사진입니다. 비스듬하게 깎은 상판 엣지와 공구 없이 끼워 조립하는 자작나무 원목 다리가 특징입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 현재 D·E·F안 기준 식탁(200×78×74cm, 349,000원)과 동일한 제품입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="식탁·커피테이블" data-main="true" data-search="tonstad 톤스타드 테이블 (150×80 cm 참나무무늬목) img_6019·6020 촬영 · 디자인 ola wihlborg · 차분한 브러시드 오크 식탁 품번 <code>805.940.64</code> (확장형 오프화이트 <code>006.007.33</code>) img_6019·6020에서 촬영하신 톤스타드 150×80cm 참나무무늬목 테이블입니다. 리사보(물푸레나무)보다 결이 차분한 정통 화이트오크 톤이며, 다리가 네 모서리 끝에 수직으로 떨어져 의자 수납 폭이 넓습니다. 200cm 리사보가 너무 길게 느껴질 때, 길이를 50cm 줄여 동쪽 통로를 기존 136cm→186cm로 50cm 더 넓히는 훌륭한 절충안입니다! img_6019 img_6020">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/tonstad-table-oak-veneer-80594064/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/tonstad-table-oak-veneer__1467538_pe995759_s5.jpg" alt="TONSTAD 톤스타드 테이블 (150×80 cm 참나무무늬목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1ZLct-ZNanFN81CeRSeBU2L4owcB0O7dC/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6019 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6020 ↗</a></div>
+        <h3>TONSTAD 톤스타드 테이블 (150×80 cm 참나무무늬목)</h3>
+        <p class="sub-title">IMG_6019·6020 촬영 · 디자인 Ola Wihlborg · 차분한 브러시드 오크 식탁</p>
+        <div class="price-row">
+          <span class="price">399,000원</span>
+          <span class="price-note">4~6인용 (200×85cm는 ₩499,000 · 확장형 140/196cm 오프화이트도 ₩399,000)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>805.940.64</code> (확장형 오프화이트 <code>006.007.33</code>)</div>
+          <div><b>규격:</b> 길이 150 × 폭 80 × 높이 75 cm</div>
+        </div>
+        <p class="desc">IMG_6019·6020에서 촬영하신 톤스타드 150×80cm 참나무무늬목 테이블입니다. 리사보(물푸레나무)보다 결이 차분한 정통 화이트오크 톤이며, 다리가 네 모서리 끝에 수직으로 떨어져 의자 수납 폭이 넓습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 200cm 리사보가 너무 길게 느껴질 때, 길이를 50cm 줄여 동쪽 통로를 기존 136cm→186cm로 50cm 더 넓히는 훌륭한 절충안입니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/tonstad-table-oak-veneer-80594064/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="식탁·커피테이블" data-main="true" data-search="holmerud 홀메루드 커피테이블 (90×55 cm 참나무무늬) img_6005·6010·6012 3장 연속 촬영 · 디자인 friso wiersma · 비대칭 수납 소파테이블 품번 <code>205.300.94</code> img_6005·6010·6012 세 장에 걸쳐 꼼꼼히 찍으신 건축적인 형태의 참나무무늬 커피테이블입니다. 상판 아래와 측면에 오픈 수납 칸이 나뉘어 있어 리모컨·잡지·lp 소품을 깔끔하게 넣어둘 수 있습니다. 높이가 45cm라 바닥 좌식보다는 h안의 2.5인 소파 앞 또는 f안의 포엥 암체어 앞 소파테이블로 높이가 딱 맞습니다(미룸 좌탁 58,900원과 6천원 차이). img_6005 img_6010 img_6012">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/holmerud-coffee-table-oak-effect-20530094/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/holmerud-coffee-table-oak-effect__1193663_pe901563_s5.jpg" alt="HOLMERUD 홀메루드 커피테이블 (90×55 cm 참나무무늬)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/12YGsf1h8pYG0Eq4V7pcGoDqG3RefbyCE/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6005 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1-z4f-b9XCNx17TWQwLCmElVHGbR18qqx/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6010 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1KZIbRUC7mfXw9X2RfXI8EugrCmhJ0_sl/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6012 ↗</a></div>
+        <h3>HOLMERUD 홀메루드 커피테이블 (90×55 cm 참나무무늬)</h3>
+        <p class="sub-title">IMG_6005·6010·6012 3장 연속 촬영 · 디자인 Friso Wiersma · 비대칭 수납 소파테이블</p>
+        <div class="price-row">
+          <span class="price">64,900원</span>
+          <span class="price-note">참나무무늬 / 다크브라운 동일가 (보조테이블 80×31cm는 ₩54,900)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>205.300.94</code></div>
+          <div><b>규격:</b> 길이 90 × 폭 55 × 높이 45 cm</div>
+        </div>
+        <p class="desc">IMG_6005·6010·6012 세 장에 걸쳐 꼼꼼히 찍으신 건축적인 형태의 참나무무늬 커피테이블입니다. 상판 아래와 측면에 오픈 수납 칸이 나뉘어 있어 리모컨·잡지·LP 소품을 깔끔하게 넣어둘 수 있습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 높이가 45cm라 바닥 좌식보다는 H안의 2.5인 소파 앞 또는 F안의 포엥 암체어 앞 소파테이블로 높이가 딱 맞습니다(미룸 좌탁 58,900원과 6천원 차이).</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/holmerud-coffee-table-oak-effect-20530094/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="식탁·커피테이블" data-main="false" data-search="tjärkil 셰르킬 테이블 (235×100 cm 블랙/호두나무무늬목) img_6020 우측 뒤편에 함께 찍힌 대형 다이닝 테이블 (₩799,000) 품번 <code>006.304.62</code> img_6020 톤스타드 테이블 오른쪽 뒤에 보이는 호두나무 상판 + 블랙 하부 프레임 대형 식탁입니다. 235×100cm는 36b 거실 폭에 너무 크므로 참고용으로만 확인하세요. img_6020">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/tjaerkil-table-black-walnut-veneer-00630462/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/tjaerkil-table-black-walnut-veneer__1524092_pe1013905_s5.jpg" alt="TJÄRKIL 셰르킬 테이블 (235×100 cm 블랙/호두나무무늬목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6020 ↗</a></div>
+        <h3>TJÄRKIL 셰르킬 테이블 (235×100 cm 블랙/호두나무무늬목)</h3>
+        <p class="sub-title">IMG_6020 우측 뒤편에 함께 찍힌 대형 다이닝 테이블 (₩799,000)</p>
+        <div class="price-row">
+          <span class="price">799,000원</span>
+          <span class="price-note">180×100cm 모델은 ₩549,000 (706.304.49)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>006.304.62</code></div>
+          <div><b>규격:</b> 235×100×75 cm</div>
+        </div>
+        <p class="desc">IMG_6020 톤스타드 테이블 오른쪽 뒤에 보이는 호두나무 상판 + 블랙 하부 프레임 대형 식탁입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 235×100cm는 36B 거실 폭에 너무 크므로 참고용으로만 확인하세요.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/tjaerkil-table-black-walnut-veneer-00630462/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="vidja 비디아 플로어스탠드 (138 cm 화이트) img_5987 촬영 · e14 전구 3개로 기둥 전체가 은은하게 빛나는 패브릭 롱 스탠드 품번 <code>303.092.05</code> img_5987에서 단독 촬영하신 원통형 패브릭 장스탠드입니다. 지름이 19cm로 매우 슬림하면서 긴 원통 전체가 빛을 부드럽게 확산시켜 눈부심 없는 무드 조명을 만들어 줍니다. 지름 19cm로 텔뷘(32cm)보다 바닥 면적을 훨씬 적게 차지해 코헨/무지 선반 옆이나 침실 구석에 쏙 들어갑니다(텔뷘 대비 -89,100원 절감). img_5987">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vidja-floor-lamp-white-30309205/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vidja-floor-lamp-white__0606512_pe682388_s5.jpg" alt="VIDJA 비디아 플로어스탠드 (138 cm 화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1Jc3gTX71xEVTzdcUiwB_WVqeZ-AubE-J/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5987 ↗</a></div>
+        <h3>VIDJA 비디아 플로어스탠드 (138 cm 화이트)</h3>
+        <p class="sub-title">IMG_5987 촬영 · E14 전구 3개로 기둥 전체가 은은하게 빛나는 패브릭 롱 스탠드</p>
+        <div class="price-row">
+          <span class="price">59,900원</span>
+          <span class="price-note">전구 별매 (E14 3개 필요)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>303.092.05</code></div>
+          <div><b>규격:</b> 높이 138 cm · 지름 19 cm · 코드 길이 2.0 m</div>
+        </div>
+        <p class="desc">IMG_5987에서 단독 촬영하신 원통형 패브릭 장스탠드입니다. 지름이 19cm로 매우 슬림하면서 긴 원통 전체가 빛을 부드럽게 확산시켜 눈부심 없는 무드 조명을 만들어 줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 지름 19cm로 텔뷘(32cm)보다 바닥 면적을 훨씬 적게 차지해 코헨/무지 선반 옆이나 침실 구석에 쏙 들어갑니다(텔뷘 대비 -89,100원 절감).</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vidja-floor-lamp-white-30309205/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="ökensand 외켄산드 플로어스탠드 (154 cm 너도밤나무/화이트) img_5990·5991 촬영 · 디자인 ebba strandmark · 원목 3다리 + 주름 패브릭 갓 품번 <code>405.415.34</code> (박스 표기 <code>805.415.14</code>) img_5990(진열 본체)과 img_5991(하단 박스·가격표)에서 연속 촬영하신 외켄산드입니다. 끝으로 갈수록 가늘어지는 너도밤나무 원목 다리 3개와 세탁 가능한 화이트 플리츠 패브릭 갓이 따뜻한 북유럽 감성을 줍니다. ★ 라우테르스(바닥 지름 62cm)의 단점이던 과도한 다리 벌어짐을 35cm로 줄인 모델이라, 36b 남서 창가 장스탠드 자리(h안 한샘 리옹 144,900원 / f안 텔뷘 149,000원)를 99,900원으로 대체하기 가장 좋습니다! img_5990 img_5991">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/oekensand-floor-lamp-beech-white-40541534/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/oekensand-floor-lamp-beech-white__1187892_pe899535_s5.jpg" alt="ÖKENSAND 외켄산드 플로어스탠드 (154 cm 너도밤나무/화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1UGyb2pQI-NhO2kjyOMi2yUc8X2Gm0irL/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5990 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1fxvZMm9i-cGv1QMqqhK5kLeDrbAQuLaK/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5991 ↗</a></div>
+        <h3>ÖKENSAND 외켄산드 플로어스탠드 (154 cm 너도밤나무/화이트)</h3>
+        <p class="sub-title">IMG_5990·5991 촬영 · 디자인 Ebba Strandmark · 원목 3다리 + 주름 패브릭 갓</p>
+        <div class="price-row">
+          <span class="price">99,900원</span>
+          <span class="price-note">전구 별매 (E14 3개 필요)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>405.415.34</code> (박스 표기 <code>805.415.14</code>)</div>
+          <div><b>규격:</b> 높이 154 cm · 갓 지름 35 cm · 바닥 다리 폭 약 35 cm</div>
+        </div>
+        <p class="desc">IMG_5990(진열 본체)과 IMG_5991(하단 박스·가격표)에서 연속 촬영하신 외켄산드입니다. 끝으로 갈수록 가늘어지는 너도밤나무 원목 다리 3개와 세탁 가능한 화이트 플리츠 패브릭 갓이 따뜻한 북유럽 감성을 줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 라우테르스(바닥 지름 62cm)의 단점이던 과도한 다리 벌어짐을 35cm로 줄인 모델이라, 36B 남서 창가 장스탠드 자리(H안 한샘 리옹 144,900원 / F안 텔뷘 149,000원)를 99,900원으로 대체하기 가장 좋습니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/oekensand-floor-lamp-beech-white-40541534/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="strandad 스트란다드 플로어스탠드 (화이트/블랙) img_5990·5991 외켄산드 바로 왼쪽에 나란히 켜져 있던 주름 원통 장스탠드 품번 <code>105.948.40</code> 외켄산드 왼쪽에서 은은한 주름 그림자를 드리우던 가성비 플로어스탠드입니다. 얇은 블랙 스틸 다리 3개 위에 긴 주름 갓이 올라간 미니멀한 디자인입니다. 29,900원으로 부담 없이 침실이나 거실 구석에 서브 간접조명을 더할 수 있습니다. img_5990 img_5991">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/strandad-floor-lamp-white-black-10594840/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/strandad-floor-lamp-white-black__1403319_pe969302_s5.jpg" alt="STRANDAD 스트란다드 플로어스탠드 (화이트/블랙)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1UGyb2pQI-NhO2kjyOMi2yUc8X2Gm0irL/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5990 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1fxvZMm9i-cGv1QMqqhK5kLeDrbAQuLaK/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5991 ↗</a></div>
+        <h3>STRANDAD 스트란다드 플로어스탠드 (화이트/블랙)</h3>
+        <p class="sub-title">IMG_5990·5991 외켄산드 바로 왼쪽에 나란히 켜져 있던 주름 원통 장스탠드</p>
+        <div class="price-row">
+          <span class="price">29,900원</span>
+          <span class="price-note">탁상스탠드(29cm)는 ₩14,900 (805.948.51)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>105.948.40</code></div>
+          <div><b>규격:</b> 높이 약 118 cm · 지름 22 cm</div>
+        </div>
+        <p class="desc">외켄산드 왼쪽에서 은은한 주름 그림자를 드리우던 가성비 플로어스탠드입니다. 얇은 블랙 스틸 다리 3개 위에 긴 주름 갓이 올라간 미니멀한 디자인입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 29,900원으로 부담 없이 침실이나 거실 구석에 서브 간접조명을 더할 수 있습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/strandad-floor-lamp-white-black-10594840/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="vickleby 비클레뷔 플로어스탠드 (136 cm 화이트/핸드메이드) img_5990·5991 우측 선반 가격표 · 디자인 ola wihlborg · 라이스페이퍼 한지등 온라인 품번 <code>604.844.86</code> (매장 태그 <code>404.844.88</code>) 수작업 라이스페이퍼(한지) 갓을 사용해 이사무 노구치 아카리 램프 같은 동양적이고 포근한 빛을 내는 초가성비 장스탠드입니다. 24,900원으로 우드·한지 무드를 연출할 수 있으나 종이 갓 특성상 물기·찢어짐에는 주의가 필요합니다. img_5990 img_5991">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vickleby-floor-lamp-white-handmade-60484486/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vickleby-floor-lamp-white-handmade__0953644_pe802864_s5.jpg" alt="VICKLEBY 비클레뷔 플로어스탠드 (136 cm 화이트/핸드메이드)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1UGyb2pQI-NhO2kjyOMi2yUc8X2Gm0irL/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5990 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1fxvZMm9i-cGv1QMqqhK5kLeDrbAQuLaK/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5991 ↗</a></div>
+        <h3>VICKLEBY 비클레뷔 플로어스탠드 (136 cm 화이트/핸드메이드)</h3>
+        <p class="sub-title">IMG_5990·5991 우측 선반 가격표 · 디자인 Ola Wihlborg · 라이스페이퍼 한지등</p>
+        <div class="price-row">
+          <span class="price">24,900원</span>
+          <span class="price-note">전구 별매 (E14)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 온라인 품번 <code>604.844.86</code> (매장 태그 <code>404.844.88</code>)</div>
+          <div><b>규격:</b> 높이 136 cm · 갓 지름 28 cm · 받침 지름 25 cm</div>
+        </div>
+        <p class="desc">수작업 라이스페이퍼(한지) 갓을 사용해 이사무 노구치 아카리 램프 같은 동양적이고 포근한 빛을 내는 초가성비 장스탠드입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 24,900원으로 우드·한지 무드를 연출할 수 있으나 종이 갓 특성상 물기·찢어짐에는 주의가 필요합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vickleby-floor-lamp-white-handmade-60484486/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="ikea ps 2026 상향식플로어스탠드 (182 cm 옐로 / 다크레드 / 블루) img_5992·6034·6035 3장 촬영 · 디자인 alexander pott · 천장 간접조명 업라이트 품번 <code>106.085.16</code> img_5992·6034·6035에서 옐로·블루·다크레드 3가지 색상과 가격표를 집중 촬영하신 ikea ps 2026 신제품 상향식 스탠드입니다. 천장으로 빛을 쏘아 올려 거실 전체에 은은한 간접조명을 깔아주며, 미드센추리 오브제 역할을 톡톡히 합니다. 텔뷘(149,000원)과 가격이 정확히 같으면서, 천장 반사광으로 거실 전체를 넓어 보이게 하는 업라이트 방식이라 h안·f안의 컬러 포인트 장스탠드로 강력 추천합니다! img_5992 img_6034 img_6035">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-floor-uplighter-dark-red-10608516/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/ikea-ps-2026-floor-uplighter-dark-red__1418671_pe976686_s5.jpg" alt="IKEA PS 2026 상향식플로어스탠드 (182 cm 옐로 / 다크레드 / 블루)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/16g-y9LGqEOgn-dJtEtd9AE-JshwjamCd/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5992 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1OHYptEgrRteNYqIJQiDGXFVMs97lRl_Y/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6034 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1mPPP1QTQ4WWO43epdFKHlSQalP1z5pXu/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6035 ↗</a></div>
+        <h3>IKEA PS 2026 상향식플로어스탠드 (182 cm 옐로 / 다크레드 / 블루)</h3>
+        <p class="sub-title">IMG_5992·6034·6035 3장 촬영 · 디자인 Alexander Pott · 천장 간접조명 업라이트</p>
+        <div class="price-row">
+          <span class="price">149,000원</span>
+          <span class="price-note">New 신제품 · GU10 LED 전구 별매</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>106.085.16</code></div>
+          <div><b>규격:</b> 높이 182 cm · 받침 지름 26 cm · 갓 지름 19 cm</div>
+        </div>
+        <p class="desc">IMG_5992·6034·6035에서 옐로·블루·다크레드 3가지 색상과 가격표를 집중 촬영하신 IKEA PS 2026 신제품 상향식 스탠드입니다. 천장으로 빛을 쏘아 올려 거실 전체에 은은한 간접조명을 깔아주며, 미드센추리 오브제 역할을 톡톡히 합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 텔뷘(149,000원)과 가격이 정확히 같으면서, 천장 반사광으로 거실 전체를 넓어 보이게 하는 업라이트 방식이라 H안·F안의 컬러 포인트 장스탠드로 강력 추천합니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-floor-uplighter-dark-red-10608516/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="isjakt 이샥트 led상향식플로어스탠드/독서등 (180 cm 니켈도금) img_5992·6034 우측 진열 · 상향 간접등 + 회전식 독서등 2-in-1 (디머 내장) 품번 <code>904.597.15</code> img_5992·6034 오른쪽에 밝게 켜져 있던 이케아 최고 인기 스테인리스/니켈 상향등+독서등입니다. 상단 디머블 업라이트가 거실 전체를 비추고, 중간의 각도조절 암(arm)이 소파·의자 독서등 역할을 동시에 수행합니다. 무지 sus 스테인리스 선반·코헨 유닛2의 스틸 포인트와 금속 질감이 완벽히 통일되며, f안 동쪽 벽 라운지 의자 옆 독서등 겸 거실 주조명으로 실용성 1위입니다. img_5992 img_6034">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/isjakt-led-floor-uplighter-reading-lamp-dimmable-nickel-plated-90459715/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/isjakt-led-floor-uplighter-reading-lamp-dimmable-nickel-plated__1006753_pe825819_s5.jpg" alt="ISJAKT 이샥트 LED상향식플로어스탠드/독서등 (180 cm 니켈도금)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/16g-y9LGqEOgn-dJtEtd9AE-JshwjamCd/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5992 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1OHYptEgrRteNYqIJQiDGXFVMs97lRl_Y/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6034 ↗</a></div>
+        <h3>ISJAKT 이샥트 LED상향식플로어스탠드/독서등 (180 cm 니켈도금)</h3>
+        <p class="sub-title">IMG_5992·6034 우측 진열 · 상향 간접등 + 회전식 독서등 2-in-1 (디머 내장)</p>
+        <div class="price-row">
+          <span class="price">149,000원</span>
+          <span class="price-note">LED 광원 내장 (별도 전구 구매 불필요 · 수명 약 25,000시간)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>904.597.15</code></div>
+          <div><b>규격:</b> 높이 180 cm · 받침 지름 24 cm · 전선 2.0 m</div>
+        </div>
+        <p class="desc">IMG_5992·6034 오른쪽에 밝게 켜져 있던 이케아 최고 인기 스테인리스/니켈 상향등+독서등입니다. 상단 디머블 업라이트가 거실 전체를 비추고, 중간의 각도조절 암(Arm)이 소파·의자 독서등 역할을 동시에 수행합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 무지 SUS 스테인리스 선반·코헨 유닛2의 스틸 포인트와 금속 질감이 완벽히 통일되며, F안 동쪽 벽 라운지 의자 옆 독서등 겸 거실 주조명으로 실용성 1위입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/isjakt-led-floor-uplighter-reading-lamp-dimmable-nickel-plated-90459715/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="tågarp 토가르프 상향식플로어스탠드 (블랙/화이트) img_5992·6034 가격표(₩24,900) 확인 · 입문용 상향식 간접조명 스탠드 상향등 단품 <code>804.640.53</code> / 상향등+독서등 <code>004.863.94</code> img_5992·6034에서 ps 2026과 이샥트 사이에 진열되어 있던 토가르프입니다. 매장 태그는 24,900원이나 현재 온라인 공식몰에서는 단품 19,900원(독서등 결합형 24,900원)에 판매 중입니다. 2만원 안팎으로 천장 간접조명 효과를 테스트해보고 싶을 때 가장 가성비가 높습니다. img_5992 img_6034">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/tagarp-floor-uplighter-black-white-80464053/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/tagarp-floor-uplighter-black-white__0810840_pe771436_s5.jpg" alt="TÅGARP 토가르프 상향식플로어스탠드 (블랙/화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/16g-y9LGqEOgn-dJtEtd9AE-JshwjamCd/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5992 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1OHYptEgrRteNYqIJQiDGXFVMs97lRl_Y/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6034 ↗</a></div>
+        <h3>TÅGARP 토가르프 상향식플로어스탠드 (블랙/화이트)</h3>
+        <p class="sub-title">IMG_5992·6034 가격표(₩24,900) 확인 · 입문용 상향식 간접조명 스탠드</p>
+        <div class="price-row">
+          <span class="price">19,900원 / 24,900원</span>
+          <span class="price-note">상향등 단품 온라인 ₩19,900 (매장 태그 ₩24,900) · 독서등 포함 모델 ₩24,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 상향등 단품 <code>804.640.53</code> / 상향등+독서등 <code>004.863.94</code></div>
+          <div><b>규격:</b> 높이 178 cm · 갓 지름 24 cm · 받침 지름 21 cm</div>
+        </div>
+        <p class="desc">IMG_5992·6034에서 PS 2026과 이샥트 사이에 진열되어 있던 토가르프입니다. 매장 태그는 24,900원이나 현재 온라인 공식몰에서는 단품 19,900원(독서등 결합형 24,900원)에 판매 중입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 2만원 안팎으로 천장 간접조명 효과를 테스트해보고 싶을 때 가장 가성비가 높습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/tagarp-floor-uplighter-black-white-80464053/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/tagarp-floor-uplighter-reading-lamp-black-white-00486394/" target="_blank" rel="noopener">상향등+독서등(24,900원) 보기 ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="sambord 삼보르드 플로어스탠드/독서등 (블랙/화이트) img_6007 단독 촬영 · 디자인 jens fager · 구스넥 각도조절 미니멀 스탠드 품번 <code>505.733.55</code> img_6007에서 단독 촬영하신 슬림 독서등입니다. 유연하게 휘어지는 구스넥 암과 반투명 화이트 원뿔 갓이 결합되어 원하는 곳으로 빛 방향을 쉽게 바꿀 수 있습니다. 받침 지름이 20cm에 불과해 f안 동쪽 벽 라운지 의자 2개 사이나 침대 협탁 옆 독서등으로 안성맞춤입니다. img_6007">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/sambord-floor-reading-lamp-black-white-50573355/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/sambord-floor-reading-lamp-black-white__1299316_pe936525_s5.jpg" alt="SAMBORD 삼보르드 플로어스탠드/독서등 (블랙/화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1KWTCWXAF_M5WnaP4Ivq4Qxs29bJuAZhn/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6007 ↗</a></div>
+        <h3>SAMBORD 삼보르드 플로어스탠드/독서등 (블랙/화이트)</h3>
+        <p class="sub-title">IMG_6007 단독 촬영 · 디자인 Jens Fager · 구스넥 각도조절 미니멀 스탠드</p>
+        <div class="price-row">
+          <span class="price">39,900원</span>
+          <span class="price-note">전구 별매 (E14)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>505.733.55</code></div>
+          <div><b>규격:</b> 높이 126 cm · 받침 지름 20 cm · 갓 지름 11.5 cm</div>
+        </div>
+        <p class="desc">IMG_6007에서 단독 촬영하신 슬림 독서등입니다. 유연하게 휘어지는 구스넥 암과 반투명 화이트 원뿔 갓이 결합되어 원하는 곳으로 빛 방향을 쉽게 바꿀 수 있습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 받침 지름이 20cm에 불과해 F안 동쪽 벽 라운지 의자 2개 사이나 침대 협탁 옆 독서등으로 안성맞춤입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/sambord-floor-reading-lamp-black-white-50573355/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="true" data-search="tällbyn 텔뷘 플로어스탠드 (135 cm 니켈도금/오팔 화이트 유리) img_6009 단독 촬영 · 디자인 francis cayouette · 현재 d·e·f안 기준 장스탠드 품번 <code>104.377.51</code> img_6009에서 직접 실물을 확인하신 현재 d·e·f안의 기본 장스탠드입니다. 입으로 불어 만든 오팔 화이트 유리 갓과 니켈 도금 기둥이 빈티지하면서도 단정한 빛을 냅니다. 현재 d·e·f안 거실 장스탠드 기준 품목(149,000원)입니다. 이번 매장 사진의 외켄산드(99,900원)·비디아(59,900원)·ps 2026(149,000원)·이샥트(149,000원)와 취향에 따라 1:1 교체가 가능합니다. img_6009">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/taellbyn-floor-lamp-nickel-plated-opal-white-glass-10437751/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/taellbyn-floor-lamp-nickel-plated-opal-white-glass__0779117_pe759263_s5.jpg" alt="TÄLLBYN 텔뷘 플로어스탠드 (135 cm 니켈도금/오팔 화이트 유리)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1ihYItVW5BX2oX1ohpPylkgZeFrdzT3AX/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6009 ↗</a></div>
+        <h3>TÄLLBYN 텔뷘 플로어스탠드 (135 cm 니켈도금/오팔 화이트 유리)</h3>
+        <p class="sub-title">IMG_6009 단독 촬영 · 디자인 Francis Cayouette · 현재 D·E·F안 기준 장스탠드</p>
+        <div class="price-row">
+          <span class="price">149,000원</span>
+          <span class="price-note">전구 별매 (E26 · 탁상스탠드 40cm는 ₩79,900)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>104.377.51</code></div>
+          <div><b>규격:</b> 높이 135 cm · 갓 지름 32 cm · 받침 지름 25 cm</div>
+        </div>
+        <p class="desc">IMG_6009에서 직접 실물을 확인하신 현재 D·E·F안의 기본 장스탠드입니다. 입으로 불어 만든 오팔 화이트 유리 갓과 니켈 도금 기둥이 빈티지하면서도 단정한 빛을 냅니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 현재 D·E·F안 거실 장스탠드 기준 품목(149,000원)입니다. 이번 매장 사진의 외켄산드(99,900원)·비디아(59,900원)·PS 2026(149,000원)·이샥트(149,000원)와 취향에 따라 1:1 교체가 가능합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/taellbyn-floor-lamp-nickel-plated-opal-white-glass-10437751/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="false" data-search="rödflik 뢰드플리크 플로어스탠드/독서등 (라이트베이지 / 그린) img_5992 우측 뒤편에 함께 진열된 레트로 에나멜풍 독서등 품번 <code>205.619.43</code> 황동색 관절 포인트와 빈티지 베이지/그린 갓이 어우러진 독서용 장스탠드입니다. 우드·빈티지 인테리어에 차분하게 녹아드는 가성비 독서등입니다. img_5992">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/roedflik-floor-reading-lamp-light-beige-20561943/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/roedflik-floor-reading-lamp-light-beige__1232751_pe916596_s5.jpg" alt="RÖDFLIK 뢰드플리크 플로어스탠드/독서등 (라이트베이지 / 그린)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/16g-y9LGqEOgn-dJtEtd9AE-JshwjamCd/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5992 ↗</a></div>
+        <h3>RÖDFLIK 뢰드플리크 플로어스탠드/독서등 (라이트베이지 / 그린)</h3>
+        <p class="sub-title">IMG_5992 우측 뒤편에 함께 진열된 레트로 에나멜풍 독서등</p>
+        <div class="price-row">
+          <span class="price">49,900원</span>
+          <span class="price-note">라이트베이지 / 그레이그린 동일가 (책상등은 ₩39,900)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>205.619.43</code></div>
+          <div><b>규격:</b> 높이 140 cm · 받침 지름 24 cm · 갓 지름 17 cm</div>
+        </div>
+        <p class="desc">황동색 관절 포인트와 빈티지 베이지/그린 갓이 어우러진 독서용 장스탠드입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 우드·빈티지 인테리어에 차분하게 녹아드는 가성비 독서등입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/roedflik-floor-reading-lamp-light-beige-20561943/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="장스탠드·조명" data-main="false" data-search="markfrost 마르크프로스트 탁상스탠드 + molnart 몰나르트 전구 img_5988 이바르 선반 상단 칸에 켜져 있던 천연 블랙 대리석 베이스 조명 본체 <code>104.848.32</code> / 전구 세트 <code>s29597320</code> img_5988 이바르 선반 꼭대기 칸에서 따뜻한 주황빛을 내던 대리석 홀더 탁상등입니다. 선반 칸 안에 쏙 들어가는 아담한 무드등입니다. 서쪽 벽 선반이나 코헨 수납장 위에 작은 포인트 무드등으로 올리기 좋습니다. img_5988">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/markfrost-table-lamp-marble-black-10484832/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/markfrost-molnart-table-lamp-with-light-bulb-black-marble-black__1382831_pe962366_s5.jpg" alt="MARKFROST 마르크프로스트 탁상스탠드 + MOLNART 몰나르트 전구" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5988 ↗</a></div>
+        <h3>MARKFROST 마르크프로스트 탁상스탠드 + MOLNART 몰나르트 전구</h3>
+        <p class="sub-title">IMG_5988 이바르 선반 상단 칸에 켜져 있던 천연 블랙 대리석 베이스 조명</p>
+        <div class="price-row">
+          <span class="price">19,900원 / 34,800원</span>
+          <span class="price-note">대리석 본체 단품 ₩19,900 · 몰나르트 디자인 전구 포함 ₩34,800</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 본체 <code>104.848.32</code> / 전구 세트 <code>s29597320</code></div>
+          <div><b>규격:</b> 본체 높이 11 cm · 지름 9 cm (E26 소켓)</div>
+        </div>
+        <p class="desc">IMG_5988 이바르 선반 꼭대기 칸에서 따뜻한 주황빛을 내던 대리석 홀더 탁상등입니다. 선반 칸 안에 쏙 들어가는 아담한 무드등입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 서쪽 벽 선반이나 코헨 수납장 위에 작은 포인트 무드등으로 올리기 좋습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/markfrost-table-lamp-marble-black-10484832/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="true" data-search="ikea ps 2026 선반유닛 (160×35×161 cm 소나무) img_6015·6016 촬영 · 디자인 friso wiersma · 비대칭 모듈 + 레드 단면 포인트 품번 <code>106.168.99</code> img_6015(전체 진열샷)와 img_6016(가격표 클로즈업)에서 촬영하신 ikea ps 2026 핵심 신제품입니다. 소나무 원목 판재의 세로 단면에 감각적인 레드 컬러 포인트를 주었으며, 칸 높이와 폭이 리듬감 있게 나뉘어 lp·오브제·책 진열장 역할을 동시에 해냅니다. ★ 36b 서쪽 벽 핵심 대안: 현재 품절 이슈가 있는 '무지 sus 선반 + 코헨/아레초 수납장(합계 약 85~95만원, 총폭 168~180cm)' 자리에 이 제품 하나(폭 160×깊이 35cm, 399,000원)를 두면 약 45~55만원을 아끼면서 깊이도 41cm→35cm로 6cm 슬림해집니다! img_6015 img_6016">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-shelving-unit-pine-10616899/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/ikea-ps-2026-shelving-unit-pine__1479132_pe999932_s5.jpg" alt="IKEA PS 2026 선반유닛 (160×35×161 cm 소나무)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1Vlhaj_b4f-OU7Wm2e6jKeaEn_WpnLlsh/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6015 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1dHIMJm4pGUI9mnb1OyI7C78krgV1z27R/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6016 ↗</a></div>
+        <h3>IKEA PS 2026 선반유닛 (160×35×161 cm 소나무)</h3>
+        <p class="sub-title">IMG_6015·6016 촬영 · 디자인 Friso Wiersma · 비대칭 모듈 + 레드 단면 포인트</p>
+        <div class="price-row">
+          <span class="price">399,000원</span>
+          <span class="price-note">New 신제품 · 무도장 소나무 원목</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>106.168.99</code></div>
+          <div><b>규격:</b> 폭 160 × 깊이 35 × 높이 161 cm (칸당 하중 13~30 kg)</div>
+        </div>
+        <p class="desc">IMG_6015(전체 진열샷)와 IMG_6016(가격표 클로즈업)에서 촬영하신 IKEA PS 2026 핵심 신제품입니다. 소나무 원목 판재의 세로 단면에 감각적인 레드 컬러 포인트를 주었으며, 칸 높이와 폭이 리듬감 있게 나뉘어 LP·오브제·책 진열장 역할을 동시에 해냅니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 36B 서쪽 벽 핵심 대안: 현재 품절 이슈가 있는 '무지 SUS 선반 + 코헨/아레초 수납장(합계 약 85~95만원, 총폭 168~180cm)' 자리에 이 제품 하나(폭 160×깊이 35cm, 399,000원)를 두면 약 45~55만원을 아끼면서 깊이도 41cm→35cm로 6cm 슬림해집니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-shelving-unit-pine-10616899/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="true" data-search="ivar 이바르 선반유닛 (89×30×179 cm 소나무 원목) img_5988 단독 촬영 · 원하는 대로 구성·도색하는 스테디셀러 소나무 원목 선반 기본 1섹션 <code>s99582481</code> (도어 포함 <code>s09582739</code> ₩213,900) img_5988에서 라탄 바구니·수납상자와 함께 촬영하신 이바르 소나무 원목 선반입니다. 선반 높이를 자유롭게 조절할 수 있고 하단에 브라네스 라탄 바구니가 맞춤처럼 들어갑니다. 무지 sus 와이드 선반(86×41×175.5cm, 449,000원)과 폭·높이가 거의 같으면서 가격은 1/3 이하(123,900원)인 실속 원목 대안입니다. img_5988">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/ivar-shelving-unit-pine-s99582481/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/ivar-shelving-unit-pine__1192924_pe901291_s5.jpg" alt="IVAR 이바르 선반유닛 (89×30×179 cm 소나무 원목)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5988 ↗</a></div>
+        <h3>IVAR 이바르 선반유닛 (89×30×179 cm 소나무 원목)</h3>
+        <p class="sub-title">IMG_5988 단독 촬영 · 원하는 대로 구성·도색하는 스테디셀러 소나무 원목 선반</p>
+        <div class="price-row">
+          <span class="price">123,900원</span>
+          <span class="price-note">1섹션(89×30×179cm, 선반 5매) 기준 · 2섹션 연결 시 약 22만원대</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 기본 1섹션 <code>s99582481</code> (도어 포함 <code>s09582739</code> ₩213,900)</div>
+          <div><b>규격:</b> 폭 89 × 깊이 30 × 높이 179 cm (깊이 50cm 모델도 선택 가능)</div>
+        </div>
+        <p class="desc">IMG_5988에서 라탄 바구니·수납상자와 함께 촬영하신 이바르 소나무 원목 선반입니다. 선반 높이를 자유롭게 조절할 수 있고 하단에 브라네스 라탄 바구니가 맞춤처럼 들어갑니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 무지 SUS 와이드 선반(86×41×175.5cm, 449,000원)과 폭·높이가 거의 같으면서 가격은 1/3 이하(123,900원)인 실속 원목 대안입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/ivar-shelving-unit-pine-s99582481/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="false" data-search="branäs 브라네스 라탄 바구니 (32×34×32 cm) img_5988 이바르 선반 맨 아래 칸에 4개 나란히 수납된 수공예 라탄 바스켓 품번 <code>801.731.53</code> img_5988 이바르 선반 하단에 4개가 나란히 들어가 있던 천연 라탄 바구니입니다. 무지 sus 선반(내부 깊이 39.5cm, 칸 높이 35cm) 하단에도 2개가 나란히 쏙 들어가 품절인 무지 서랍 대체 수납함으로 바로 쓸 수 있습니다. img_5988">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/branaes-basket-rattan-80173153/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/branaes-basket-rattan__0710999_pe727908_s5.jpg" alt="BRANÄS 브라네스 라탄 바구니 (32×34×32 cm)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5988 ↗</a></div>
+        <h3>BRANÄS 브라네스 라탄 바구니 (32×34×32 cm)</h3>
+        <p class="sub-title">IMG_5988 이바르 선반 맨 아래 칸에 4개 나란히 수납된 수공예 라탄 바스켓</p>
+        <div class="price-row">
+          <span class="price">24,900원</span>
+          <span class="price-note">개당 가격</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>801.731.53</code></div>
+          <div><b>규격:</b> 폭 32 × 깊이 34 × 높이 32 cm</div>
+        </div>
+        <p class="desc">IMG_5988 이바르 선반 하단에 4개가 나란히 들어가 있던 천연 라탄 바구니입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 무지 SUS 선반(내부 깊이 39.5cm, 칸 높이 35cm) 하단에도 2개가 나란히 쏙 들어가 품절인 무지 서랍 대체 수납함으로 바로 쓸 수 있습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/branaes-basket-rattan-80173153/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="false" data-search="vittsjö 빗셰 선반유닛 (51×36×175 cm 블랙브라운/유리) img_6015 좌측 끝과 우측 뒤에 함께 진열된 강화유리·스틸 선반장 품번 <code>302.146.79</code> img_6015 ps 2026 소나무 선반 옆에 진열된 강화유리+스틸 선반입니다. 개방감이 뛰어나고 가격이 저렴합니다. f안의 무지 sus 기본 l(폭 58cm) 자리에 들어갈 수 있는 초저예산(69,900원) 오픈 선반입니다. img_6015">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vittsjoe-shelving-unit-black-brown-glass-30214679/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vittsjoe-shelving-unit-black-brown-glass__0644374_pe702640_s5.jpg" alt="VITTSJÖ 빗셰 선반유닛 (51×36×175 cm 블랙브라운/유리)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1Vlhaj_b4f-OU7Wm2e6jKeaEn_WpnLlsh/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6015 ↗</a></div>
+        <h3>VITTSJÖ 빗셰 선반유닛 (51×36×175 cm 블랙브라운/유리)</h3>
+        <p class="sub-title">IMG_6015 좌측 끝과 우측 뒤에 함께 진열된 강화유리·스틸 선반장</p>
+        <div class="price-row">
+          <span class="price">69,900원</span>
+          <span class="price-note">폭 51cm 단품 ₩69,900 · 폭 100cm 모델(802.133.14)은 ₩119,000</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>302.146.79</code></div>
+          <div><b>규격:</b> 폭 51 × 깊이 36 × 높이 175 cm</div>
+        </div>
+        <p class="desc">IMG_6015 PS 2026 소나무 선반 옆에 진열된 강화유리+스틸 선반입니다. 개방감이 뛰어나고 가격이 저렴합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> F안의 무지 SUS 기본 L(폭 58cm) 자리에 들어갈 수 있는 초저예산(69,900원) 오픈 선반입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vittsjoe-shelving-unit-black-brown-glass-30214679/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="false" data-search="fjäderharv 피에데르하르브 (구 tjena 티에나) 수납상자+뚜껑 img_5988 이바르 선반 및 img_6015 ps 2026 선반 안에 진열된 종이 수납박스 품번 <code>605.969.26</code> / <code>905.969.20</code> 오픈 선반의 잔짐과 서류를 깔끔하게 가려주는 뚜껑 있는 보드지 수납상자입니다. 오픈 선반(이바르·ps 2026·무지 sus) 상단 칸 정리에 유용합니다. img_5988 img_6015">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/fjaederharv-storage-box-with-lid-white-60596926/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/fjaederharv-storage-box-with-lid-white__1396179_pe967200_s5.jpg" alt="FJÄDERHARV 피에데르하르브 (구 TJENA 티에나) 수납상자+뚜껑" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5988 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1Vlhaj_b4f-OU7Wm2e6jKeaEn_WpnLlsh/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6015 ↗</a></div>
+        <h3>FJÄDERHARV 피에데르하르브 (구 TJENA 티에나) 수납상자+뚜껑</h3>
+        <p class="sub-title">IMG_5988 이바르 선반 및 IMG_6015 PS 2026 선반 안에 진열된 종이 수납박스</p>
+        <div class="price-row">
+          <span class="price">5,900원 ~ 8,900원</span>
+          <span class="price-note">25×35×16cm ₩5,900 · 32×35×31cm ₩8,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>605.969.26</code> / <code>905.969.20</code></div>
+          <div><b>규격:</b> 25×35×16 cm 또는 32×35×31 cm</div>
+        </div>
+        <p class="desc">오픈 선반의 잔짐과 서류를 깔끔하게 가려주는 뚜껑 있는 보드지 수납상자입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 오픈 선반(이바르·PS 2026·무지 SUS) 상단 칸 정리에 유용합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/fjaederharv-storage-box-with-lid-white-60596926/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="선반·수납" data-main="false" data-search="lack 라크 벽선반 (110×26 cm 화이트 / 블랙브라운) img_6015 ps 2026 선반 뒤쪽 벽면에 여러 단으로 걸려 있는 숨김 브래킷 벽선반 품번 <code>702.821.81</code> 지지대가 밖으로 보이지 않는 플로팅 방식 벽선반입니다(벽 타공 필요). 임대 조건상 벽 타공 가능 여부를 먼저 확인해야 합니다. img_6015">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/lack-wall-shelf-white-70282181/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/lack-wall-shelf-white__0641087_pe700250_s5.jpg" alt="LACK 라크 벽선반 (110×26 cm 화이트 / 블랙브라운)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1Vlhaj_b4f-OU7Wm2e6jKeaEn_WpnLlsh/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6015 ↗</a></div>
+        <h3>LACK 라크 벽선반 (110×26 cm 화이트 / 블랙브라운)</h3>
+        <p class="sub-title">IMG_6015 PS 2026 선반 뒤쪽 벽면에 여러 단으로 걸려 있는 숨김 브래킷 벽선반</p>
+        <div class="price-row">
+          <span class="price">22,900원</span>
+          <span class="price-note">30×26cm 미니 사이즈(204.305.89)는 ₩7,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>702.821.81</code></div>
+          <div><b>규격:</b> 길이 110 × 깊이 26 × 두께 5 cm</div>
+        </div>
+        <p class="desc">지지대가 밖으로 보이지 않는 플로팅 방식 벽선반입니다(벽 타공 필요).</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 임대 조건상 벽 타공 가능 여부를 먼저 확인해야 합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/lack-wall-shelf-white-70282181/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="blodlönn 블로들뢴 거울 (30×30 cm / 4개입) img_6004 단독 촬영 · 타공 없이 양면테이프로 원하는 모양대로 붙이는 정사각 거울 타일 품번 <code>905.423.81</code> img_6004에서 직접 확인하신 30×30cm 정사각형 거울 4개 세트입니다. 못질 없이 양면테이프로 세로 4장을 붙이면 30×120cm 슬림 전신거울이 됩니다. 현관 신발장 문 안쪽이나 침실 옷장 옆 벽면에 공간 차지 없이 부착하기 좋습니다(단, 벽지 위에 바로 붙이면 제거 시 벽지가 손상될 수 있으므로 타일·가구면 부착 권장). img_6004">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/blodloenn-mirror-90542381/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/blodloenn-mirror__0637766_pe698589_s5.jpg" alt="BLODLÖNN 블로들뢴 거울 (30×30 cm / 4개입)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1Jyl_ohUqf26fgeJX4fWV7uSjEKroh0pC/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6004 ↗</a></div>
+        <h3>BLODLÖNN 블로들뢴 거울 (30×30 cm / 4개입)</h3>
+        <p class="sub-title">IMG_6004 단독 촬영 · 타공 없이 양면테이프로 원하는 모양대로 붙이는 정사각 거울 타일</p>
+        <div class="price-row">
+          <span class="price">9,900원 / 4개</span>
+          <span class="price-note">4장 1세트 가격 (동봉 양면테이프 포함)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>905.423.81</code></div>
+          <div><b>규격:</b> 30×30 cm (4장 세로 일렬 부착 시 30×120 cm 전신거울)</div>
+        </div>
+        <p class="desc">IMG_6004에서 직접 확인하신 30×30cm 정사각형 거울 4개 세트입니다. 못질 없이 양면테이프로 세로 4장을 붙이면 30×120cm 슬림 전신거울이 됩니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 현관 신발장 문 안쪽이나 침실 옷장 옆 벽면에 공간 차지 없이 부착하기 좋습니다(단, 벽지 위에 바로 붙이면 제거 시 벽지가 손상될 수 있으므로 타일·가구면 부착 권장).</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/blodloenn-mirror-90542381/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="humlesjön 훔레셴 흡착식거울 (오렌지) img_6030·6031 연속 촬영 · 디자인 marta krupińska · 타공 없는 욕실/타일 흡착 거울 품번 <code>006.289.73</code> img_6030·6031에서 촬영하신 귀여운 테라코타 오렌지 프레임의 흡착식 거울입니다. 타일이나 유리, 거울 표면에 구멍을 뚫지 않고 밀착 고정할 수 있으며, 아래쪽 작은 선반 턱에 면도기나 립밤 등을 올려둘 수 있습니다. 36b 욕실 샤워부스 타일 벽이나 현관 거울 옆에 무타공 컬러 포인트로 붙이기 딱 좋습니다. img_6030 img_6031">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/humlesjoen-mirror-with-suction-cup-orange-00628973/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/humlesjoen-mirror-with-suction-cup-orange__1470202_pe996825_s5.jpg" alt="HUMLESJÖN 훔레셴 흡착식거울 (오렌지)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1H_DhSsmGObd9D6-iMVec12NEDv2Di0dM/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6030 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1OeLeRaEICgW1Z4TbyAZFqz_peI-YoD4Y/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6031 ↗</a></div>
+        <h3>HUMLESJÖN 훔레셴 흡착식거울 (오렌지)</h3>
+        <p class="sub-title">IMG_6030·6031 연속 촬영 · 디자인 Marta Krupińska · 타공 없는 욕실/타일 흡착 거울</p>
+        <div class="price-row">
+          <span class="price">9,900원</span>
+          <span class="price-note">New 신제품 · 최대 하중 1 kg</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>006.289.73</code></div>
+          <div><b>규격:</b> 폭 약 18 × 높이 22 cm (하단 선반 턱 포함)</div>
+        </div>
+        <p class="desc">IMG_6030·6031에서 촬영하신 귀여운 테라코타 오렌지 프레임의 흡착식 거울입니다. 타일이나 유리, 거울 표면에 구멍을 뚫지 않고 밀착 고정할 수 있으며, 아래쪽 작은 선반 턱에 면도기나 립밤 등을 올려둘 수 있습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 36B 욕실 샤워부스 타일 벽이나 현관 거울 옆에 무타공 컬러 포인트로 붙이기 딱 좋습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/humlesjoen-mirror-with-suction-cup-orange-00628973/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="humlesjön 훔레셴 흡착식후크 2개입 (12×8 cm 오렌지/터콰이즈) img_6032 단독 촬영 · 타일·유리에 자국 없이 붙이는 2색 더블 흡착 후크 품번 <code>306.009.63</code> img_6032에서 촬영하신 훔레셴 시리즈의 흡착식 후크 2개 세트입니다. 둥근 볼 형태의 고리가 위아래 2단으로 나와 있어 수건과 샤워볼을 함께 걸기 편합니다. 욕실 타일이나 주방 싱크대 타일 벽면에 무타공으로 조리도구·핸드타월을 거는 용도로 유용합니다. img_6032">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/humlesjoen-hook-with-suction-cup-orange-turquoise-30600963/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/humlesjoen-hook-with-suction-cup-orange-turquoise__1470277_pe996855_s5.jpg" alt="HUMLESJÖN 훔레셴 흡착식후크 2개입 (12×8 cm 오렌지/터콰이즈)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/110IMs67pdADZRiRw5rXZoeNC10waJ9X3/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6032 ↗</a></div>
+        <h3>HUMLESJÖN 훔레셴 흡착식후크 2개입 (12×8 cm 오렌지/터콰이즈)</h3>
+        <p class="sub-title">IMG_6032 단독 촬영 · 타일·유리에 자국 없이 붙이는 2색 더블 흡착 후크</p>
+        <div class="price-row">
+          <span class="price">4,900원</span>
+          <span class="price-note">2개 1세트 (오렌지 1 + 터콰이즈 1)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>306.009.63</code></div>
+          <div><b>규격:</b> 12×8 cm (2개입)</div>
+        </div>
+        <p class="desc">IMG_6032에서 촬영하신 훔레셴 시리즈의 흡착식 후크 2개 세트입니다. 둥근 볼 형태의 고리가 위아래 2단으로 나와 있어 수건과 샤워볼을 함께 걸기 편합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 욕실 타일이나 주방 싱크대 타일 벽면에 무타공으로 조리도구·핸드타월을 거는 용도로 유용합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/humlesjoen-hook-with-suction-cup-orange-turquoise-30600963/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="nollning 놀닝 시계/온도계/알람 (18×8 cm 화이트) img_6023 상단 제품 · 시간·날짜·실내 온도를 한눈에 보여주는 깔끔한 led/lcd 탁상시계 품번 <code>304.991.30</code> img_6023에서 스모하겔 충전기와 세트로 촬영하신 다기능 디지털 탁상시계입니다. 침실 온도와 시간을 큼직한 숫자로 보여줍니다. 침실 협탁(나누벨 베르) 위나 창가 화이트 책상, 코헨 유닛2 상판에 두기 깔끔합니다. img_6023">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/nollning-clock-thermometer-alarm-white-30499130/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/nollning-clock-thermometer-alarm-white__0982244_pe815588_s5.jpg" alt="NOLLNING 놀닝 시계/온도계/알람 (18×8 cm 화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1d0P8M_p_oWc7fWf-cgRL6mJJCscWNyiL/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6023 ↗</a></div>
+        <h3>NOLLNING 놀닝 시계/온도계/알람 (18×8 cm 화이트)</h3>
+        <p class="sub-title">IMG_6023 상단 제품 · 시간·날짜·실내 온도를 한눈에 보여주는 깔끔한 LED/LCD 탁상시계</p>
+        <div class="price-row">
+          <span class="price">19,900원</span>
+          <span class="price-note">USB-C 전원 또는 AAA 충전지 작동</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>304.991.30</code></div>
+          <div><b>규격:</b> 폭 18 × 높이 8 cm</div>
+        </div>
+        <p class="desc">IMG_6023에서 스모하겔 충전기와 세트로 촬영하신 다기능 디지털 탁상시계입니다. 침실 온도와 시간을 큼직한 숫자로 보여줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 침실 협탁(나누벨 베르) 위나 창가 화이트 책상, 코헨 유닛2 상판에 두기 깔끔합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/nollning-clock-thermometer-alarm-white-30499130/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="småhagel 스모하겔 3포트 usb 충전기 (17w 화이트) img_6023 하단 태그 제품 · 디자인 david wahl · usb-a 3구 동시 전원 어댑터 품번 <code>305.391.88</code> 놀닝 탁상시계나 usb 전원 무드등·포터블 램프 등 저전력 usb 기기 3개를 콘센트 1구에서 동시에 연결할 때 쓰는 3포트 충전기입니다. h안·f안의 usb 조명(일광전구 스노우맨/플라밍고, 놀닝 시계 등)을 멀티탭 코드 낭비 없이 하나로 묶어 꽂을 때 실용적입니다. img_6023">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/smahagel-3-port-usb-charger-white-30539188/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/smahagel-3-port-usb-charger-white__0646397_pe704175_s5.jpg" alt="SMÅHAGEL 스모하겔 3포트 USB 충전기 (17W 화이트)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1d0P8M_p_oWc7fWf-cgRL6mJJCscWNyiL/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6023 ↗</a></div>
+        <h3>SMÅHAGEL 스모하겔 3포트 USB 충전기 (17W 화이트)</h3>
+        <p class="sub-title">IMG_6023 하단 태그 제품 · 디자인 David Wahl · USB-A 3구 동시 전원 어댑터</p>
+        <div class="price-row">
+          <span class="price">9,900원</span>
+          <span class="price-note">최대 출력 17W (포트당 5V / 최대 2.4A, 합계 3.4A)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>305.391.88</code></div>
+          <div><b>규격:</b> 콤팩트 플러그형 (3포트 USB-A)</div>
+        </div>
+        <p class="desc">놀닝 탁상시계나 USB 전원 무드등·포터블 램프 등 저전력 USB 기기 3개를 콘센트 1구에서 동시에 연결할 때 쓰는 3포트 충전기입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> H안·F안의 USB 조명(일광전구 스노우맨/플라밍고, 놀닝 시계 등)을 멀티탭 코드 낭비 없이 하나로 묶어 꽂을 때 실용적입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/smahagel-3-port-usb-charger-white-30539188/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="variera 바리에라 냄비뚜껑정리대 (스테인리스스틸) img_6029 단독 촬영 · 주방 서랍 속 냄비뚜껑·도마·프라이팬(또는 lp/책) 아코디언 거치대 품번 <code>401.640.75</code> img_6029에서 촬영하신 이케아 주방 베스트셀러입니다. 아코디언처럼 길이를 8.5cm에서 50cm까지 늘리고 줄일 수 있어 싱크대 하부장 서랍에 냄비뚜껑·프라이팬·도마를 세워 정리할 뿐만 아니라, lp 레코드판 디바이더로도 애용됩니다! ★ 36b 꿀팁: 주방 싱크대 하부장 정리용으로 1개, 코헨 유닛2나 선반 위 lp 레코드가 쓰러지지 않게 잡아주는 스틸 북엔드 대용으로 1개 쓰기에도 아주 좋습니다. img_6029">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/variera-pot-lid-organiser-stainless-steel-40164075/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/variera-pot-lid-organiser-stainless-steel__0626878_pe693056_s5.jpg" alt="VARIERA 바리에라 냄비뚜껑정리대 (스테인리스스틸)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1S2fzpCMUnuPYh0gnlH0FeLjp-fVE9GIT/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6029 ↗</a></div>
+        <h3>VARIERA 바리에라 냄비뚜껑정리대 (스테인리스스틸)</h3>
+        <p class="sub-title">IMG_6029 단독 촬영 · 주방 서랍 속 냄비뚜껑·도마·프라이팬(또는 LP/책) 아코디언 거치대</p>
+        <div class="price-row">
+          <span class="price">7,900원</span>
+          <span class="price-note">100% 스테인리스 스틸</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>401.640.75</code></div>
+          <div><b>규격:</b> 길이 8.5~50 cm 자유 조절 × 폭 14.5 × 높이 10 cm</div>
+        </div>
+        <p class="desc">IMG_6029에서 촬영하신 이케아 주방 베스트셀러입니다. 아코디언처럼 길이를 8.5cm에서 50cm까지 늘리고 줄일 수 있어 싱크대 하부장 서랍에 냄비뚜껑·프라이팬·도마를 세워 정리할 뿐만 아니라, LP 레코드판 디바이더로도 애용됩니다!</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 36B 꿀팁: 주방 싱크대 하부장 정리용으로 1개, 코헨 유닛2나 선반 위 LP 레코드가 쓰러지지 않게 잡아주는 스틸 북엔드 대용으로 1개 쓰기에도 아주 좋습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/variera-pot-lid-organiser-stainless-steel-40164075/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="true" data-search="fruktskal 프룩트스칼 대나무 트레이 (35×23 cm) img_6005·6010·6012 홀메루드 테이블 및 img_6017·6018 리사보 식탁 위에 놓인 손잡이 트레이 품번 <code>405.199.34</code> img_6010에서 태그(₩14,900)를 확인하신 대나무 서빙 트레이입니다. 양쪽 손잡이 바가 둥글게 올라와 있어 주방에서 거실 소파테이블로 커피와 다과를 옮길 때 안정적입니다. h안 홈카페 바(아레초930)나 f안 원형 커피테이블·좌탁 위 홈카페 트레이로 잘 어울립니다. img_6005 img_6010 img_6012 img_6017 img_6018">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/fruktskal-tray-bamboo-40519934/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/fruktskal-tray-bamboo__0559260_pe661856_s5.jpg" alt="FRUKTSKAL 프룩트스칼 대나무 트레이 (35×23 cm)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/12YGsf1h8pYG0Eq4V7pcGoDqG3RefbyCE/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6005 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1-z4f-b9XCNx17TWQwLCmElVHGbR18qqx/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6010 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1KZIbRUC7mfXw9X2RfXI8EugrCmhJ0_sl/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6012 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/12y8S3hOaKvULoeRN_0gCps6IdEEoUpXv/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6017 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/172ewZdY2klVESNetPDzKbBv14c47mFDI/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6018 ↗</a></div>
+        <h3>FRUKTSKAL 프룩트스칼 대나무 트레이 (35×23 cm)</h3>
+        <p class="sub-title">IMG_6005·6010·6012 홀메루드 테이블 및 IMG_6017·6018 리사보 식탁 위에 놓인 손잡이 트레이</p>
+        <div class="price-row">
+          <span class="price">14,900원</span>
+          <span class="price-note">천연 대나무</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>405.199.34</code></div>
+          <div><b>규격:</b> 길이 35 × 폭 23 × 높이 6 cm</div>
+        </div>
+        <p class="desc">IMG_6010에서 태그(₩14,900)를 확인하신 대나무 서빙 트레이입니다. 양쪽 손잡이 바가 둥글게 올라와 있어 주방에서 거실 소파테이블로 커피와 다과를 옮길 때 안정적입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> H안 홈카페 바(아레초930)나 F안 원형 커피테이블·좌탁 위 홈카페 트레이로 잘 어울립니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/fruktskal-tray-bamboo-40519934/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="거울·욕실·시계·주방" data-main="false" data-search="upphetta 웁헤타 프렌치프레스 & ostbit 접시꽂이 & korken 유리병 img_6005·6010·6017·6018 테이블 위에 함께 세팅된 다이닝·홈카페 소품 3종 웁헤타 <code>802.413.88</code> / 오스트비트 <code>003.133.22</code> / 코르켄 <code>003.224.73</code> 프룩트스칼 대나무 트레이 위에 세팅된 프렌치프레스 커피메이커(웁헤타)와 리사보 식탁 위에 세팅된 대나무 접시꽂이(오스트비트)·유리병(코르켄)입니다. 특히 2,900원짜리 오스트비트 대나무 접시꽂이는 lp 플레이어 옆에 '지금 듣는 lp 자켓 진열대'로도 많이 쓰입니다! img_6005 img_6010 img_6017">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/upphetta-coffee-tea-maker-glass-stainless-steel-80241388/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/upphetta-coffee-tea-maker-glass-stainless-steel__0148954_pe307276_s5.jpg" alt="UPPHETTA 웁헤타 프렌치프레스 & OSTBIT 접시꽂이 & KORKEN 유리병" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/12YGsf1h8pYG0Eq4V7pcGoDqG3RefbyCE/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6005 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1-z4f-b9XCNx17TWQwLCmElVHGbR18qqx/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6010 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/12y8S3hOaKvULoeRN_0gCps6IdEEoUpXv/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6017 ↗</a></div>
+        <h3>UPPHETTA 웁헤타 프렌치프레스 & OSTBIT 접시꽂이 & KORKEN 유리병</h3>
+        <p class="sub-title">IMG_6005·6010·6017·6018 테이블 위에 함께 세팅된 다이닝·홈카페 소품 3종</p>
+        <div class="price-row">
+          <span class="price">2,900원 ~ 14,900원</span>
+          <span class="price-note">웁헤타 커피메이커 ₩14,900 · 오스트비트 접시꽂이 ₩2,900 · 코르켄 병 ₩2,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 웁헤타 <code>802.413.88</code> / 오스트비트 <code>003.133.22</code> / 코르켄 <code>003.224.73</code></div>
+          <div><b>규격:</b> 웁헤타 1L · 오스트비트 27.6×12cm · 코르켄 0.5L</div>
+        </div>
+        <p class="desc">프룩트스칼 대나무 트레이 위에 세팅된 프렌치프레스 커피메이커(웁헤타)와 리사보 식탁 위에 세팅된 대나무 접시꽂이(오스트비트)·유리병(코르켄)입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 특히 2,900원짜리 오스트비트 대나무 접시꽂이는 LP 플레이어 옆에 '지금 듣는 LP 자켓 진열대'로도 많이 쓰입니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/upphetta-coffee-tea-maker-glass-stainless-steel-80241388/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/ostbit-plate-holder-bamboo-00313322/" target="_blank" rel="noopener">오스트비트 대나무 접시꽂이(2,900원) ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="true" data-search="fejka 페이카 인조식물 (23 cm 실내외겸용 / 스트렐리치아 극락조화) img_6013 단독 촬영 · 물주기·일조량 걱정 없는 대형 실내외 인조 반려식물 품번 <code>306.106.03</code> img_6013에서 가격표(₩89,900)와 함께 촬영하신 페이카 대형 극락조화(스트렐리치아)입니다. 넓고 시원하게 뻗은 초록 잎사귀가 생화처럼 자연스러우며 벌레나 물주기 관리가 전혀 필요 없습니다. ★ 36b 남서 창가 식물(현재 견적의 알리고 올리브 나무 99,900원 + 배송 15,000원 = 114,900원)을 대체하면 25,000원을 절약하면서 죽을 걱정 없는 반영구 그리너리를 둘 수 있습니다. img_6013">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/fejka-artificial-potted-plant-in-outdoor-bird-of-paradise-30610603/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/fejka-artificial-potted-plant-in-outdoor-bird-of-paradise__1034065_pe840176_s5.jpg" alt="FEJKA 페이카 인조식물 (23 cm 실내외겸용 / 스트렐리치아 극락조화)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1IDpEk3D0ws1a8kMmyN9vpm4BxHsKVcip/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6013 ↗</a></div>
+        <h3>FEJKA 페이카 인조식물 (23 cm 실내외겸용 / 스트렐리치아 극락조화)</h3>
+        <p class="sub-title">IMG_6013 단독 촬영 · 물주기·일조량 걱정 없는 대형 실내외 인조 반려식물</p>
+        <div class="price-row">
+          <span class="price">89,900원</span>
+          <span class="price-note">New 신제품 · 화분 지름 23 cm · 식물 총높이 약 170 cm</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>306.106.03</code></div>
+          <div><b>규격:</b> 화분 지름 23 cm · 총 높이 약 170 cm</div>
+        </div>
+        <p class="desc">IMG_6013에서 가격표(₩89,900)와 함께 촬영하신 페이카 대형 극락조화(스트렐리치아)입니다. 넓고 시원하게 뻗은 초록 잎사귀가 생화처럼 자연스러우며 벌레나 물주기 관리가 전혀 필요 없습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 36B 남서 창가 식물(현재 견적의 알리고 올리브 나무 99,900원 + 배송 15,000원 = 114,900원)을 대체하면 25,000원을 절약하면서 죽을 걱정 없는 반영구 그리너리를 둘 수 있습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/fejka-artificial-potted-plant-in-outdoor-bird-of-paradise-30610603/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="true" data-search="vinterfint 빈테르핀트 인조 크리스마스트리 (150 cm 그린) img_6021·6022 촬영 · 분리 수납이 간편한 150cm 실내외겸용 크리스마스트리 품번 <code>606.363.76</code> img_6021·6022에서 촬영하신 35,000원짜리 150cm 인조 크리스마스트리입니다. 11월 30일 입주 직후 연말 분위기를 내기에 딱 좋은 크기이며, 시즌이 끝나면 분해해 작은 상자에 보관할 수 있습니다. ★ 현재 d·e·f안 3d의 남서쪽 코너에 배치된 '크리스마스트리 모형(현재 제품 미정·예산 미포함)' 자리에 그대로 들어가는 35,000원 실물 제품입니다! img_6021 img_6022">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vinterfint-artificial-christmas-tree-in-outdoor-green-60636376/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vinterfint-artificial-christmas-tree-in-outdoor-green__1538589_pe1017393_s5.jpg" alt="VINTERFINT 빈테르핀트 인조 크리스마스트리 (150 cm 그린)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1t1tQisnNCJzhyMp4ea7mTDxXAMDE3Pt8/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6021 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1ioXzwp4NV8nlGNMg8efMPt8u-r164bJ3/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6022 ↗</a></div>
+        <h3>VINTERFINT 빈테르핀트 인조 크리스마스트리 (150 cm 그린)</h3>
+        <p class="sub-title">IMG_6021·6022 촬영 · 분리 수납이 간편한 150cm 실내외겸용 크리스마스트리</p>
+        <div class="price-row">
+          <span class="price">35,000원</span>
+          <span class="price-note">180cm 모델(206.363.78)은 ₩99,900 · 150cm 풍성형(706.417.11)은 ₩69,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>606.363.76</code></div>
+          <div><b>규격:</b> 높이 150 cm · 하단 지름 약 78 cm</div>
+        </div>
+        <p class="desc">IMG_6021·6022에서 촬영하신 35,000원짜리 150cm 인조 크리스마스트리입니다. 11월 30일 입주 직후 연말 분위기를 내기에 딱 좋은 크기이며, 시즌이 끝나면 분해해 작은 상자에 보관할 수 있습니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> ★ 현재 D·E·F안 3D의 남서쪽 코너에 배치된 '크리스마스트리 모형(현재 제품 미정·예산 미포함)' 자리에 그대로 들어가는 35,000원 실물 제품입니다!</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vinterfint-artificial-christmas-tree-in-outdoor-green-60636376/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="true" data-search="stråla 스트롤라 led 체인조명 (160구 실외용 블랙 외) img_6021·6022 크리스마스트리에 감겨 있던 따뜻한 전구색 led 트리 전구 줄조명 시리즈 <code>stråla 스트롤라</code> (<code>006.353.51</code> / <code>206.353.69</code> 외) img_6022 가격표 하단에 함께 적혀 있던 트리용 led 체인조명(160구 블랙, 29,900원)입니다. 초록색 트리 가지 사이에서 전선이 눈에 띄지 않고 은은한 별빛만 반짝이게 해줍니다. 빈테르핀트 150cm 트리(35,000원) + 스트롤라 160구 led 체인조명(29,900원) 합계 64,900원이면 입주 첫날 크리스마스 코너가 완성됩니다. img_6021 img_6022">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/cat/strala-series-25219/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/strala-led-lighting-chain-bell-shaped-battery-operated-brass-colour__1516796_pe1011951_s5.jpg" alt="STRÅLA 스트롤라 LED 체인조명 (160구 실외용 블랙 외)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1t1tQisnNCJzhyMp4ea7mTDxXAMDE3Pt8/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6021 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1ioXzwp4NV8nlGNMg8efMPt8u-r164bJ3/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6022 ↗</a></div>
+        <h3>STRÅLA 스트롤라 LED 체인조명 (160구 실외용 블랙 외)</h3>
+        <p class="sub-title">IMG_6021·6022 크리스마스트리에 감겨 있던 따뜻한 전구색 LED 트리 전구 줄조명</p>
+        <div class="price-row">
+          <span class="price">19,900원 ~ 29,900원</span>
+          <span class="price-note">매장 태그 160구 실외용 블랙 ₩29,900 · 배터리형 벨/스타 체인조명 ₩14,900~19,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 시리즈 <code>STRÅLA 스트롤라</code> (<code>006.353.51</code> / <code>206.353.69</code> 외)</div>
+          <div><b>규격:</b> 160구 체인조명 (150cm 트리에 넉넉하게 감기는 길이)</div>
+        </div>
+        <p class="desc">IMG_6022 가격표 하단에 함께 적혀 있던 트리용 LED 체인조명(160구 블랙, 29,900원)입니다. 초록색 트리 가지 사이에서 전선이 눈에 띄지 않고 은은한 별빛만 반짝이게 해줍니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 빈테르핀트 150cm 트리(35,000원) + 스트롤라 160구 LED 체인조명(29,900원) 합계 64,900원이면 입주 첫날 크리스마스 코너가 완성됩니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/cat/strala-series-25219/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="true" data-search="stoense 스토엔세 단모러그 (133×195 cm 페일그린) img_6019·6020 톤스타드 테이블 아래 왼쪽 태그 · 촘촘하고 부드러운 무광 단모 러그 품번 <code>806.291.48</code> img_6019·6020에서 톤스타드 오크 식탁과 함께 매칭되어 있던 차분한 세이지/페일그린 단모 러그입니다. 도톰한 파일이 발소리를 흡수하고 따뜻한 오크 원목 색감을 돋보이게 합니다. 133×195cm로 현재 36b 거실 러그 규격(150×200cm, 노미아 85,900원)과 크기·가격이 매우 비슷하며, 세이지 그린 단색 포인트를 원할 때 좋은 대안입니다. img_6019 img_6020">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/stoense-rug-low-pile-pale-green-80629148/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/stoense-rug-low-pile-pale-green__1492281_pe1004363_s5.jpg" alt="STOENSE 스토엔세 단모러그 (133×195 cm 페일그린)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1ZLct-ZNanFN81CeRSeBU2L4owcB0O7dC/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6019 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6020 ↗</a></div>
+        <h3>STOENSE 스토엔세 단모러그 (133×195 cm 페일그린)</h3>
+        <p class="sub-title">IMG_6019·6020 톤스타드 테이블 아래 왼쪽 태그 · 촘촘하고 부드러운 무광 단모 러그</p>
+        <div class="price-row">
+          <span class="price">79,900원</span>
+          <span class="price-note">133×195 cm 기준 (170×240cm는 ₩129,000)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>806.291.48</code></div>
+          <div><b>규격:</b> 133×195 cm · 두께 18 mm (파일 길이 15 mm)</div>
+        </div>
+        <p class="desc">IMG_6019·6020에서 톤스타드 오크 식탁과 함께 매칭되어 있던 차분한 세이지/페일그린 단모 러그입니다. 도톰한 파일이 발소리를 흡수하고 따뜻한 오크 원목 색감을 돋보이게 합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 133×195cm로 현재 36B 거실 러그 규격(150×200cm, 노미아 85,900원)과 크기·가격이 매우 비슷하며, 세이지 그린 단색 포인트를 원할 때 좋은 대안입니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/stoense-rug-low-pile-pale-green-80629148/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="true" data-search="ridstig 리스티그 평직러그 (133×195 cm 오프화이트/그린) img_6019·6020 톤스타드 테이블 아래 오른쪽 태그 · 의자 끌림에 강한 플랫우븐 러그 품번 <code>406.009.67</code> img_6019·6020에서 스토엔세 러그와 겹쳐 깔려 있던 평직(flatwoven) 러그입니다. 보풀이 일지 않는 납작한 직조라 식탁 의자를 넣고 빼거나 로봇·스틱 청소기를 밀기 가장 수월합니다. 식탁 아래 다이닝 러그나 거실 여름철/사계절 관리 편한 러그(49,900원)로 적합합니다. img_6019 img_6020">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/ridstig-rug-flatwoven-off-white-green-40600967/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role">메인 촬영·태그</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/ridstig-rug-flatwoven-off-white-green__1377907_pe961018_s5.jpg" alt="RIDSTIG 리스티그 평직러그 (133×195 cm 오프화이트/그린)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1ZLct-ZNanFN81CeRSeBU2L4owcB0O7dC/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6019 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6020 ↗</a></div>
+        <h3>RIDSTIG 리스티그 평직러그 (133×195 cm 오프화이트/그린)</h3>
+        <p class="sub-title">IMG_6019·6020 톤스타드 테이블 아래 오른쪽 태그 · 의자 끌림에 강한 플랫우븐 러그</p>
+        <div class="price-row">
+          <span class="price">49,900원</span>
+          <span class="price-note">133×195 cm 기준 (170×240cm 오프화이트/레드는 ₩79,900)</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>406.009.67</code></div>
+          <div><b>규격:</b> 133×195 cm (두께 4 mm 평직)</div>
+        </div>
+        <p class="desc">IMG_6019·6020에서 스토엔세 러그와 겹쳐 깔려 있던 평직(Flatwoven) 러그입니다. 보풀이 일지 않는 납작한 직조라 식탁 의자를 넣고 빼거나 로봇·스틱 청소기를 밀기 가장 수월합니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 식탁 아래 다이닝 러그나 거실 여름철/사계절 관리 편한 러그(49,900원)로 적합합니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/ridstig-rug-flatwoven-off-white-green-40600967/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="false" data-search="risatorp 리사토르프 메쉬 바구니 (25×26×18 cm 레드) img_6021·6022 크리스마스트리 옆에 진열된 자작나무 손잡이 스틸 메쉬 바구니 품번 <code>906.181.73</code> 통기성이 좋은 스틸 메쉬 몸체에 자작나무 원목 손잡이가 달린 인기 수납 바구니입니다. 레드 컬러가 크리스마스·미드센추리 악센트가 됩니다. 주방 상온 과일/양파 보관이나 선반 위 소품 바구니로 활용도가 높습니다. img_6021 img_6022">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/risatorp-basket-bright-red-90618173/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/risatorp-basket-bright-red__1465320_pe995063_s5.jpg" alt="RISATORP 리사토르프 메쉬 바구니 (25×26×18 cm 레드)" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1t1tQisnNCJzhyMp4ea7mTDxXAMDE3Pt8/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6021 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1ioXzwp4NV8nlGNMg8efMPt8u-r164bJ3/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6022 ↗</a></div>
+        <h3>RISATORP 리사토르프 메쉬 바구니 (25×26×18 cm 레드)</h3>
+        <p class="sub-title">IMG_6021·6022 크리스마스트리 옆에 진열된 자작나무 손잡이 스틸 메쉬 바구니</p>
+        <div class="price-row">
+          <span class="price">7,900원</span>
+          <span class="price-note">브라이트레드 / 화이트 외 동일가</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 품번 <code>906.181.73</code></div>
+          <div><b>규격:</b> 25×26×18 cm</div>
+        </div>
+        <p class="desc">통기성이 좋은 스틸 메쉬 몸체에 자작나무 원목 손잡이가 달린 인기 수납 바구니입니다. 레드 컬러가 크리스마스·미드센추리 악센트가 됩니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 주방 상온 과일/양파 보관이나 선반 위 소품 바구니로 활용도가 높습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/risatorp-basket-bright-red-90618173/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="false" data-search="vintersaga 빈테르사가 미니 진저브레드 하우스 & 생강쿠키 img_6019·6020 톤스타드 식탁 위에 세팅된 겨울 시즌 한정 쿠키 하우스 & 틴케이스 진저브레드 하우스 <code>406.454.71</code> / 생강쿠키 <code>706.119.74</code> 톤스타드 테이블 위를 아기자기하게 꾸며주던 조립식 미니 과자집과 북유럽 패턴 틴케이스 쿠키입니다. 11월 말 입주 후 집들이·홈카페 테이블 위 겨울 시즌 소품으로 귀여운 포인트가 됩니다. img_6019 img_6020">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vintersaga-mini-gingerbread-house-self-assembly-40645471/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vintersaga-mini-gingerbread-house-self-assembly__1544257_pe1019123_s5.jpg" alt="VINTERSAGA 빈테르사가 미니 진저브레드 하우스 & 생강쿠키" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1ZLct-ZNanFN81CeRSeBU2L4owcB0O7dC/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6019 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6020 ↗</a></div>
+        <h3>VINTERSAGA 빈테르사가 미니 진저브레드 하우스 & 생강쿠키</h3>
+        <p class="sub-title">IMG_6019·6020 톤스타드 식탁 위에 세팅된 겨울 시즌 한정 쿠키 하우스 & 틴케이스</p>
+        <div class="price-row">
+          <span class="price">7,500원 / 8,900원</span>
+          <span class="price-note">미니 진저브레드 하우스(300g) ₩7,500 · 생강쿠키(300g) ₩8,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 진저브레드 하우스 <code>406.454.71</code> / 생강쿠키 <code>706.119.74</code></div>
+          <div><b>규격:</b> 각 300 g</div>
+        </div>
+        <p class="desc">톤스타드 테이블 위를 아기자기하게 꾸며주던 조립식 미니 과자집과 북유럽 패턴 틴케이스 쿠키입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 11월 말 입주 후 집들이·홈카페 테이블 위 겨울 시즌 소품으로 귀여운 포인트가 됩니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vintersaga-mini-gingerbread-house-self-assembly-40645471/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          
+        </div>
+      </div>
+    </article>
+    <article class="card" data-cat="크리스마스·식물·러그·소품" data-main="false" data-search="vinterfint 빈테르핀트 산타클로스 장식 & 트리 오너먼트 볼 img_5988 이바르 선반 하단 산타 인형(₩6,900) & img_6021·6022 트리 장식 볼 세트 산타 30cm <code>006.338.42</code> / 산타 74cm <code>006.333.33</code> / 유리볼 <code>606.370.93</code> 이바르 선반 아래 앉아 있던 빨간 모자 산타 인형과 150cm 트리에 걸려 있던 빈테르핀트 오너먼트 시리즈입니다. 빈테르핀트 150cm 트리와 함께 연말 홈파티 분위기를 연출하기 좋습니다. img_5988 img_6021 img_6022">
+      <a class="photo-wrap" href="https://www.ikea.com/kr/ko/p/vinterfint-decoration-santa-claus-sitting-red-00633842/" target="_blank" rel="noopener">
+        <span class="badge-ikea">IKEA</span>
+        <span class="badge-role sub">함께 진열·코디</span>
+        <img src="https://www.ikea.com/kr/ko/images/products/vinterfint-decoration-santa-claus-sitting-red__1539721_pe1017675_s5.jpg" alt="VINTERFINT 빈테르핀트 산타클로스 장식 & 트리 오너먼트 볼" loading="lazy">
+      </a>
+      <div class="card-body">
+        <div class="drive-chips"><a class="drive-chip" href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_5988 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1t1tQisnNCJzhyMp4ea7mTDxXAMDE3Pt8/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6021 ↗</a><a class="drive-chip" href="https://drive.google.com/file/d/1ioXzwp4NV8nlGNMg8efMPt8u-r164bJ3/view" target="_blank" rel="noopener" title="구글 드라이브 원본 사진 열기">📷 IMG_6022 ↗</a></div>
+        <h3>VINTERFINT 빈테르핀트 산타클로스 장식 & 트리 오너먼트 볼</h3>
+        <p class="sub-title">IMG_5988 이바르 선반 하단 산타 인형(₩6,900) & IMG_6021·6022 트리 장식 볼 세트</p>
+        <div class="price-row">
+          <span class="price">6,900원 ~ 19,900원</span>
+          <span class="price-note">앉은 산타(30cm) ₩6,900 · 큰 산타(74cm) ₩12,900 · 유리 볼 오너먼트 ₩12,900~19,900</span>
+        </div>
+        <div class="sku-box">
+          <div><b>품번:</b> 산타 30cm <code>006.338.42</code> / 산타 74cm <code>006.333.33</code> / 유리볼 <code>606.370.93</code></div>
+          <div><b>규격:</b> 산타 높이 30 cm / 74 cm · 오너먼트 지름 6~8 cm</div>
+        </div>
+        <p class="desc">이바르 선반 아래 앉아 있던 빨간 모자 산타 인형과 150cm 트리에 걸려 있던 빈테르핀트 오너먼트 시리즈입니다.</p>
+        <div class="fit-note"><b>36B 배치 메모:</b> 빈테르핀트 150cm 트리와 함께 연말 홈파티 분위기를 연출하기 좋습니다.</div>
+        <div class="card-actions">
+          <a class="buy-btn" href="https://www.ikea.com/kr/ko/p/vinterfint-decoration-santa-claus-sitting-red-00633842/" target="_blank" rel="noopener">이케아 공식몰 보기 ↗</a>
+          <a class="buy-btn" style="background:#526650" href="https://www.ikea.com/kr/ko/p/vinterfint-tree-ornament-bauble-glass-mixed-colours-60637093/" target="_blank" rel="noopener">트리 유리볼 오너먼트(606.370.93) ↗</a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <h2 id="fit-summary">강변 36B (F안 · H안 · E안) 적용 시 핵심 비교 요약</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>배치 구역 (역할)</th>
+          <th>현재 36B 기준 품목</th>
+          <th>이번 이케아 매장 촬영 대안</th>
+          <th>치수·예산 변화 및 추천 포인트</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>동쪽 벽 라운지</b><br>(F안 1인 의자 2개)</td>
+          <td>1인 라운지 의자 2개 + 미니 테이블<br>(모형 배치 · 제품 미정)</td>
+          <td><b>POÄNG 포엥 로우백 암체어</b> (레드/블랙/베이지, 개당 <code>104,900원</code>) 또는 <b>다크옐로 코듀로이</b> (<code>149,900원</code>) + <b>로네스펠라레 컵홀더</b> (<code>11,900원</code>)</td>
+          <td>로우백은 높이가 <b>71cm</b>라 월패드(하단 104cm)를 전혀 가리지 않고, 팔걸이 컵홀더(11,900원)를 달면 별도 사이드테이블 없이도 커피잔 거치가 가능합니다.</td>
+        </tr>
+        <tr>
+          <td><b>북서 다이닝 식탁</b><br>(H안 원형 / F·E안 사각)</td>
+          <td>F·E안: <b>리사보 200×78cm</b> (<code>349,000원</code>)<br>H안: <b>Ø96cm 오크 원형</b> (<code>289,000원</code>)</td>
+          <td>① <b>스톡홀름 2025 원형 115cm</b> (<code>649,000원</code>)<br>② <b>톤스타드 오크 150×80cm</b> (<code>399,000원</code>)<br>③ <b>리사보 200×78cm</b> (<code>349,000원</code> · 실물 확인)</td>
+          <td>사각 식탁을 유지하면서 동쪽 통로를 50cm 더 넓히려면 <b>톤스타드 150cm</b>가 좋고, H안처럼 개방감 있는 원형 다이닝으로 가려면 <b>스톡홀름 2025 Ø115cm</b>가 원목 디테일이 가장 뛰어납니다.</td>
+        </tr>
+        <tr>
+          <td><b>서쪽 벽 수납·선반</b><br>(품절 무지 SUS 대체)</td>
+          <td>F안: 무지 SUS + 코헨 유닛2 (<code>950,900원</code>)<br>H안: 코헨 + 더레인 핀 3단 (<code>703,000원</code>)</td>
+          <td>① <b>IKEA PS 2026 소나무 선반 160×35×161cm</b> (<code>399,000원</code>)<br>② <b>IVAR 이바르 89×30×179cm</b> (<code>123,900원</code>) + 브라네스 라탄 바구니</td>
+          <td><b>PS 2026 선반(폭 160×깊이 35cm)</b> 하나로 서쪽 벽을 채우면 기존 수납 예산 대비 <b>약 30~55만원 절감</b>되면서 거실 통로가 6cm 더 넓어지고 미드센추리 레드 엣지 포인트가 생깁니다.</td>
+        </tr>
+        <tr>
+          <td><b>거실 장스탠드</b><br>(남서 창가 / 소파 옆)</td>
+          <td>D·E·F안: <b>텔뷘 135cm</b> (<code>149,000원</code>)<br>H안: <b>한샘 리옹 원목</b> (<code>144,900원</code>)</td>
+          <td>① <b>외켄산드 154cm 원목/화이트</b> (<code>99,900원</code>)<br>② <b>비디아 138cm</b> (<code>59,900원</code>)<br>③ <b>PS 2026 상향등 182cm 옐로</b> (<code>149,000원</code>)<br>④ <b>이샥트 LED 상향+독서등</b> (<code>149,000원</code>)</td>
+          <td>따뜻한 원목+패브릭 갓을 원하면 <b>외켄산드(-49,100원 절감)</b>, 천장 간접조명+컬러 오브제를 원하면 <b>PS 2026 옐로</b>, LED 내장+독서등 겸용을 원하면 <b>이샥트</b>가 최적입니다.</td>
+        </tr>
+        <tr>
+          <td><b>남서 창가 식물 & 트리</b><br>(그리너리 · 시즌 코너)</td>
+          <td>알리고 올리브 나무 (<code>114,900원</code>)<br>크리스마스트리 (모형 · 미정)</td>
+          <td>① <b>페이카 스트렐리치아 23cm(H170cm)</b> (<code>89,900원</code>)<br>② <b>빈테르핀트 150cm 트리</b> (<code>35,000원</code>) + <b>스트롤라 160구 전구</b> (<code>29,900원</code>)</td>
+          <td>관리가 필요 없는 대형 극락조화로 <b>25,000원 절감</b> 가능하며, 3D에 들어 있는 트리 코너를 <b>합계 64,900원</b>에 실물로 완성할 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="photo-index">구글 드라이브 사진 36장 번호별(IMG_5984 ~ IMG_6035) 전체 색인표</h2>
+  <p style="color:var(--muted);font-size:14px">사진 번호를 누르면 구글 드라이브의 해당 원본 고화질 사진이 새 창으로 열리고, 제품명을 누르면 이케아 코리아 공식몰 상세 페이지로 이동합니다.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>사진 파일 (원본 링크)</th>
+          <th>촬영 대상 및 구도</th>
+          <th>매칭된 이케아 공식 제품 (품번 · 가격 · 공식몰 링크)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1mWVfSDam2EP-f9t9y6WmRpoaTbOrCY8A/view" target="_blank" rel="noopener"><b>📷 IMG_5984.HEIC ↗</b></a></td>
+          <td>포엥 다크옐로 코듀로이 암체어 착석 샷 + 팔걸이 원목 컵홀더</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-armchair-walnut-effect-kelinge-dark-yellow-s89625283/" target="_blank" rel="noopener"><b>POÄNG 포엥 암체어 호두나무무늬/셸링에 다크옐로</b></a> (<code>s89625283 (쿠션 306.248.98)</code> · <b>₩149,900 (쿠션 ₩89,900)</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/lanespelare-mug-holder-ash-veneer-10571527/" target="_blank" rel="noopener"><b>LÅNESPELARE 로네스펠라레 컵홀더 물푸레무늬목</b></a> (<code>105.715.27</code> · <b>₩11,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1xwzC1ULMzdeBNE0RnoarimMAaPvk8TC_/view" target="_blank" rel="noopener"><b>📷 IMG_5985.HEIC ↗</b></a></td>
+          <td>포엥 로우백 암체어(레드/블랙/베이지) 비교 착석 샷 + 우측 상단 오렌지 와이어 체어</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-vissle-red-s49551590/" target="_blank" rel="noopener"><b>POÄNG 포엥 로우백암체어 자작나무/보슬뢰브 레드</b></a> (<code>s49551590 (쿠션 705.822.07)</code> · <b>₩104,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-natural-colour-beige-katorp-natural-colour-beige-s69551607/" target="_blank" rel="noopener"><b>POÄNG 포엥 로우백암체어 비슬레 블랙 / 카토르프 베이지</b></a> (<code>940.459.06 / s69551607</code> · <b>₩104,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/skalboda-armchair-orange-30561966/" target="_blank" rel="noopener"><b>SKÅLBODA 스콜보다 암체어 오렌지 (배경)</b></a> (<code>305.619.66</code> · <b>₩99,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1L_QAqYw2Xt1zinVzGBEwpvo5YXQPtwE8/view" target="_blank" rel="noopener"><b>📷 IMG_5986.HEIC ↗</b></a></td>
+          <td>포엥 로우백 암체어 보슬뢰브 레드 착석 및 가격 태그 확인</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-armchair-cushion-with-low-back-vissle-red-70582207/" target="_blank" rel="noopener"><b>POÄNG 포엥 로우백암체어쿠션 보슬뢰브 레드</b></a> (<code>705.822.07 (태그 705.922.57)</code> · <b>₩49,900 (프레임 포함 ₩104,900)</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1Jc3gTX71xEVTzdcUiwB_WVqeZ-AubE-J/view" target="_blank" rel="noopener"><b>📷 IMG_5987.HEIC ↗</b></a></td>
+          <td>비디아 화이트 원통 패브릭 플로어스탠드 가격표 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/vidja-floor-lamp-white-30309205/" target="_blank" rel="noopener"><b>VIDJA 비디아 플로어스탠드 138 cm 화이트</b></a> (<code>303.092.05</code> · <b>₩59,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1AwRT7UNBu-QJ9VHBljML5xkZ_xMFT2dt/view" target="_blank" rel="noopener"><b>📷 IMG_5988.HEIC ↗</b></a></td>
+          <td>이바르 소나무 선반 2섹션 + 하단 라탄 바구니 4개 + 대리석 탁상등 + 산타 장식</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ivar-shelving-unit-pine-s99582481/" target="_blank" rel="noopener"><b>IVAR 이바르 선반유닛 89×30×179 cm 소나무</b></a> (<code>s99582481</code> · <b>₩123,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/branaes-basket-rattan-80173153/" target="_blank" rel="noopener"><b>BRANÄS 브라네스 라탄 바구니 32×34×32 cm</b></a> (<code>801.731.53</code> · <b>₩24,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/markfrost-table-lamp-marble-black-10484832/" target="_blank" rel="noopener"><b>MARKFROST 마르크프로스트 탁상스탠드 블랙 대리석</b></a> (<code>104.848.32</code> · <b>₩19,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/vinterfint-decoration-santa-claus-sitting-red-00633842/" target="_blank" rel="noopener"><b>VINTERFINT 빈테르핀트 산타클로스 장식 레드</b></a> (<code>006.338.42</code> · <b>₩6,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/17FNfK5zlUGU9lxJeiEsmxfzExhUIbxEX/view" target="_blank" rel="noopener"><b>📷 IMG_5989.HEIC ↗</b></a></td>
+          <td>스톡홀름 2025 원형 테이블 115cm 가격표 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/stockholm-2025-table-oak-veneer-oak-veneer-s79606586/" target="_blank" rel="noopener"><b>STOCKHOLM 2025 스톡홀름 2025 테이블 115 cm 참나무무늬목</b></a> (<code>s79606586 (태그 905.914.21)</code> · <b>₩649,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1UGyb2pQI-NhO2kjyOMi2yUc8X2Gm0irL/view" target="_blank" rel="noopener"><b>📷 IMG_5990.HEIC ↗</b></a></td>
+          <td>외켄산드 원목 3다리 장스탠드 & 스트란다드 주름 장스탠드 진열 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/oekensand-floor-lamp-beech-white-40541534/" target="_blank" rel="noopener"><b>ÖKENSAND 외켄산드 플로어스탠드 154 cm 너도밤나무/화이트</b></a> (<code>405.415.34</code> · <b>₩99,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/strandad-floor-lamp-white-black-10594840/" target="_blank" rel="noopener"><b>STRANDAD 스트란다드 플로어스탠드 화이트/블랙 (좌측)</b></a> (<code>105.948.40</code> · <b>₩29,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/vickleby-floor-lamp-white-handmade-60484486/" target="_blank" rel="noopener"><b>VICKLEBY 비클레뷔 플로어스탠드 136 cm (우측 선반)</b></a> (<code>604.844.86</code> · <b>₩24,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1fxvZMm9i-cGv1QMqqhK5kLeDrbAQuLaK/view" target="_blank" rel="noopener"><b>📷 IMG_5991.HEIC ↗</b></a></td>
+          <td>외켄산드 하단 픽업 박스(805.415.14) 및 가격표 확인 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/oekensand-floor-lamp-beech-white-40541534/" target="_blank" rel="noopener"><b>ÖKENSAND 외켄산드 플로어스탠드 154 cm</b></a> (<code>405.415.34 (박스 805.415.14)</code> · <b>₩99,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/16g-y9LGqEOgn-dJtEtd9AE-JshwjamCd/view" target="_blank" rel="noopener"><b>📷 IMG_5992.HEIC ↗</b></a></td>
+          <td>IKEA PS 2026 상향식 스탠드(옐로/블루/레드) + 이샥트 + 토가르프 비교 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-floor-uplighter-dark-red-10608516/" target="_blank" rel="noopener"><b>IKEA PS 2026 상향식플로어스탠드 182 cm</b></a> (<code>106.085.16</code> · <b>₩149,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/isjakt-led-floor-uplighter-reading-lamp-dimmable-nickel-plated-90459715/" target="_blank" rel="noopener"><b>ISJAKT 이샥트 LED상향식플로어스탠드/독서등 180 cm</b></a> (<code>904.597.15</code> · <b>₩149,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/tagarp-floor-uplighter-black-white-80464053/" target="_blank" rel="noopener"><b>TÅGARP 토가르프 상향식플로어스탠드 블랙/화이트</b></a> (<code>804.640.53</code> · <b>₩19,900 (매장 ₩24,900)</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/roedflik-floor-reading-lamp-light-beige-20561943/" target="_blank" rel="noopener"><b>RÖDFLIK 뢰드플리크 플로어스탠드/독서등 (우측 뒤)</b></a> (<code>205.619.43</code> · <b>₩49,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1Jyl_ohUqf26fgeJX4fWV7uSjEKroh0pC/view" target="_blank" rel="noopener"><b>📷 IMG_6004.JPG ↗</b></a></td>
+          <td>블로들뢴 30×30cm 정사각 거울 4개 세트 진열 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/blodloenn-mirror-90542381/" target="_blank" rel="noopener"><b>BLODLÖNN 블로들뢴 거울 30×30 cm (4개입)</b></a> (<code>905.423.81</code> · <b>₩9,900 / 4개</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/12YGsf1h8pYG0Eq4V7pcGoDqG3RefbyCE/view" target="_blank" rel="noopener"><b>📷 IMG_6005.JPG ↗</b></a></td>
+          <td>홀메루드 참나무무늬 커피테이블 + 대나무 트레이 + 프렌치프레스 측면 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/holmerud-coffee-table-oak-effect-20530094/" target="_blank" rel="noopener"><b>HOLMERUD 홀메루드 커피테이블 90×55 cm 참나무무늬</b></a> (<code>205.300.94</code> · <b>₩64,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/fruktskal-tray-bamboo-40519934/" target="_blank" rel="noopener"><b>FRUKTSKAL 프룩트스칼 트레이 35×23 cm 대나무</b></a> (<code>405.199.34</code> · <b>₩14,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/upphetta-coffee-tea-maker-glass-stainless-steel-80241388/" target="_blank" rel="noopener"><b>UPPHETTA 웁헤타 커피/티 메이커 1L</b></a> (<code>802.413.88</code> · <b>₩14,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1oOBoFWugxeCJcKkLI6xbvjNXmpnqD58E/view" target="_blank" rel="noopener"><b>📷 IMG_6006.JPG ↗</b></a></td>
+          <td>포엥 셸링에 다크옐로 코듀로이 쿠션 & 로네스펠라레 컵홀더 가격표 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-armchair-cushion-kelinge-dark-yellow-30624898/" target="_blank" rel="noopener"><b>POÄNG 포엥 암체어 쿠션 셸링에 다크옐로</b></a> (<code>306.248.98</code> · <b>₩89,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/lanespelare-mug-holder-ash-veneer-10571527/" target="_blank" rel="noopener"><b>LÅNESPELARE 로네스펠라레 컵홀더 물푸레무늬목</b></a> (<code>105.715.27</code> · <b>₩11,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1KWTCWXAF_M5WnaP4Ivq4Qxs29bJuAZhn/view" target="_blank" rel="noopener"><b>📷 IMG_6007.JPG ↗</b></a></td>
+          <td>삼보르드 블랙/화이트 플로어스탠드 독서등 및 가격표</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/sambord-floor-reading-lamp-black-white-50573355/" target="_blank" rel="noopener"><b>SAMBORD 삼보르드 플로어스탠드/독서등 블랙/화이트</b></a> (<code>505.733.55</code> · <b>₩39,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1GERQdRtL6vTFiPL3ytFuOmZEjKeEs9VW/view" target="_blank" rel="noopener"><b>📷 IMG_6008.JPG ↗</b></a></td>
+          <td>포엥(POÄNG) 시리즈 안내 보드 (10년 품질보증 · 프레임 컬러 4종)</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-armchair-birch-veneer-knisa-light-beige-s19240788/" target="_blank" rel="noopener"><b>POÄNG 포엥 암체어 시리즈 (자작나무/호두나무/블랙/다크그린)</b></a> (<code>s19240788 외</code> · <b>₩99,900 ~ ₩259,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1ihYItVW5BX2oX1ohpPylkgZeFrdzT3AX/view" target="_blank" rel="noopener"><b>📷 IMG_6009.JPG ↗</b></a></td>
+          <td>텔뷘 135cm 니켈/오팔화이트 유리 플로어스탠드 및 가격표</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/taellbyn-floor-lamp-nickel-plated-opal-white-glass-10437751/" target="_blank" rel="noopener"><b>TÄLLBYN 텔뷘 플로어스탠드 135 cm 니켈도금/오팔화이트 유리</b></a> (<code>104.377.51</code> · <b>₩149,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1-z4f-b9XCNx17TWQwLCmElVHGbR18qqx/view" target="_blank" rel="noopener"><b>📷 IMG_6010.JPG ↗</b></a></td>
+          <td>홀메루드 커피테이블 정면 샷 + 프룩트스칼 트레이 가격표 + 배경 가죽 소파</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/holmerud-coffee-table-oak-effect-20530094/" target="_blank" rel="noopener"><b>HOLMERUD 홀메루드 커피테이블 90×55 cm 참나무무늬</b></a> (<code>205.300.94</code> · <b>₩64,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/fruktskal-tray-bamboo-40519934/" target="_blank" rel="noopener"><b>FRUKTSKAL 프룩트스칼 트레이 35×23 cm 대나무</b></a> (<code>405.199.34</code> · <b>₩14,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/landskrona-3-seat-sofa-grann-bomstad-dark-beige-metal-s79275770/" target="_blank" rel="noopener"><b>LANDSKRONA 란스크로나 3인용 가죽소파 (배경)</b></a> (<code>s79275770</code> · <b>₩1,029,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1F2pKhOdCupNOCmQud1HNOgTHRQruM1R7/view" target="_blank" rel="noopener"><b>📷 IMG_6011.JPG ↗</b></a></td>
+          <td>포엥 로우백 암체어(내추럴/비슬레 블랙) 가격표 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-low-back-armchair-black-brown-vissle-black-s09551573/" target="_blank" rel="noopener"><b>POÄNG 포엥 로우백암체어 (내추럴/베이지 + 비슬레 블랙)</b></a> (<code>매장 940.459.06 / s09551573</code> · <b>₩104,900 (프레임 ₩55,000 + 쿠션 ₩49,900)</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1KZIbRUC7mfXw9X2RfXI8EugrCmhJ0_sl/view" target="_blank" rel="noopener"><b>📷 IMG_6012.JPG ↗</b></a></td>
+          <td>홀메루드 커피테이블 90×55cm 가격표(205.300.94) 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/holmerud-coffee-table-oak-effect-20530094/" target="_blank" rel="noopener"><b>HOLMERUD 홀메루드 커피테이블 90×55 cm 참나무무늬</b></a> (<code>205.300.94</code> · <b>₩64,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1IDpEk3D0ws1a8kMmyN9vpm4BxHsKVcip/view" target="_blank" rel="noopener"><b>📷 IMG_6013.JPG ↗</b></a></td>
+          <td>페이카 23cm 실내외겸용 스트렐리치아(극락조화) 인조식물 및 가격표</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/fejka-artificial-potted-plant-in-outdoor-bird-of-paradise-30610603/" target="_blank" rel="noopener"><b>FEJKA 페이카 인조식물 23 cm 실내외겸용/스트렐리치아</b></a> (<code>306.106.03</code> · <b>₩89,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1iYxIF3QgHjtG17VBacfz0aOlLvBvuhKZ/view" target="_blank" rel="noopener"><b>📷 IMG_6014.JPG ↗</b></a></td>
+          <td>포엥 다크옐로 코듀로이 암체어 + 로네스펠라레 컵홀더 정면 전체 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/poaeng-armchair-walnut-effect-kelinge-dark-yellow-s89625283/" target="_blank" rel="noopener"><b>POÄNG 포엥 암체어 호두나무무늬/셸링에 다크옐로</b></a> (<code>s89625283 (쿠션 306.248.98)</code> · <b>₩149,900 (쿠션 ₩89,900)</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/lanespelare-mug-holder-ash-veneer-10571527/" target="_blank" rel="noopener"><b>LÅNESPELARE 로네스펠라레 컵홀더 물푸레무늬목</b></a> (<code>105.715.27</code> · <b>₩11,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1Vlhaj_b4f-OU7Wm2e6jKeaEn_WpnLlsh/view" target="_blank" rel="noopener"><b>📷 IMG_6015.JPG ↗</b></a></td>
+          <td>IKEA PS 2026 소나무 선반유닛(160×35×161cm) 전체 샷 + 빗셰 선반 + 라크 벽선반</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-shelving-unit-pine-10616899/" target="_blank" rel="noopener"><b>IKEA PS 2026 선반유닛 160×35×161 cm 소나무</b></a> (<code>106.168.99</code> · <b>₩399,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/vittsjoe-shelving-unit-black-brown-glass-30214679/" target="_blank" rel="noopener"><b>VITTSJÖ 빗셰 선반유닛 51×175 cm 블랙브라운/유리 (좌·우)</b></a> (<code>302.146.79</code> · <b>₩69,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/lack-wall-shelf-white-70282181/" target="_blank" rel="noopener"><b>LACK 라크 벽선반 110×26 cm (배경 벽면)</b></a> (<code>702.821.81</code> · <b>₩22,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1dHIMJm4pGUI9mnb1OyI7C78krgV1z27R/view" target="_blank" rel="noopener"><b>📷 IMG_6016.JPG ↗</b></a></td>
+          <td>IKEA PS 2026 소나무 선반유닛 가격표(106.168.99) 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-shelving-unit-pine-10616899/" target="_blank" rel="noopener"><b>IKEA PS 2026 선반유닛 160×35×161 cm 소나무</b></a> (<code>106.168.99</code> · <b>₩399,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/12y8S3hOaKvULoeRN_0gCps6IdEEoUpXv/view" target="_blank" rel="noopener"><b>📷 IMG_6017.JPG ↗</b></a></td>
+          <td>리사보 200×78cm 식탁 가격표 클로즈업 + 대나무 접시꽂이·트레이·유리병</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener"><b>LISABO 리사보 테이블 200×78 cm 물푸레무늬목</b></a> (<code>305.637.72 (태그 305.692.22)</code> · <b>₩349,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/ostbit-plate-holder-bamboo-00313322/" target="_blank" rel="noopener"><b>OSTBIT 오스트비트 접시꽂이 대나무</b></a> (<code>003.133.22</code> · <b>₩2,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/korken-bottle-with-stopper-clear-glass-00322473/" target="_blank" rel="noopener"><b>KORKEN 코르켄 병+마개 0.5L</b></a> (<code>003.224.73</code> · <b>₩2,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/172ewZdY2klVESNetPDzKbBv14c47mFDI/view" target="_blank" rel="noopener"><b>📷 IMG_6018.JPG ↗</b></a></td>
+          <td>리사보 200×78cm 식탁 전체 진열 샷 + 토비아스 투명 의자</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/lisabo-table-ash-veneer-30563772/" target="_blank" rel="noopener"><b>LISABO 리사보 테이블 200×78 cm 물푸레무늬목</b></a> (<code>305.637.72</code> · <b>₩349,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/tobias-chair-black-grey-black-10635124/" target="_blank" rel="noopener"><b>TOBIAS 토비아스 의자 투명/블랙그레이 크롬도금</b></a> (<code>106.351.24</code> · <b>₩129,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1ZLct-ZNanFN81CeRSeBU2L4owcB0O7dC/view" target="_blank" rel="noopener"><b>📷 IMG_6019.JPG ↗</b></a></td>
+          <td>톤스타드 150×80cm 참나무 식탁 가격표 + 스토엔세·리스티그 러그 태그</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/tonstad-table-oak-veneer-80594064/" target="_blank" rel="noopener"><b>TONSTAD 톤스타드 테이블 150×80 cm 참나무무늬목</b></a> (<code>805.940.64</code> · <b>₩399,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/stoense-rug-low-pile-pale-green-80629148/" target="_blank" rel="noopener"><b>STOENSE 스토엔세 단모러그 133×195 cm 그린</b></a> (<code>806.291.48</code> · <b>₩79,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/ridstig-rug-flatwoven-off-white-green-40600967/" target="_blank" rel="noopener"><b>RIDSTIG 리스티그 평직러그 133×195 cm 오프화이트/그린</b></a> (<code>406.009.67</code> · <b>₩49,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1LyxIsjb4jBViryr6x5wIVFcF2U6kAqgs/view" target="_blank" rel="noopener"><b>📷 IMG_6020.JPG ↗</b></a></td>
+          <td>톤스타드 150×80cm 식탁 전체 샷 + 빈테르사가 진저브레드 하우스 + 우측 뒤 셰르킬 식탁</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/tonstad-table-oak-veneer-80594064/" target="_blank" rel="noopener"><b>TONSTAD 톤스타드 테이블 150×80 cm 참나무무늬목</b></a> (<code>805.940.64</code> · <b>₩399,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/vintersaga-mini-gingerbread-house-self-assembly-40645471/" target="_blank" rel="noopener"><b>VINTERSAGA 빈테르사가 미니 진저브레드 하우스 300g</b></a> (<code>406.454.71</code> · <b>₩7,500</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/tjaerkil-table-black-walnut-veneer-00630462/" target="_blank" rel="noopener"><b>TJÄRKIL 셰르킬 테이블 235×100 cm 블랙/호두나무무늬목</b></a> (<code>006.304.62</code> · <b>₩799,000</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1t1tQisnNCJzhyMp4ea7mTDxXAMDE3Pt8/view" target="_blank" rel="noopener"><b>📷 IMG_6021.JPG ↗</b></a></td>
+          <td>빈테르핀트 150cm 인조 크리스마스트리 전체 샷 + 리사토르프 레드 바구니</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/vinterfint-artificial-christmas-tree-in-outdoor-green-60636376/" target="_blank" rel="noopener"><b>VINTERFINT 빈테르핀트 인조 크리스마스트리 150 cm 그린</b></a> (<code>606.363.76</code> · <b>₩35,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/risatorp-basket-bright-red-90618173/" target="_blank" rel="noopener"><b>RISATORP 리사토르프 바구니 25×26×18 cm 레드</b></a> (<code>906.181.73</code> · <b>₩7,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/vinterfint-tree-ornament-bauble-glass-mixed-colours-60637093/" target="_blank" rel="noopener"><b>VINTERFINT 빈테르핀트 트리장식 볼 오너먼트</b></a> (<code>606.370.93</code> · <b>₩19,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1ioXzwp4NV8nlGNMg8efMPt8u-r164bJ3/view" target="_blank" rel="noopener"><b>📷 IMG_6022.JPG ↗</b></a></td>
+          <td>빈테르핀트 150cm 크리스마스트리(₩35,000) & 스트롤라 160구 LED 체인조명(₩29,900) 가격표</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/vinterfint-artificial-christmas-tree-in-outdoor-green-60636376/" target="_blank" rel="noopener"><b>VINTERFINT 빈테르핀트 인조 크리스마스트리 150 cm 그린</b></a> (<code>606.363.76</code> · <b>₩35,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/cat/strala-series-25219/" target="_blank" rel="noopener"><b>STRÅLA 스트롤라 LED 체인조명 160구 실외용 블랙</b></a> (<code>006.353.51 외</code> · <b>₩29,900 (벨 체인 ₩19,900)</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1d0P8M_p_oWc7fWf-cgRL6mJJCscWNyiL/view" target="_blank" rel="noopener"><b>📷 IMG_6023.JPG ↗</b></a></td>
+          <td>놀닝 디지털 시계/온도계/알람 & 스모하겔 3포트 USB 충전기 가격표</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/nollning-clock-thermometer-alarm-white-30499130/" target="_blank" rel="noopener"><b>NOLLNING 놀닝 시계/온도계/알람 18×8 cm 화이트</b></a> (<code>304.991.30</code> · <b>₩19,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/smahagel-3-port-usb-charger-white-30539188/" target="_blank" rel="noopener"><b>SMÅHAGEL 스모하겔 3포트 USB 충전기 화이트</b></a> (<code>305.391.88</code> · <b>₩9,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1mM2HTOJihTVeBX_hOGSTahjvjXaaDuIN/view" target="_blank" rel="noopener"><b>📷 IMG_6024.JPG ↗</b></a></td>
+          <td>스톡홀름 2025 원형 식탁 전체 샷 + 스톡홀름 의자 + 뒤쪽 벽면 복슬뢰브·살뇌·아겐 의자</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/stockholm-2025-table-oak-veneer-oak-veneer-s79606586/" target="_blank" rel="noopener"><b>STOCKHOLM 2025 스톡홀름 2025 테이블 115 cm 참나무무늬목</b></a> (<code>s79606586 (태그 905.914.21)</code> · <b>₩649,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/stockholm-2025-chair-dark-brown-leather-10590955/" target="_blank" rel="noopener"><b>STOCKHOLM 2025 스톡홀름 2025 의자 다크브라운</b></a> (<code>105.909.55 / 205.909.45</code> · <b>₩299,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/voxloev-chair-light-bamboo-10449264/" target="_blank" rel="noopener"><b>VOXLÖV 복슬뢰브 의자 라이트대나무 (벽 상단)</b></a> (<code>104.492.64</code> · <b>₩139,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/salnoe-gryttom-chair-with-cushion-armrests-rattan-gransel-natural-s59564605/" target="_blank" rel="noopener"><b>SALNÖ 살뇌 팔걸이의자 라탄 (벽 중단)</b></a> (<code>105.512.04 / s59564605</code> · <b>₩139,000 / ₩159,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/agen-armchair-with-cushion-rattan-norna-natural-s39390772/" target="_blank" rel="noopener"><b>AGEN 아겐 라탄 의자 (벽 우측)</b></a> (<code>701.581.34 / s39390772</code> · <b>₩69,900 / ₩79,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1S2fzpCMUnuPYh0gnlH0FeLjp-fVE9GIT/view" target="_blank" rel="noopener"><b>📷 IMG_6029.JPG ↗</b></a></td>
+          <td>바리에라 스테인리스 냄비뚜껑정리대 & 우프다테라 서랍 정리 안내 보드</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/variera-pot-lid-organiser-stainless-steel-40164075/" target="_blank" rel="noopener"><b>VARIERA 바리에라 냄비뚜껑정리대 스테인리스스틸</b></a> (<code>401.640.75</code> · <b>₩7,900</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/uppdatera-box-white-00546468/" target="_blank" rel="noopener"><b>UPPDATERA 우프다테라 수납함 화이트</b></a> (<code>005.464.68</code> · <b>₩2,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1H_DhSsmGObd9D6-iMVec12NEDv2Di0dM/view" target="_blank" rel="noopener"><b>📷 IMG_6030.JPG ↗</b></a></td>
+          <td>훔레셴 오렌지 흡착식 거울 진열 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/humlesjoen-mirror-with-suction-cup-orange-00628973/" target="_blank" rel="noopener"><b>HUMLESJÖN 훔레셴 흡착식거울 오렌지</b></a> (<code>006.289.73</code> · <b>₩9,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1OeLeRaEICgW1Z4TbyAZFqz_peI-YoD4Y/view" target="_blank" rel="noopener"><b>📷 IMG_6031.JPG ↗</b></a></td>
+          <td>훔레셴 오렌지 흡착식 거울 가격표(006.289.73) 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/humlesjoen-mirror-with-suction-cup-orange-00628973/" target="_blank" rel="noopener"><b>HUMLESJÖN 훔레셴 흡착식거울 오렌지</b></a> (<code>006.289.73</code> · <b>₩9,900</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/110IMs67pdADZRiRw5rXZoeNC10waJ9X3/view" target="_blank" rel="noopener"><b>📷 IMG_6032.JPG ↗</b></a></td>
+          <td>훔레셴 흡착식 후크 2개입(오렌지 + 터콰이즈) 진열 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/humlesjoen-hook-with-suction-cup-orange-turquoise-30600963/" target="_blank" rel="noopener"><b>HUMLESJÖN 훔레셴 흡착식후크 12×8 cm 오렌지/터콰이즈 (2개입)</b></a> (<code>306.009.63</code> · <b>₩4,900 / 2개</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1OHYptEgrRteNYqIJQiDGXFVMs97lRl_Y/view" target="_blank" rel="noopener"><b>📷 IMG_6034.JPG ↗</b></a></td>
+          <td>IKEA PS 2026 상향식 스탠드 옐로 + 이샥트 + 토가르프 정면 비교 샷</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-floor-uplighter-dark-red-10608516/" target="_blank" rel="noopener"><b>IKEA PS 2026 상향식플로어스탠드 182 cm</b></a> (<code>106.085.16</code> · <b>₩149,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/isjakt-led-floor-uplighter-reading-lamp-dimmable-nickel-plated-90459715/" target="_blank" rel="noopener"><b>ISJAKT 이샥트 LED상향식플로어스탠드/독서등 180 cm</b></a> (<code>904.597.15</code> · <b>₩149,000</b>)<br>• <a href="https://www.ikea.com/kr/ko/p/tagarp-floor-uplighter-black-white-80464053/" target="_blank" rel="noopener"><b>TÅGARP 토가르프 상향식플로어스탠드 블랙/화이트</b></a> (<code>804.640.53</code> · <b>₩19,900 (매장 ₩24,900)</b>)</td>
+        </tr>
+        <tr>
+          <td style="white-space:nowrap"><a href="https://drive.google.com/file/d/1mPPP1QTQ4WWO43epdFKHlSQalP1z5pXu/view" target="_blank" rel="noopener"><b>📷 IMG_6035.JPG ↗</b></a></td>
+          <td>IKEA PS 2026 상향식플로어스탠드 182cm 옐로 가격표(106.085.16) 클로즈업</td>
+          <td>• <a href="https://www.ikea.com/kr/ko/p/ikea-ps-2026-floor-uplighter-dark-red-10608516/" target="_blank" rel="noopener"><b>IKEA PS 2026 상향식플로어스탠드 182 cm</b></a> (<code>106.085.16</code> · <b>₩149,000</b>)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p><b>확인 기준:</b> 2026-11-08 이케아 코리아 공식몰(ikea.com/kr/ko) 검색 API 및 매장 촬영 실물 가격표 대조 완료. 배송비는 이케아 택배(소품 3,000~5,000원) 또는 가구 배송(기본 29,000원~) 조건에 따라 달라지므로 미확정 상태로 두었으며, 기존 F·H·E안 합계 금액에는 임의로 합산하지 않았습니다.</p>
+  </footer>
+</main>
+<script>
+(() => {
+  const buttons = Array.from(document.querySelectorAll('.filters button[data-filter]'));
+  const mainOnly = document.getElementById('main-only');
+  const qInput = document.getElementById('q');
+  const cards = Array.from(document.querySelectorAll('#product-grid article.card'));
+  const countEl = document.getElementById('visible-count');
+  let activeCat = '전체';
+
+  function update() {
+    const q = (qInput.value || '').trim().toLowerCase();
+    const onlyMain = mainOnly.checked;
+    let shown = 0;
+    for (const c of cards) {
+      const catOk = activeCat === '전체' || c.dataset.cat === activeCat;
+      const mainOk = !onlyMain || c.dataset.main === 'true';
+      const qOk = !q || (c.dataset.search || '').includes(q);
+      const vis = catOk && mainOk && qOk;
+      c.hidden = !vis;
+      if (vis) shown++;
+    }
+    countEl.textContent = `${shown}개 카드 표시 중`;
+  }
+
+  for (const btn of buttons) {
+    btn.addEventListener('click', () => {
+      activeCat = btn.dataset.filter;
+      for (const b of buttons) b.setAttribute('aria-pressed', String(b === btn));
+      update();
+    });
+  }
+  mainOnly.addEventListener('change', update);
+  qInput.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>

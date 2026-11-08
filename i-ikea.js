@@ -647,13 +647,16 @@ export function buildIIkeaLayout({
   bathSet.add(bathUnderLight);
 
   // ============================================================================
-  // 6. 침실 협탁 위 소품: NOLLNING 놀닝 시계/온도계/알람 (19,900원 · 304.991.30)
-  //    + SMÅHAGEL 스모하겔 3포트 USB 충전기 (9,900원 · 305.391.88)
+  // 6. 침실 협탁 위 소품 & 침실 화이트 화장대 앞 KYRRE 쉬레 스툴 오프화이트 1개 추가 배치
   // ============================================================================
   const nightAcc = dPlace(1032, 520, -1, 0, grpI);
   nightAcc.name = 'I Bedroom Nightstand NOLLNING Clock + SMAHAGEL Charger';
   B(nightAcc, 8.5, 8.5, 3.2, M('#2b332e', { roughness: 0.4 }), -9, 50, 8, 0.5);
   B(nightAcc, 7.2, 7.2, 0.3, M('#d9e4dc', { emissive: '#9ec4a9', emissiveIntensity: 0.25 }), -9, 50.6, 9.55, 0.2);
+
+  // 침실 화이트 모아벨 화장대 앞 의자: 식탁 스툴과 동일한 IKEA KYRRE 쉬레 스툴 · 오프화이트 (506.081.33 · 29,900원) 1개 추가
+  const vanityKyrreStool = addKyrreStool(grpI, 838, 666, -Math.PI / 2, false, 'I KYRRE Off-White Vanity Stool 506.081.33');
+  vanityKyrreStool.__planPlaced = true;
 
   return {
     group: grpI,
@@ -670,6 +673,7 @@ export function buildIIkeaLayout({
     treeGroup,
     fejkaPlant,
     bathSet,
-    nightAcc
+    nightAcc,
+    vanityKyrreStool
   };
 }

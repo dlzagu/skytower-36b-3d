@@ -40,6 +40,7 @@ export function buildIIkeaLayout({
   const holmerudOak = dWood('#c79e6b', '#956d3f');
 
   const yellowCorduroy = M('#d49b27', { roughness: 0.88 });
+  const beigeCorduroy = M('#c8bba6', { roughness: 0.88 });
   const redCushion = M('#b84632', { roughness: 0.86 });
   const blackMetal = M('#222426', { metalness: 0.55, roughness: 0.38 });
   const chromeMetal = M('#d8dddf', { metalness: 0.88, roughness: 0.16 });
@@ -316,16 +317,16 @@ export function buildIIkeaLayout({
     name: 'I POANG Armchair Birch + Dark Yellow Corduroy s29617714'
   });
 
-  // South POÄNG: Low-back Birch + Vissle Red Cushion (s49551590 · 104,900원) + LÅNESPELARE Cup Holder #2
+  // South POÄNG: High-back Birch Veneer + Kelinge Beige Corduroy (s49625299 · 149,900원) + LÅNESPELARE Cup Holder #2
   const poangRed = buildPoangChair({
     x: 742,
     z: 748,
     rotY: (-105 * Math.PI) / 180,
     frameMat: poangBirch,
-    cushionMat: redCushion,
-    highBack: false,
+    cushionMat: beigeCorduroy,
+    highBack: true,
     withCupHolder: true,
-    name: 'I POANG Low-Back Armchair Birch + Red s49551590'
+    name: 'I POANG Armchair Birch + Kelinge Beige Corduroy s49625299'
   });
 
   // 동쪽 포엥 의자 2개 사이 조명 (사용자 지정: "이거가 의자사이에 들어가야돼 그리고 이색이야"):
@@ -854,29 +855,29 @@ export function buildIIkeaLayout({
   function applyIKLayout(mode) {
     const isK = mode === 'K';
     if (isK) {
-      // 1. 다이닝 테이블: 턴테이블 수납장이 오른쪽(북쪽 z=522)으로 이동한 만큼 여유 있게 (582, 488) 배치
-      diningStockholm.position.set(cm(582), 0, cm(488));
+      // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(485, 486)에 들어오도록 (596, 488) 배치
+      diningStockholm.position.set(cm(596), 0, cm(488));
       diningTonstad.position.set(cm(545), 0, cm(488));
-      // 2. 포엥 암체어 2개: 서쪽 벽(원래 무지 SUS 자리 · x=495, z=616 & 710)으로 이동, 동쪽 거실·탁상 쪽을 바라봄
-      poangYellow.position.set(cm(495), 0, cm(616));
+      // 2. 와인색 조명(IKEA PS 2026 다크레드 상향식플로어스탠드 Ø28×H182cm): 턴테이블 수납장(z=550)과 식탁(596, 488) 사이 서쪽 벽면(485, 486)에 배치!
+      sambordLamp.position.set(cm(485), 0, cm(486));
+      psRedHead.rotation.set(0.08, 0, -0.18);
+      // 3. 포엥 암체어 2개: 서쪽 벽(원래 무지 SUS 자리 · x=495, z=638 & 725)으로 이동, 동쪽 거실·탁상 쪽을 바라봄
+      poangYellow.position.set(cm(495), 0, cm(638));
       poangYellow.rotation.y = (78 * Math.PI) / 180;
-      poangRed.position.set(cm(495), 0, cm(710));
+      poangRed.position.set(cm(496), 0, cm(725));
       poangRed.rotation.y = (102 * Math.PI) / 180;
-      // 3. 암체어 앞 이케아 탁상(HOLMERUD 홀메루드 커피테이블 90×55×45cm) 복원 배치
+      // 4. 암체어 앞 이케아 탁상(HOLMERUD 홀메루드 커피테이블 90×55×45cm) 복원 배치
       holmerud.visible = true;
-      holmerud.position.set(cm(582), 0, cm(663));
+      holmerud.position.set(cm(584), 0, cm(680));
       holmerud.rotation.y = -Math.PI / 2;
-      // 4. 외켄산드 플로어스탠드: 좀 더 창문 쪽(474, 788)으로 이동
-      okensand.position.set(cm(474), 0, cm(788));
-      // 5. 트리 & 몬스테라: 좀 더 창문 쪽(남서 창가 정면 522, 832 & 560, 862 · 통창 내부 밀착)으로 이동
+      // 5. 외켄산드 플로어스탠드: 좀 더 창문 쪽(476, 792)으로 이동
+      okensand.position.set(cm(476), 0, cm(792));
+      // 6. 트리 & 몬스테라: 좀 더 창문 쪽(남서 창가 정면 522, 832 & 563, 863 · 통창 내부 밀착)으로 이동
       treeGroup.position.set(cm(522), 0, cm(832));
-      fejkaPlant.position.set(cm(560), 0, cm(862));
-      // 6. 무지 SUS 대체 선반장: 원래 암체어 자리였던 동쪽 벽(773, 712 · 월패드 남쪽)에 배치
+      fejkaPlant.position.set(cm(563), 0, cm(863));
+      // 7. 무지 SUS 대체 선반장: 원래 암체어 자리였던 동쪽 벽(773, 718 · 월패드 남쪽)에 단독 깔끔하게 배치
       kShelfGroup.visible = true;
-      kShelfGroup.position.set(cm(773), 0, cm(712));
-      // 7. 암체어 사이에 있던 PS 2026 다크레드 상향등: 동쪽 벽 대체선반 옆(768, 776)에 최적 배치 (동·서 양쪽 벽 조명 밸런스 완성)
-      sambordLamp.position.set(cm(768), 0, cm(776));
-      psRedHead.rotation.set(-0.08, 0, 0.22);
+      kShelfGroup.position.set(cm(773), 0, cm(718));
     } else {
       // I안 원래 좌표 100% 그대로 복원
       diningStockholm.position.set(cm(568), 0, cm(492));

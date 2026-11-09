@@ -931,18 +931,19 @@ export function buildIIkeaLayout({
   moanaHallArt.userData = {
     wallMounted: true,
     centerCm: [854, 439.5, 148],
-    dimensions: [43.5, 17.5, 1.6]
+    dimensions: [43.5, 17.5, 2.2]
   };
   if (wallDecor) wallDecor.push(moanaHallArt);
-  // Slim white puzzle frame (outer 45.5 × 19.5 × 1.6cm, centered at y=148cm => bottom at y=138.25cm)
-  B(moanaHallArt, 45.5, 19.5, 1.6, popoWhite, 0, 138.25, 0.8, 0.16);
+  // Warm oak wood puzzle frame (outer 46.5 × 20.5 × 2.2cm, centered at y=148cm => bottom at y=137.75cm) + crisp white inner mat
+  B(moanaHallArt, 46.5, 20.5, 2.2, holmerudOak, 0, 137.75, 1.1, 0.18);
+  B(moanaHallArt, 44.5, 18.5, 0.3, popoWhite, 0, 138.75, 2.15, 0.06);
   const moanaTex = new THREE.TextureLoader().load('selection-assets/moana-puzzle-43x17.jpg');
   moanaTex.colorSpace = THREE.SRGBColorSpace;
   const moanaPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(cm(43.5), cm(17.5)),
-    new THREE.MeshStandardMaterial({ map: moanaTex, roughness: 0.32 })
+    new THREE.MeshStandardMaterial({ map: moanaTex, roughness: 0.28 })
   );
-  moanaPlane.position.set(0, cm(148), cm(1.66));
+  moanaPlane.position.set(0, cm(148), cm(2.35));
   moanaHallArt.add(moanaPlane);
 
   // ============================================================================

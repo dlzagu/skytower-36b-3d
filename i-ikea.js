@@ -22,6 +22,7 @@ export function buildIIkeaLayout({
   canvasTex,
   rnd,
   mat,
+  wallDecor,
   addAccent
 }) {
   const grpI = new THREE.Group();
@@ -69,11 +70,12 @@ export function buildIIkeaLayout({
 
   // ============================================================================
   // 1. 북서 다이닝 존 (기본: STOCKHOLM 2025 원형 식탁 Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
-  //    + HÖGVED 회그베드 의자 그린 2개 (40×51×86cm · 시트높이 45cm · 406.070.11 · 129,000원×2)
+  //    + IKEA PS 2026 접이식의자 2개 (45×51×76cm · 206.179.59 · 79,900원×2 = 159,800원)
+  //    + KYRRE 쉬레 스툴 2개 (자작나무 804.200.40 + 그린 706.081.32 · 각 29,900원)
   //    + (전환 옵션) TONSTAD 톤스타드 참나무무늬목 식탁 (150×80×75cm · 805.940.64 · 399,000원)
   // ============================================================================
   const diningTonstad = placeI(529, 492, 0);
-  diningTonstad.name = 'I IKEA TONSTAD Oak Table 150x80x75 + 2 HOGVED Green Chairs';
+  diningTonstad.name = 'I IKEA TONSTAD Oak Table 150x80x75 + 2 PS2026 Chairs + 2 KYRRE Stools';
   diningTonstad.visible = false;
   diningTonstad.userData = {
     dimensions: [150, 80, 75],
@@ -94,19 +96,26 @@ export function buildIIkeaLayout({
     }
   }
 
-  // Helper: IKEA KYRRE 쉬레 스툴 (폭 42 × 깊이 48 × 높이 45cm, 시트높이 45cm · 오프화이트 506.081.33 / 그린 706.081.32 · 각 29,900원)
-  // 곡선 삼각형 좌판(중앙 손잡이 홀) + 3개의 ㄱ자 벤트우드 자작나무 적층 원목 다리
+  // Helper: IKEA KYRRE 쉬레 스툴 (폭 42 × 깊이 48 × 높이 45cm, 시트높이 45cm · 자작나무 804.200.40 / 오프화이트 506.081.33 / 그린 706.081.32 · 각 29,900원)
+  // 곡선 삼각형 좌판 + 3개의 ㄱ자 벤트우드 자작나무 적층 원목 다리
   const kyrreOffWhite = M('#f2efe8', { roughness: 0.42 });
   const kyrreGreen = dWood('#1f7a4c', '#155936');
-  function addKyrreStool(parent, lx, lz, rotY, isGreen, name) {
-    const sMat = isGreen ? kyrreGreen : kyrreOffWhite;
+  const kyrreBirch = dWood('#dec296', '#b59260');
+  function addKyrreStool(parent, lx, lz, rotY, colorMode, name) {
+    const isBirch = colorMode === 'birch';
+    const isGreen = colorMode === true || colorMode === 'green';
+    const sMat = isBirch ? kyrreBirch : isGreen ? kyrreGreen : kyrreOffWhite;
     const c = new THREE.Group();
     c.name = name;
     c.position.set(cm(lx), 0, cm(lz));
     c.rotation.y = rotY;
     c.userData = {
-      productId: isGreen ? '706.081.32' : '506.081.33',
-      productName: isGreen ? 'IKEA KYRRE 쉬레 스툴 · 그린' : 'IKEA KYRRE 쉬레 스툴 · 오프화이트',
+      productId: isBirch ? '804.200.40' : isGreen ? '706.081.32' : '506.081.33',
+      productName: isBirch
+        ? 'IKEA KYRRE 쉬레 스툴 · 자작나무'
+        : isGreen
+          ? 'IKEA KYRRE 쉬레 스툴 · 그린'
+          : 'IKEA KYRRE 쉬레 스툴 · 오프화이트',
       dimensions: [42, 48, 45],
       seatHeight: 45,
       price: 29900
@@ -125,10 +134,12 @@ export function buildIIkeaLayout({
       seatShape.absarc(cm(cx), cm(cz), cm(rLobe), aStart, aEnd, false);
     }
     seatShape.closePath();
-    // Central elongated finger slot hole (9cm × 2.2cm)
-    const slotHole = new THREE.Path();
-    slotHole.absellipse(0, 0, cm(4.2), cm(1.1), 0, Math.PI * 2, true, 0);
-    seatShape.holes.push(slotHole);
+    if (!isBirch) {
+      // Central elongated finger slot hole (9cm × 2.2cm)
+      const slotHole = new THREE.Path();
+      slotHole.absellipse(0, 0, cm(4.2), cm(1.1), 0, Math.PI * 2, true, 0);
+      seatShape.holes.push(slotHole);
+    }
 
     const seatGeo = new THREE.ExtrudeGeometry(seatShape, {
       depth: cm(1.8),
@@ -207,9 +218,10 @@ export function buildIIkeaLayout({
     return c;
   }
 
-  addKyrreStool(diningTonstad, 12, -48, 0, false, 'I KYRRE Off-White Stool 1 (North)');
-  addKyrreStool(diningTonstad, 12, 48, Math.PI, true, 'I KYRRE Green Stool 2 (South)');
-  addPs2026FoldingChair(diningTonstad, 82, 0, -Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair (East)');
+  addKyrreStool(diningTonstad, 12, -48, 0, 'birch', 'I KYRRE Birch Stool 1 (North)');
+  addKyrreStool(diningTonstad, 12, 48, Math.PI, 'green', 'I KYRRE Green Stool 2 (South)');
+  addPs2026FoldingChair(diningTonstad, 82, 0, -Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair 1 (East)');
+  addPs2026FoldingChair(diningTonstad, -82, 0, Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair 2 (West)');
 
   // Primary Dining Table (User selected): STOCKHOLM 2025 Round Dining Table (Ø115×75cm · s79606586 / 505.964.65 · 649,000원)
   // Placed at (568, 492) so West wall north of turntable cabinet is open, allowing LP cabinet & MUJI shelf to shift 34cm North!
@@ -231,9 +243,10 @@ export function buildIIkeaLayout({
     const lx = Math.cos(a) * 34, lz = Math.sin(a) * 34;
     CY(diningStockholm, 3.8, 3.4, 72.2, stockholmOak, lx, 0, lz, 24);
   }
-  addKyrreStool(diningStockholm, 0, -60, 0, false, 'I STOCKHOLM KYRRE Off-White Stool 1 (North)');
-  addKyrreStool(diningStockholm, 0, 60, Math.PI, true, 'I STOCKHOLM KYRRE Green Stool 2 (South)');
-  const ps2026Chair = addPs2026FoldingChair(diningStockholm, 62, 0, -Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 206.179.59 (East)');
+  addKyrreStool(diningStockholm, 0, -60, 0, 'birch', 'I STOCKHOLM KYRRE Birch Stool 1 804.200.40 (North)');
+  addKyrreStool(diningStockholm, 0, 60, Math.PI, 'green', 'I STOCKHOLM KYRRE Green Stool 2 706.081.32 (South)');
+  const ps2026Chair = addPs2026FoldingChair(diningStockholm, 62, 0, -Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 1 206.179.59 (East)');
+  const ps2026Chair2 = addPs2026FoldingChair(diningStockholm, -62, 0, Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 2 206.179.59 (West)');
 
   // ============================================================================
   // 2. 동쪽 벽 & 거실 라운지:
@@ -790,26 +803,52 @@ export function buildIIkeaLayout({
   const mapleBoardMat = dWood('#d8b584', '#ae8754');
   const pineSolidMat = dWood('#e3c696', '#b89562');
 
-  // Helper to populate upper shelves with F1 mini helmet, pour-over coffee gear, LP records & art books
-  function addShelfDisplayItems(targetGroup, yLp, yCoffee, yTop) {
-    // 1) LP records & bookend on yLp shelf
+  // Helper to populate upper shelves with LP records + TEAC TN-180BT turntable (yLp), Edifier MR3 speakers + LP display stand (yAudio), and F1 mini helmet + ceramic object (yTop)
+  function addShelfDisplayItems(targetGroup, yLp, yAudio, yTop) {
+    // 1) LP records & bookend on the left + TEAC TN-180BT turntable right next to the LP records on yLp shelf
     const lpColors = ['#243447', '#b84632', '#d49b27', '#2f5d46', '#e6dfd3', '#3b2e2a', '#7c9487', '#c86a38'];
     for (let i = 0; i < 8; i++) {
-      B(targetGroup, 1.1, 31.2, 31.2, M(lpColors[i], { roughness: 0.55 }), -28 + i * 2.1, yLp, 0, 0.12);
+      B(targetGroup, 1.1, 31.2, 28.5, M(lpColors[i], { roughness: 0.55 }), -34 + i * 2.0, yLp, 0, 0.12);
     }
-    B(targetGroup, 0.5, 18, 22, whiteSteelMat, -10.5, yLp, 0, 0.08);
-    // Art books stacked beside LPs
-    B(targetGroup, 22, 2.6, 18, M('#dfd7c8', { roughness: 0.75 }), 16, yLp, 1, 0.2);
-    B(targetGroup, 20, 2.4, 16.5, M('#536856', { roughness: 0.72 }), 16, yLp + 2.6, 1, 0.2);
+    B(targetGroup, 0.5, 18, 22, whiteSteelMat, -18.0, yLp, 0, 0.08);
 
-    // 2) Pour-over coffee station (wood tray, gooseneck kettle, V60 server, hand grinder, 2 mugs) on yCoffee shelf
-    B(targetGroup, 36, 1.4, 22, voxlovBamboo, -12, yCoffee, 1, 0.3);
-    CY(targetGroup, 4.6, 5.4, 11.5, blackMetal, -22, yCoffee + 1.4, 1, 24); // kettle
-    CY(targetGroup, 4.2, 4.8, 9.0, glassClear, -9, yCoffee + 1.4, 1, 24); // glass server
-    CY(targetGroup, 4.8, 2.2, 7.5, mat.ceramic, -9, yCoffee + 10.4, 1, 24); // ceramic dripper
-    CY(targetGroup, 2.5, 2.5, 14.5, chromeMetal, 1, yCoffee + 1.4, -2, 20); // hand grinder
-    CY(targetGroup, 3.2, 3.0, 7.8, humlesjonOrange, 16, yCoffee + 1.4, 2, 20);
-    CY(targetGroup, 3.2, 3.0, 7.8, mat.ceramic, 25, yCoffee + 1.4, 0, 20);
+    // TEAC TN-180BT Black Turntable (42 × 30 × 10.5cm) right next to the LP records (x = +10cm)
+    const ttGrp = new THREE.Group();
+    ttGrp.name = 'K TEAC TN-180BT Next to LP Records';
+    ttGrp.position.set(cm(10), cm(yLp), cm(0.5));
+    targetGroup.add(ttGrp);
+    for (const fx of [-17, 17]) {
+      for (const fz of [-11.5, 11.5]) {
+        CY(ttGrp, 1.7, 1.7, 1.4, blackMetal, fx, 0, fz, 14);
+      }
+    }
+    B(ttGrp, 42, 5.0, 29.5, blackMetal, 0, 1.4, 0, 0.6);
+    CY(ttGrp, 13.8, 13.8, 1.1, chromeMetal, -3.5, 6.4, 0, 40);
+    CY(ttGrp, 13.5, 13.5, 0.35, M('#141618', { roughness: 0.25 }), -3.5, 7.5, 0, 40);
+    CY(ttGrp, 4.0, 4.0, 0.4, M('#ba6642', { roughness: 0.4 }), -3.5, 7.8, 0, 28);
+    dRod(ttGrp, [14.5, 8.0, -9.5], [10.0, 8.0, 9.5], 0.28, chromeMetal);
+    B(ttGrp, 2.0, 1.5, 3.0, blackMetal, 10.0, 7.0, 10.5, 0.3);
+    B(ttGrp, 42, 4.1, 29.5, glassClear, 0, 6.4, 0, 0.4);
+
+    // 2) Edifier MR3 Black Studio Monitors (pair) + Studio Transparent LP Stand (DST012) & art books on yAudio shelf (ear level)
+    for (const sx of [-26, 26]) {
+      B(targetGroup, 14.0, 0.6, 19.0, M('#3a3935', { roughness: 0.7 }), sx, yAudio, 1.0, 0.2);
+      B(targetGroup, 12.55, 22.0, 18.0, blackMetal, sx, yAudio + 0.6, 1.0, 0.7);
+      for (const [dh, dr] of [[yAudio + 8.0, 4.0], [yAudio + 17.5, 1.5]]) {
+        const drv = new THREE.Mesh(new THREE.CircleGeometry(cm(dr), 28), M('#101310', { roughness: 0.35 }));
+        drv.position.set(cm(sx), cm(dh), cm(10.1));
+        targetGroup.add(drv);
+      }
+      const copperCap = new THREE.Mesh(new THREE.CircleGeometry(cm(1.1), 20), M('#b87348', { metalness: 0.6, roughness: 0.3 }));
+      copperCap.position.set(cm(sx), cm(yAudio + 8.0), cm(10.15));
+      targetGroup.add(copperCap);
+    }
+    // Center of yAudio shelf: art books + Acrylic Now-Playing LP Stand (스튜디오투명 DST012)
+    B(targetGroup, 22, 2.4, 18, M('#dfd7c8', { roughness: 0.75 }), 0, yAudio, 0, 0.2);
+    B(targetGroup, 20, 2.2, 16.5, M('#536856', { roughness: 0.72 }), 0, yAudio + 2.4, 0, 0.2);
+    B(targetGroup, 12, 0.8, 10, glassClear, 0, yAudio + 4.6, 1, 0.15);
+    const nowPlayingLp = B(targetGroup, 24, 24, 0.6, M('#284b63', { roughness: 0.45 }), 0, yAudio + 5.2, 0, 0.08);
+    nowPlayingLp.rotation.x = -0.18;
 
     // 3) Hamilton 2025 Ferrari F1 mini helmet in acrylic display case + ceramic vase on yTop shelf
     const helmGrp = new THREE.Group();
@@ -883,6 +922,118 @@ export function buildIIkeaLayout({
   B(kShelfIvar, 25, 16, 26, M('#e6e2d8', { roughness: 0.7 }), 18, 47.8, 0, 0.3);
   addShelfDisplayItems(kShelfIvar, 87.8, 129.8, 171.8);
 
+  // ============================================================================
+  // 8. 복도 벽면 디즈니 모아나 파노라마 퍼즐 액자 (가로 43.5 × 세로 17.5cm)
+  //    (사용자 지정: "모아나 사진 바꾸줘 / 모아나 퍼즐 사이즈는 가로 43.5 세로 17.5 래요,,")
+  // ============================================================================
+  const moanaHallArt = dPlace(854, 439.5, 0, -1, grpI);
+  moanaHallArt.name = 'I/K Disney Moana Panorama Puzzle Frame 43.5x17.5cm';
+  moanaHallArt.userData = {
+    wallMounted: true,
+    centerCm: [854, 439.5, 148],
+    dimensions: [43.5, 17.5, 1.6]
+  };
+  if (wallDecor) wallDecor.push(moanaHallArt);
+  // Slim white puzzle frame (outer 45.5 × 19.5 × 1.6cm, centered at y=148cm => bottom at y=138.25cm)
+  B(moanaHallArt, 45.5, 19.5, 1.6, popoWhite, 0, 138.25, 0.8, 0.16);
+  const moanaTex = new THREE.TextureLoader().load('selection-assets/moana-puzzle-43x17.jpg');
+  moanaTex.colorSpace = THREE.SRGBColorSpace;
+  const moanaPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(cm(43.5), cm(17.5)),
+    new THREE.MeshStandardMaterial({ map: moanaTex, roughness: 0.32 })
+  );
+  moanaPlane.position.set(0, cm(148), cm(1.66));
+  moanaHallArt.add(moanaPlane);
+
+  // ============================================================================
+  // 9. 욕실 문 앞 바다 물결 터프팅 발매트 (루시아이 바다 물결 터프팅 러그 워셔블 발매트 · 60×80cm · 21,900원 · 오늘의집 2918881)
+  //    (사용자 지정: "하늘색 부분 발수건 나 귀여운거 찾아서 그거 해줘 / https://store.ohou.se/goods/2918881")
+  // ============================================================================
+  const bathWaveMat = placeI(962, 435.5, 0);
+  bathWaveMat.name = 'I/K Luciai Ocean Wave Tufted Bath Mat 60x80cm 2918881';
+  bathWaveMat.userData = {
+    productId: '2918881',
+    productName: '루시아이 바다 물결 터프팅 러그 워셔블 발매트 · 소형 (60×80cm)',
+    url: 'https://store.ohou.se/goods/2918881',
+    dimensions: [60, 80, 1.4],
+    price: 21900,
+    shipping: 3000
+  };
+  const waveMatTex = canvasTex(512, 768, (g, w, h) => {
+    // Deep ocean blue base on the right (bathroom door side) transitioning to sky blue & white seafoam waves on the left (hallway side)
+    g.fillStyle = '#0d4ca3';
+    g.fillRect(0, 0, w, h);
+    const bands = [
+      { xBase: 0.82, amp1: 0.08, amp2: 0.05, col: '#1c6bc7' },
+      { xBase: 0.68, amp1: 0.09, amp2: 0.06, col: '#4e93dc' },
+      { xBase: 0.56, amp1: 0.08, amp2: 0.05, col: '#94c3ee' },
+      { xBase: 0.44, amp1: 0.09, amp2: 0.05, col: '#f4f1e8' },
+      { xBase: 0.33, amp1: 0.07, amp2: 0.04, col: '#2d7bd1' },
+      { xBase: 0.22, amp1: 0.07, amp2: 0.04, col: '#8abbe8' },
+      { xBase: 0.12, amp1: 0.06, amp2: 0.03, col: '#f6f3eb' }
+    ];
+    for (const b of bands) {
+      g.fillStyle = b.col;
+      g.beginPath();
+      g.moveTo(0, 0);
+      for (let py = 0; py <= h; py += 8) {
+        const t = py / h;
+        const wx =
+          (b.xBase +
+            Math.sin(t * Math.PI * 2.4 + 0.5) * b.amp1 +
+            Math.cos(t * Math.PI * 5.2) * b.amp2) *
+          w;
+        g.lineTo(wx, py);
+      }
+      g.lineTo(0, h);
+      g.closePath();
+      g.fill();
+    }
+    // Tufted yarn pile grain
+    const r = rnd(291);
+    for (let i = 0; i < 42000; i++) {
+      g.fillStyle = i % 2 ? 'rgba(255,255,255,0.14)' : 'rgba(12,48,102,0.12)';
+      g.fillRect(r() * w, r() * h, 1.8, 2.2);
+    }
+  });
+  // Organic wave-scalloped silhouette: straight East edge (+28cm against bathroom door threshold) and wavy West edge (-18..-30cm facing hallway)
+  {
+    const sh = new THREE.Shape();
+    sh.moveTo(cm(28), cm(-39));
+    sh.lineTo(cm(28), cm(39));
+    sh.absarc(cm(22), cm(39), cm(6), 0, Math.PI / 2, false);
+    sh.lineTo(cm(-18), cm(40));
+    sh.bezierCurveTo(cm(-30), cm(36), cm(-32), cm(20), cm(-21), cm(8));
+    sh.bezierCurveTo(cm(-12), cm(-2), cm(-31), cm(-16), cm(-29), cm(-28));
+    sh.bezierCurveTo(cm(-27), cm(-38), cm(-14), cm(-40), cm(22), cm(-40));
+    sh.closePath();
+    const waveGeo = new THREE.ExtrudeGeometry(sh, {
+      depth: cm(1.2),
+      bevelEnabled: true,
+      bevelThickness: cm(0.25),
+      bevelSize: cm(0.25),
+      bevelSegments: 2,
+      curveSegments: 28
+    });
+    const uv = waveGeo.attributes.uv;
+    const pos = waveGeo.attributes.position;
+    for (let i = 0; i < uv.count; i++) {
+      const u = (pos.getX(i) / cm(1) + 32) / 60;
+      const v = (pos.getY(i) / cm(1) + 40) / 80;
+      uv.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
+    }
+    uv.needsUpdate = true;
+    const waveMesh = new THREE.Mesh(
+      waveGeo,
+      M('#ffffff', { roughness: 0.92, map: waveMatTex })
+    );
+    waveMesh.rotation.x = Math.PI / 2;
+    waveMesh.position.y = cm(1.3);
+    waveMesh.castShadow = true;
+    waveMesh.receiveShadow = true;
+    bathWaveMat.add(waveMesh);
+  }
+
   function setKShelfIvar(on) {
     const useIvar = !!on;
     kShelfDesker.visible = !useIvar;
@@ -897,26 +1048,24 @@ export function buildIIkeaLayout({
   function applyIKLayout(mode) {
     const isK = mode === 'K';
     if (isK) {
-      // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(485, 486)에 들어오도록 (596, 488) 배치
+      // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));
       diningTonstad.position.set(cm(545), 0, cm(488));
-      // 2. 와인색 조명(IKEA PS 2026 다크레드 상향식플로어스탠드 Ø28×H182cm): 턴테이블 수납장(z=550)과 식탁(596, 488) 사이 서쪽 벽면(485, 486)에 배치!
-      sambordLamp.position.set(cm(485), 0, cm(486));
+      // 2. 와인색 조명(IKEA PS 2026 다크레드 상향식플로어스탠드 Ø28×H182cm): 서쪽 벽면(474, 484)에 밀착 배치해 식탁 서쪽 PS 2026 접이식의자와도 간섭 없음
+      sambordLamp.position.set(cm(474), 0, cm(484));
       psRedHead.rotation.set(0.08, 0, -0.18);
-      // 3. 포엥 암체어 2개: 서쪽 벽(원래 무지 SUS 자리 · x=495, z=638 & 725)으로 이동, 동쪽 거실·탁상 쪽을 바라봄
-      poangYellow.position.set(cm(495), 0, cm(638));
-      poangYellow.rotation.y = (78 * Math.PI) / 180;
-      poangRed.position.set(cm(496), 0, cm(725));
-      poangRed.rotation.y = (102 * Math.PI) / 180;
-      // 4. 암체어 앞 이케아 탁상(HOLMERUD 홀메루드 커피테이블 90×55×45cm) 복원 배치
-      holmerud.visible = true;
-      holmerud.position.set(cm(584), 0, cm(680));
-      holmerud.rotation.y = -Math.PI / 2;
-      // 5. 외켄산드 플로어스탠드: 좀 더 창문 쪽(476, 792)으로 이동
-      okensand.position.set(cm(476), 0, cm(792));
-      // 6. 트리 & 몬스테라: 좀 더 창문 쪽(남서 창가 정면 522, 832 & 563, 863 · 통창 내부 밀착)으로 이동
-      treeGroup.position.set(cm(522), 0, cm(832));
-      fejkaPlant.position.set(cm(563), 0, cm(863));
+      // 3. 포엥 암체어 2개: 서쪽 벽(원래 무지 SUS 자리 · x=495, z=632 & 708)으로 배치, 남측 베이지 의자가 외켄산드 스탠드와 겹치지 않도록 각도(90°) 및 간격 조정
+      poangYellow.position.set(cm(495), 0, cm(632));
+      poangYellow.rotation.y = (82 * Math.PI) / 180;
+      poangRed.position.set(cm(495), 0, cm(708));
+      poangRed.rotation.y = (90 * Math.PI) / 180;
+      // 4. 암체어 앞 홀메루드 커피테이블: 사용자 요청("연두색은 일단 빼 놓을까?")에 따라 제외(숨김)
+      holmerud.visible = false;
+      // 5. 외켄산드 플로어스탠드(보라색 동그라미): 베이지 포엥 암체어(z=708)와 크리스마스트리(538, 852) 사이 서쪽 벽 콘센트 옆 오픈 코너(474, 780)에 여유 있게 배치
+      okensand.position.set(cm(474), 0, cm(780));
+      // 6. 트리 & 몬스테라: 외켄산드 스탠드와 겹치지 않도록 남서 사선 창문 중앙 쪽(538, 852 & 578, 882)으로 이동
+      treeGroup.position.set(cm(538), 0, cm(852));
+      fejkaPlant.position.set(cm(578), 0, cm(882));
       // 7. 무지 SUS 대체 선반장: 원래 암체어 자리였던 동쪽 벽(773, 718 · 월패드 남쪽)에 단독 깔끔하게 배치
       kShelfGroup.visible = true;
       kShelfGroup.position.set(cm(773), 0, cm(718));
@@ -956,6 +1105,9 @@ export function buildIIkeaLayout({
     nightAcc,
     vanityKyrreStool,
     ps2026Chair,
+    ps2026Chair2,
+    moanaHallArt,
+    bathWaveMat,
     kShelfGroup,
     kShelfDesker,
     kShelfIvar,

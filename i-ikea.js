@@ -378,9 +378,30 @@ export function buildIIkeaLayout({
   sambordLamp.add(sambordLight);
   if (addAccent) addAccent(sambordLight, psDarkRedInnerMat, 1.65, 1.6);
 
-  // HOLMERUD 커피테이블 및 MARKFROST 탁상등은 사용자 요청("위목록 예산에서 빼")에 따라 숨김 처리
-  const holmerud = new THREE.Group();
+  // HOLMERUD 홀메루드 커피테이블 (90×55×45cm · 참나무무늬 · 205.300.94 · 64,900원)
+  // I안에서는 숨김(visible=false), K안에서는 서쪽 벽으로 이동한 포엥 암체어 2개 앞(582, 663)에 배치!
+  const holmerud = placeI(582, 663, -Math.PI / 2);
+  holmerud.name = 'I/K IKEA HOLMERUD Oak Coffee Table 90x55x45 205.300.94';
   holmerud.visible = false;
+  holmerud.userData = {
+    dimensions: [90, 55, 45],
+    bounds: [554.5, 609.5, 618, 708],
+    productId: '205.300.94',
+    price: 64900
+  };
+  loungeGroup.add(holmerud);
+  // Stepped architectural oak slabs of HOLMERUD (90×55×45cm)
+  B(holmerud, 90, 2.4, 55, holmerudOak, 0, 42.6, 0, 0.25); // top board
+  B(holmerud, 62, 2.4, 55, holmerudOak, -14, 16.0, 0, 0.25); // lower shelf board
+  B(holmerud, 2.4, 42.6, 55, holmerudOak, -43.8, 0, 0, 0.25); // left full side panel
+  B(holmerud, 2.4, 26.6, 55, holmerudOak, 16, 16.0, 0, 0.25); // inner vertical divider
+  B(holmerud, 2.4, 16.0, 55, holmerudOak, 43.8, 0, 0, 0.25); // right lower leg panel
+  B(holmerud, 28, 2.4, 55, holmerudOak, 31, 16.0, 0, 0.25); // right step horizontal
+  // Books & tray on HOLMERUD
+  B(holmerud, 24, 2.4, 18, M('#d8cfc0', { roughness: 0.8 }), -20, 18.4, 0, 0.2);
+  B(holmerud, 28, 1.5, 19, voxlovBamboo, -8, 45.0, 0, 0.4);
+  CY(holmerud, 3.4, 3.0, 7.5, humlesjonOrange, -14, 46.5, -2, 20);
+  CY(holmerud, 3.4, 3.0, 7.5, humlesjonMint, -2, 46.5, 3, 20);
   const markfrost = new THREE.Group();
   markfrost.visible = false;
 
@@ -707,6 +728,173 @@ export function buildIIkeaLayout({
   const vanityKyrreStool = addKyrreStool(grpI, 838, 666, -Math.PI / 2, false, 'I KYRRE Off-White Vanity Stool 506.081.33');
   vanityKyrreStool.__planPlaced = true;
 
+  // ============================================================================
+  // 7. K안 전용: 동쪽 벽(원래 암체어 자리 · x=773, z=712)으로 이동한 무지 SUS 대체 선반장!
+  //    - 기본(1순위): 데스커 800폭 5단 철제 수납장 도어형 (DSAC085S · 80×32×174cm · 메이플/화이트 · 306,000원 무료시공)
+  //    - 전환 가능(이케아 매장 픽): IKEA IVAR 이바르 5단 원목선반 (89×30×179cm · s99582481 · 123,900원) + BRANÄS 라탄바구니 2개 (49,800원)
+  // ============================================================================
+  const kShelfGroup = placeI(773, 712, -Math.PI / 2);
+  kShelfGroup.name = 'K East Wall MUJI SUS Replacement Shelf Unit';
+  kShelfGroup.visible = false;
+  kShelfGroup.userData = {
+    dimensions: [80, 32, 174],
+    bounds: [757, 789, 672, 752],
+    productId: 'DSAC085S',
+    price: 306000
+  };
+
+  const whiteSteelMat = M('#f3f4f2', { metalness: 0.28, roughness: 0.34 });
+  const mapleBoardMat = dWood('#d8b584', '#ae8754');
+  const pineSolidMat = dWood('#e3c696', '#b89562');
+
+  // Helper to populate upper shelves with F1 mini helmet, pour-over coffee gear, LP records & art books
+  function addShelfDisplayItems(targetGroup, yLp, yCoffee, yTop) {
+    // 1) LP records & bookend on yLp shelf
+    const lpColors = ['#243447', '#b84632', '#d49b27', '#2f5d46', '#e6dfd3', '#3b2e2a', '#7c9487', '#c86a38'];
+    for (let i = 0; i < 8; i++) {
+      B(targetGroup, 1.1, 31.2, 31.2, M(lpColors[i], { roughness: 0.55 }), -28 + i * 2.1, yLp, 0, 0.12);
+    }
+    B(targetGroup, 0.5, 18, 22, whiteSteelMat, -10.5, yLp, 0, 0.08);
+    // Art books stacked beside LPs
+    B(targetGroup, 22, 2.6, 18, M('#dfd7c8', { roughness: 0.75 }), 16, yLp, 1, 0.2);
+    B(targetGroup, 20, 2.4, 16.5, M('#536856', { roughness: 0.72 }), 16, yLp + 2.6, 1, 0.2);
+
+    // 2) Pour-over coffee station (wood tray, gooseneck kettle, V60 server, hand grinder, 2 mugs) on yCoffee shelf
+    B(targetGroup, 36, 1.4, 22, voxlovBamboo, -12, yCoffee, 1, 0.3);
+    CY(targetGroup, 4.6, 5.4, 11.5, blackMetal, -22, yCoffee + 1.4, 1, 24); // kettle
+    CY(targetGroup, 4.2, 4.8, 9.0, glassClear, -9, yCoffee + 1.4, 1, 24); // glass server
+    CY(targetGroup, 4.8, 2.2, 7.5, mat.ceramic, -9, yCoffee + 10.4, 1, 24); // ceramic dripper
+    CY(targetGroup, 2.5, 2.5, 14.5, chromeMetal, 1, yCoffee + 1.4, -2, 20); // hand grinder
+    CY(targetGroup, 3.2, 3.0, 7.8, humlesjonOrange, 16, yCoffee + 1.4, 2, 20);
+    CY(targetGroup, 3.2, 3.0, 7.8, mat.ceramic, 25, yCoffee + 1.4, 0, 20);
+
+    // 3) Hamilton 2025 Ferrari F1 mini helmet in acrylic display case + ceramic vase on yTop shelf
+    const helmGrp = new THREE.Group();
+    helmGrp.position.set(cm(-16), cm(yTop), cm(1));
+    targetGroup.add(helmGrp);
+    B(helmGrp, 18, 1.4, 15, blackMetal, 0, 0, 0, 0.2);
+    const helmBall = new THREE.Mesh(new THREE.SphereGeometry(cm(5.2), 24, 18), M('#c92424', { roughness: 0.26, metalness: 0.18 }));
+    helmBall.position.set(0, cm(6.4), 0);
+    helmGrp.add(helmBall);
+    B(helmGrp, 6.8, 2.6, 3.0, M('#1b1d20', { roughness: 0.15, metalness: 0.7 }), 0, 5.6, 3.8, 0.4);
+    B(helmGrp, 17.6, 13.5, 14.6, glassClear, 0, 1.4, 0, 0.1);
+    // Sculptural off-white ceramic object on right side of top shelf
+    CY(targetGroup, 4.2, 5.8, 16, mat.ceramic, 16, yTop, 0, 28);
+    CY(targetGroup, 2.4, 4.2, 6, mat.ceramic, 16, yTop + 16, 0, 24);
+  }
+
+  // Model A (Default): 데스커 800폭 5단 철제 수납장 도어형 (DSAC085S · 80×32×174cm · 306,000원)
+  const kShelfDesker = new THREE.Group();
+  kShelfDesker.name = 'K DESKER 800 5-Tier Steel & Maple Cabinet Shelf DSAC085S';
+  kShelfGroup.add(kShelfDesker);
+  // 4 slim white steel vertical posts & side ladder bars (80×32×174cm)
+  for (const sx of [-38.8, 38.8]) {
+    for (const sz of [-14.8, 14.8]) {
+      B(kShelfDesker, 2.2, 174, 2.2, whiteSteelMat, sx, 0, sz, 0.2);
+    }
+    for (const sy of [7, 42, 77, 125, 172]) {
+      B(kShelfDesker, 2.0, 1.8, 28, whiteSteelMat, sx, sy, 0, 0.15);
+    }
+  }
+  // Thin back X cross-brace on upper open section
+  dRod(kShelfDesker, [-38, 78, -14.8], [38, 171, -14.8], 0.32, whiteSteelMat);
+  dRod(kShelfDesker, [38, 78, -14.8], [-38, 171, -14.8], 0.32, whiteSteelMat);
+  // 5 maple shelf boards (y = 7, 42, 77, 125, 172cm)
+  for (const sy of [7, 42, 77, 125, 172]) {
+    B(kShelfDesker, 76.4, 1.8, 30.8, mapleBoardMat, 0, sy, 0, 0.2);
+  }
+  // Lower enclosed 2-door white storage cabinet (y = 8.8..77cm, hides clutter cleanly without needing out-of-stock MUJI drawers!)
+  B(kShelfDesker, 76.0, 68.2, 1.0, whiteSteelMat, 0, 8.8, -14.6, 0.1); // back panel
+  B(kShelfDesker, 1.0, 68.2, 29.8, whiteSteelMat, -37.5, 8.8, 0, 0.1); // left side panel
+  B(kShelfDesker, 1.0, 68.2, 29.8, whiteSteelMat, 37.5, 8.8, 0, 0.1); // right side panel
+  B(kShelfDesker, 37.2, 67.6, 1.4, whiteSteelMat, -18.8, 9.1, 14.6, 0.2); // left door
+  B(kShelfDesker, 37.2, 67.6, 1.4, whiteSteelMat, 18.8, 9.1, 14.6, 0.2); // right door
+  B(kShelfDesker, 1.2, 11.0, 1.2, chromeMetal, -2.4, 48, 15.6, 0.2); // left handle
+  B(kShelfDesker, 1.2, 11.0, 1.2, chromeMetal, 2.4, 48, 15.6, 0.2); // right handle
+  addShelfDisplayItems(kShelfDesker, 78.8, 126.8, 173.8);
+
+  // Model B (Toggleable IKEA Store Pick): IKEA IVAR 이바르 소나무 5단 선반 (89×30×179cm · 123,900원) + BRANÄS 라탄바구니 2개
+  const kShelfIvar = new THREE.Group();
+  kShelfIvar.name = 'K IKEA IVAR Pine 5-Tier Shelf 89x30x179 + 2 BRANAS Rattan Baskets';
+  kShelfIvar.visible = false;
+  kShelfGroup.add(kShelfIvar);
+  for (const sx of [-42.8, 42.8]) {
+    for (const sz of [-13.6, 13.6]) {
+      B(kShelfIvar, 3.0, 179, 2.6, pineSolidMat, sx, 0, sz, 0.25);
+    }
+    for (const rungY of [18, 52, 88, 126, 164]) {
+      B(kShelfIvar, 2.4, 2.2, 25, pineSolidMat, sx, rungY, 0, 0.2);
+    }
+  }
+  // OBSERVATÖR metal cross-brace on back
+  dRod(kShelfIvar, [-42, 24, -14.2], [42, 158, -14.2], 0.28, chromeMetal);
+  dRod(kShelfIvar, [42, 24, -14.2], [-42, 158, -14.2], 0.28, chromeMetal);
+  for (const sy of [8, 46, 86, 128, 170]) {
+    B(kShelfIvar, 83.0, 1.8, 29.5, pineSolidMat, 0, sy, 0, 0.22);
+  }
+  // 2 BRANÄS rattan baskets (32×34×32cm · 801.731.53) on bottom shelf (y=9.8cm)
+  B(kShelfIvar, 32, 32, 29, mat.rattan, -20, 9.8, 0.5, 0.8);
+  B(kShelfIvar, 32, 32, 29, mat.rattan, 20, 9.8, 0.5, 0.8);
+  // FJÄDERHARV storage boxes on 2nd shelf (y=47.8cm)
+  B(kShelfIvar, 25, 16, 26, M('#282a2c', { roughness: 0.7 }), -20, 47.8, 0, 0.3);
+  B(kShelfIvar, 25, 16, 26, M('#e6e2d8', { roughness: 0.7 }), 18, 47.8, 0, 0.3);
+  addShelfDisplayItems(kShelfIvar, 87.8, 129.8, 171.8);
+
+  function setKShelfIvar(on) {
+    const useIvar = !!on;
+    kShelfDesker.visible = !useIvar;
+    kShelfIvar.visible = useIvar;
+    kShelfGroup.userData.isIvar = useIvar;
+    kShelfGroup.userData.dimensions = useIvar ? [89, 30, 179] : [80, 32, 174];
+    kShelfGroup.userData.bounds = useIvar ? [758, 788, 667.5, 756.5] : [757, 789, 672, 752];
+    kShelfGroup.userData.price = useIvar ? 173700 : 306000;
+  }
+
+  // Apply I안 vs K안 coordinates cleanly without mutating other plans
+  function applyIKLayout(mode) {
+    const isK = mode === 'K';
+    if (isK) {
+      // 1. 다이닝 테이블: 턴테이블 수납장이 오른쪽(북쪽 z=522)으로 이동한 만큼 여유 있게 (582, 488) 배치
+      diningStockholm.position.set(cm(582), 0, cm(488));
+      diningTonstad.position.set(cm(545), 0, cm(488));
+      // 2. 포엥 암체어 2개: 서쪽 벽(원래 무지 SUS 자리 · x=495, z=616 & 710)으로 이동, 동쪽 거실·탁상 쪽을 바라봄
+      poangYellow.position.set(cm(495), 0, cm(616));
+      poangYellow.rotation.y = (78 * Math.PI) / 180;
+      poangRed.position.set(cm(495), 0, cm(710));
+      poangRed.rotation.y = (102 * Math.PI) / 180;
+      // 3. 암체어 앞 이케아 탁상(HOLMERUD 홀메루드 커피테이블 90×55×45cm) 복원 배치
+      holmerud.visible = true;
+      holmerud.position.set(cm(582), 0, cm(663));
+      holmerud.rotation.y = -Math.PI / 2;
+      // 4. 외켄산드 플로어스탠드: 좀 더 창문 쪽(474, 788)으로 이동
+      okensand.position.set(cm(474), 0, cm(788));
+      // 5. 트리 & 몬스테라: 좀 더 창문 쪽(남서 창가 정면 522, 832 & 560, 862 · 통창 내부 밀착)으로 이동
+      treeGroup.position.set(cm(522), 0, cm(832));
+      fejkaPlant.position.set(cm(560), 0, cm(862));
+      // 6. 무지 SUS 대체 선반장: 원래 암체어 자리였던 동쪽 벽(773, 712 · 월패드 남쪽)에 배치
+      kShelfGroup.visible = true;
+      kShelfGroup.position.set(cm(773), 0, cm(712));
+      // 7. 암체어 사이에 있던 PS 2026 다크레드 상향등: 동쪽 벽 대체선반 옆(768, 776)에 최적 배치 (동·서 양쪽 벽 조명 밸런스 완성)
+      sambordLamp.position.set(cm(768), 0, cm(776));
+      psRedHead.rotation.set(-0.08, 0, 0.22);
+    } else {
+      // I안 원래 좌표 100% 그대로 복원
+      diningStockholm.position.set(cm(568), 0, cm(492));
+      diningTonstad.position.set(cm(529), 0, cm(492));
+      poangYellow.position.set(cm(742), 0, cm(638));
+      poangYellow.rotation.y = (-75 * Math.PI) / 180;
+      poangRed.position.set(cm(742), 0, cm(748));
+      poangRed.rotation.y = (-105 * Math.PI) / 180;
+      holmerud.visible = false;
+      okensand.position.set(cm(476), 0, cm(728));
+      treeGroup.position.set(cm(476), 0, cm(796));
+      fejkaPlant.position.set(cm(534), 0, cm(826));
+      kShelfGroup.visible = false;
+      sambordLamp.position.set(cm(756), 0, cm(693));
+      psRedHead.rotation.set(0.06, 0, 0.18);
+    }
+  }
+
   return {
     group: grpI,
     diningTonstad,
@@ -724,6 +912,12 @@ export function buildIIkeaLayout({
     bathSet,
     nightAcc,
     vanityKyrreStool,
-    ps2026Chair
+    ps2026Chair,
+    kShelfGroup,
+    kShelfDesker,
+    kShelfIvar,
+    setKShelfIvar,
+    applyIKLayout
   };
 }
+

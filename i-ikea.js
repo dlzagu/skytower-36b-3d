@@ -718,12 +718,54 @@ export function buildIIkeaLayout({
   bathSet.add(bathUnderLight);
 
   // ============================================================================
-  // 6. 침실 협탁 위 소품 & 침실 화이트 화장대 앞 KYRRE 쉬레 스툴 오프화이트 1개 추가 배치
+  // 6. 침대 옆 협탁: 바로방가구 포포 400 미니 침대협탁 2단 서랍 · 화이트 (40×34.3×52.3cm · 오늘의집 2596428 · 29,900원 + 착불 12,000원)
+  //    & 침실 화이트 화장대 앞 KYRRE 쉬레 스툴 오프화이트 1개 추가 배치
   // ============================================================================
   const nightAcc = dPlace(1032, 520, -1, 0, grpI);
-  nightAcc.name = 'I Bedroom Nightstand NOLLNING Clock + SMAHAGEL Charger';
-  B(nightAcc, 8.5, 8.5, 3.2, M('#2b332e', { roughness: 0.4 }), -9, 50, 8, 0.5);
-  B(nightAcc, 7.2, 7.2, 0.3, M('#d9e4dc', { emissive: '#9ec4a9', emissiveIntensity: 0.25 }), -9, 50.6, 9.55, 0.2);
+  nightAcc.name = 'I Barobang Popo 400 2-Drawer Mini Nightstand White 40x34.3x52.3cm 2596428';
+  nightAcc.userData = {
+    productId: '2596428',
+    productName: '바로방가구 포포 400 미니 침대협탁 2단 서랍 · 화이트 (40×34.3×52.3cm)',
+    url: 'https://store.ohou.se/goods/2596428',
+    dimensions: [40, 34.3, 52.3],
+    price: 29900,
+    shipping: 12000
+  };
+  const popoWhite = M('#f5f4f0', { roughness: 0.36 });
+  const popoRecess = M('#dcdad3', { roughness: 0.55 });
+  // 4 splayed tapered round white legs (y = 0..12.2cm) + corner mounting plates
+  for (const sx of [-1, 1]) {
+    for (const sz of [-1, 1]) {
+      B(nightAcc, 6.8, 0.9, 6.8, popoWhite, sx * 13.8, 11.4, sz * 11.6, 0.2);
+      dRod(nightAcc, [sx * 15.2, 0, sz * 12.8], [sx * 13.6, 11.8, sz * 11.4], 1.75, popoWhite);
+    }
+  }
+  // Bottom board (40 × 1.6 × 34.3cm at y = 12.2..13.8cm)
+  B(nightAcc, 40.0, 1.6, 34.3, popoWhite, 0, 12.2, 0, 0.28);
+  // Left & Right side panels (y = 13.8..47.2cm main body + y = 47.2..52.3cm raised side guards with rounded front top corners)
+  for (const sx of [-19.2, 19.2]) {
+    B(nightAcc, 1.6, 33.4, 34.3, popoWhite, sx, 13.8, 0, 0.22);
+    B(nightAcc, 1.6, 5.1, 31.3, popoWhite, sx, 47.2, -1.5, 0.22);
+    const frontGuardCyl = new THREE.Mesh(new THREE.CylinderGeometry(cm(3.0), cm(3.0), cm(1.6), 24), popoWhite);
+    frontGuardCyl.rotation.z = Math.PI / 2;
+    frontGuardCyl.position.set(cm(sx), cm(49.3), cm(14.15));
+    frontGuardCyl.castShadow = true;
+    nightAcc.add(frontGuardCyl);
+  }
+  // Back panel extending up to form the rear tray guard (y = 13.8..52.3cm)
+  B(nightAcc, 36.8, 38.5, 1.5, popoWhite, 0, 13.8, -16.4, 0.22);
+  // Top tray shelf surface (y = 45.6..47.2cm)
+  B(nightAcc, 36.8, 1.6, 32.8, popoWhite, 0, 45.6, 0.4, 0.22);
+  // Interior shadow carcass & 2 handleless full-width drawers (y = 14.2..28.4cm and y = 30.4..44.6cm)
+  B(nightAcc, 36.4, 31.2, 29.5, popoRecess, 0, 14.0, 0.2, 0.1);
+  B(nightAcc, 36.4, 14.2, 1.6, popoWhite, 0, 14.2, 15.9, 0.24); // Lower drawer front
+  B(nightAcc, 36.4, 14.2, 1.6, popoWhite, 0, 30.4, 15.9, 0.24); // Upper drawer front
+  // Tabletop items on top tray (y = 47.2cm): digital clock + wood cube reed diffuser
+  B(nightAcc, 8.5, 8.5, 3.2, M('#2b332e', { roughness: 0.4 }), -8, 47.2, 5, 0.5);
+  B(nightAcc, 7.2, 7.2, 0.3, M('#d9e4dc', { emissive: '#9ec4a9', emissiveIntensity: 0.25 }), -8, 47.8, 6.55, 0.2);
+  B(nightAcc, 5.6, 5.8, 5.6, holmerudOak, 8, 47.2, 2, 0.35);
+  dRod(nightAcc, [8, 52.5, 2], [5.2, 63.5, 3.2], 0.16, beechWood);
+  dRod(nightAcc, [8, 52.5, 2], [11.0, 64.0, 0.8], 0.16, beechWood);
 
   // 침실 화이트 모아벨 화장대 앞 의자: 식탁 스툴과 동일한 IKEA KYRRE 쉬레 스툴 · 오프화이트 (506.081.33 · 29,900원) 1개 추가
   const vanityKyrreStool = addKyrreStool(grpI, 838, 666, -Math.PI / 2, false, 'I KYRRE Off-White Vanity Stool 506.081.33');

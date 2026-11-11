@@ -1045,9 +1045,10 @@ export function buildIIkeaLayout({
     kShelfGroup.userData.price = useIvar ? 173700 : 306000;
   }
 
-  // Apply I안 vs K안 coordinates cleanly without mutating other plans
+  // Apply I안 vs K안 vs O안 coordinates cleanly without mutating other plans
   function applyIKLayout(mode) {
     const isK = mode === 'K';
+    const isO = mode === 'O' || mode === 'O_EASTSET';
     if (isK) {
       // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));
@@ -1070,6 +1071,29 @@ export function buildIIkeaLayout({
       // 7. 무지 SUS 대체 선반장: 원래 암체어 자리였던 동쪽 벽(773, 718 · 월패드 남쪽)에 단독 깔끔하게 배치
       kShelfGroup.visible = true;
       kShelfGroup.position.set(cm(773), 0, cm(718));
+    } else if (isO) {
+      // O안: 포엥 암체어 2개를 남서 통창 쪽(z=686, 762)으로 +54cm 밀어 정면 동쪽 턴테이블·LP 스테이지를 마주 보게 하고 조명 밸런스 재배치
+      diningStockholm.position.set(cm(596), 0, cm(488));
+      diningTonstad.position.set(cm(545), 0, cm(488));
+      poangYellow.position.set(cm(495), 0, cm(686));
+      poangYellow.rotation.y = (88 * Math.PI) / 180;
+      poangRed.position.set(cm(498), 0, cm(762));
+      poangRed.rotation.y = (82 * Math.PI) / 180;
+      holmerud.visible = false;
+      if (mode === 'O_EASTSET') {
+        // 동쪽 벽에 3단(인터폰쪽)+5단(책상쪽)을 같이 둘 때: 서쪽 벽이 시원하게 비므로 서북 콘센트 옆 PS 2026 상향등(474, 512) + 암체어 옆 외켄산드 독서등(474, 616) 배치
+        sambordLamp.position.set(cm(474), 0, cm(512));
+        psRedHead.rotation.set(0.08, 0, -0.18);
+        okensand.position.set(cm(474), 0, cm(616));
+      } else {
+        // 맞교환 기본(서쪽 5단 + 동쪽 LP장): 서쪽 5단과 암체어 사이에 외켄산드(474, 622), 동쪽 LP장 남측에 PS 2026 다크레드 상향등(773, 776)으로 좌·우 조도 균형 완성
+        okensand.position.set(cm(474), 0, cm(622));
+        sambordLamp.position.set(cm(773), 0, cm(776));
+        psRedHead.rotation.set(0.08, 0, 0.22);
+      }
+      treeGroup.position.set(cm(524), 0, cm(836));
+      fejkaPlant.position.set(cm(568), 0, cm(870));
+      kShelfGroup.visible = false;
     } else {
       // I안 원래 좌표 100% 그대로 복원
       diningStockholm.position.set(cm(568), 0, cm(492));

@@ -1048,7 +1048,8 @@ export function buildIIkeaLayout({
   // Apply I안 vs K안 vs O안 coordinates cleanly without mutating other plans
   function applyIKLayout(mode) {
     const isK = mode === 'K';
-    const isO = mode === 'O' || mode === 'O_EASTSET';
+    const isO = mode === 'O' || mode === 'O_PULL' || mode === 'O_EASTSET';
+    diningStockholm.rotation.y = 0;
     if (isK) {
       // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));
@@ -1072,22 +1073,41 @@ export function buildIIkeaLayout({
       kShelfGroup.visible = true;
       kShelfGroup.position.set(cm(773), 0, cm(718));
     } else if (isO) {
-      // O안: 포엥 암체어 2개를 남서 통창 쪽(z=686, 762)으로 +54cm 밀어 정면 동쪽 턴테이블·LP 스테이지를 마주 보게 하고 조명 밸런스 재배치
-      diningStockholm.position.set(cm(596), 0, cm(488));
-      diningTonstad.position.set(cm(545), 0, cm(488));
-      poangYellow.position.set(cm(495), 0, cm(686));
-      poangYellow.rotation.y = (88 * Math.PI) / 180;
-      poangRed.position.set(cm(498), 0, cm(762));
-      poangRed.rotation.y = (82 * Math.PI) / 180;
       holmerud.visible = false;
-      if (mode === 'O_EASTSET') {
-        // 동쪽 벽에 3단(인터폰쪽)+5단(책상쪽)을 같이 둘 때: 서쪽 벽이 시원하게 비므로 서북 콘센트 옆 PS 2026 상향등(474, 512) + 암체어 옆 외켄산드 독서등(474, 616) 배치
-        sambordLamp.position.set(cm(474), 0, cm(512));
+      if (mode === 'O_PULL') {
+        // O안 기본(선반 붙임 + 식탁·의자 조정 + 암체어 여유 배치):
+        // - 서쪽 5단선반을 냉장고장 옆(z=482)으로 당기고, 원형식탁을 (626, 490)·-58° 사선 배치해 냉장고문·5단선반(앞 74.5cm 여유)·동쪽 복도(85cm+) 모두 여유 확보!
+        // - 확보된 서쪽 벽 길이(+66cm)를 활용해 포엥 암체어 2개 간격을 76cm → 104cm(z=630, 734 · 팔걸이 사이 27cm 여유)로 넉넉하게 벌림
+        diningStockholm.position.set(cm(626), 0, cm(490));
+        diningStockholm.rotation.y = (-58 * Math.PI) / 180;
+        diningTonstad.position.set(cm(568), 0, cm(490));
+        okensand.position.set(cm(474), 0, cm(558));
+        poangYellow.position.set(cm(498), 0, cm(630));
+        poangYellow.rotation.y = (96 * Math.PI) / 180;
+        poangRed.position.set(cm(500), 0, cm(734));
+        poangRed.rotation.y = (82 * Math.PI) / 180;
+        sambordLamp.position.set(cm(773), 0, cm(772));
+        psRedHead.rotation.set(0.08, 0, 0.22);
+      } else if (mode === 'O_EASTSET') {
+        // 동쪽 벽에 3단(인터폰쪽)+5단(책상쪽)을 같이 둘 때: 서쪽 벽 전체가 비므로 포엥 암체어 2개도 (498, 642) & (500, 744)로 102cm 간격 여유 배치!
+        diningStockholm.position.set(cm(596), 0, cm(488));
+        diningTonstad.position.set(cm(545), 0, cm(488));
+        sambordLamp.position.set(cm(474), 0, cm(492));
         psRedHead.rotation.set(0.08, 0, -0.18);
-        okensand.position.set(cm(474), 0, cm(616));
+        okensand.position.set(cm(474), 0, cm(566));
+        poangYellow.position.set(cm(498), 0, cm(642));
+        poangYellow.rotation.y = (94 * Math.PI) / 180;
+        poangRed.position.set(cm(500), 0, cm(744));
+        poangRed.rotation.y = (82 * Math.PI) / 180;
       } else {
-        // 맞교환 기본(서쪽 5단 + 동쪽 LP장): 서쪽 5단과 암체어 사이에 외켄산드(474, 622), 동쪽 LP장 남측에 PS 2026 다크레드 상향등(773, 776)으로 좌·우 조도 균형 완성
-        okensand.position.set(cm(474), 0, cm(622));
+        // 선반 띄움 비교 모드(서쪽 5단 z=548)
+        diningStockholm.position.set(cm(596), 0, cm(488));
+        diningTonstad.position.set(cm(545), 0, cm(488));
+        okensand.position.set(cm(474), 0, cm(618));
+        poangYellow.position.set(cm(496), 0, cm(680));
+        poangYellow.rotation.y = (90 * Math.PI) / 180;
+        poangRed.position.set(cm(498), 0, cm(766));
+        poangRed.rotation.y = (82 * Math.PI) / 180;
         sambordLamp.position.set(cm(773), 0, cm(776));
         psRedHead.rotation.set(0.08, 0, 0.22);
       }

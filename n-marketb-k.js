@@ -826,8 +826,8 @@ export function buildNMarketBKLayout({
   }
   setNCabinetMode('filmon');
 
-  // N안(서쪽 LP장 + 동쪽 5단) vs O안(맞교환 3종 + 동쪽 인터폰벽 3단·5단 일체형 세트 'eastset') 전환
-  function applyNOLayout(variant, oMode = 'filmon') {
+  // N안(서쪽 LP장 + 동쪽 5단) vs O안(맞교환 3종 + 서쪽선반 냉장고옆 당김 oPull + 동쪽 인터폰벽 3단·5단 일체형 세트 'eastset') 전환
+  function applyNOLayout(variant, oMode = 'filmon', oPull = true) {
     if (variant === 'O') {
       if (oMode === 'eastset') {
         // O안 옵션 ④ ('eastset'): 동쪽 벽에 3단(인터폰쪽 z=668, H84.5cm < 조작판 104·월패드 133.5cm) + 5단(책상쪽 z=754, 스틱청소기 앞 5.4cm 여유) 나란히 세트 배치!
@@ -839,18 +839,20 @@ export function buildNMarketBKLayout({
         eastChakoc5.position.set(cm(789.5), 0, cm(754));
         eastChakoc5.rotation.y = -Math.PI / 2;
       } else {
-        // O안 기본 맞교환 ①~③: 서쪽 북측(454, 548) CHAKOC 5단 ↔ 동쪽 벽(789.5, 714) 턴테이블·LP 수납장
+        // O안 맞교환 ①~③: oPull=true(기본)일 때 서쪽 CHAKOC 5단을 냉장고장(z=430.3) 옆 9.2cm 여유 지점(z=482, 범위 439.5~524.5)으로 당기고 동쪽 LP장을 z=706에 정렬
         const m = ['filmon', 'chakoc3', 'simplie'].includes(oMode) ? oMode : 'filmon';
+        const zShelf = oPull ? 482 : 548;
+        const zCab = oPull ? 706 : 714;
         cabFilmon.visible = m === 'filmon';
         cabChakoc3.visible = m === 'chakoc3';
         cabSimplie.visible = m === 'simplie';
-        eastChakoc5.position.set(cm(454), 0, cm(548));
+        eastChakoc5.position.set(cm(454), 0, cm(zShelf));
         eastChakoc5.rotation.y = Math.PI / 2;
-        cabFilmon.position.set(cm(789.5), 0, cm(714));
+        cabFilmon.position.set(cm(789.5), 0, cm(zCab));
         cabFilmon.rotation.y = -Math.PI / 2;
-        cabChakoc3.position.set(cm(789.5), 0, cm(714));
+        cabChakoc3.position.set(cm(789.5), 0, cm(zCab));
         cabChakoc3.rotation.y = -Math.PI / 2;
-        cabSimplie.position.set(cm(789.5), 0, cm(714));
+        cabSimplie.position.set(cm(789.5), 0, cm(zCab));
         cabSimplie.rotation.y = -Math.PI / 2;
       }
     } else {

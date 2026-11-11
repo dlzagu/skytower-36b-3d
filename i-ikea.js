@@ -511,6 +511,199 @@ export function buildIIkeaLayout({
   if (addAccent) addAccent(okensandLight, okensandShadeMat, 1.55, 1.55);
 
   // ============================================================================
+  // 3-B. O안 5단 선반 옆 스탠드조명 대체 후보 4종 (실시간 3D 전환 비교 · K/N/I안은 기존 외켄산드 100% 유지)
+  //   1) 'sodde'      : 마켓비 SODDE 장스탠드 E26 KS1899F · 실버 (69,900원 + 배송 3,000원 · product_no=40722)
+  //   2) 'tallbyn'    : 이케아 TÄLLBYN 텔뷘 플로어스탠드 · 니켈 도금/오팔 화이트 유리 (135cm · 149,000원 · 104.377.51)
+  //   3) 'simrishamn' : 이케아 SIMRISHAMN 심리스함 플로어스탠드 · 크롬도금/오팔 화이트 유리 3구 (158cm · 169,000원 · 704.377.72)
+  //   4) 'snowman'    : 일광전구 SNOWMAN22 V2 Floor · Butter 버터 (W22×D22×H130cm · 390,000원 무료배송 · 오늘의집 3367513)
+  //   5) 'okensand'   : 기존 이케아 ÖKENSAND 외켄산드 플로어스탠드 · 너도밤나무/화이트 (154cm · 99,900원 · 405.415.34)
+  // ============================================================================
+  const satinSilverMat = M('#dce1e6', { metalness: 0.68, roughness: 0.24 });
+  const brushedNickelMat = M('#cfd2ce', { metalness: 0.72, roughness: 0.26 });
+
+  // (1) 마켓비 SODDE 장스탠드 E26 KS1899F · 실버 (CHAKOC 실버 프레임 톤 매칭 · 비대칭 원뿔 스틸 갓)
+  const oLampSodde = placeI(474, 558, Math.PI * 0.24);
+  oLampSodde.name = 'O MarketB SODDE Mid-Century Silver Floor Lamp KS1899F 40722';
+  oLampSodde.visible = false;
+  oLampSodde.userData = {
+    lampKey: 'sodde',
+    productId: '40722',
+    productName: '마켓비 SODDE 장스탠드 E26 KS1899F · 실버',
+    dimensions: [32, 32, 150],
+    price: 69900,
+    shipping: 3000
+  };
+  {
+    CY(oLampSodde, 13.5, 13.5, 1.2, satinSilverMat, 0, 0, 0, 36);
+    CY(oLampSodde, 5.0, 5.0, 1.3, M('#ded8ce', { roughness: 0.82 }), 3.6, 0.05, 0, 22);
+    dRod(oLampSodde, [-4.0, 1.2, 0], [0, 142, 0], 0.88, satinSilverMat);
+    CY(oLampSodde, 1.35, 1.35, 3.2, chromeMetal, 0, 140.5, 0, 18);
+    const ajHead = new THREE.Group();
+    ajHead.position.set(0, cm(142), 0);
+    ajHead.rotation.z = -0.60;
+    oLampSodde.add(ajHead);
+    CY(ajHead, 2.3, 8.6, 23, satinSilverMat, 0, -14.5, 0, 32);
+    const soddeInnerMat = new THREE.MeshStandardMaterial({
+      color: '#fff8e6',
+      emissive: '#ffd894',
+      emissiveIntensity: 0.35,
+      roughness: 0.25,
+      side: THREE.DoubleSide
+    });
+    const soddeReflector = new THREE.Mesh(new THREE.CircleGeometry(cm(8.1), 28), soddeInnerMat);
+    soddeReflector.rotation.x = Math.PI / 2;
+    soddeReflector.position.set(0, -cm(14.2), 0);
+    ajHead.add(soddeReflector);
+    const soddeBulb = new THREE.Mesh(new THREE.SphereGeometry(cm(2.6), 20, 16), soddeInnerMat);
+    soddeBulb.position.set(0, -cm(11.5), 0);
+    ajHead.add(soddeBulb);
+    const soddeLight = new THREE.PointLight('#ffe0a6', 0, 4.5, 1.6);
+    soddeLight.position.set(0, -cm(16), 0);
+    ajHead.add(soddeLight);
+    if (addAccent) addAccent(soddeLight, soddeInnerMat, 1.75, 1.85, 0, 0.25);
+  }
+
+  // (2) 이케아 TÄLLBYN 텔뷘 플로어스탠드 · 니켈 도금/오팔 화이트 유리 (공식 실측 H135 × 받침 Ø35 × 갓 Ø40cm · 104.377.51)
+  const oLampTallbyn = placeI(476, 558, 0);
+  oLampTallbyn.name = 'O IKEA TALLBYN Floor Lamp Nickel Opal White Glass 135cm 104.377.51';
+  oLampTallbyn.visible = false;
+  oLampTallbyn.userData = {
+    lampKey: 'tallbyn',
+    productId: '104.377.51',
+    productName: 'IKEA TÄLLBYN 텔뷘 플로어스탠드 · 니켈 도금/오팔 화이트 유리 (135cm)',
+    dimensions: [40, 40, 135],
+    price: 149000
+  };
+  {
+    CY(oLampTallbyn, 17.5, 17.5, 1.1, brushedNickelMat, 0, 0, 0, 40);
+    CY(oLampTallbyn, 11.5, 14.5, 1.6, brushedNickelMat, 0, 1.1, 0, 36);
+    CY(oLampTallbyn, 2.2, 2.8, 3.0, brushedNickelMat, 0, 2.7, 0, 24);
+    CY(oLampTallbyn, 1.1, 1.1, 103.5, brushedNickelMat, 0, 5.7, 0, 24);
+    CY(oLampTallbyn, 2.4, 1.6, 2.2, brushedNickelMat, 0, 106.5, 0, 24);
+    dRod(oLampTallbyn, [3.2, 106.5, 0], [3.2, 98.5, 0], 0.14, brushedNickelMat);
+    CY(oLampTallbyn, 0.45, 0.45, 1.2, brushedNickelMat, 3.2, 97.5, 0, 12);
+    const tallbynGlassMat = new THREE.MeshStandardMaterial({
+      color: '#fcfaf3',
+      emissive: '#ffd28a',
+      emissiveIntensity: 0.22,
+      roughness: 0.2,
+      side: THREE.DoubleSide
+    });
+    const tbPts = [
+      [6.5, 108.0], [16.5, 110.5], [19.8, 115.0], [20.0, 119.5],
+      [18.0, 125.0], [13.2, 130.2], [5.8, 133.8], [0, 134.8]
+    ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
+    const tbDome = new THREE.Mesh(new THREE.LatheGeometry(tbPts, 44), tallbynGlassMat);
+    tbDome.castShadow = true;
+    oLampTallbyn.add(tbDome);
+    CY(oLampTallbyn, 1.6, 2.0, 1.0, brushedNickelMat, 0, 134.6, 0, 20);
+    const tbLight = new THREE.PointLight('#ffd48c', 0, 4.6, 1.6);
+    tbLight.position.set(0, cm(118), 0);
+    oLampTallbyn.add(tbLight);
+    if (addAccent) addAccent(tbLight, tallbynGlassMat, 1.7, 1.45, 0, 0.18);
+  }
+
+  // (3) 이케아 SIMRISHAMN 심리스함 플로어스탠드 · 크롬도금/오팔 화이트 유리 3구 (공식 실측 H158 × 받침 Ø30cm · 704.377.72)
+  const oLampSimrishamn = placeI(474, 558, Math.PI / 2);
+  oLampSimrishamn.name = 'O IKEA SIMRISHAMN 3-Globe Chrome Opal Glass Floor Lamp 158cm 704.377.72';
+  oLampSimrishamn.visible = false;
+  oLampSimrishamn.userData = {
+    lampKey: 'simrishamn',
+    productId: '704.377.72',
+    productName: 'IKEA SIMRISHAMN 심리스함 플로어스탠드 · 크롬도금/오팔 화이트 유리 (158cm)',
+    dimensions: [30, 30, 158],
+    price: 169000
+  };
+  {
+    CY(oLampSimrishamn, 15.0, 15.0, 1.5, chromeMetal, 0, 0, 0, 40);
+    CY(oLampSimrishamn, 2.0, 2.4, 2.5, chromeMetal, 0, 1.5, 0, 24);
+    CY(oLampSimrishamn, 0.95, 0.95, 153.0, chromeMetal, 0, 4.0, 0, 24);
+    CY(oLampSimrishamn, 1.05, 1.05, 1.0, chromeMetal, 0, 157.0, 0, 20);
+    const simGlassMat = new THREE.MeshStandardMaterial({
+      color: '#fdfbf6',
+      emissive: '#ffd590',
+      emissiveIntensity: 0.24,
+      roughness: 0.18
+    });
+    for (const [by, ang] of [[86, -0.35], [116, Math.PI + 0.35], [144, 0.45]]) {
+      const br = new THREE.Group();
+      br.position.set(0, cm(by), 0);
+      br.rotation.y = ang;
+      oLampSimrishamn.add(br);
+      dRod(br, [0, 0, 0], [11.5, 0, 0], 0.55, chromeMetal);
+      dRod(br, [11.5, 0, 0], [11.5, 4.2, 0], 0.55, chromeMetal);
+      CY(br, 2.1, 1.4, 2.0, chromeMetal, 11.5, 3.8, 0, 20);
+      const glb = new THREE.Mesh(new THREE.SphereGeometry(cm(6.8), 28, 24), simGlassMat);
+      glb.position.set(cm(11.5), cm(10.2), 0);
+      glb.castShadow = true;
+      br.add(glb);
+    }
+    const simLight = new THREE.PointLight('#ffd694', 0, 4.8, 1.6);
+    simLight.position.set(0, cm(122), 0);
+    oLampSimrishamn.add(simLight);
+    if (addAccent) addAccent(simLight, simGlassMat, 1.8, 1.55, 0, 0.22);
+  }
+
+  // (4) 일광전구 SNOWMAN22 V2 Floor · Butter (공식 실측 W22 × D22 × H130cm · 390,000원 무료배송 · 오늘의집 3367513)
+  const oLampSnowman = placeI(474, 558, 0);
+  oLampSnowman.name = 'O ILKW SNOWMAN22 V2 Floor Butter 130cm ohou-3367513';
+  oLampSnowman.visible = false;
+  oLampSnowman.userData = {
+    lampKey: 'snowman',
+    productId: '3367513',
+    productName: '일광전구 SNOWMAN22 V2 Floor · Butter (130cm)',
+    dimensions: [22, 22, 130],
+    price: 390000
+  };
+  {
+    CY(oLampSnowman, 11.0, 11.0, 1.3, chromeMetal, 0, 0, 0, 36);
+    CY(oLampSnowman, 1.8, 2.2, 2.0, chromeMetal, 0, 1.3, 0, 20);
+    CY(oLampSnowman, 0.85, 0.85, 92.5, chromeMetal, 0, 3.3, 0, 24);
+    CY(oLampSnowman, 3.2, 1.6, 1.8, chromeMetal, 0, 95.5, 0, 24);
+    const snowButterMat = new THREE.MeshStandardMaterial({
+      color: '#f9e7a8',
+      emissive: '#ffca5c',
+      emissiveIntensity: 0.26,
+      roughness: 0.2,
+      side: THREE.DoubleSide
+    });
+    const snPts = [
+      [3.2, 97.0], [8.2, 99.2], [10.8, 103.5], [11.0, 107.8], [9.4, 112.2],
+      [6.8, 115.6], [8.2, 119.2], [8.8, 123.0], [7.2, 127.0], [3.8, 129.4], [0, 130.0]
+    ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
+    const snShade = new THREE.Mesh(new THREE.LatheGeometry(snPts, 44), snowButterMat);
+    snShade.castShadow = true;
+    oLampSnowman.add(snShade);
+    const snLight = new THREE.PointLight('#ffd47e', 0, 4.5, 1.6);
+    snLight.position.set(0, cm(114), 0);
+    oLampSnowman.add(snLight);
+    if (addAccent) addAccent(snLight, snowButterMat, 1.75, 1.55, 0, 0.24);
+  }
+
+  let oFloorLampMode = 'sodde';
+  function syncOFloorLampVis(isOActive) {
+    if (!isOActive) {
+      okensand.visible = true;
+      oLampSodde.visible = false;
+      oLampTallbyn.visible = false;
+      oLampSimrishamn.visible = false;
+      oLampSnowman.visible = false;
+      return;
+    }
+    okensand.visible = oFloorLampMode === 'okensand';
+    oLampSodde.visible = oFloorLampMode === 'sodde';
+    oLampTallbyn.visible = oFloorLampMode === 'tallbyn';
+    oLampSimrishamn.visible = oFloorLampMode === 'simrishamn';
+    oLampSnowman.visible = oFloorLampMode === 'snowman';
+  }
+  function setOFloorLamp(lampKey) {
+    oFloorLampMode = ['sodde', 'tallbyn', 'simrishamn', 'snowman', 'okensand'].includes(lampKey)
+      ? lampKey
+      : 'sodde';
+    return oFloorLampMode;
+  }
+
+  // ============================================================================
   // 4. 남서 창가 코너 (이케아 위시리스트 반영):
   //    - VINTERFINT 빈테르핀트 인조 크리스마스트리 (150cm 그린 · 35,000원 · 606.363.76, 리사토르프 레드 바구니 제외)
   //    - FEJKA 페이카 인조식물 · 실내외겸용 몬스테라 19cm (높이 약 90cm · 42,900원 · 606.152.46)
@@ -1050,6 +1243,7 @@ export function buildIIkeaLayout({
     const isK = mode === 'K';
     const isO = mode === 'O' || mode === 'O_PULL' || mode === 'O_EASTSET';
     diningStockholm.rotation.y = 0;
+    syncOFloorLampVis(isO);
     if (isK) {
       // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));
@@ -1074,6 +1268,7 @@ export function buildIIkeaLayout({
       kShelfGroup.position.set(cm(773), 0, cm(718));
     } else if (isO) {
       holmerud.visible = false;
+      let zLamp = 558;
       if (mode === 'O_PULL') {
         // O안 기본(선반 붙임 + 식탁·의자 조정 + 암체어 여유 배치):
         // - 서쪽 5단선반을 냉장고장 옆(z=482)으로 당기고, 원형식탁을 (626, 490)·-58° 사선 배치해 냉장고문·5단선반(앞 74.5cm 여유)·동쪽 복도(85cm+) 모두 여유 확보!
@@ -1081,7 +1276,7 @@ export function buildIIkeaLayout({
         diningStockholm.position.set(cm(626), 0, cm(490));
         diningStockholm.rotation.y = (-58 * Math.PI) / 180;
         diningTonstad.position.set(cm(568), 0, cm(490));
-        okensand.position.set(cm(474), 0, cm(558));
+        zLamp = 558;
         poangYellow.position.set(cm(498), 0, cm(630));
         poangYellow.rotation.y = (96 * Math.PI) / 180;
         poangRed.position.set(cm(500), 0, cm(734));
@@ -1094,7 +1289,7 @@ export function buildIIkeaLayout({
         diningTonstad.position.set(cm(545), 0, cm(488));
         sambordLamp.position.set(cm(474), 0, cm(492));
         psRedHead.rotation.set(0.08, 0, -0.18);
-        okensand.position.set(cm(474), 0, cm(566));
+        zLamp = 566;
         poangYellow.position.set(cm(498), 0, cm(642));
         poangYellow.rotation.y = (94 * Math.PI) / 180;
         poangRed.position.set(cm(500), 0, cm(744));
@@ -1103,7 +1298,7 @@ export function buildIIkeaLayout({
         // 선반 띄움 비교 모드(서쪽 5단 z=548)
         diningStockholm.position.set(cm(596), 0, cm(488));
         diningTonstad.position.set(cm(545), 0, cm(488));
-        okensand.position.set(cm(474), 0, cm(618));
+        zLamp = 618;
         poangYellow.position.set(cm(496), 0, cm(680));
         poangYellow.rotation.y = (90 * Math.PI) / 180;
         poangRed.position.set(cm(498), 0, cm(766));
@@ -1111,6 +1306,11 @@ export function buildIIkeaLayout({
         sambordLamp.position.set(cm(773), 0, cm(776));
         psRedHead.rotation.set(0.08, 0, 0.22);
       }
+      okensand.position.set(cm(474), 0, cm(zLamp));
+      oLampSodde.position.set(cm(474), 0, cm(zLamp));
+      oLampTallbyn.position.set(cm(476), 0, cm(zLamp));
+      oLampSimrishamn.position.set(cm(474), 0, cm(zLamp));
+      oLampSnowman.position.set(cm(474), 0, cm(zLamp));
       treeGroup.position.set(cm(524), 0, cm(836));
       fejkaPlant.position.set(cm(568), 0, cm(870));
       kShelfGroup.visible = false;
@@ -1143,6 +1343,16 @@ export function buildIIkeaLayout({
     holmerud,
     stoenseWeave,
     okensand,
+    oLampSodde,
+    oLampTallbyn,
+    oLampSimrishamn,
+    oLampSnowman,
+    setOFloorLamp: (lampKey, isOActive = true) => {
+      const m = setOFloorLamp(lampKey);
+      syncOFloorLampVis(isOActive);
+      return m;
+    },
+    get oFloorLampMode() { return oFloorLampMode; },
     markfrost,
     treeGroup,
     fejkaPlant,

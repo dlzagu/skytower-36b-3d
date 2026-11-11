@@ -17,9 +17,9 @@
 //   ① 동쪽 벽 무지 SUS 대체 5단 선반 자리(x=789.5 벽밀착, 중심 x=769.5, z=716 · 월패드 z=662.5 남측 여유 11.3cm):
 //      → 마켓비 CHAKOC 선반 850 넓은 5단 · 내추럴 (85×40×155cm · 149,000원 · product_no=41358)
 //        + M안 감도 마켓비 수납·조명 큐레이션:
-//          · 1단(153.8cm): VALON 단스탠드 골드(26,900원 · 28828) + 니트 패브릭 스택 + 블랙 해트박스·미니 헬멧
-//          · 2단(118.3cm): 폴라보 양면 4문 모루유리 미니수납장(77,400원 · 33454 · 위스키바·SLATTIS 시계 15,000원) + 매거진 & DONOS 글로브 무드등(33,900원 · 34707)
-//          · 3단(82.8cm 허리높이): NEODA 우드트레이(5,900원 · 26514) 핸드드립 홈카페 커피 스테이션 + 우측 GUBON 미니 옐로우 버섯램프(23,900원 · 27594) & 오브제
+//          · 1단(153.8cm): 조명 제외 깔끔한 여백 — 우측 세라믹 화병 오브제 + 니트 패브릭 스택 + 블랙 해트박스·미니 헬멧
+//          · 2단(118.3cm): 폴라보 양면 4문 모루유리 미니수납장(77,400원 · 33454 · 위스키바·SLATTIS 시계 15,000원) + 좌측 매거진 (무드등 제외)
+//          · 3단(82.8cm 허리높이): NEODA 우드트레이(5,900원 · 26514) 핸드드립 홈카페 커피 스테이션 + 우측 단독 포인트 조명 GUBON 미니 옐로우 버섯램프(23,900원 · 27594) 1개만 배치!
 //          · 4단(47.3cm): 폴라보 2서랍 미니수납장(59,400원 · 38717) + 디자인 아트북
 //          · 5단(11.8cm): 벤탄 낮은 2문 케인 라탄 미니수납장(55,900원 · 41019) + 대형 화집 + 기둥 원목 원숭이 & 헤드폰
 //
@@ -367,36 +367,23 @@ export function buildNMarketBKLayout({
     dRod(eastChakoc5, [-43.5, 91, 21.2], [-43.5, 96.5, 24], 0.42, mBlack);
     dRod(eastChakoc5, [-43.5, 96.5, 24], [-43.5, 91, 26.8], 0.42, mBlack);
 
-    // [1단 최상단 y = 153.8cm]: 우측(남측) VALON 골드 단스탠드 + 중앙 니트 패브릭 스택 + 좌측(북측) 해트박스 & F1 미니 헬멧
+    // [1단 최상단 y = 153.8cm]: 조명 제외 깔끔한 여백 — 우측(남측) 세라믹 오브제 화병 + 중앙 니트 패브릭 스택 + 좌측(북측) 해트박스 & F1 미니 헬멧
     const y1 = 153.8;
     {
-      const valon = new THREE.Group();
-      valon.name = 'MarketB VALON Table Lamp Gold';
-      valon.position.set(cm(28.5), cm(y1), cm(21));
-      eastChakoc5.add(valon);
-      CY(valon, 4.8, 5.2, 2.0, mGold, 0, 0, 0, 24);
-      CY(valon, 1.6, 2.8, 2.2, mGold, 0, 2.0, 0, 20);
-      CY(valon, 0.65, 0.65, 16.5, mGold, 0, 4.2, 0, 16);
-      dRod(valon, [2.2, 19.5, 0], [2.2, 12.0, 0], 0.12, mGold);
-      CY(valon, 0.35, 0.35, 0.9, mGold, 2.2, 11.2, 0, 10);
-      const valonShadeMat = new THREE.MeshStandardMaterial({
-        color: '#fbf5e6',
-        emissive: '#ffd58a',
-        emissiveIntensity: 0.22,
-        roughness: 0.45,
-        side: THREE.DoubleSide
-      });
-      const shadeMesh = new THREE.Mesh(
-        new THREE.CylinderGeometry(cm(4.0), cm(11.0), cm(16.0), 36, 1, true),
-        valonShadeMat
-      );
-      shadeMesh.position.y = cm(27.2);
-      shadeMesh.castShadow = true;
-      valon.add(shadeMesh);
-      const valonLight = new THREE.PointLight('#ffe0a3', 0.9, 2.8, 1.8);
-      valonLight.position.set(0, cm(23), 0);
-      valon.add(valonLight);
-      if (addAccent) addAccent(valonLight, valonShadeMat, 1.85, 2.2, 0.35, 0.32);
+      const topVase = new THREE.Group();
+      topVase.name = 'Sculptural Off-White Ceramic Vase Object';
+      topVase.position.set(cm(27.5), cm(y1), cm(20.5));
+      eastChakoc5.add(topVase);
+      const tvPts = [
+        [0, 0], [3.6, 0], [5.6, 3.2], [5.8, 7.6], [3.8, 12.0], [2.1, 14.8], [2.5, 16.2]
+      ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
+      const tvMesh = new THREE.Mesh(new THREE.LatheGeometry(tvPts, 28), mCeramic);
+      tvMesh.castShadow = true;
+      topVase.add(tvMesh);
+      dRod(topVase, [0, 14, 0], [-2.4, 23.5, 1.0], 0.18, mLeafGreen);
+      dRod(topVase, [0, 14, 0], [2.2, 24.8, -0.8], 0.18, mLeafGreen);
+      B(topVase, 3.8, 0.18, 2.6, mLeafGreen, -2.4, 23.5, 1.0, 0.3);
+      B(topVase, 4.0, 0.18, 2.8, mLeafGreen, 2.2, 24.8, -0.8, 0.3);
 
       B(eastChakoc5, 22, 3.0, 17, mBurgundy, 1.5, y1, 20.5, 0.9);
       B(eastChakoc5, 20.5, 2.8, 16, M('#d48b9c', { roughness: 0.88 }), 1.5, y1 + 3.0, 20.5, 0.9);
@@ -415,7 +402,7 @@ export function buildNMarketBKLayout({
       B(helm, 6.4, 2.4, 2.6, M('#1b1d20', { roughness: 0.15, metalness: 0.7 }), 0, 3.8, 3.5, 0.35);
     }
 
-    // [2단 눈높이 y = 118.3cm]: 폴라보 양면 4문 모루유리 쇼케이스(위스키바·SLATTIS 시계) + 좌측 매거진·DONOS 글로브 무드등
+    // [2단 눈높이 y = 118.3cm]: 폴라보 양면 4문 모루유리 쇼케이스(위스키바·SLATTIS 시계) + 좌측 매거진 (무드등 제외 — 5단 전체 조명 1개 원칙!)
     const y2 = 118.3;
     {
       const polaboGlass = new THREE.Group();
@@ -428,18 +415,6 @@ export function buildNMarketBKLayout({
       B(polaboGlass, 1.6, 18.8, 26.5, mCamphor, -29.2, 1.6, 0);
       B(polaboGlass, 1.6, 18.8, 26.5, mCamphor, 29.2, 1.6, 0);
       B(polaboGlass, 56.8, 18.8, 0.8, M('#f3ede2', { roughness: 0.7 }), 0, 1.6, -12.4);
-
-      const showGlowMat = new THREE.MeshStandardMaterial({
-        color: '#fff6df',
-        emissive: '#ffcf75',
-        emissiveIntensity: 0.45,
-        roughness: 0.2
-      });
-      B(polaboGlass, 18, 0.4, 3.0, showGlowMat, 4, 19.9, 0);
-      const showLight = new THREE.PointLight('#ffd484', 0.95, 1.8, 1.8);
-      showLight.position.set(cm(4), cm(18.5), cm(2));
-      polaboGlass.add(showLight);
-      if (addAccent) addAccent(showLight, showGlowMat, 2.2, 2.8, 0.85, 1.15);
 
       B(polaboGlass, 7.5, 9.5, 0.2, M('#f9f6ee', { roughness: 0.4 }), -18, 8.5, -11.8);
       B(polaboGlass, 5.8, 6.2, 0.22, mNavy, -18, 10.6, -11.7);
@@ -487,7 +462,7 @@ export function buildNMarketBKLayout({
       }
 
       const mag = new THREE.Group();
-      mag.position.set(cm(-31), cm(y2), cm(15));
+      mag.position.set(cm(-29.5), cm(y2), cm(19.5));
       mag.rotation.x = -0.24;
       mag.rotation.y = 0.1;
       eastChakoc5.add(mag);
@@ -499,26 +474,6 @@ export function buildNMarketBKLayout({
       );
       cover.position.set(0, cm(12.3), cm(0.66));
       mag.add(cover);
-
-      const donos = new THREE.Group();
-      donos.name = 'MarketB DONOS Globe Mood Lamp';
-      donos.position.set(cm(-29.5), cm(y2), cm(29));
-      eastChakoc5.add(donos);
-      CY(donos, 6.2, 6.2, 2.2, mGold, 0, 0, 0, 28);
-      CY(donos, 1.4, 2.0, 1.4, mGold, 0, 2.2, 0, 18);
-      const orbMat = new THREE.MeshStandardMaterial({
-        color: '#ff9d3b',
-        emissive: '#ff6f14',
-        emissiveIntensity: 0.55,
-        roughness: 0.22
-      });
-      const orb = new THREE.Mesh(new THREE.SphereGeometry(cm(5.2), 28, 24), orbMat);
-      orb.position.y = cm(8.4);
-      donos.add(orb);
-      const donosLight = new THREE.PointLight('#ff8c32', 0.75, 2.0, 1.8);
-      donosLight.position.set(0, cm(9), cm(2));
-      donos.add(donosLight);
-      if (addAccent) addAccent(donosLight, orbMat, 1.85, 2.8, 0.55, 0.95);
     }
 
     // [3단 허리 높이 y = 82.8cm]: 좌측(북측 · 주방/식탁 인접) NEODA 트레이 핸드드립 홈카페 커피 스테이션 + 우측(남측) GUBON 미니 옐로우 버섯램프

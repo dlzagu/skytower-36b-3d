@@ -242,7 +242,11 @@ export function buildNMarketBKLayout({
     }
   }
 
-  // 상판 위 TEAC TN-180BT 블랙 턴테이블 + Edifier MR3 블랙 스피커 1조 + 투명 LP거치대 스테이지
+  const turntablePairs = [];
+  const nOnlyCurationItems = [];
+  let cafeEquipGroup = null;
+
+  // 상판 위 턴테이블(N안: TEAC TN-180BT / O안: 소니 PS-LX5BT) + Edifier MR3 블랙 스피커 1조 스테이지
   function addTurntableAudioTop(parent, yTop, depthCm, widthCm, opts = {}) {
     const cz = depthCm * 0.52;
     const spkX = Math.min(30.5, widthCm * 0.5 - 8.2);
@@ -269,31 +273,74 @@ export function buildNMarketBKLayout({
       CY(tweeter, 0.9, 0.9, 0.45, mBlack, 0, 0, 0, 16);
     }
 
-    // 중앙 TEAC TN-180BT 블랙 턴테이블 (42×35.6×10.5cm · 더스트커버 시원하게 개방!)
-    const tt = new THREE.Group();
-    tt.name = 'N TEAC TN-180BT Turntable on MarketB Cabinet';
-    tt.position.set(cm(opts.ttX ?? -1.5), cm(yTop), cm(cz + 0.5));
-    parent.add(tt);
+    // 중앙 턴테이블: N안은 TEAC TN-180BT, O안은 소니 PS-LX5BT(올블랙 플래터 + 옐로우 스타일러스 + 그린 스타트 버튼) 전환
+    const ttTeac = new THREE.Group();
+    ttTeac.name = 'N TEAC TN-180BT Turntable on MarketB Cabinet';
+    ttTeac.position.set(cm(opts.ttX ?? -1.5), cm(yTop), cm(cz + 0.5));
+    parent.add(ttTeac);
     for (const [fx, fz] of [[-16.5, -12], [16.5, -12], [-16.5, 12], [16.5, 12]]) {
-      CY(tt, 1.8, 1.8, 1.3, mBlack, fx, 0, fz, 16);
+      CY(ttTeac, 1.8, 1.8, 1.3, mBlack, fx, 0, fz, 16);
     }
-    B(tt, 41.0, 4.6, 31.5, mBlack, 0, 1.3, 0, 0.45);
-    CY(tt, 13.6, 13.8, 1.1, mChrome, -3.0, 5.9, 0, 40);
-    CY(tt, 13.2, 13.2, 0.3, M('#16191d', { roughness: 0.25 }), -3.0, 7.0, 0, 40);
-    CY(tt, 4.0, 4.0, 0.35, M('#c9683e', { roughness: 0.38 }), -3.0, 7.2, 0, 26);
-    CY(tt, 0.35, 0.35, 1.5, mChrome, -3.0, 7.0, 0, 12);
-    CY(tt, 2.1, 2.3, 1.8, mChrome, 14.2, 5.9, -8.5, 20);
-    dRod(tt, [14.2, 7.7, -8.5], [9.8, 7.7, 8.8], 0.28, mChrome);
-    B(tt, 1.6, 1.1, 2.6, mBlack, 9.5, 7.1, 9.6, 0.15);
+    B(ttTeac, 41.0, 4.6, 31.5, mBlack, 0, 1.3, 0, 0.45);
+    CY(ttTeac, 13.6, 13.8, 1.1, mChrome, -3.0, 5.9, 0, 40);
+    CY(ttTeac, 13.2, 13.2, 0.3, M('#16191d', { roughness: 0.25 }), -3.0, 7.0, 0, 40);
+    CY(ttTeac, 4.0, 4.0, 0.35, M('#c9683e', { roughness: 0.38 }), -3.0, 7.2, 0, 26);
+    CY(ttTeac, 0.35, 0.35, 1.5, mChrome, -3.0, 7.0, 0, 12);
+    CY(ttTeac, 2.1, 2.3, 1.8, mChrome, 14.2, 5.9, -8.5, 20);
+    dRod(ttTeac, [14.2, 7.7, -8.5], [9.8, 7.7, 8.8], 0.28, mChrome);
+    B(ttTeac, 1.6, 1.1, 2.6, mBlack, 9.5, 7.1, 9.6, 0.15);
+    {
+      const lidPivot = new THREE.Group();
+      lidPivot.position.set(0, cm(5.9), cm(-15.4));
+      lidPivot.rotation.x = -0.46;
+      ttTeac.add(lidPivot);
+      B(lidPivot, 40.6, 0.4, 31.0, mAcrylic, 0, 4.8, 15.5, 0.15);
+      B(lidPivot, 40.6, 4.8, 0.4, mAcrylic, 0, 0, 30.8);
+      B(lidPivot, 0.4, 4.8, 31.0, mAcrylic, -20.1, 0, 15.5);
+      B(lidPivot, 0.4, 4.8, 31.0, mAcrylic, 20.1, 0, 15.5);
+    }
 
-    const lidPivot = new THREE.Group();
-    lidPivot.position.set(0, cm(5.9), cm(-15.4));
-    lidPivot.rotation.x = -0.46;
-    tt.add(lidPivot);
-    B(lidPivot, 40.6, 0.4, 31.0, mAcrylic, 0, 4.8, 15.5, 0.15);
-    B(lidPivot, 40.6, 4.8, 0.4, mAcrylic, 0, 0, 30.8);
-    B(lidPivot, 0.4, 4.8, 31.0, mAcrylic, -20.1, 0, 15.5);
-    B(lidPivot, 0.4, 4.8, 31.0, mAcrylic, 20.1, 0, 15.5);
+    // O안 전용: 소니 PS-LX5BT 블루투스 턴테이블 (43×36.6×11.7cm · 매트블랙 플래터 + 노란 바늘 포인트 + 그린 START 버튼)
+    const ttSony = new THREE.Group();
+    ttSony.name = 'O Sony PS-LX5BT Bluetooth Turntable';
+    ttSony.position.set(cm(opts.ttX ?? -1.5), cm(yTop), cm(cz + 0.5));
+    ttSony.visible = false;
+    parent.add(ttSony);
+    const mSonyMatte = M('#1b1c1f', { roughness: 0.62, metalness: 0.08 });
+    const mSonyPlatter = M('#27292d', { roughness: 0.42, metalness: 0.22 });
+    for (const [fx, fz] of [[-17.2, -12.5], [17.2, -12.5], [-17.2, 12.5], [17.2, 12.5]]) {
+      CY(ttSony, 1.9, 1.9, 1.1, mBlack, fx, 0, fz, 16);
+    }
+    B(ttSony, 42.2, 4.8, 32.6, mSonyMatte, 0, 1.1, 0, 0.18);
+    // 올블랙 다이캐스트 플래터 & 매트 + 은색 스핀들
+    CY(ttSony, 13.9, 14.1, 1.0, mBlack, -2.8, 5.9, -0.4, 42);
+    CY(ttSony, 13.6, 13.6, 0.32, mSonyPlatter, -2.8, 6.9, -0.4, 42);
+    CY(ttSony, 4.4, 4.4, 0.36, M('#222428', { roughness: 0.5 }), -2.8, 7.05, -0.4, 28);
+    CY(ttSony, 0.32, 0.32, 1.5, mChrome, -2.8, 6.9, -0.4, 12);
+    // 좌측 전방 블루투스 페어링 원형 버튼
+    CY(ttSony, 1.05, 1.05, 0.25, M('#2b2d31', { roughness: 0.5 }), -17.6, 5.9, 11.8, 18);
+    // 우측 후방 블랙 톤암 베이스 + 블랙 톤암 + 시그니처 옐로우 카트리지 캡
+    CY(ttSony, 2.3, 2.5, 2.4, mBlack, 14.5, 5.9, -7.8, 22);
+    dRod(ttSony, [14.5, 7.8, -7.8], [9.4, 7.6, 8.2], 0.3, mBlack);
+    B(ttSony, 1.7, 1.0, 2.7, mBlack, 9.1, 7.1, 9.1, 0.12);
+    B(ttSony, 1.0, 0.85, 1.1, M('#f0be18', { roughness: 0.32 }), 8.9, 6.65, 10.1, 0.08);
+    // 우측 측면 속도/게인 다이얼 2개 + 전면 우측 그린 START 버튼 및 STOP·UP/DOWN 버튼 3개
+    CY(ttSony, 0.85, 0.85, 1.1, mBlack, 17.2, 5.9, 2.2, 16);
+    CY(ttSony, 0.85, 0.85, 1.1, mBlack, 17.2, 5.9, 6.2, 16);
+    CY(ttSony, 0.9, 0.9, 0.75, M('#2f7a52', { roughness: 0.38 }), 7.2, 5.9, 13.4, 18);
+    CY(ttSony, 0.9, 0.9, 0.75, mBlack, 10.6, 5.9, 13.4, 18);
+    CY(ttSony, 0.9, 0.9, 0.75, mBlack, 14.0, 5.9, 13.4, 18);
+    {
+      const lidPivot = new THREE.Group();
+      lidPivot.position.set(0, cm(5.9), cm(-15.9));
+      lidPivot.rotation.x = -0.44;
+      ttSony.add(lidPivot);
+      B(lidPivot, 41.8, 0.4, 32.0, mAcrylic, 0, 5.0, 16.0, 0.12);
+      B(lidPivot, 41.8, 5.0, 0.4, mAcrylic, 0, 0, 31.8);
+      B(lidPivot, 0.4, 5.0, 32.0, mAcrylic, -20.7, 0, 16.0);
+      B(lidPivot, 0.4, 5.0, 32.0, mAcrylic, 20.7, 0, 16.0);
+    }
+    turntablePairs.push({ teac: ttTeac, sony: ttSony });
 
     // 턴테이블 우측 앞 브라스 레코드 스태빌라이저 & 카본 브러쉬 디테일
     if (opts.withNowPlaying !== false) {
@@ -426,6 +473,7 @@ export function buildNMarketBKLayout({
       clk.position.set(cm(-4), cm(1.6), cm(1.5));
       clk.rotation.y = 0.08;
       polaboGlass.add(clk);
+      nOnlyCurationItems.push(clk);
       B(clk, 8.8, 8.8, 2.6, mWhite, 0, 0, 0, 0.3);
       const clkFace = new THREE.Mesh(
         new THREE.PlaneGeometry(cm(7.4), cm(7.4)),
@@ -476,33 +524,38 @@ export function buildNMarketBKLayout({
       mag.add(cover);
     }
 
-    // [3단 허리 높이 y = 82.8cm]: 좌측(북측 · 주방/식탁 인접) NEODA 트레이 핸드드립 홈카페 커피 스테이션 + 우측(남측) GUBON 미니 옐로우 버섯램프
+    // [3단 허리 높이 y = 82.8cm]: 좌측(북측 · 주방/식탁 인접) 핸드드립 홈카페 커피 스테이션 + 우측(남측) GUBON 미니 옐로우 버섯램프
     const y3 = 82.8;
     {
       // 핸드드립 홈카페 커피 스테이션 (K안의 커피 스테이션 기능 계승!)
       const cafe = new THREE.Group();
-      cafe.name = 'N Home Cafe Hand-Drip Station on MarketB NEODA Tray';
+      cafe.name = 'N Home Cafe Hand-Drip Station';
       cafe.position.set(cm(-13.5), cm(y3), cm(21.5));
       eastChakoc5.add(cafe);
-      // 마켓비 NEODA 우드트레이 (28×20cm) + 보조 원목 코스터
-      B(cafe, 44, 1.4, 24, mLightBirch, 0, 0, 0, 0.35);
+      // 마켓비 NEODA 우드트레이 (N안 표시, O안 제거)
+      const neodaTray = B(cafe, 44, 1.4, 24, mLightBirch, 0, 0, 0, 0.35);
+      nOnlyCurationItems.push(neodaTray);
+      const cafeGear = new THREE.Group();
+      cafeGear.position.y = cm(1.4);
+      cafe.add(cafeGear);
+      cafeEquipGroup = cafeGear;
       // 좌측 구스넥 드립포트 (매트블랙)
-      CY(cafe, 4.2, 4.8, 10.5, mBlack, -14, 1.4, 1, 22);
-      CY(cafe, 4.3, 4.3, 0.8, mCamphor, -14, 11.9, 1, 20);
-      dRod(cafe, [-9.5, 4.0, 1], [-6.2, 10.8, 1], 0.28, mBlack);
-      dRod(cafe, [-18.2, 4.5, 1], [-20.0, 10.2, 1], 0.32, mBlack);
+      CY(cafeGear, 4.2, 4.8, 10.5, mBlack, -14, 0, 1, 22);
+      CY(cafeGear, 4.3, 4.3, 0.8, mCamphor, -14, 10.5, 1, 20);
+      dRod(cafeGear, [-9.5, 2.6, 1], [-6.2, 9.4, 1], 0.28, mBlack);
+      dRod(cafeGear, [-18.2, 3.1, 1], [-20.0, 8.8, 1], 0.32, mBlack);
       // 중앙 V60 유리 서버 + 세라믹 드리퍼
-      CY(cafe, 4.2, 5.2, 8.8, mClearGlass, -1.5, 1.4, 1.5, 22);
-      CY(cafe, 4.8, 2.2, 6.8, mCeramic, -1.5, 10.2, 1.5, 22);
+      CY(cafeGear, 4.2, 5.2, 8.8, mClearGlass, -1.5, 0, 1.5, 22);
+      CY(cafeGear, 4.8, 2.2, 6.8, mCeramic, -1.5, 8.8, 1.5, 22);
       // 수동 원두 핸드그라인더
-      CY(cafe, 2.5, 2.5, 12.5, mChrome, 9.0, 1.4, -2.5, 20);
-      dRod(cafe, [9.0, 13.9, -2.5], [14.0, 15.2, -1.0], 0.24, mChrome);
-      CY(cafe, 1.1, 1.1, 1.4, mWalnut, 14.0, 14.2, -1.0, 14);
+      CY(cafeGear, 2.5, 2.5, 12.5, mChrome, 9.0, 0, -2.5, 20);
+      dRod(cafeGear, [9.0, 12.5, -2.5], [14.0, 13.8, -1.0], 0.24, mChrome);
+      CY(cafeGear, 1.1, 1.1, 1.4, mWalnut, 14.0, 12.8, -1.0, 14);
       // 원두 캐니스터 2개 & 컬러 머그컵
-      CY(cafe, 3.6, 3.6, 9.8, mBlack, 16.5, 1.4, -4.5, 20);
-      CY(cafe, 3.7, 3.7, 1.0, mCamphor, 16.5, 11.2, -4.5, 20);
-      CY(cafe, 3.1, 2.8, 7.6, mTerracotta, 11.5, 1.4, 5.8, 20);
-      CY(cafe, 3.1, 2.8, 7.6, mCeramic, 18.2, 1.4, 5.8, 20);
+      CY(cafeGear, 3.6, 3.6, 9.8, mBlack, 16.5, 0, -4.5, 20);
+      CY(cafeGear, 3.7, 3.7, 1.0, mCamphor, 16.5, 9.8, -4.5, 20);
+      CY(cafeGear, 3.1, 2.8, 7.6, mTerracotta, 11.5, 0, 5.8, 20);
+      CY(cafeGear, 3.1, 2.8, 7.6, mCeramic, 18.2, 0, 5.8, 20);
 
       // 우측(남측) 마켓비 GUBON 미니 단스탠드 옐로우 (Ø20×31cm · 27594)
       const gubon = new THREE.Group();
@@ -783,7 +836,14 @@ export function buildNMarketBKLayout({
 
   // N안(서쪽 LP장 + 동쪽 5단) vs O안(맞교환 3종 + 서쪽선반 냉장고옆 당김 oPull + 동쪽 인터폰벽 3단·5단 일체형 세트 'eastset') 전환
   function applyNOLayout(variant, oMode = 'chakoc3', oPull = true) {
-    if (variant === 'O') {
+    const isO = variant === 'O';
+    for (const item of nOnlyCurationItems) item.visible = !isO;
+    if (cafeEquipGroup) cafeEquipGroup.position.y = isO ? 0 : cm(1.4);
+    for (const pair of turntablePairs) {
+      pair.teac.visible = !isO;
+      pair.sony.visible = isO;
+    }
+    if (isO) {
       if (oMode === 'eastset') {
         // O안 옵션 ④ ('eastset'): 동쪽 벽에 3단(인터폰쪽 z=668, H84.5cm < 조작판 104·월패드 133.5cm) + 5단(책상쪽 z=754, 스틱청소기 앞 5.4cm 여유) 나란히 세트 배치!
         cabFilmon.visible = false;
@@ -832,6 +892,8 @@ export function buildNMarketBKLayout({
     cabFilmon,
     cabChakoc3,
     cabSimplie,
+    nOnlyCurationItems,
+    turntablePairs,
     setNCabinetMode,
     applyNOLayout,
     get cabMode() { return cabMode; }

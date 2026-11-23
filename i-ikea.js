@@ -1050,7 +1050,8 @@ export function buildIIkeaLayout({
     const isK = mode === 'K';
     const isO = mode === 'O' || mode === 'O_PULL' || mode === 'O_EASTSET';
     diningStockholm.rotation.y = 0;
-    okensand.visible = true;
+    sambordLamp.visible = !isO;
+    okensand.visible = !isO;
     if (isK) {
       // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));

@@ -741,6 +741,7 @@ export function buildNMarketBKLayout({
   const oSidePostDecor = new THREE.Group();
   oSidePostDecor.name = 'O Living-Side Post Decor';
   oShelfDecor.add(oSidePostDecor);
+  let oClipLamp = null;
 
   {
     const legPositions = [[-41.5, 1.5], [41.5, 1.5], [-41.5, 38.5], [41.5, 38.5]];
@@ -998,22 +999,92 @@ export function buildNMarketBKLayout({
       B(oShelfDecor, 0.3, 14.2, 14.2, mGlassCase, acX + 8.25, hy, acZ);
     }
 
-    // O 2단 (y2=118.3): 바우하우스 전면 전시북 + 폴라보 양면 4문 모루유리 쇼케이스 (우측 도어 개방감 + 은은한 간접조명 · 시계 제외)
+    // O 2단 (y2=118.3): 바우하우스 전면 전시북 + 폴라보 양면 4문 모루유리 쇼케이스 (기존 내부 간접등 제거) + 좌측 선반 엣지 실버 집게 조명(2806957)
     {
       addWireEaselBook(oShelfDecor, -30.5, y2, 20.5, 18.5, 24.5, 1.4, bauhausBookTex, 0.08, -0.22);
       addPolaboGlassBox(oShelfDecor, 10.0, y2, 20.0, {
         withClock: false,
         withJigger: true,
         rightDoorX: 2.2,
-        withWarmLight: true
+        withWarmLight: false
       });
+
+      // [O안 신규 조명 ① · 오늘의집 2806957]: 에프앤에스조명 전구증정 집게 조명 각도조절 단스탠드 · 스몰(16×20cm · 갓 Ø10.5cm · 39,900원 무료배송)
+      // 2단 선반 보드(y=116.5..118.3cm) 전면 좌측 모서리(x=-36.8, z=38.6)에 크롬 집게로 물리도록 장착해 아래 3단 홈카페·식탁·포엥 라운지를 비춤
+      const clipLamp = new THREE.Group();
+      clipLamp.name = 'O F&S Angle-Adjustable Silver Clip Lamp Small (goods/2806957)';
+      clipLamp.position.set(cm(-36.8), cm(117.4), cm(38.6));
+      oShelfDecor.add(clipLamp);
+      oClipLamp = clipLamp;
+
+      const mClipSilver = M('#dce0e5', { metalness: 0.24, roughness: 0.34 });
+      const mClipInner = new THREE.MeshStandardMaterial({
+        color: '#fff6e3',
+        emissive: '#ffd280',
+        emissiveIntensity: 0.55,
+        roughness: 0.28,
+        side: THREE.DoubleSide
+      });
+
+      // 크롬 스프링 집게 (선반 두께 1.8cm 상·하 밀착 파지 + 후면 손잡이 날개)
+      B(clipLamp, 3.0, 0.45, 4.4, mChrome, 0, 0.9, -1.5, 0.08);   // 상부 집게 패드
+      B(clipLamp, 3.0, 0.45, 4.4, mChrome, 0, -1.35, -1.5, 0.08); // 하부 집게 패드
+      B(clipLamp, 3.0, 2.7, 0.5, mChrome, 0, -1.35, 0.65, 0.08);  // 전면 집게 턱
+      dRod(clipLamp, [-0.9, 1.1, 0.5], [-0.9, 4.2, -2.2], 0.28, mChrome);
+      dRod(clipLamp, [0.9, 1.1, 0.5], [0.9, 4.2, -2.2], 0.28, mChrome);
+      dRod(clipLamp, [-0.9, -1.1, 0.5], [-0.9, -4.0, -2.2], 0.28, mChrome);
+      dRod(clipLamp, [0.9, -1.1, 0.5], [0.9, -4.0, -2.2], 0.28, mChrome);
+      B(clipLamp, 2.4, 0.4, 1.2, mChrome, 0, 3.8, -2.0, 0.08);
+      B(clipLamp, 2.4, 0.4, 1.2, mChrome, 0, -4.1, -2.0, 0.08);
+
+      // 전면 회전 스템 & 각도조절 헤드 암 (총 돌출 약 16cm)
+      const armGrp = new THREE.Group();
+      armGrp.position.set(0, cm(0.6), cm(0.8));
+      armGrp.rotation.y = 0.22; // 홈카페 & 거실 라운지 쪽으로 살짝 지향
+      clipLamp.add(armGrp);
+      dRod(armGrp, [0, 0, 0], [0, 2.6, 5.2], 0.45, mChrome);
+      CY(armGrp, 0.7, 0.7, 1.2, mChrome, 0, 2.0, 5.2, 16);
+
+      // 실버 알루미늄 소켓 하우징 + 블랙 관절 노브 + 원뿔형 갓(Ø10.5cm) + 각도조절 스틸 손잡이 바
+      const headGrp = new THREE.Group();
+      headGrp.position.set(0, cm(2.8), cm(5.4));
+      headGrp.rotation.x = 0.68; // 아래쪽 약 39도 지향
+      armGrp.add(headGrp);
+
+      // 좌우 블랙 원형 관절 볼트 노브
+      const knob = new THREE.Mesh(new THREE.CylinderGeometry(cm(0.85), cm(0.85), cm(4.8), 20), mBlack);
+      knob.rotation.z = Math.PI / 2;
+      headGrp.add(knob);
+
+      // 소켓 원통(뒤쪽) + 콘 쉐이드(앞쪽 Ø10.5cm => R=5.25cm)
+      const coneProfile = [
+        [0, -3.2], [1.95, -3.2], [2.05, 0.8], [2.35, 1.2], [5.25, 7.6], [5.4, 7.85], [5.05, 7.85], [2.2, 1.35]
+      ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
+      const shadeMesh = new THREE.Mesh(new THREE.LatheGeometry(coneProfile, 32), mClipSilver);
+      shadeMesh.rotation.x = Math.PI / 2;
+      shadeMesh.castShadow = true;
+      headGrp.add(shadeMesh);
+
+      // 내부 전구색 증정 LED 전구 & 반사광
+      const bulbMesh = new THREE.Mesh(new THREE.SphereGeometry(cm(2.3), 20, 16), mClipInner);
+      bulbMesh.position.set(0, 0, cm(4.2));
+      headGrp.add(bulbMesh);
+
+      // 갓 하단 각도조절 크롬 스틱 손잡이 (실물 디테일)
+      dRod(headGrp, [0, -4.6, 6.8], [0, -10.8, 7.6], 0.15, mChrome);
+
+      const clipLight = new THREE.PointLight('#ffdc96', 0.45, 3.6, 1.6);
+      clipLight.position.set(0, cm(-2.0), cm(7.5));
+      headGrp.add(clipLight);
+      if (addAccent) addAccent(clipLight, mClipInner, 2.15, 2.3, 0.45, 0.55);
     }
 
-    // O 3단 (y3=82.8): 좌측(거실방향) GUBON 옐로우 단독조명 + 에스프레소 컵세트, 우측(식탁방향) 블랙 바매트 핸드드립 커피존
+    // O 3단 (y3=82.8): 기존 GUBON 옐로우 단스탠드 제거 → 좌측 깔끔한 에스프레소 잔 페어 여백, 우측 블랙 바매트 핸드드립 커피존
     {
-      addGubonLamp(oShelfDecor, -26.5, y3, 21.0);
-      CY(oShelfDecor, 3.5, 3.5, 0.4, mCeramic, -11.8, y3, 23.5, 22);
-      CY(oShelfDecor, 2.5, 1.8, 4.0, mCeramic, -11.8, y3 + 0.4, 23.5, 20);
+      for (const [cx, cz] of [[-21.5, 22.0], [-13.2, 23.8]]) {
+        CY(oShelfDecor, 3.5, 3.5, 0.4, mCeramic, cx, y3, cz, 22);
+        CY(oShelfDecor, 2.5, 1.8, 4.0, mCeramic, cx, y3 + 0.4, cz, 20);
+      }
 
       // 슬림 매트블랙 & 브러시드 크롬 엣지 카페 바매트 (NEODA 우드트레이 제외)
       const bmX = 15.0, bmZ = 21.5;
@@ -1472,6 +1543,50 @@ export function buildNMarketBKLayout({
     ]
   });
 
+  // ==========================================================================
+  // [O안 신규 조명 ② · 오늘의집 1128293]: 아르떼미데(Artemide) 테티(Teti) 천장·벽 조명 · White (Ø14×7cm · 88,200원 무료배송)
+  //   - 기본(#o, #o,filmon, #o,simplie): 동쪽 턴테이블·LP 스테이지 벽면 우측(x=789.8, y=142, z=746 · 액자 옆 포인트 월 스콘스)
+  //   - 동쪽 3+5단 세트(#o,eastset): 서쪽 포엥 암체어 2개 사이 라운지 벽면 중앙(x=450.2, y=148, z=693)으로 자동 대칭 배치
+  // ==========================================================================
+  const oTetiWallLamp = new THREE.Group();
+  oTetiWallLamp.name = 'O Artemide Teti Wall Sconce White (goods/1128293)';
+  oTetiWallLamp.__planPlaced = true;
+  oTetiWallLamp.visible = false;
+  grpN.add(oTetiWallLamp);
+  {
+    const mTetiPolyWhite = M('#faf9f5', { roughness: 0.14, metalness: 0.04 });
+    const mTetiBulb = new THREE.MeshStandardMaterial({
+      color: '#fffdf7',
+      emissive: '#ffd586',
+      emissiveIntensity: 0.55,
+      roughness: 0.18
+    });
+    // Ø14cm(R=7.0cm) 유광 화이트 폴리카보네이트 오목 원반 + 트럼펫 넥 (벽면 z=0 → 실내 방향 +Z 4.4cm)
+    const tetiProfile = [
+      [0, 0], [7.0, 0], [7.0, 0.65], [6.55, 1.15], [4.95, 1.75], [3.35, 2.75], [2.45, 3.85], [2.35, 4.45], [1.95, 4.45]
+    ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
+    const tetiBase = new THREE.Mesh(new THREE.LatheGeometry(tetiProfile, 40), mTetiPolyWhite);
+    tetiBase.rotation.x = Math.PI / 2;
+    tetiBase.castShadow = true;
+    tetiBase.receiveShadow = true;
+    oTetiWallLamp.add(tetiBase);
+
+    const socketRing = new THREE.Mesh(new THREE.CylinderGeometry(cm(2.0), cm(2.15), cm(0.8), 28), mTetiPolyWhite);
+    socketRing.rotation.x = Math.PI / 2;
+    socketRing.position.set(0, 0, cm(4.6));
+    oTetiWallLamp.add(socketRing);
+
+    // 아르떼미데 테티 시그니처 유백색 원형 글로브 전구 (Ø7.2cm => R=3.6cm)
+    const globeBulb = new THREE.Mesh(new THREE.SphereGeometry(cm(3.6), 28, 24), mTetiBulb);
+    globeBulb.position.set(0, 0, cm(7.5));
+    oTetiWallLamp.add(globeBulb);
+
+    const tetiLight = new THREE.PointLight('#ffdc96', 0.45, 4.5, 1.5);
+    tetiLight.position.set(0, 0, cm(10.5));
+    oTetiWallLamp.add(tetiLight);
+    if (addAccent) addAccent(tetiLight, mTetiBulb, 2.25, 2.35, 0.45, 0.55);
+  }
+
   let cabMode = 'filmon';
   function setNCabinetMode(mode) {
     const next = ['filmon', 'chakoc3', 'simplie'].includes(mode) ? mode : 'filmon';
@@ -1487,6 +1602,7 @@ export function buildNMarketBKLayout({
   function applyNOLayout(variant, oMode = 'chakoc3', oPull = true) {
     const isO = variant === 'O';
     oAutoCurtains.visible = isO;
+    oTetiWallLamp.visible = isO;
     nShelfDecor.visible = !isO;
     oShelfDecor.visible = isO;
     oSidePostDecor.visible = isO && (oMode !== 'eastset');
@@ -1509,6 +1625,9 @@ export function buildNMarketBKLayout({
         cabChakoc3.rotation.y = -Math.PI / 2;
         eastChakoc5.position.set(cm(789.5), 0, cm(754));
         eastChakoc5.rotation.y = -Math.PI / 2;
+        // 5단(집게조명 포함)이 동쪽으로 이동하므로, 아르떼미데 테티는 서쪽 포엥 암체어 2개 사이 벽면(450.2, z=693, y=148)에 대칭 배치
+        oTetiWallLamp.position.set(cm(450.2), cm(148), cm(693));
+        oTetiWallLamp.rotation.y = Math.PI / 2;
       } else {
         // O안 맞교환 ①~③: oPull=true(기본)일 때 서쪽 CHAKOC 5단을 냉장고장(z=430.3) 옆 9.2cm 여유 지점(z=482, 범위 439.5~524.5)으로 당기고 동쪽 LP장(기본: CHAKOC 3단)을 z=706에 정렬
         const m = ['filmon', 'chakoc3', 'simplie'].includes(oMode) ? oMode : 'chakoc3';
@@ -1525,6 +1644,9 @@ export function buildNMarketBKLayout({
         cabChakoc3.rotation.y = -Math.PI / 2;
         cabSimplie.position.set(cm(789.5), 0, cm(zCab));
         cabSimplie.rotation.y = -Math.PI / 2;
+        // 동쪽 턴테이블·LP 스테이지 상부 벽면(액자 우측 z=zCab+40, y=142)에 아르떼미데 테티 배치
+        oTetiWallLamp.position.set(cm(789.8), cm(142), cm(zCab + 40));
+        oTetiWallLamp.rotation.y = -Math.PI / 2;
       }
     } else {
       // N안 원래 좌표 100% 복원
@@ -1558,6 +1680,8 @@ export function buildNMarketBKLayout({
     oAutoCurtains,
     oLivingCurtain,
     oBedroomCurtain,
+    oClipLamp,
+    oTetiWallLamp,
     mSheerChiffon,
     setNCabinetMode,
     applyNOLayout,

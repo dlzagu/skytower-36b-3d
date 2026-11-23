@@ -1317,6 +1317,161 @@ export function buildNMarketBKLayout({
     oTopAccGroups.push(oSimplieAcc);
   }
 
+  // ==========================================================================
+  // O안 전용: 무타공 화이트 자동커튼 풀세트 (거실 화이트 차르르 쉬폰 + 침실 화이트 형상기억 암막)
+  //   - SwitchBot 스위치봇 전동커튼 ver.3 U레일형 화이트 × 2대 (goods/971556)
+  //   - 생활백서 무타공 안뚫어고리 커튼박스용 레일형 3개입 × 2세트 (goods/3486266)
+  //   - 사라하우스 저소음 고급형 전착 커튼레일 화이트 8자(126~230cm) × 2세트 (goods/3502537)
+  //   - 거실: 사라하우스 비침없는 도톰차르르 높이조절 쉬폰커튼 나비주름 210×220cm 화이트 1장 (goods/1465080)
+  //   - 침실: 까르데코 1+1 화이트 암막커튼 3중직 100%암막 나비주름 형상기억 중형 2장 세트 (goods/339426)
+  // ==========================================================================
+  const oAutoCurtains = new THREE.Group();
+  oAutoCurtains.name = 'O Plan No-Drill White Motorized Curtains (Living Sheer + Bedroom Blackout)';
+  oAutoCurtains.__planPlaced = true;
+  oAutoCurtains.visible = false;
+  grpN.add(oAutoCurtains);
+
+  const mRailWhite = M('#f7f7f5', { roughness: 0.28, metalness: 0.16 });
+  const mBracketWhite = M('#fcfcfa', { roughness: 0.34, metalness: 0.06 });
+  const mSwitchBotBody = M('#f9f9f7', { roughness: 0.26, metalness: 0.05 });
+  const mSwitchBotDetail = M('#d4d7dc', { roughness: 0.4, metalness: 0.2 });
+  const mSheerChiffon = new THREE.MeshStandardMaterial({
+    color: '#ffffff',
+    emissive: '#fffaf2',
+    emissiveIntensity: 0.08,
+    roughness: 0.86,
+    metalness: 0.0,
+    transparent: true,
+    opacity: 0.66,
+    side: THREE.DoubleSide,
+    depthWrite: false
+  });
+  const mBlackoutFabric = new THREE.MeshStandardMaterial({
+    color: '#f7f6f2',
+    emissive: '#fffdf9',
+    emissiveIntensity: 0.02,
+    roughness: 0.9,
+    metalness: 0.0,
+    side: THREE.DoubleSide
+  });
+
+  function createWaveCurtainMesh(widthCm, heightCm, waveCount, ampCm, material, castShad = false) {
+    const segX = Math.max(56, waveCount * 10);
+    const segY = 14;
+    const geo = new THREE.PlaneGeometry(cm(widthCm), cm(heightCm), segX, segY);
+    const pos = geo.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i);
+      const y = pos.getY(i);
+      const u = x / cm(widthCm) + 0.5; // 0..1
+      const v = y / cm(heightCm) + 0.5; // 0(하단)..1(상단 나비주름 헤더)
+      const phase = u * waveCount * Math.PI * 2;
+      const primary = Math.sin(phase);
+      const pinch = Math.sin(phase * 2) * 0.22 * Math.pow(v, 2.0);
+      const flare = 0.84 + 0.16 * (1 - v);
+      pos.setZ(i, cm(ampCm) * (primary * flare + pinch));
+    }
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.castShadow = castShad;
+    mesh.receiveShadow = true;
+    return mesh;
+  }
+
+  function addNoDrillMotorizedWindow({
+    name,
+    wallA,
+    wallB,
+    cCenter,
+    railWidth,
+    inwardOffset,
+    panels,
+    motorX
+  }) {
+    const dx = wallB[0] - wallA[0];
+    const dy = wallB[1] - wallA[1];
+    const L = Math.hypot(dx, dy);
+    const ux = dx / L;
+    const uy = dy / L;
+    const ang = Math.atan2(dy, dx);
+    // 실내 방향 법선 (+uy, -ux); rotation.y = -ang 기준 로컬 +Z는 창문 쪽, -Z는 실내 쪽
+    const cx = wallA[0] + ux * cCenter + uy * inwardOffset;
+    const cz = wallA[1] + uy * cCenter - ux * inwardOffset;
+
+    const wGrp = new THREE.Group();
+    wGrp.name = name;
+    wGrp.__planPlaced = true;
+    wGrp.position.set(cm(cx), 0, cm(cz));
+    wGrp.rotation.y = -ang;
+    oAutoCurtains.add(wGrp);
+
+    // 1) 생활백서 무타공 안뚫어고리 커튼박스용 레일형 브라켓 3개 (천장 몰딩 턱 클립 고정)
+    for (const bx of [-railWidth * 0.43, 0, railWidth * 0.43]) {
+      B(wGrp, 3.2, 2.6, 1.8, mBracketWhite, bx, 222.7, 0.7, 0.2);
+      B(wGrp, 2.8, 0.7, 2.6, mBracketWhite, bx, 222.5, 0.2, 0.15);
+    }
+
+    // 2) 사라하우스 저소음 고급형 전착 커튼레일 화이트 (U레일 트랙 + 양끝 화이트 엔드캡 + 저소음 러너)
+    B(wGrp, railWidth, 1.45, 1.9, mRailWhite, 0, 221.3, 0, 0.18);
+    B(wGrp, 1.4, 1.75, 2.15, mBracketWhite, -railWidth / 2 - 0.4, 221.15, 0, 0.2);
+    B(wGrp, 1.4, 1.75, 2.15, mBracketWhite, railWidth / 2 + 0.4, 221.15, 0, 0.2);
+    for (let rx = -railWidth / 2 + 6; rx <= railWidth / 2 - 6; rx += 9.5) {
+      CY(wGrp, 0.35, 0.35, 0.9, mBracketWhite, rx, 220.45, 0, 10);
+    }
+
+    // 3) SwitchBot 스위치봇 전동커튼 ver.3 (U레일형 화이트 본체 캡슐 + 상단 레일 구동 롤러 암)
+    const sb = new THREE.Group();
+    sb.name = 'SwitchBot Curtain 3 White (U-Rail)';
+    sb.position.set(cm(motorX), cm(210.8), cm(1.65));
+    wGrp.add(sb);
+    B(sb, 4.2, 9.6, 5.0, mSwitchBotBody, 0, 0, 0, 1.6);
+    B(sb, 1.3, 2.4, 2.4, mSwitchBotBody, -1.05, 9.2, -1.35, 0.35);
+    B(sb, 1.3, 2.4, 2.4, mSwitchBotBody, 1.05, 9.2, -1.35, 0.35);
+    CY(sb, 0.45, 0.45, 0.35, mSwitchBotDetail, 0, 2.2, -2.52, 12);
+
+    // 4) 화이트 나비주름 커튼 패브릭 패널 (바닥 위 2.8cm 깔끔한 플로팅 기장: y=2.8..221.0cm)
+    const dropH = 218.2;
+    const midY = 2.8 + dropH / 2;
+    for (const p of panels) {
+      const mesh = createWaveCurtainMesh(p.width, dropH, p.waves, p.amp, p.mat, p.castShadow);
+      mesh.position.set(cm(p.centerX), cm(midY), cm(p.zOffset || 0));
+      wGrp.add(mesh);
+      // 상단 나비주름 헤더 테이프 디테일
+      B(wGrp, p.width - 0.6, 5.5, 0.45, mBracketWhite, p.centerX, 215.5, (p.zOffset || 0) + 0.15, 0.1);
+    }
+
+    return wGrp;
+  }
+
+  // ① 거실 남서 사선 창: 사라하우스 도톰차르르 쉬폰커튼 화이트 1장 (약 76% 전동 닫힘 연출 — 채광+주름+스위치봇 동시 확인)
+  const oLivingCurtain = addNoDrillMotorizedWindow({
+    name: 'O Living Room No-Drill White Sheer Auto Curtain',
+    wallA: [441, 827.8337],
+    wallB: [599.29705, 954.09358],
+    cCenter: 94.5,
+    railWidth: 174,
+    inwardOffset: 12.2,
+    motorX: 44.5,
+    panels: [
+      { centerX: -19.0, width: 132.0, waves: 15, amp: 1.85, mat: mSheerChiffon, castShadow: false, zOffset: 0 }
+    ]
+  });
+
+  // ② 침실 남서 사선 창: 까르데코 1+1 화이트 3중직 형상기억 100% 암막커튼 2장 세트 (한쪽 편개 연동 약 72% 전동 닫힘 연출)
+  const oBedroomCurtain = addNoDrillMotorizedWindow({
+    name: 'O Bedroom No-Drill White Blackout Auto Curtain',
+    wallA: [796, 816.26415],
+    wallB: [959.19005, 931.63726],
+    cCenter: 104.5,
+    railWidth: 170,
+    inwardOffset: 12.2,
+    motorX: -36.5,
+    panels: [
+      { centerX: 52.5, width: 61.0, waves: 8, amp: 2.15, mat: mBlackoutFabric, castShadow: true, zOffset: -0.1 },
+      { centerX: -8.5, width: 61.0, waves: 8, amp: 2.15, mat: mBlackoutFabric, castShadow: true, zOffset: 0.1 }
+    ]
+  });
+
   let cabMode = 'filmon';
   function setNCabinetMode(mode) {
     const next = ['filmon', 'chakoc3', 'simplie'].includes(mode) ? mode : 'filmon';
@@ -1331,6 +1486,7 @@ export function buildNMarketBKLayout({
   // N안(서쪽 LP장 + 동쪽 5단) vs O안(맞교환 3종 + 서쪽선반 냉장고옆 당김 oPull + 동쪽 인터폰벽 3단·5단 일체형 세트 'eastset') 전환
   function applyNOLayout(variant, oMode = 'chakoc3', oPull = true) {
     const isO = variant === 'O';
+    oAutoCurtains.visible = isO;
     nShelfDecor.visible = !isO;
     oShelfDecor.visible = isO;
     oSidePostDecor.visible = isO && (oMode !== 'eastset');
@@ -1399,6 +1555,10 @@ export function buildNMarketBKLayout({
     oLp3Decor,
     nOnlyCurationItems,
     turntablePairs,
+    oAutoCurtains,
+    oLivingCurtain,
+    oBedroomCurtain,
+    mSheerChiffon,
     setNCabinetMode,
     applyNOLayout,
     get cabMode() { return cabMode; }

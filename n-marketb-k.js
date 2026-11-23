@@ -742,6 +742,8 @@ export function buildNMarketBKLayout({
   oSidePostDecor.name = 'O Living-Side Post Decor';
   oShelfDecor.add(oSidePostDecor);
   let oClipLamp = null;
+  let oMiransCabinet = null;
+  let eastChakoc5Board4 = null;
 
   {
     const legPositions = [[-41.5, 1.5], [41.5, 1.5], [-41.5, 38.5], [41.5, 38.5]];
@@ -762,9 +764,22 @@ export function buildNMarketBKLayout({
 
     const boardHeights = [10, 45.5, 81, 116.5, 152];
     for (const sy of boardHeights) {
-      B(eastChakoc5, 84.4, 1.8, 38.2, mOak, 0, sy, 20, 0.2);
-      for (const [kx, kz] of legPositions) {
-        B(eastChakoc5, 2.4, 2.2, 2.4, mSteel, kx, sy - 0.2, kz, 0.15);
+      if (sy === 45.5) {
+        // N안에서는 기본 등간격(45.5cm) 유지, O안에서는 하단 미란스(높이 45cm) 수납을 위해 1칸 위 가로바(63.2cm)로 상향 조립
+        const b4 = new THREE.Group();
+        b4.name = 'CHAKOC 5-Tier Adjustable 4th Shelf Board';
+        b4.position.y = cm(45.5);
+        eastChakoc5.add(b4);
+        eastChakoc5Board4 = b4;
+        B(b4, 84.4, 1.8, 38.2, mOak, 0, 0, 20, 0.2);
+        for (const [kx, kz] of legPositions) {
+          B(b4, 2.4, 2.2, 2.4, mSteel, kx, -0.2, kz, 0.15);
+        }
+      } else {
+        B(eastChakoc5, 84.4, 1.8, 38.2, mOak, 0, sy, 20, 0.2);
+        for (const [kx, kz] of legPositions) {
+          B(eastChakoc5, 2.4, 2.2, 2.4, mSteel, kx, sy - 0.2, kz, 0.15);
+        }
       }
     }
 
@@ -897,8 +912,8 @@ export function buildNMarketBKLayout({
     // ------------------------------------------------------------------------
     // [O안 에디토리얼 리스타일링 5단 큐레이션 (벤탄 라탄장 제거 · 여백 + 식물 + 간접광)]
     // ------------------------------------------------------------------------
-    addHangingMonkey(oSidePostDecor, -42.4, 104, 26);
-    addPostHeadphones(oSidePostDecor, -42.4, 74.0, 24);
+    addHangingMonkey(oSidePostDecor, -42.4, 135.5, 24);
+    addPostHeadphones(oSidePostDecor, -42.4, 98.7, 22);
 
     // O 1단 (y1=153.8): 좌측 늘어지는 스킨답서스 화분 + 중앙 아트 모노그래프 & 크롬 스페어 + 우측 투명 아크릴 F1 헬멧 케이스
     {
@@ -1110,49 +1125,65 @@ export function buildNMarketBKLayout({
       });
     }
 
-    // O 4단 (y4=47.3): 폴라보 2서랍 (BSM2266 · 상부 여백) + 우측 크롬 북엔드 + 하드커버 3권
+    // O 4단 슬림칸 (4단 선반 보드를 63.2cm 가로바로 1칸 상향 조립 → y4O=65.0..81.0cm, 유효높이 16.0cm · 기존 폴라보 2서랍 제거!)
     {
-      const oPolabo2 = addPolabo2DrawerBox(oShelfDecor, -6.5, y4, 21.5);
-      B(oPolabo2, 21, 1.1, 15, mFabricIvory, -15.5, 14.5, 0.8, 0.15);
-      B(oPolabo2, 21.2, 1.18, 3.2, mTerracotta, -15.5, 14.48, 0.8, 0.08);
-      const miniJarPts = [
-        [0, 0], [2.4, 0], [3.8, 2.5], [3.6, 5.4], [1.9, 7.6], [2.2, 8.4]
-      ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
-      const miniJar = new THREE.Mesh(new THREE.LatheGeometry(miniJarPts, 24), mCeramic);
-      miniJar.position.set(cm(15.5), cm(14.5), cm(-0.8));
-      miniJar.castShadow = true;
-      oPolabo2.add(miniJar);
-
-      // 크롬 L-북엔드 + 세로 아트북 3권
-      B(oShelfDecor, 0.35, 14.0, 12.0, mChrome, 29.2, y4, 21.0);
-      B(oShelfDecor, 5.0, 0.3, 12.0, mChrome, 31.7, y4, 21.0);
-      const rCols = [mRetroGreen, mFabricIvory, mBurgundy];
-      const rHeights = [27.0, 24.5, 25.8];
-      for (let i = 0; i < 3; i++) {
-        const bx = 30.8 + i * 2.8;
-        B(oShelfDecor, 2.4, rHeights[i], 20.5, rCols[i], bx, y4, 21.0, 0.12);
-        B(oShelfDecor, 1.9, rHeights[i] - 1.0, 19.6, mWhite, bx, y4 + 0.4, 21.2);
-      }
-    }
-
-    // O 5단 (y5=11.8 · 벤탄 라탄장 완전 제거!): 전면 건축북 이젤 + 낮은 가로 북스택(상부 27.4cm 여백) + 오픈 크롬 와이어 바스켓 & 패브릭
-    {
-      addWireEaselBook(oShelfDecor, -24.5, y5, 21.5, 22.0, 27.5, 1.6, nordicBookTex, 0.1, -0.18);
-
-      // 중앙 낮은 3권 가로 커피테이블 북 (총 높이 6.3cm → 상부 27.4cm 오픈 여백)
+      const y4O = 65.0;
       const mSageBook = M('#7a8c7b', { roughness: 0.72 });
       const mLinenBook = M('#ede7da', { roughness: 0.82 });
       const mCharcoalBook = M('#2c2e30', { roughness: 0.65 });
-      B(oShelfDecor, 26.0, 2.2, 19.5, mCharcoalBook, 1.8, y5, 21.0, 0.15);
-      B(oShelfDecor, 24.0, 2.1, 18.2, mLinenBook, 1.8, y5 + 2.2, 21.0, 0.15);
-      B(oShelfDecor, 21.5, 2.0, 17.0, mSageBook, 1.8, y5 + 4.3, 21.0, 0.15);
+      // 좌측 낮은 가로 아트북 3권 스택 (총 높이 6.3cm → 상부 9.7cm 여유 여백)
+      B(oShelfDecor, 26.0, 2.2, 19.5, mCharcoalBook, -18.5, y4O, 21.0, 0.15);
+      B(oShelfDecor, 24.0, 2.1, 18.2, mLinenBook, -18.5, y4O + 2.2, 21.0, 0.15);
+      B(oShelfDecor, 21.5, 2.0, 17.0, mSageBook, -18.5, y4O + 4.3, 21.0, 0.15);
 
-      // 우측 미니멀 오픈 크롬 와이어 바스켓 + 접힌 리넨 스로우
+      // 우측 낮은 도자 트레이 & 미니 오브제 (총 높이 5.4cm → 상부 10.6cm 여유 여백)
+      B(oShelfDecor, 18.0, 1.0, 13.0, mFabricIvory, 16.5, y4O, 21.0, 0.15);
+      CY(oShelfDecor, 3.4, 2.8, 4.4, mCeramic, 16.5, y4O + 1.0, 21.0, 22);
+    }
+
+    // O 5단 제일 아래칸 (y5=11.8..63.2cm, 유효높이 51.4cm): 마켓비 미란스 2문 수납장 5645 CHM4556 · 캄포어베니어 (56×40×45cm) + 우측 CHAKOC 와이어 바스켓 S
+    {
+      const mirans = new THREE.Group();
+      mirans.name = 'O MarketB MIRANS 2-Door Sliding Cabinet 5645 CHM4556 Camphor Veneer (goods/508007)';
+      // 후면 X-브레이스(z=1.5) 바로 앞(z=1.9)부터 깊이 40cm(z=1.9..41.9, 중심 cz=21.9) 배치 → 선반 앞선(39.1)보다 약 2cm 자연 돌출, 상부 6.4cm 여유
+      mirans.position.set(cm(-10.8), cm(y5), cm(21.9));
+      oShelfDecor.add(mirans);
+      oMiransCabinet = mirans;
+
+      const mPullRecess = M('#8b6543', { roughness: 0.72 });
+      const mTrackDark = M('#382b20', { roughness: 0.7 });
+
+      // 본체 외곽 프레임 (가로 56 × 높이 45 × 깊이 40cm · 캄포어베니어)
+      B(mirans, 56.0, 1.8, 40.0, mCamphor, 0, 0, 0, 0.14);          // 하판 (y=0..1.8)
+      B(mirans, 56.0, 1.8, 40.0, mCamphor, 0, 43.2, 0, 0.14);       // 상판 (y=43.2..45.0)
+      B(mirans, 1.5, 41.4, 39.6, mCamphor, -27.25, 1.8, -0.1, 0.08); // 좌측판
+      B(mirans, 1.5, 41.4, 39.6, mCamphor, 27.25, 1.8, -0.1, 0.08);  // 우측판
+      B(mirans, 53.0, 41.4, 0.8, mCamphor, 0, 1.8, -19.4);           // 뒷판
+      B(mirans, 53.0, 1.5, 33.5, mCamphor, 0, 23.4, -1.8, 0.08);     // 내부 2단 선반 (하칸 21.6 / 상칸 18.3cm)
+
+      // 상·하 슬라이딩 레일 홈 음영 디테일
+      B(mirans, 53.0, 0.35, 2.2, mTrackDark, 0, 1.8, 18.2);
+      B(mirans, 53.0, 0.35, 2.2, mTrackDark, 0, 42.85, 18.2);
+
+      // 좌·우 미닫이 2문 (공식 도면: 문 폭 27.4cm × 높이 41cm, 외측 1.5×10cm 수직 라운드 매립 손잡이)
+      for (const [dx, dz, pullX] of [[-12.8, 17.6, -23.2], [12.8, 18.9, 23.2]]) {
+        B(mirans, 27.4, 40.8, 1.2, mCamphor, dx, 2.0, dz, 0.1);
+        // 수직 캡슐형 매립 손잡이 (폭 1.5cm × 길이 10.0cm)
+        B(mirans, 1.5, 8.5, 0.3, mPullRecess, pullX, 18.15, dz + 0.52, 0.08);
+        for (const py of [18.15, 26.65]) {
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(cm(0.75), cm(0.75), cm(0.3), 18), mPullRecess);
+          cap.rotation.x = Math.PI / 2;
+          cap.position.set(cm(pullX), cm(py), cm(dz + 0.52));
+          mirans.add(cap);
+        }
+      }
+
+      // 우측 잔여 폭(x=+17.2..+40.3, 23.1cm 여유)에 마켓비 CHAKOC 와이어바스켓 S (18×26.2×18.2cm 세로 방향) 배치
       const bkt = new THREE.Group();
       bkt.name = 'Minimal Open Chrome Wire Basket';
-      bkt.position.set(cm(26.8), cm(y5), cm(21.5));
+      bkt.position.set(cm(28.4), cm(y5), cm(22.5));
       oShelfDecor.add(bkt);
-      const hw = 10.8, hd = 10.2, bh = 13.5;
+      const hw = 8.8, hd = 12.8, bh = 18.0;
       for (const [cx, cz] of [[-hw, -hd], [hw, -hd], [-hw, hd], [hw, hd]]) {
         dRod(bkt, [cx, 0.2, cz], [cx, bh, cz], 0.22, mChrome);
       }
@@ -1162,12 +1193,12 @@ export function buildNMarketBKLayout({
         dRod(bkt, [-hw, ry, -hd], [-hw, ry, hd], 0.22, mChrome);
         dRod(bkt, [hw, ry, -hd], [hw, ry, hd], 0.22, mChrome);
       }
-      for (const rx of [-5.4, 0, 5.4]) {
+      for (const rx of [-4.4, 0, 4.4]) {
         dRod(bkt, [rx, 0.3, hd], [rx, bh, hd], 0.16, mChrome);
         dRod(bkt, [rx, 0.3, -hd], [rx, bh, -hd], 0.16, mChrome);
       }
-      B(bkt, 19.6, 5.2, 18.2, mFabricIvory, 0, 0.5, 0, 0.9);
-      B(bkt, 18.2, 4.4, 17.0, M('#ddd3c2', { roughness: 0.9 }), 0, 5.7, 0, 0.9);
+      B(bkt, 16.0, 5.2, 23.0, mFabricIvory, 0, 0.5, 0, 0.9);
+      B(bkt, 15.0, 4.4, 21.5, M('#ddd3c2', { roughness: 0.9 }), 0, 5.7, 0, 0.9);
     }
   }
 
@@ -1623,6 +1654,7 @@ export function buildNMarketBKLayout({
   // N안(서쪽 LP장 + 동쪽 5단) vs O안(맞교환 3종 + 서쪽선반 냉장고옆 당김 oPull + 동쪽 인터폰벽 3단·5단 일체형 세트 'eastset') 전환
   function applyNOLayout(variant, oMode = 'chakoc3', oPull = true) {
     const isO = variant === 'O';
+    if (eastChakoc5Board4) eastChakoc5Board4.position.y = cm(isO ? 63.2 : 45.5);
     oAutoCurtains.visible = isO;
     oTetiWallLamp.visible = isO;
     nShelfDecor.visible = !isO;
@@ -1703,6 +1735,8 @@ export function buildNMarketBKLayout({
     oLivingCurtain,
     oBedroomCurtain,
     oClipLamp,
+    oMiransCabinet,
+    eastChakoc5Board4,
     oUfoWallLamp,
     oTetiWallLamp,
     mSheerChiffon,

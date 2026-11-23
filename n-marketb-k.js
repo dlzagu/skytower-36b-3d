@@ -743,6 +743,7 @@ export function buildNMarketBKLayout({
   oShelfDecor.add(oSidePostDecor);
   let oClipLamp = null;
   let oMiransCabinet = null;
+  let oFilmon4221 = null;
   let eastChakoc5Board4 = null;
 
   {
@@ -1141,12 +1142,13 @@ export function buildNMarketBKLayout({
       CY(oShelfDecor, 3.4, 2.8, 4.4, mCeramic, 16.5, y4O + 1.0, 21.0, 22);
     }
 
-    // O 5단 제일 아래칸 (y5=11.8..63.2cm, 유효높이 51.4cm): 마켓비 미란스 2문 수납장 5645 CHM4556 · 캄포어베니어 (56×40×45cm) + 우측 CHAKOC 와이어 바스켓 S
+    // O 5단 제일 아래칸 (y5=11.8..63.2cm, 유효높이 51.4cm):
+    // 좌측 마켓비 미란스 2문 수납장 5645 (56×40×45cm) + 우측 마켓비 필몬 미니수납장 2문 4221 세로형 (22×20×42cm) = 가로 78cm 맞춤 수납!
     {
       const mirans = new THREE.Group();
       mirans.name = 'O MarketB MIRANS 2-Door Sliding Cabinet 5645 CHM4556 Camphor Veneer (goods/508007)';
-      // 후면 X-브레이스(z=1.5) 바로 앞(z=1.9)부터 깊이 40cm(z=1.9..41.9, 중심 cz=21.9) 배치 → 선반 앞선(39.1)보다 약 2cm 자연 돌출, 상부 6.4cm 여유
-      mirans.position.set(cm(-10.8), cm(y5), cm(21.9));
+      // 좌측 기둥 내측(-40.3)에서 1.1cm 여유(-39.2..+16.8, 중심 cx=-11.2), 깊이 40cm(z=1.9..41.9, 중심 cz=21.9)
+      mirans.position.set(cm(-11.2), cm(y5), cm(21.9));
       oShelfDecor.add(mirans);
       oMiransCabinet = mirans;
 
@@ -1168,7 +1170,6 @@ export function buildNMarketBKLayout({
       // 좌·우 미닫이 2문 (공식 도면: 문 폭 27.4cm × 높이 41cm, 외측 1.5×10cm 수직 라운드 매립 손잡이)
       for (const [dx, dz, pullX] of [[-12.8, 17.6, -23.2], [12.8, 18.9, 23.2]]) {
         B(mirans, 27.4, 40.8, 1.2, mCamphor, dx, 2.0, dz, 0.1);
-        // 수직 캡슐형 매립 손잡이 (폭 1.5cm × 길이 10.0cm)
         B(mirans, 1.5, 8.5, 0.3, mPullRecess, pullX, 18.15, dz + 0.52, 0.08);
         for (const py of [18.15, 26.65]) {
           const cap = new THREE.Mesh(new THREE.CylinderGeometry(cm(0.75), cm(0.75), cm(0.3), 18), mPullRecess);
@@ -1178,27 +1179,45 @@ export function buildNMarketBKLayout({
         }
       }
 
-      // 우측 잔여 폭(x=+17.2..+40.3, 23.1cm 여유)에 마켓비 CHAKOC 와이어바스켓 S (18×26.2×18.2cm 세로 방향) 배치
-      const bkt = new THREE.Group();
-      bkt.name = 'Minimal Open Chrome Wire Basket';
-      bkt.position.set(cm(28.4), cm(y5), cm(22.5));
-      oShelfDecor.add(bkt);
-      const hw = 8.8, hd = 12.8, bh = 18.0;
-      for (const [cx, cz] of [[-hw, -hd], [hw, -hd], [-hw, hd], [hw, hd]]) {
-        dRod(bkt, [cx, 0.2, cz], [cx, bh, cz], 0.22, mChrome);
+      // 우측 맞춤 수납: 마켓비 필몬(FILMON) 미니수납장 2문 4221 NFM4221 세로형 · 캄포어베니어 (22×20×42cm · 손잡이 포함 깊이 23.5cm)
+      // x=+17.2..+39.2 (중심 cx=+28.2, 미란스와 0.4cm 유격 · 우측 브라켓과 1.1cm 여유), 몸체 앞면(z=39.1)을 선반 앞엣지에 맞추고 플랩 손잡이(z=41.4)가 미란스 앞면과 나란히 정렬
+      const filmon4221 = new THREE.Group();
+      filmon4221.name = 'O MarketB FILMON 2-Door Vertical Mini Cabinet 4221 NFM4221 Camphor Veneer (goods/528473)';
+      filmon4221.position.set(cm(28.2), cm(y5), cm(29.1));
+      oShelfDecor.add(filmon4221);
+      oFilmon4221 = filmon4221;
+
+      const mDarkInner = M('#2d251e', { roughness: 0.85 });
+      const mTintedGlass = M('#7c7062', { roughness: 0.16, transparent: true, opacity: 0.62 });
+
+      // 외곽 몸체 (가로 22 × 높이 42 × 깊이 20cm · 캄포어베니어)
+      B(filmon4221, 22.0, 1.5, 20.2, mCamphor, 0, 0, 0, 0.12);          // 하판
+      B(filmon4221, 22.2, 1.6, 20.4, mCamphor, 0, 40.4, 0.1, 0.14);     // 상판 (살짝 처마 돌출)
+      B(filmon4221, 1.5, 38.9, 19.8, mCamphor, -10.15, 1.5, -0.1, 0.08);// 좌측판
+      B(filmon4221, 1.5, 38.9, 19.8, mCamphor, 10.15, 1.5, -0.1, 0.08); // 우측판
+      B(filmon4221, 18.8, 38.9, 0.8, mDarkInner, 0, 1.5, -9.5);         // 뒷판 (내부 깊은 음영)
+      B(filmon4221, 18.8, 1.4, 19.2, mCamphor, 0, 20.3, -0.2, 0.08);    // 중앙 칸막이 선반
+
+      // 상·하 2단 플랩 도어 (공식 스펙: 사각 액자형 우드 프레임 + 반투명 고방/모루유리 창 12.2×14cm + 하단 가로 바 손잡이 돌출)
+      for (const doorBaseY of [1.7, 21.8]) {
+        const fDoor = new THREE.Group();
+        fDoor.position.set(0, cm(doorBaseY + 18.4), cm(9.3));
+        fDoor.rotation.x = 0.045; // 아래쪽이 살짝 앞으로 기운 필몬 플랩도어 고유 실루엣
+        filmon4221.add(fDoor);
+
+        // 도어 4면 우드 액자 틀 (폭 18.4 × 높이 18.4cm, 상단 y=0 기준 아래로 -18.4..0)
+        B(fDoor, 18.4, 2.2, 1.0, mCamphor, 0, -2.2, 0, 0.08);     // 상단 가로틀
+        B(fDoor, 18.4, 2.4, 1.0, mCamphor, 0, -18.4, 0, 0.08);    // 하단 가로틀
+        B(fDoor, 2.9, 13.8, 1.0, mCamphor, -7.75, -16.0, 0, 0.08);// 좌측 세로틀
+        B(fDoor, 2.9, 13.8, 1.0, mCamphor, 7.75, -16.0, 0, 0.08); // 우측 세로틀
+        // 반투명 고방/모루유리 패널 + 격자 결 디테일
+        B(fDoor, 12.6, 13.8, 0.35, mTintedGlass, 0, -16.0, 0.05);
+        for (let gy = -14.8; gy <= -3.2; gy += 1.9) {
+          B(fDoor, 12.4, 0.22, 0.42, mFlutedGlass, 0, gy, 0.12);
+        }
+        // 하단 전면 가로 바 손잡이 (폭 18.4cm × 높이 1.9cm × 전면 돌출 2.1cm)
+        B(fDoor, 18.4, 1.9, 2.1, mCamphor, 0, -18.2, 1.15, 0.12);
       }
-      for (const ry of [0.3, bh]) {
-        dRod(bkt, [-hw, ry, -hd], [hw, ry, -hd], 0.22, mChrome);
-        dRod(bkt, [-hw, ry, hd], [hw, ry, hd], 0.22, mChrome);
-        dRod(bkt, [-hw, ry, -hd], [-hw, ry, hd], 0.22, mChrome);
-        dRod(bkt, [hw, ry, -hd], [hw, ry, hd], 0.22, mChrome);
-      }
-      for (const rx of [-4.4, 0, 4.4]) {
-        dRod(bkt, [rx, 0.3, hd], [rx, bh, hd], 0.16, mChrome);
-        dRod(bkt, [rx, 0.3, -hd], [rx, bh, -hd], 0.16, mChrome);
-      }
-      B(bkt, 16.0, 5.2, 23.0, mFabricIvory, 0, 0.5, 0, 0.9);
-      B(bkt, 15.0, 4.4, 21.5, M('#ddd3c2', { roughness: 0.9 }), 0, 5.7, 0, 0.9);
     }
   }
 
@@ -1736,6 +1755,7 @@ export function buildNMarketBKLayout({
     oBedroomCurtain,
     oClipLamp,
     oMiransCabinet,
+    oFilmon4221,
     eastChakoc5Board4,
     oUfoWallLamp,
     oTetiWallLamp,

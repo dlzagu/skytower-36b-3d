@@ -218,7 +218,7 @@ export function buildIIkeaLayout({
     return c;
   }
 
-  addKyrreStool(diningTonstad, 12, -48, 0, 'birch', 'I KYRRE Birch Stool 1 (North)');
+  const tonstadBirchStool = addKyrreStool(diningTonstad, 12, -48, 0, 'birch', 'I KYRRE Birch Stool 1 (North)');
   addKyrreStool(diningTonstad, 12, 48, Math.PI, 'green', 'I KYRRE Green Stool 2 (South)');
   addPs2026FoldingChair(diningTonstad, 82, 0, -Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair 1 (East)');
   addPs2026FoldingChair(diningTonstad, -82, 0, Math.PI / 2, 'I TONSTAD PS 2026 Folding Chair 2 (West)');
@@ -243,7 +243,7 @@ export function buildIIkeaLayout({
     const lx = Math.cos(a) * 34, lz = Math.sin(a) * 34;
     CY(diningStockholm, 3.8, 3.4, 72.2, stockholmOak, lx, 0, lz, 24);
   }
-  addKyrreStool(diningStockholm, 0, -60, 0, 'birch', 'I STOCKHOLM KYRRE Birch Stool 1 804.200.40 (North)');
+  const stockholmBirchStool = addKyrreStool(diningStockholm, 0, -60, 0, 'birch', 'I STOCKHOLM KYRRE Birch Stool 1 804.200.40 (North)');
   addKyrreStool(diningStockholm, 0, 60, Math.PI, 'green', 'I STOCKHOLM KYRRE Green Stool 2 706.081.32 (South)');
   const ps2026Chair = addPs2026FoldingChair(diningStockholm, 62, 0, -Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 1 206.179.59 (East)');
   const ps2026Chair2 = addPs2026FoldingChair(diningStockholm, -62, 0, Math.PI / 2, 'I STOCKHOLM PS 2026 Folding Chair 2 206.179.59 (West)');
@@ -1035,6 +1035,196 @@ export function buildIIkeaLayout({
     bathWaveMat.add(waveMesh);
   }
 
+  // ============================================================================
+  // 10. O안 전용: 서쪽 포엥 암체어 2개 사이 탁상 대용 자작나무 쉬레 스툴(804.200.40) +
+  //     하부 노미아(NOMIA) [new] t5 - 스티치 하트 발매트 · 와인 (60×55cm · 26,010원 무료배송 · product_no=403)
+  // ============================================================================
+  const oLoungeSideSet = placeI(498, 676, 0);
+  oLoungeSideSet.name = 'O Between-Armchairs KYRRE Birch Side-Table Stool + Nomia Wine Stitch Heart Mat';
+  oLoungeSideSet.visible = false;
+  let oHeartMatMesh = null;
+  let oLoungeBirchStool = null;
+  {
+    // 10-1) 공식 비율(가로 60cm × 세로 55cm) 통통한 하트 윤곽 생성 (top lobes = +Y, bottom tip = -Y)
+    const rawPts = [];
+    const N_HEART = 180;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (let i = 0; i < N_HEART; i++) {
+      const t = (i / N_HEART) * Math.PI * 2;
+      const st = Math.sin(t);
+      const rx = 16 * st * st * st;
+      const ry = 13.2 * Math.cos(t) - 4.35 * Math.cos(2 * t) - 1.65 * Math.cos(3 * t) - 0.55 * Math.cos(4 * t);
+      rawPts.push([rx, ry]);
+    }
+    // 실물 노미아 터프팅 하트 발매트처럼 하단 꼭짓점(t=π)이 뾰족하지 않고 통통·둥글게 이어지도록 스무딩
+    let smoothPts = rawPts.map((p) => [p[0], p[1]]);
+    for (let pass = 0; pass < 14; pass++) {
+      smoothPts = smoothPts.map((p, idx) => {
+        // 상단 중앙 골짜기(idx≈0)는 또렷한 하트 골을 유지하고, 하단 꼭짓점(idx≈N/2) 주변만 부드럽게 라운딩
+        const distBottom = Math.abs(idx - N_HEART * 0.5) / (N_HEART * 0.5);
+        const wSmooth = distBottom < 0.28 ? 0.42 * (1 - distBottom / 0.28) : 0.06;
+        const prev = smoothPts[(idx - 1 + N_HEART) % N_HEART];
+        const next = smoothPts[(idx + 1) % N_HEART];
+        return [
+          p[0] * (1 - wSmooth) + (prev[0] + next[0]) * 0.5 * wSmooth,
+          p[1] * (1 - wSmooth) + (prev[1] + next[1]) * 0.5 * wSmooth
+        ];
+      });
+    }
+    for (const [rx, ry] of smoothPts) {
+      if (rx < minX) minX = rx;
+      if (rx > maxX) maxX = rx;
+      if (ry < minY) minY = ry;
+      if (ry > maxY) maxY = ry;
+    }
+    const cx0 = (minX + maxX) * 0.5;
+    const cy0 = (minY + maxY) * 0.5;
+    const sx0 = 60.0 / (maxX - minX); // 가로 정확히 60.0cm (-30..+30)
+    const sy0 = 55.0 / (maxY - minY); // 세로 정확히 55.0cm (-27.5..+27.5)
+    const heartPts = smoothPts.map(([rx, ry]) => [(rx - cx0) * sx0, (ry - cy0) * sy0]);
+
+    // 10-2) 노미아 t5 와인(빨간색) 부클/터프팅 파일 + 가장자리 블랙 방사형 스티치 텍스처 (768×768)
+    const SPAN_X = 63.0, SPAN_Y = 58.0;
+    const heartWineTex = canvasTex(768, 768, (g, w, h) => {
+      const toPx = (xCm) => ((xCm + SPAN_X * 0.5) / SPAN_X) * w;
+      const toPy = (yCm) => (1.0 - (yCm + SPAN_Y * 0.5) / SPAN_Y) * h;
+
+      // 딥 와인레드 터프팅 베이스
+      g.fillStyle = '#9c1016';
+      g.fillRect(0, 0, w, h);
+
+      // t5 복슬복슬한 원사 루프 질감 표현
+      const r = rnd(403);
+      const yarnCols = [
+        'rgba(182, 24, 31, 0.34)',
+        'rgba(122, 9, 14, 0.36)',
+        'rgba(198, 32, 38, 0.22)',
+        'rgba(96, 6, 10, 0.26)'
+      ];
+      for (let i = 0; i < 48000; i++) {
+        g.fillStyle = yarnCols[i & 3];
+        const px = r() * w, py = r() * h;
+        g.fillRect(px, py, 2.1, 2.1);
+      }
+
+      // 외곽 오버로크 파이핑 림 음영
+      g.save();
+      g.beginPath();
+      heartPts.forEach(([hx, hy], idx) => {
+        if (idx === 0) g.moveTo(toPx(hx), toPy(hy));
+        else g.lineTo(toPx(hx), toPy(hy));
+      });
+      g.closePath();
+      g.strokeStyle = 'rgba(115, 8, 13, 0.55)';
+      g.lineWidth = (0.9 / SPAN_X) * w;
+      g.stroke();
+      g.restore();
+
+      // 가장자리를 따라 일정 간격으로 수직 배열된 블랙 터프팅 스티치 (실물 사진 기준 약 40땀)
+      const cumLen = [0];
+      for (let i = 1; i <= heartPts.length; i++) {
+        const [x0, y0] = heartPts[i - 1];
+        const [x1, y1] = heartPts[i % heartPts.length];
+        cumLen.push(cumLen[i - 1] + Math.hypot(x1 - x0, y1 - y0));
+      }
+      const totalPerim = cumLen[cumLen.length - 1];
+      const STITCH_COUNT = 40;
+      g.lineCap = 'round';
+      for (let s = 0; s < STITCH_COUNT; s++) {
+        // s + 0.5 오프셋으로 상단 중앙 골짜기/하단 꼭짓점 좌우 대칭 배치
+        const targetS = ((s + 0.5) / STITCH_COUNT) * totalPerim;
+        let seg = 0;
+        while (seg < heartPts.length - 1 && cumLen[seg + 1] < targetS) seg++;
+        const segLen = Math.max(1e-4, cumLen[seg + 1] - cumLen[seg]);
+        const frac = (targetS - cumLen[seg]) / segLen;
+        const pPrev = heartPts[(seg - 1 + heartPts.length) % heartPts.length];
+        const p0 = heartPts[seg];
+        const p1 = heartPts[(seg + 1) % heartPts.length];
+        const pNext = heartPts[(seg + 2) % heartPts.length];
+        const bx = p0[0] + (p1[0] - p0[0]) * frac;
+        const by = p0[1] + (p1[1] - p0[1]) * frac;
+
+        // 접선 벡터 → 안쪽 법선 벡터 계산
+        let tx = pNext[0] - pPrev[0];
+        let ty = pNext[1] - pPrev[1];
+        const tLen = Math.hypot(tx, ty) || 1;
+        tx /= tLen;
+        ty /= tLen;
+        // heartPts는 t=0(0, +top) → t=π/2(+right) 시계 방향이므로 안쪽 법선은 (+ty, -tx)
+        let nx = ty, ny = -tx;
+        // 원점(0, 0) 방향 확인으로 100% 내향 보장
+        if (nx * (-bx) + ny * (-by) < 0) {
+          nx = -nx;
+          ny = -ny;
+        }
+
+        // 외곽에서 2.0cm 안쪽부터 4.4cm 안쪽까지 길이 2.4cm × 두께 1.25cm 도톰한 블랙 터프팅 스티치
+        const in0 = 2.0 + (r() - 0.5) * 0.14;
+        const in1 = 4.4 + (r() - 0.5) * 0.18;
+        const sx1 = toPx(bx + nx * in0), sy1 = toPy(by + ny * in0);
+        const sx2 = toPx(bx + nx * in1), sy2 = toPy(by + ny * in1);
+
+        g.strokeStyle = '#151314';
+        g.lineWidth = (1.28 / SPAN_X) * w;
+        g.beginPath();
+        g.moveTo(sx1, sy1);
+        g.lineTo(sx2, sy2);
+        g.stroke();
+      }
+    });
+
+    const heartShape = new THREE.Shape();
+    heartPts.forEach(([hx, hy], idx) => {
+      if (idx === 0) heartShape.moveTo(cm(hx), cm(hy));
+      else heartShape.lineTo(cm(hx), cm(hy));
+    });
+    heartShape.closePath();
+
+    const heartGeo = new THREE.ExtrudeGeometry(heartShape, {
+      depth: cm(1.1),
+      bevelEnabled: true,
+      bevelThickness: cm(0.28),
+      bevelSize: cm(0.28),
+      bevelSegments: 3,
+      curveSegments: 2
+    });
+    const huv = heartGeo.attributes.uv;
+    const hpos = heartGeo.attributes.position;
+    for (let i = 0; i < huv.count; i++) {
+      const u = (hpos.getX(i) / cm(1) + SPAN_X * 0.5) / SPAN_X;
+      const v = (hpos.getY(i) / cm(1) + SPAN_Y * 0.5) / SPAN_Y;
+      huv.setXY(i, Math.max(0, Math.min(1, u)), Math.max(0, Math.min(1, v)));
+    }
+    huv.needsUpdate = true;
+
+    const heartHolder = new THREE.Group();
+    heartHolder.rotation.y = Math.PI / 2; // 상단 두 봉우리(-X 서쪽 벽 쪽), 하단 꼭짓점(+X 거실 중앙 쪽)으로 정방향 하트 배치
+    oLoungeSideSet.add(heartHolder);
+
+    const heartMesh = new THREE.Mesh(
+      heartGeo,
+      M('#ffffff', { roughness: 0.94, map: heartWineTex })
+    );
+    heartMesh.name = 'O Nomia new t5 Stitch Heart Mat Wine 60x55cm (product_no=403)';
+    heartMesh.rotation.x = -Math.PI / 2;
+    heartMesh.position.y = cm(0.28);
+    heartMesh.castShadow = true;
+    heartMesh.receiveShadow = true;
+    heartHolder.add(heartMesh);
+    oHeartMatMesh = heartMesh;
+
+    // 10-3) 하트 발매트 넓은 중심부 위에 3다리가 모두 안정적으로 올라오도록 탁상(사이드테이블) 대용 자작나무 쉬레 스툴 배치
+    oLoungeBirchStool = addKyrreStool(
+      oLoungeSideSet,
+      -5.0,
+      0,
+      Math.PI,
+      'birch',
+      'O KYRRE Birch Side-Table Stool Between POANGs 804.200.40'
+    );
+    oLoungeBirchStool.position.y = cm(1.32);
+  }
+
   function setKShelfIvar(on) {
     const useIvar = !!on;
     kShelfDesker.visible = !useIvar;
@@ -1052,6 +1242,10 @@ export function buildIIkeaLayout({
     diningStockholm.rotation.y = 0;
     sambordLamp.visible = !isO;
     okensand.visible = !isO;
+    // O안에서는 나무색(자작나무) 쉬레 스툴을 식탁에서 빼서 서쪽 포엥 암체어 2개 사이 탁상 대용(+하부 와인 하트 발매트)으로 배치! (I·K·N안은 식탁 원위치 유지)
+    stockholmBirchStool.visible = !isO;
+    tonstadBirchStool.visible = !isO;
+    oLoungeSideSet.visible = isO;
     if (isK) {
       // 1. 다이닝 테이블: 천장 펜던트 등을 없애고 와인색 상향등(PS 2026)이 턴테이블 수납장과 식탁 사이(474, 484)에 들어오도록 (596, 488) 배치
       diningStockholm.position.set(cm(596), 0, cm(488));
@@ -1077,45 +1271,50 @@ export function buildIIkeaLayout({
     } else if (isO) {
       holmerud.visible = false;
       if (mode === 'O_PULL') {
-        // O안 기본(선반 붙임 + 3단 기준 + 두 스탠드 조명 위치 맞교환):
-        // - 서쪽 5단선반(z=482)과 포엥 암체어(z=630) 사이에 슬림한 PS 2026 다크레드 상향등(474, 558) 배치
-        // - 동쪽 3단 LP장(z=706 · H84.5cm) 남측 옆에 외켄산드 154cm 플로어스탠드(771, 774) 배치
+        // O안 기본(선반 붙임 + 3단 기준):
+        // 서쪽 포엥 암체어 2개(z=606, 746) 사이에 노미아 와인 스티치 하트 발매트(60×55cm)와 자작나무 쉬레 스툴(탁상 대용)을 (498, 676)에 여유 있게 배치
         diningStockholm.position.set(cm(626), 0, cm(490));
         diningStockholm.rotation.y = (-58 * Math.PI) / 180;
         diningTonstad.position.set(cm(568), 0, cm(490));
-        poangYellow.position.set(cm(498), 0, cm(630));
+        poangYellow.position.set(cm(498), 0, cm(606));
         poangYellow.rotation.y = (96 * Math.PI) / 180;
-        poangRed.position.set(cm(500), 0, cm(734));
-        poangRed.rotation.y = (82 * Math.PI) / 180;
+        oLoungeSideSet.position.set(cm(498), 0, cm(676));
+        poangRed.position.set(cm(500), 0, cm(746));
+        poangRed.rotation.y = (84 * Math.PI) / 180;
         sambordLamp.position.set(cm(474), 0, cm(558));
         psRedHead.rotation.set(0.08, 0, -0.18);
         okensand.position.set(cm(771), 0, cm(774));
+        treeGroup.position.set(cm(524), 0, cm(836));
+        fejkaPlant.position.set(cm(568), 0, cm(870));
       } else if (mode === 'O_EASTSET') {
-        // 동쪽 벽에 3단(인터폰쪽)+5단(책상쪽)을 같이 둘 때(두 스탠드 조명 위치 맞교환 반영):
-        // 북서 코너에 외켄산드(474, 492), 포엥 암체어 옆에 PS 2026 다크레드 상향등(474, 566) 배치
+        // 동쪽 벽에 3단(인터폰쪽)+5단(책상쪽)을 같이 둘 때: 서쪽 포엥 2개(z=612, 748) 사이에 하트 발매트+자작나무 스툴(498, 680) 배치
         diningStockholm.position.set(cm(596), 0, cm(488));
         diningTonstad.position.set(cm(545), 0, cm(488));
         okensand.position.set(cm(474), 0, cm(492));
         sambordLamp.position.set(cm(474), 0, cm(566));
         psRedHead.rotation.set(0.08, 0, -0.18);
-        poangYellow.position.set(cm(498), 0, cm(642));
-        poangYellow.rotation.y = (94 * Math.PI) / 180;
-        poangRed.position.set(cm(500), 0, cm(744));
-        poangRed.rotation.y = (82 * Math.PI) / 180;
+        poangYellow.position.set(cm(498), 0, cm(612));
+        poangYellow.rotation.y = (95 * Math.PI) / 180;
+        oLoungeSideSet.position.set(cm(498), 0, cm(680));
+        poangRed.position.set(cm(500), 0, cm(748));
+        poangRed.rotation.y = (84 * Math.PI) / 180;
+        treeGroup.position.set(cm(524), 0, cm(836));
+        fejkaPlant.position.set(cm(568), 0, cm(870));
       } else {
-        // 선반 띄움 비교 모드(서쪽 5단 z=548 · 두 스탠드 조명 위치 맞교환 반영)
+        // 선반 띄움 비교 모드(서쪽 5단 z=548): 포엥 2개(z=638, 774) 사이에 하트 발매트+자작나무 스툴(498, 706) 배치
         diningStockholm.position.set(cm(596), 0, cm(488));
         diningTonstad.position.set(cm(545), 0, cm(488));
-        poangYellow.position.set(cm(496), 0, cm(680));
-        poangYellow.rotation.y = (90 * Math.PI) / 180;
-        poangRed.position.set(cm(498), 0, cm(766));
+        poangYellow.position.set(cm(496), 0, cm(638));
+        poangYellow.rotation.y = (92 * Math.PI) / 180;
+        oLoungeSideSet.position.set(cm(498), 0, cm(706));
+        poangRed.position.set(cm(500), 0, cm(774));
         poangRed.rotation.y = (82 * Math.PI) / 180;
         sambordLamp.position.set(cm(474), 0, cm(618));
         psRedHead.rotation.set(0.08, 0, -0.18);
         okensand.position.set(cm(771), 0, cm(778));
+        treeGroup.position.set(cm(536), 0, cm(848));
+        fejkaPlant.position.set(cm(576), 0, cm(880));
       }
-      treeGroup.position.set(cm(524), 0, cm(836));
-      fejkaPlant.position.set(cm(568), 0, cm(870));
       kShelfGroup.visible = false;
     } else {
       // I안 원래 좌표 100% 그대로 복원
@@ -1154,6 +1353,11 @@ export function buildIIkeaLayout({
     vanityKyrreStool,
     ps2026Chair,
     ps2026Chair2,
+    stockholmBirchStool,
+    tonstadBirchStool,
+    oLoungeSideSet,
+    oHeartMatMesh,
+    oLoungeBirchStool,
     moanaHallArt,
     bathWaveMat,
     kShelfGroup,

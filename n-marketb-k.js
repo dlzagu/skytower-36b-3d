@@ -1544,47 +1544,69 @@ export function buildNMarketBKLayout({
   });
 
   // ==========================================================================
-  // [O안 신규 조명 ② · 오늘의집 1128293]: 아르떼미데(Artemide) 테티(Teti) 천장·벽 조명 · White (Ø14×7cm · 88,200원 무료배송)
-  //   - 기본(#o, #o,filmon, #o,simplie): 동쪽 턴테이블·LP 스테이지 벽면 우측(x=789.8, y=142, z=746 · 액자 옆 포인트 월 스콘스)
+  // [O안 신규 조명 ② · 오늘의집 2064807]: 탄귀서울 UFO KID LAMP 무타공 벽조명 · 실버 (Ø27×8.8cm + 전용 크롬전구 2700K)
+  //   - 기본(#o, #o,filmon, #o,simplie): 동쪽 턴테이블·LP 스테이지 벽면 우측(x=789.8, y=148, z=zCab+52 · 액자와 16.5cm 여백 + 하부 콘센트 직결)
   //   - 동쪽 3+5단 세트(#o,eastset): 서쪽 포엥 암체어 2개 사이 라운지 벽면 중앙(x=450.2, y=148, z=693)으로 자동 대칭 배치
   // ==========================================================================
-  const oTetiWallLamp = new THREE.Group();
-  oTetiWallLamp.name = 'O Artemide Teti Wall Sconce White (goods/1128293)';
-  oTetiWallLamp.__planPlaced = true;
-  oTetiWallLamp.visible = false;
-  grpN.add(oTetiWallLamp);
+  const oUfoWallLamp = new THREE.Group();
+  const oTetiWallLamp = oUfoWallLamp;
+  oUfoWallLamp.name = 'O Tangui Seoul UFO KID LAMP No-Drill Wall Lamp Silver (goods/2064807)';
+  oUfoWallLamp.__planPlaced = true;
+  oUfoWallLamp.visible = false;
+  grpN.add(oUfoWallLamp);
   {
-    const mTetiPolyWhite = M('#faf9f5', { roughness: 0.14, metalness: 0.04 });
-    const mTetiBulb = new THREE.MeshStandardMaterial({
-      color: '#fffdf7',
-      emissive: '#ffd586',
-      emissiveIntensity: 0.55,
-      roughness: 0.18
+    // 헤어라인 브러시드 새틴 실버 알루미늄 디스크 (Ø27cm => R=13.5cm, 본체 두께 8.7cm)
+    const mUfoSilver = M('#dbdfe4', { metalness: 0.28, roughness: 0.30 });
+    const mChromeMirrorCap = M('#eef2f5', { metalness: 0.88, roughness: 0.10 });
+    const mUfoWarmGlow = new THREE.MeshStandardMaterial({
+      color: '#fff9ea',
+      emissive: '#ffd27a',
+      emissiveIntensity: 0.6,
+      roughness: 0.22
     });
-    // Ø14cm(R=7.0cm) 유광 화이트 폴리카보네이트 오목 원반 + 트럼펫 넥 (벽면 z=0 → 실내 방향 +Z 4.4cm)
-    const tetiProfile = [
-      [0, 0], [7.0, 0], [7.0, 0.65], [6.55, 1.15], [4.95, 1.75], [3.35, 2.75], [2.45, 3.85], [2.35, 4.45], [1.95, 4.45]
+    const mCordWhite = M('#f3f2ee', { roughness: 0.55 });
+
+    const ufoProfile = [
+      [0, 0], [13.5, 0], [13.5, 2.1], [13.15, 2.3], [10.4, 2.65], [7.2, 3.35], [4.6, 4.55], [3.0, 6.45], [2.35, 8.65], [1.9, 8.65]
     ].map(([r, h]) => new THREE.Vector2(cm(r), cm(h)));
-    const tetiBase = new THREE.Mesh(new THREE.LatheGeometry(tetiProfile, 40), mTetiPolyWhite);
-    tetiBase.rotation.x = Math.PI / 2;
-    tetiBase.castShadow = true;
-    tetiBase.receiveShadow = true;
-    oTetiWallLamp.add(tetiBase);
+    const ufoBody = new THREE.Mesh(new THREE.LatheGeometry(ufoProfile, 48), mUfoSilver);
+    ufoBody.rotation.x = Math.PI / 2;
+    ufoBody.castShadow = true;
+    ufoBody.receiveShadow = true;
+    oUfoWallLamp.add(ufoBody);
 
-    const socketRing = new THREE.Mesh(new THREE.CylinderGeometry(cm(2.0), cm(2.15), cm(0.8), 28), mTetiPolyWhite);
+    // 크롬 소켓 링 (z=8.4..9.0cm)
+    const socketRing = new THREE.Mesh(new THREE.CylinderGeometry(cm(2.05), cm(2.15), cm(0.8), 28), mChrome);
     socketRing.rotation.x = Math.PI / 2;
-    socketRing.position.set(0, 0, cm(4.6));
-    oTetiWallLamp.add(socketRing);
+    socketRing.position.set(0, 0, cm(8.6));
+    oUfoWallLamp.add(socketRing);
 
-    // 아르떼미데 테티 시그니처 유백색 원형 글로브 전구 (Ø7.2cm => R=3.6cm)
-    const globeBulb = new THREE.Mesh(new THREE.SphereGeometry(cm(3.6), 28, 24), mTetiBulb);
-    globeBulb.position.set(0, 0, cm(7.5));
-    oTetiWallLamp.add(globeBulb);
+    // 탄귀서울 전용 하프미러 크롬전구 (2700K · Ø6cm):
+    //   - 안쪽 반구(접시 쪽): 2700K 전구색 필라멘트 발광부가 실버 UFO 디스크에 따뜻한 간접광을 반사
+    //   - 바깥쪽 반구(정면): 눈부심을 막아주는 유광 실버 크롬 미러 캡!
+    const innerGlowHalf = new THREE.Mesh(
+      new THREE.SphereGeometry(cm(2.95), 28, 16, 0, Math.PI * 2, Math.PI / 2, Math.PI / 2),
+      mUfoWarmGlow
+    );
+    innerGlowHalf.rotation.x = Math.PI / 2;
+    innerGlowHalf.position.set(0, 0, cm(11.6));
+    oUfoWallLamp.add(innerGlowHalf);
 
-    const tetiLight = new THREE.PointLight('#ffdc96', 0.45, 4.5, 1.5);
-    tetiLight.position.set(0, 0, cm(10.5));
-    oTetiWallLamp.add(tetiLight);
-    if (addAccent) addAccent(tetiLight, mTetiBulb, 2.25, 2.35, 0.45, 0.55);
+    const outerChromeCap = new THREE.Mesh(
+      new THREE.SphereGeometry(cm(3.0), 28, 16, 0, Math.PI * 2, 0, Math.PI / 2),
+      mChromeMirrorCap
+    );
+    outerChromeCap.rotation.x = Math.PI / 2;
+    outerChromeCap.position.set(0, 0, cm(11.6));
+    oUfoWallLamp.add(outerChromeCap);
+
+    // 하단 슬림 화이트 전원 코드 (무타공 코드형 디테일 — 벽면을 타고 아래 콘센트 쪽으로 깔끔하게 수직 드롭)
+    dRod(oUfoWallLamp, [0, -13.5, 0.35], [0, -63.0, 0.35], 0.16, mCordWhite);
+
+    const ufoLight = new THREE.PointLight('#ffda92', 0.48, 4.6, 1.5);
+    ufoLight.position.set(0, 0, cm(11.0));
+    oUfoWallLamp.add(ufoLight);
+    if (addAccent) addAccent(ufoLight, mUfoWarmGlow, 2.35, 2.5, 0.48, 0.65);
   }
 
   let cabMode = 'filmon';
@@ -1644,8 +1666,8 @@ export function buildNMarketBKLayout({
         cabChakoc3.rotation.y = -Math.PI / 2;
         cabSimplie.position.set(cm(789.5), 0, cm(zCab));
         cabSimplie.rotation.y = -Math.PI / 2;
-        // 동쪽 턴테이블·LP 스테이지 상부 벽면(액자 우측 z=zCab+40, y=142)에 아르떼미데 테티 배치
-        oTetiWallLamp.position.set(cm(789.8), cm(142), cm(zCab + 40));
+        // 동쪽 턴테이블·LP 스테이지 상부 벽면(액자 우측 z=zCab+52, y=148 · Ø27cm UFO 램프 여백 확보)에 탄귀서울 UFO KID LAMP 배치
+        oTetiWallLamp.position.set(cm(789.8), cm(148), cm(zCab + 52));
         oTetiWallLamp.rotation.y = -Math.PI / 2;
       }
     } else {
@@ -1681,6 +1703,7 @@ export function buildNMarketBKLayout({
     oLivingCurtain,
     oBedroomCurtain,
     oClipLamp,
+    oUfoWallLamp,
     oTetiWallLamp,
     mSheerChiffon,
     setNCabinetMode,

@@ -744,6 +744,7 @@ export function buildNMarketBKLayout({
   let oClipLamp = null;
   let oMiransCabinet = null;
   let oFilmon4221 = null;
+  let oBritaCubeCool = null;
   let eastChakoc5Board4 = null;
 
   {
@@ -1095,15 +1096,207 @@ export function buildNMarketBKLayout({
       if (addAccent) addAccent(clipLight, mClipInner, 2.15, 2.3, 0.45, 0.55);
     }
 
-    // O 3단 (y3=82.8): 기존 GUBON 옐로우 단스탠드 제거 → 좌측 깔끔한 에스프레소 잔 페어 여백, 우측 블랙 바매트 핸드드립 커피존
+    // O 3단 (y3=82.8): 기존 커피잔 2개 제거 → 좌측 브리타 큐브 쿨 냉온정수기 블랙 5.3L(26×42.1[물받이포함 45.7]×32cm · 쿠팡 9494434936), 우측 블랙 바매트 핸드드립 커피존
     {
-      for (const [cx, cz] of [[-21.5, 22.0], [-13.2, 23.8]]) {
-        CY(oShelfDecor, 3.5, 3.5, 0.4, mCeramic, cx, y3, cz, 22);
-        CY(oShelfDecor, 2.5, 1.8, 4.0, mCeramic, cx, y3 + 0.4, cz, 20);
+      const brita = new THREE.Group();
+      brita.name = 'O Brita Cube Cool Hot/Cold Water Purifier Black 5.3L WS2.0B (coupang/9494434936)';
+      // 좌측 배치: 중심 cx=-21.0 (폭 26cm → x=-34.0..-8.0, 상단 집게조명 클램프 x=-35.3과 간섭 0 · 우측 바매트 x=-3.0과 5.0cm 여유)
+      // 깊이 배치: 본체 중심 cz=21.6 (하부 본체 37cm가 선반 보드 z=3.1..40.1 위에 안정 안착, 후면 핸들 z=1.9..3.5, 전면 출수구·자석식 물받이 z=39.9..47.6 돌출로 텀블러 출수 시 상부 2단 선반 간섭 없음, 총 깊이 45.7cm · 높이 32.0cm → 2단 하부 116.5cm 아래 1.7cm 여유)
+      brita.position.set(cm(-21.0), cm(y3), cm(21.6));
+      brita.userData = {
+        dimensions: [26.0, 45.7, 32.0],
+        bodyDepthCm: 42.1,
+        productNo: '9494434936',
+        model: 'WS2.0B',
+        price: 519000,
+        shipping: 0
+      };
+      oShelfDecor.add(brita);
+      oBritaCubeCool = brita;
+
+      const mBritaBlack = M('#1f2124', { roughness: 0.44, metalness: 0.08 });
+      const mBritaDark = M('#151719', { roughness: 0.34, metalness: 0.12 });
+      const mBritaSilver = M('#d3d8df', { roughness: 0.22, metalness: 0.78 });
+      const mBritaTank = M('#dfebf3', { roughness: 0.06, metalness: 0.04, transparent: true, opacity: 0.34 });
+      const mBritaWater = M('#cbe4f5', { roughness: 0.08, transparent: true, opacity: 0.22 });
+      const mBritaUvLed = new THREE.MeshStandardMaterial({
+        color: '#6ad0ff',
+        emissive: '#38b6ff',
+        emissiveIntensity: 0.95,
+        roughness: 0.2
+      });
+
+      const rrBox = (parent, w, h, d, r, matUse, x, y, z, bev = 0.16) => {
+        const b = Math.min(bev, w * 0.2, h * 0.2, d * 0.2);
+        const iw = Math.max(0.2, w - b * 2);
+        const id = Math.max(0.2, d - b * 2);
+        const rad = Math.min(r, iw * 0.48, id * 0.48);
+        const hw = iw / 2, hd = id / 2;
+        const sh = new THREE.Shape();
+        sh.moveTo(-cm(hw - rad), -cm(hd));
+        sh.lineTo(cm(hw - rad), -cm(hd));
+        sh.quadraticCurveTo(cm(hw), -cm(hd), cm(hw), -cm(hd - rad));
+        sh.lineTo(cm(hw), cm(hd - rad));
+        sh.quadraticCurveTo(cm(hw), cm(hd), cm(hw - rad), cm(hd));
+        sh.lineTo(-cm(hw - rad), cm(hd));
+        sh.quadraticCurveTo(-cm(hw), cm(hd), -cm(hw), cm(hd - rad));
+        sh.lineTo(-cm(hw), -cm(hd - rad));
+        sh.quadraticCurveTo(-cm(hw), -cm(hd), -cm(hw - rad), -cm(hd));
+        const geo = new THREE.ExtrudeGeometry(sh, {
+          depth: cm(Math.max(0.1, h - b * 2)),
+          bevelEnabled: b > 0,
+          bevelThickness: cm(b),
+          bevelSize: cm(b),
+          bevelSegments: 3,
+          curveSegments: 12
+        });
+        const mesh = new THREE.Mesh(geo, matUse);
+        mesh.rotation.x = -Math.PI / 2;
+        mesh.position.set(cm(x), cm(y + b), cm(z));
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        parent.add(mesh);
+        return mesh;
+      };
+
+      // 1) 바닥 미끄럼방지 고무발 4개 (선반 원목 보드 z=3.1..39.1 내측에 100% 안착)
+      for (const [fx, fz] of [[-9.4, -14.2], [9.4, -14.2], [-9.4, 14.0], [9.4, 14.0]]) {
+        CY(brita, 1.3, 1.3, 0.4, mBritaDark, fx, 0, fz, 16);
       }
 
-      // 슬림 매트블랙 & 브러시드 크롬 엣지 카페 바매트 (NEODA 우드트레이 제외)
-      const bmX = 15.0, bmZ = 21.5;
+      // 2) 전면 매트블랙 라운드 큐브 본체 (가로 26.0 × 높이 31.6[y=0.4..32.0] × 전면부 깊이 24.8cm[z=-6.3..+18.5])
+      rrBox(brita, 26.0, 31.6, 24.8, 3.4, mBritaBlack, 0, 0.4, 6.1, 0.18);
+      // 전면 중앙 수직 가이드 홈
+      B(brita, 0.26, 20.2, 0.18, mBritaDark, 0, 4.6, 18.48);
+
+      // 전면 우상단 #BRITA 실버 화이트 로고 배지
+      const britaLogoTex = canvasTex(160, 44, (g) => {
+        g.fillStyle = '#1f2124';
+        g.fillRect(0, 0, 160, 44);
+        g.fillStyle = '#dcdfe4';
+        for (let ry = 0; ry < 3; ry++) {
+          for (let rx = 0; rx < 4; rx++) {
+            g.beginPath();
+            g.arc(16 + rx * 7, 15 + ry * 7, 2.1, 0, Math.PI * 2);
+            g.fill();
+          }
+        }
+        g.font = '700 22px Georgia, serif';
+        g.fillText('BRITA', 48, 30);
+      });
+      const logoPlane = new THREE.Mesh(
+        new THREE.PlaneGeometry(cm(5.4), cm(1.48)),
+        new THREE.MeshStandardMaterial({ map: britaLogoTex, roughness: 0.42 })
+      );
+      logoPlane.position.set(cm(6.1), cm(24.3), cm(18.56));
+      brita.add(logoPlane);
+
+      // 좌·우 측면 하단 방열 타공 그릴 디테일
+      const sideVentTex = canvasTex(128, 128, (g) => {
+        g.fillStyle = '#1f2124';
+        g.fillRect(0, 0, 128, 128);
+        g.fillStyle = '#0d0e10';
+        for (let vx = 14; vx <= 114; vx += 10) {
+          const pad = Math.abs(vx - 64) > 35 ? 24 : 12;
+          for (let vy = pad; vy <= 128 - pad; vy += 9) {
+            g.beginPath();
+            g.arc(vx, vy, 2.4, 0, Math.PI * 2);
+            g.fill();
+          }
+        }
+      });
+      const mSideVent = new THREE.MeshStandardMaterial({ map: sideVentTex, roughness: 0.46 });
+      for (const sx of [-13.04, 13.04]) {
+        const vp = new THREE.Mesh(new THREE.PlaneGeometry(cm(10.8), cm(11.6)), mSideVent);
+        vp.rotation.y = sx > 0 ? Math.PI / 2 : -Math.PI / 2;
+        vp.position.set(cm(sx), cm(9.6), cm(1.8));
+        brita.add(vp);
+      }
+
+      // 3) 후면 하부 전원 도크 + 5.3L 투명 착탈식 물통 + 내부 MAXTRA PRO 필터 + 상단 블랙 리드 & 후면 손잡이
+      rrBox(brita, 25.6, 9.2, 13.2, 3.0, mBritaBlack, 0, 0.4, -11.9, 0.16); // 하부 도크 (z=-18.5..-5.3)
+      B(brita, 2.2, 2.6, 0.5, mBritaDark, -5.2, 2.2, -18.55, 0.08);          // 후면 전원 스위치
+      B(brita, 3.0, 2.4, 0.5, mBritaDark, -1.2, 2.2, -18.55, 0.08);          // 후면 전원 소켓
+      rrBox(brita, 25.2, 21.0, 12.6, 2.8, mBritaTank, 0, 9.6, -12.0, 0.1);   // 5.3L 투명 물통 (y=9.6..30.6)
+      rrBox(brita, 23.6, 8.2, 11.2, 2.2, mBritaWater, 0, 10.0, -12.0, 0.06); // 정수 수위 표현
+      // 내부 화이트 MAXTRA PRO 필터 카트리지 & 호퍼
+      rrBox(brita, 22.8, 6.2, 10.6, 2.0, M('#eef4f8', { roughness: 0.15, transparent: true, opacity: 0.28 }), 0, 22.8, -12.0, 0.06);
+      rrBox(brita, 10.2, 7.0, 6.2, 1.6, mWhite, 0, 15.8, -12.0, 0.12);
+      // 물통 상단 블랙 뚜껑 (y=30.6..32.0, 전면 본체와 수평 일치) + 후면 착탈식 손잡이 루프 (z=-19.7..-18.2)
+      rrBox(brita, 25.6, 1.4, 13.2, 3.0, mBritaBlack, 0, 30.6, -11.9, 0.14);
+      rrBox(brita, 25.8, 2.5, 1.4, 0.6, mBritaBlack, 0, 28.6, -19.0, 0.1);
+
+      // 4) 상단 다크글래스 LED 터치 컨트롤 바 (온도·출수량 아이콘 표시)
+      const touchTex = canvasTex(256, 64, (g) => {
+        g.fillStyle = '#141618';
+        g.fillRect(0, 0, 256, 64);
+        g.strokeStyle = 'rgba(255,255,255,0.12)';
+        g.lineWidth = 2;
+        g.strokeRect(4, 4, 248, 56);
+        g.fillStyle = 'rgba(218,236,255,0.82)';
+        g.font = '600 15px sans-serif';
+        g.fillText('❄', 22, 26);
+        g.fillText('45°', 54, 46);
+        g.font = '600 14px sans-serif';
+        g.fillText('85°', 92, 26);
+        g.fillText('100°', 156, 26);
+        g.fillText('250ml', 184, 46);
+        for (const cx of [128, 228]) {
+          g.beginPath();
+          g.arc(cx, 32, 4.5, 0, Math.PI * 2);
+          g.stroke();
+        }
+      });
+      const touchBar = new THREE.Mesh(
+        new THREE.PlaneGeometry(cm(19.2), cm(4.2)),
+        new THREE.MeshStandardMaterial({
+          map: touchTex,
+          roughness: 0.16,
+          metalness: 0.2,
+          emissive: '#9acbff',
+          emissiveMap: touchTex,
+          emissiveIntensity: 0.22
+        })
+      );
+      touchBar.rotation.x = -Math.PI / 2;
+      touchBar.position.set(0, cm(32.03), cm(13.2));
+      brita.add(touchBar);
+
+      // 5) 전면 상단 시그니처 실버 출수구(Spout) + 상부 블랙 인레이 & 블루 UV 살균 표시 LED
+      rrBox(brita, 4.4, 6.6, 5.8, 1.3, mBritaSilver, 0, 25.3, 20.6, 0.14); // 실버 알루미늄 하우징 (z=+17.7..+23.5)
+      rrBox(brita, 4.2, 0.35, 6.8, 1.2, mBritaSilver, 0, 31.82, 20.1, 0.06); // 상단 실버 베젤 링
+      rrBox(brita, 3.6, 0.22, 6.2, 1.0, mBritaDark, 0, 32.02, 20.1, 0.04);   // 상단 블랙 인레이
+      CY(brita, 0.38, 0.38, 0.14, mBritaUvLed, 0, 32.16, 21.8, 16);          // 스카이블루 UV 상태 LED
+      CY(brita, 0.85, 0.78, 0.85, mChrome, 0, 24.5, 21.4, 20);               // 하부 스텐 출수 노즐
+
+      // 6) 전면 하단 자석식 높이조절 블랙 물받이 + 브러시드 스텐 타공 트레이 (선반 앞선 밖으로 약 6.9cm 돌출)
+      rrBox(brita, 11.2, 4.1, 7.6, 2.2, mBritaBlack, 0, 0.2, 22.2, 0.16);    // 블랙 물받이 컵 (z=+18.4..+26.0)
+      const dripTex = canvasTex(128, 96, (g) => {
+        g.fillStyle = '#9aa1aa';
+        g.fillRect(0, 0, 128, 96);
+        g.fillStyle = '#181a1d';
+        g.beginPath();
+        g.ellipse(64, 48, 13, 9, 0, 0, Math.PI * 2);
+        g.fill();
+        for (const [rx, ry, cnt, rad] of [[28, 21, 10, 2.5], [44, 32, 14, 2.3]]) {
+          for (let i = 0; i < cnt; i++) {
+            const a = (i / cnt) * Math.PI * 2;
+            g.beginPath();
+            g.arc(64 + Math.cos(a) * rx, 48 + Math.sin(a) * ry, rad, 0, Math.PI * 2);
+            g.fill();
+          }
+        }
+      });
+      const dripPlate = new THREE.Mesh(
+        new THREE.PlaneGeometry(cm(9.8), cm(6.2)),
+        new THREE.MeshStandardMaterial({ map: dripTex, metalness: 0.68, roughness: 0.28 })
+      );
+      dripPlate.rotation.x = -Math.PI / 2;
+      dripPlate.position.set(0, cm(4.34), cm(22.2));
+      brita.add(dripPlate);
+
+      // 슬림 매트블랙 & 브러시드 크롬 엣지 카페 바매트 (정수기와 5.0cm 여유를 두고 우측 x=-3.0..+38.0 정렬)
+      const bmX = 17.5, bmZ = 21.5;
       B(oShelfDecor, 41.0, 0.35, 21.0, mBlack, bmX, y3, bmZ, 0.12);
       B(oShelfDecor, 41.4, 0.25, 0.4, mChrome, bmX, y3 + 0.15, bmZ - 10.5);
       B(oShelfDecor, 41.4, 0.25, 0.4, mChrome, bmX, y3 + 0.15, bmZ + 10.5);
@@ -1756,6 +1949,7 @@ export function buildNMarketBKLayout({
     oClipLamp,
     oMiransCabinet,
     oFilmon4221,
+    oBritaCubeCool,
     eastChakoc5Board4,
     oUfoWallLamp,
     oTetiWallLamp,

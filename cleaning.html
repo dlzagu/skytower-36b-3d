@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f4f0e8">
+  <title>11/27 입주청소 현장 검수 체크리스트 (청소를 부탁해) · 강변 36B</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f4f0e8;
+      --card: #fffdf9;
+      --ink: #29251f;
+      --muted: #6e6559;
+      --line: #ded5c7;
+      --accent: #0f6b4a;
+      --accent-soft: #e6f3ed;
+      --warn: #b84a27;
+      --warn-soft: #fdf0eb;
+      --purple: #5f3dc4;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 15.5px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    main { max-width: 860px; margin: 0 auto; padding: 20px 16px 88px; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+    nav a { font-weight: 650; text-decoration: none; padding: 4px 0; }
+    nav a:hover { text-decoration: underline; }
+    .eyebrow {
+      font-size: 11.5px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      color: var(--accent);
+      margin: 0 0 6px;
+    }
+    h1 {
+      font-size: clamp(26px, 5.5vw, 38px);
+      line-height: 1.18;
+      letter-spacing: -.04em;
+      margin: 0 0 10px;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0 0 18px;
+    }
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 650;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+    .chip.vendor { background: var(--accent-soft); border-color: #b7dccb; color: #0b5138; }
+    .chip.warn { background: var(--warn-soft); border-color: #f1c5b6; color: #8f3518; }
+
+    .dashboard {
+      position: sticky;
+      top: 8px;
+      z-index: 15;
+      background: rgba(255, 253, 249, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 20px rgba(41, 37, 31, 0.06);
+      margin-bottom: 18px;
+    }
+    .dash-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .dash-nums {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .dash-nums strong {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      font-variant-numeric: tabular-nums;
+    }
+    .dash-badges {
+      display: flex;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .badge-ok { background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 99px; }
+    .badge-fix { background: var(--warn-soft); color: var(--warn); padding: 3px 9px; border-radius: 99px; }
+    .bar-track {
+      width: 100%;
+      height: 8px;
+      background: #e5ddd0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 10px 0 11px;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width .2s ease;
+    }
+    .filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filters button {
+      flex: 1 1 auto;
+      min-height: 38px;
+      padding: 6px 11px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .filters button[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+    }
+    .filters button.fix-filter[aria-pressed="true"] {
+      background: var(--warn);
+      border-color: var(--warn);
+      color: #fff;
+    }
+
+    .tip-box {
+      background: #efe9dc;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 13px 15px;
+      font-size: 13.5px;
+      margin-bottom: 22px;
+    }
+    .tip-box strong { color: #0b5138; }
+    .tip-box ul { margin: 6px 0 0; padding-left: 18px; }
+    .tip-box li { margin: 4px 0; }
+
+    .zone { margin: 26px 0; scroll-margin-top: 140px; }
+    .zone-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+    .zone-head h2 {
+      font-size: 18.5px;
+      letter-spacing: -.025em;
+      margin: 0;
+    }
+    .zone-count {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 13px 14px;
+      margin-bottom: 9px;
+      transition: background .15s, border-color .15s;
+    }
+    .card[data-state="ok"] {
+      background: #f5faf7;
+      border-color: #bdd9cb;
+    }
+    .card[data-state="ok"] .item-title {
+      color: #466857;
+      text-decoration: line-through;
+      text-decoration-thickness: 1.5px;
+    }
+    .card[data-state="fix"] {
+      background: #fff6f3;
+      border-color: #e8a48e;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .item-body { flex: 1; min-width: 0; cursor: pointer; }
+    .item-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: #ece5d8;
+      color: #5c5142;
+    }
+    .tag.must { background: #fbe3d8; color: #9c3819; }
+    .tag.fit { background: #e8e2f8; color: #4c2ea8; }
+    .item-title {
+      font-size: 15.5px;
+      font-weight: 750;
+      line-height: 1.4;
+      margin: 0;
+    }
+    .item-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 5px 0 0;
+      line-height: 1.52;
+    }
+    .state-btns {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .btn-state {
+      min-width: 44px;
+      min-height: 40px;
+      padding: 6px 10px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      font-size: 12.5px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .btn-state.ok-btn[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    .btn-state.fix-btn[aria-pressed="true"] {
+      background: var(--warn);
+      border-color: var(--warn);
+      color: #fff;
+    }
+    .memo-wrap {
+      margin-top: 9px;
+      display: none;
+    }
+    .card[data-state="fix"] .memo-wrap,
+    .card.has-memo .memo-wrap,
+    .card.open-memo .memo-wrap {
+      display: block;
+    }
+    .memo-input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .memo-toggle {
+      margin-top: 6px;
+      background: none;
+      border: 0;
+      padding: 2px 0;
+      color: var(--muted);
+      font: inherit;
+      font-size: 12px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .measure-box {
+      background: var(--card);
+      border: 1px solid #cbbef0;
+      border-radius: 15px;
+      padding: 18px 16px;
+      margin-top: 30px;
+    }
+    .measure-box h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: #3b1f82;
+    }
+    .measure-box p {
+      margin: 0 0 14px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .measure-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .measure-field label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .measure-field small {
+      display: block;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .measure-field input,
+    .measure-field textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      font-size: 13.5px;
+      background: #fff;
+    }
+    .measure-field.full { grid-column: 1 / -1; }
+
+    .action-bar {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .action-btn {
+      flex: 1 1 200px;
+      min-height: 46px;
+      padding: 10px 14px;
+      border-radius: 11px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13.5px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .action-btn.primary {
+      background: var(--warn);
+      border-color: var(--warn);
+      color: #fff;
+    }
+    .action-btn.secondary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .empty-msg {
+      padding: 28px 16px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #29251f;
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 650;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.22);
+      z-index: 50;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+    }
+    footer {
+      margin-top: 34px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 600px) {
+      .measure-grid { grid-template-columns: 1fr; }
+      .card-top { gap: 8px; }
+      .btn-state { min-width: 42px; padding: 6px 8px; }
+    }
+    @media print {
+      .dashboard, nav, .action-bar, .memo-toggle, .toast { display: none !important; }
+      body { background: #fff; font-size: 11pt; }
+      main { padding: 0; max-width: none; }
+      .card { break-inside: avoid; margin-bottom: 6px; padding: 8px 10px; }
+      .memo-wrap { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="사이트 이동">
+    <a href="index.html#o" style="color:var(--purple)">★ O안 3D 보기</a>
+    <a href="o-budget.html" style="color:var(--purple)">O안 견적 ↗</a>
+    <a href="index.html#k">K안 3D</a>
+    <a href="measured-fit.html">실측·가전 치수</a>
+    <a href="https://skytower-movein-checklist.rare-sun-2079.chatgpt.site/" target="_blank" rel="noopener noreferrer">전체 입주 체크리스트 ↗</a>
+  </nav>
+
+  <p class="eyebrow">SKYTOWER 36B · MOVE-IN CLEANING INSPECTION</p>
+  <h1>11/27(금) 입주청소 현장 검수표</h1>
+  <p class="sub">강변 스카이타워 36B 구조(사선 이중창·냉장고장·세탁기칸·붙박이장·시스템에어컨)와 <b>‘청소를 부탁해’</b> 기본 작업 범위에 맞춘 현장 검수 체크리스트입니다. 체크 내용은 현재 휴대폰·브라우저에 자동 저장됩니다.</p>
+
+  <div class="meta-chips">
+    <span class="chip vendor">🧹 업체: 청소를 부탁해</span>
+    <span class="chip">📅 청소일: 2026.11.27(금)</span>
+    <span class="chip">🚚 입주일: 2026.11.30(월)</span>
+    <span class="chip warn">💡 원칙: 잔금 입금 전 팀장님과 현장 대면 검수</span>
+  </div>
+
+  <section class="dashboard" aria-label="검수 진행 현황">
+    <div class="dash-top">
+      <div class="dash-nums">
+        <strong id="progressCount">0 / 32</strong>
+        <span id="progressPct" style="font-size:13px;color:var(--muted)">0% 확인</span>
+      </div>
+      <div class="dash-badges">
+        <span class="badge-ok" id="okBadge">통과 0</span>
+        <span class="badge-fix" id="fixBadge">보완요청 0</span>
+      </div>
+    </div>
+    <div class="bar-track" aria-hidden="true"><div class="bar-fill" id="barFill"></div></div>
+    <div class="filters" role="group" aria-label="항목 필터">
+      <button type="button" data-filter="all" aria-pressed="true">전체</button>
+      <button type="button" data-filter="todo" aria-pressed="false">미확인</button>
+      <button type="button" data-filter="fix" class="fix-filter" aria-pressed="false">⚠️ 보완요청만</button>
+      <button type="button" data-filter="ok" aria-pressed="false">✓ 통과</button>
+    </div>
+  </section>
+
+  <div class="tip-box">
+    <strong>현장 검수 3가지 준비물 &amp; 요령</strong>
+    <ul>
+      <li><b>준비물</b>: 흰 물티슈 1팩(창틀·몰딩·걸레받이 안쪽 쓸어보기용), 휴대폰 플래시(수납장·배수구 안쪽 확인용), 줄자(빈집 실측용).</li>
+      <li><b>조명 전체 ON</b>: 현관·거실·주방·침실·욕실 조명을 전부 켜고 바닥과 유리를 비스듬히(역광) 보면 마른 물얼룩·본드 자국이 바로 보입니다.</li>
+      <li><b>보완 요청 방법</b>: 미흡한 곳은 아래에서 <b>[⚠️ 보완]</b>을 누르고 메모를 적은 뒤, 하단 <b>[⚠️ 보완 요청 목록 복사]</b>를 눌러 팀장님께 한 번에 보여주세요.</li>
+    </ul>
+  </div>
+
+  <div id="zonesContainer"></div>
+  <p id="emptyMsg" class="empty-msg" hidden>선택한 필터에 해당하는 항목이 없습니다.</p>
+
+  <section class="measure-box" aria-labelledby="measureTitle">
+    <h2 id="measureTitle">📏 오늘 빈집 갔을 때 1분 실측 메모 (선택)</h2>
+    <p>가구가 들어오기 전 오늘 같이 재두면 커튼·냉장고·수납장 설치 오차를 완전히 없앨 수 있습니다. 입력 즉시 자동 저장됩니다.</p>
+    <div class="measure-grid">
+      <div class="measure-field">
+        <label for="mFridgeDepth">냉장고장 안쪽 깊이 (cm)</label>
+        <small>폭 100 × 높이 189cm 확인 완료 · 깊이 및 콘센트 위치 확인</small>
+        <input id="mFridgeDepth" type="text" placeholder="예: 깊이 72cm, 우측 상단 콘센트">
+      </div>
+      <div class="measure-field">
+        <label for="mMwDepth">전자레인지 칸 안쪽 깊이 (cm)</label>
+        <small>폭 53 × 높이 33cm 확인 완료 · 안쪽 깊이 및 전선홀 확인</small>
+        <input id="mMwDepth" type="text" placeholder="예: 깊이 45cm">
+      </div>
+      <div class="measure-field">
+        <label for="mLivingCurtain">거실 사선창 커튼박스 &amp; 기본 레일 유무</label>
+        <small>기존 U레일이 이미 달려 있으면 레일·고리 비용(-75,600원) 절약 가능</small>
+        <input id="mLivingCurtain" type="text" placeholder="예: 가로 205cm, 박스폭 12cm, 기본레일 없음">
+      </div>
+      <div class="measure-field">
+        <label for="mBedCurtain">침실 사선창 커튼박스 &amp; 기본 레일 유무</label>
+        <small>암막커튼 + SwitchBot 전동커튼 설치 구간</small>
+        <input id="mBedCurtain" type="text" placeholder="예: 가로 180cm, 기본레일 있음/없음">
+      </div>
+      <div class="measure-field full">
+        <label for="mDefectMemo">관리실 하자 접수용 / 현장 특이사항 메모</label>
+        <small>원래 있던 마루 찍힘, 벽지 들뜸, 실리콘 벌어짐 등은 날짜가 찍히게 사진 촬영 후 아래에 위치만 적어두세요.</small>
+        <textarea id="mDefectMemo" rows="3" placeholder="예: 침실 방문 아래 마루 1cm 찍힘 사진 촬영 완료, 욕실 세면대 온수 잘 나옴"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <div class="action-bar">
+    <button type="button" class="action-btn primary" id="copyFixBtn">⚠️ 보완 요청 항목만 복사</button>
+    <button type="button" class="action-btn secondary" id="copyAllBtn">📋 전체 검수 결과 + 실측 복사</button>
+    <button type="button" class="action-btn" id="printBtn">🖨️ 인쇄 / PDF 저장</button>
+    <button type="button" class="action-btn" id="resetBtn">초기화</button>
+  </div>
+
+  <footer>
+    강변 스카이타워 36B 입주 준비 · 이 페이지의 체크 상태와 메모는 외부 서버로 전송되지 않으며 현재 기기 브라우저(localStorage)에만 저장됩니다.
+  </footer>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var STORAGE_KEY = 'skytower36b_cleaning_20261127_v1';
+
+  var ZONES = [
+    {
+      id: 'prep',
+      title: '0단계 · 시작 전 & 기본 조건 확인 (분쟁 예방)',
+      items: [
+        {
+          id: 'prep-extra-fee',
+          title: '추가 요금 유무 작업 전 사전 확정',
+          desc: '심한 오염·곰팡이·시트지/스티커 제거 등 추가금이 붙는 항목이 있는지 작업 시작 전에 합의했는지 확인합니다. (내창·창틀·수납장 탈거·등커버·배수구·환풍구는 기본 범위)',
+          tags: [{ text: '사전필수', kind: 'must' }]
+        },
+        {
+          id: 'prep-pre-defect',
+          title: '기존 파손·흠집(마루 찍힘·벽지·거울) 사전 사진 촬영',
+          desc: '청소 중 생긴 파손과 원래 있던 하자를 구분하기 위해 기존 찍힘·스크래치를 미리 촬영해 둡니다. (11/30 관리실 하자 접수 자료로 함께 사용)',
+          tags: [{ text: '하자기록', kind: 'must' }]
+        },
+        {
+          id: 'prep-scope-boundary',
+          title: '제외 범위 인지 (외창 바깥면 · 가전 분해 내부)',
+          desc: '고층 외창 바깥 유리와 시스템에어컨·세탁기·냉장고 분해 세척은 기본 입주청소 제외 항목입니다. 가전은 외관·패킹·칸 안쪽 분진 위주로 검수합니다.',
+          tags: []
+        },
+        {
+          id: 'prep-happycall',
+          title: '종료 30분~1시간 전 해피콜 연락 & 대면 검수 후 정산',
+          desc: '작업이 끝나기 전 미리 연락받아 현장에서 팀장님과 함께 확인하고, 미흡한 부분을 보완받은 뒤 잔금을 정산합니다.',
+          tags: [{ text: '정산원칙', kind: 'must' }]
+        }
+      ]
+    },
+    {
+      id: 'entry',
+      title: '1구역 · 현관 · 복도',
+      items: [
+        {
+          id: 'entry-shoe-rack',
+          title: '신발장 선반 전수 탈거 & 맨 아래 바닥 톱밥 제거',
+          desc: '선반을 빼서 닦았는지, 신발장 맨 아래 바닥 구석과 경첩(경첩 위 먼지)에 목공 톱밥이 남아있지 않은지 확인합니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'entry-tile',
+          title: '현관 바닥 타일 · 디딤석 백화(시멘트 가루) 및 물얼룩',
+          desc: '타일 줄눈과 모서리에 허연 시멘트 가루나 마른 걸레 자국이 남지 않았는지 확인합니다.',
+          tags: []
+        },
+        {
+          id: 'entry-door',
+          title: '현관문 내측 · 문틀 상단 · 도어록 · 센서등 커버',
+          desc: '현관문 안쪽 손자국, 문틀 맨 윗면 먼지, 천장 센서등 커버 내부 날벌레·먼지 제거 여부를 봅니다.',
+          tags: []
+        },
+        {
+          id: 'entry-switch',
+          title: '현관 일괄소등 스위치 & 분전함(차단기) 커버 먼지',
+          desc: '일괄소등 스위치 테두리 위 먼지와 신발장 내부 분전함 뚜껑 안팎 분진을 확인합니다.',
+          tags: []
+        }
+      ]
+    },
+    {
+      id: 'kitchen',
+      title: '2구역 · 주방 · 냉장고장 · 세탁기칸 (36B 핵심)',
+      items: [
+        {
+          id: 'kit-kickplate',
+          title: '싱크대 하부 ‘걸레받이’ 탈거 후 바닥 안쪽 청소',
+          desc: '가장 많이 누락되는 1순위 구간입니다! 싱크대 맨 아래 걸레받이 판 안쪽 배관 주변에 공사 쓰레기·분진이 치워졌는지 확인합니다.',
+          tags: [{ text: '누락1순위', kind: 'must' }]
+        },
+        {
+          id: 'kit-drawers',
+          title: '싱크대 상·하부장 선반 & 서랍 전수 분리 청소',
+          desc: '서랍을 끝까지 당겨 레일 위와 서랍 칸 안쪽 바닥에 톱밥이 없는지 손가락·물티슈로 쓸어봅니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'kit-rail',
+          title: '상부장 밑 600mm 블랙 행거레일 & 주방 타일',
+          desc: '나래 퀸넥스 식기건조대를 걸 상부장 하부 블랙 레일(나사 3점 고정부)의 기름막·먼지와 조리대 타일 줄눈 상태를 확인합니다.',
+          tags: [{ text: '36B설비', kind: 'fit' }]
+        },
+        {
+          id: 'kit-hood',
+          title: '렌지후드 필터 탈거 세척 & 인덕션 상판 테두리',
+          desc: '후드 금속 필터의 끈적임·보호필름 잔여물이 제거됐는지, 인덕션과 상판 사이 실리콘 틈새가 깨끗한지 확인합니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'kit-sink',
+          title: '싱크볼 · 수전 물때 · 배수구 거름망/트랩 분리 세척',
+          desc: '배수구 통을 열어 안쪽까지 깨끗한지 보고, 물을 틀어 온수·배수 속도와 하부장 배관 누수 여부를 함께 확인합니다.',
+          tags: []
+        },
+        {
+          id: 'kit-fridge-mw',
+          title: '냉장고장(100×189cm) & 전자레인지 칸(53×33cm) 내부 분진',
+          desc: '가전이 들어가면 다시 닦기 힘듭니다. 안쪽 벽·천장·바닥·콘센트 주변 톱밥이 완전히 닦였는지 확인합니다.',
+          tags: [{ text: '36B실측칸', kind: 'fit' }]
+        },
+        {
+          id: 'kit-washer',
+          title: '빌트인 세탁기 칸(60×83cm) 틈새 · 고무패킹 앞쪽 · 세제통',
+          desc: '세탁기 외관 상판, 세제 투입구 주변, 도어 고무패킹 앞쪽 먼지와 아래 바닥 분진을 확인합니다.',
+          tags: [{ text: '36B실측칸', kind: 'fit' }]
+        }
+      ]
+    },
+    {
+      id: 'living',
+      title: '3구역 · 거실 · 사선 창호 · 천장 설비',
+      items: [
+        {
+          id: 'liv-window-track',
+          title: '남서 사선 이중창 창틀 레일 & 배수 구멍 (물티슈 테스트)',
+          desc: '물티슈로 창틀 레일 모서리와 물구멍을 훑었을 때 검은 흙먼지나 시멘트 가루가 묻어나오지 않는지 확인합니다.',
+          tags: [{ text: '누락주의', kind: 'must' }]
+        },
+        {
+          id: 'liv-glass',
+          title: '거실 내측 유리창 물얼룩 · 스티커/실리콘 자국 · 방충망',
+          desc: '햇빛·조명 역광에서 봤을 때 유리에 마른 세제 줄무늬가 없는지, 창문 잠금장치와 방충망 테두리 먼지를 확인합니다.',
+          tags: []
+        },
+        {
+          id: 'liv-curtain-box',
+          title: '거실 커튼박스 안쪽 천장 홈 석고·먼지 제거',
+          desc: '무타공 고리와 SwitchBot 전동커튼을 달 자리입니다. 위쪽 홈에 손이나 물티슈를 넣어 석고 가루가 떨어지지 않는지 봅니다.',
+          tags: [{ text: '자동커튼자리', kind: 'fit' }]
+        },
+        {
+          id: 'liv-ac-vent',
+          title: '천장 시스템 에어컨(카세트) 외관 루버 & 전열교환 환기구',
+          desc: '천장 에어컨 겉 패널·날개 먼지와 원형 환기 디퓨저 테두리의 까만 먼지 자국이 닦였는지 확인합니다.',
+          tags: [{ text: '36B설비', kind: 'fit' }]
+        },
+        {
+          id: 'liv-wallpad',
+          title: '동쪽 벽 월패드·조작판 3개 & 서쪽 벽 통신단자함·콘센트',
+          desc: '월패드 액정 지문, 스위치 3개 윗면 먼지, 서쪽 벽 하단 통신단자함 덮개 안팎과 콘센트 구멍 분진을 확인합니다.',
+          tags: [{ text: '36B설비', kind: 'fit' }]
+        },
+        {
+          id: 'liv-floor-molding',
+          title: '천장 몰딩 · 걸레받이 윗면 · 강마루 본드/페인트 자국',
+          desc: '걸레받이 위에 뽀얀 먼지가 없는지, 바닥 마루에 본드·실리콘 뭉침이나 끈적한 세제 잔여물이 없는지 맨손·물티슈로 확인합니다.',
+          tags: [{ text: '필수확인', kind: 'must' }]
+        }
+      ]
+    },
+    {
+      id: 'bedroom',
+      title: '4구역 · 침실 · 붙박이장 · 보일러실(실외기실)',
+      items: [
+        {
+          id: 'bed-wardrobe',
+          title: '침실 붙박이장 선반·서랍 전수 탈거 & 옷봉·문짝 청소',
+          desc: '서랍을 빼낸 맨 아래 바닥과 선반 안쪽 톱밥까지 깨끗한지, 붙박이장 문 표면(거울 부착 예정면)에 유분·먼지가 없는지 확인합니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'bed-window',
+          title: '침실 사선 이중창 창틀 레일 · 내측 유리 · 커튼박스',
+          desc: '침실 창틀 레일 모서리 먼지, 내창 유리 물얼룩, 암막커튼 달 커튼박스 안쪽 분진을 확인합니다.',
+          tags: []
+        },
+        {
+          id: 'bed-door-top',
+          title: '침실 방문 · 욕실 문 ‘문틀 맨 윗면’ & 경첩 먼지',
+          desc: '눈에 안 보여서 자주 빠지는 곳입니다. 방문 위쪽 가로 문틀 위를 손가락으로 한 번 쓸어 확인합니다.',
+          tags: [{ text: '누락주의', kind: 'must' }]
+        },
+        {
+          id: 'bed-boiler',
+          title: '보일러실 / 실외기실 바닥 타일 · 배수구 · 환기 루버',
+          desc: '보일러실 문을 열어 바닥 모래·먼지, 배수구 청결, 보일러 외관 먼지 및 실외기 루버 개폐 상태를 확인합니다.',
+          tags: []
+        },
+        {
+          id: 'bed-light',
+          title: '침실 · 거실 메인 천장등 커버 내부 벌레·먼지 제거',
+          desc: '등기구 커버를 탈거해 안쪽 날벌레 사체나 석고 분진을 털어냈는지 불을 켜서 얼룩 유무를 확인합니다.',
+          tags: []
+        }
+      ]
+    },
+    {
+      id: 'bath',
+      title: '5구역 · 욕실 · 세면',
+      items: [
+        {
+          id: 'bath-vent',
+          title: '욕실 환풍구(환풍기) 커버 탈거 세척 확인',
+          desc: '천장 환풍기 겉 커버를 분리해 틈새 먼지를 씻어냈는지 올려다보고 확인합니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'bath-drain',
+          title: '바닥·세면대 배수구 트랩 분리 살균 & 물내림·배수 확인',
+          desc: '배수구 뚜껑과 속 트랩까지 열어서 시멘트 찌꺼기·오염이 없는지 확인하고, 세면대·샤워기·변기 물을 내려 배수를 테스트합니다.',
+          tags: [{ text: '탈거확인', kind: 'must' }]
+        },
+        {
+          id: 'bath-cabinet',
+          title: '거울 수납장 내·외부 & 하단 벽 타일 유분·물때 제거',
+          desc: '거울장 안쪽 선반 먼지와 거울 물자국을 보고, 이케아 훔레셴 흡착 거울·후크를 붙일 거울장 아래 벽 타일이 매끈하게 닦였는지 확인합니다.',
+          tags: [{ text: '흡착부착면', kind: 'fit' }]
+        },
+        {
+          id: 'bath-toilet',
+          title: '변기 뒤편 하단 · 비데용 방수 콘센트 · 코너 실리콘',
+          desc: '잘 안 보이는 변기 뒤쪽 바닥, 비데 전원 꽂을 방수 콘센트 커버 먼지, 바닥·세면대 테두리 실리콘 오염을 확인합니다.',
+          tags: []
+        }
+      ]
+    },
+    {
+      id: 'finish',
+      title: '6단계 · 보완 완료 확인 & 퇴실 마무리',
+      items: [
+        {
+          id: 'fin-rework',
+          title: '보완 요청(⚠️) 구간 재청소 완료 확인 후 잔금 입금',
+          desc: '체크해 둔 미흡 구간을 팀장님과 함께 재확인한 뒤 정산합니다. (당일 해결 어려운 건은 사진 남기고 A/S 기한[통상 3~5일 내, 11/30 입주 전] 확인)',
+          tags: [{ text: '최종정산', kind: 'must' }]
+        },
+        {
+          id: 'fin-lockup',
+          title: '모든 창문 잠금 · 수도 잠금 · 보일러(외출/동파방지) · 일괄소등',
+          desc: '11/30(월) 입주일까지 사흘간 빈집이므로 비·외풍이 들어오지 않게 이중창을 꼭 닫고 일괄소등 후 도어록 잠금을 확인합니다.',
+          tags: [{ text: '퇴실필수', kind: 'must' }]
+        }
+      ]
+    }
+  ];
+
+  var MEASURE_IDS = ['mFridgeDepth', 'mMwDepth', 'mLivingCurtain', 'mBedCurtain', 'mDefectMemo'];
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { items: {}, measures: {} };
+      var parsed = JSON.parse(raw);
+      return {
+        items: parsed && typeof parsed.items === 'object' ? parsed.items : {},
+        measures: parsed && typeof parsed.measures === 'object' ? parsed.measures : {}
+      };
+    } catch (_) {
+      return { items: {}, measures: {} };
+    }
+  }
+
+  var state = loadState();
+  var currentFilter = 'all';
+  var toastTimer = 0;
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (_) {}
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.hidden = true; }, 3200);
+  }
+
+  function getItemRecord(id) {
+    var r = state.items[id];
+    if (!r || typeof r !== 'object') return { status: 'todo', memo: '' };
+    return {
+      status: r.status === 'ok' || r.status === 'fix' ? r.status : 'todo',
+      memo: typeof r.memo === 'string' ? r.memo : ''
+    };
+  }
+
+  function setItemStatus(id, nextStatus) {
+    var cur = getItemRecord(id);
+    var status = cur.status === nextStatus ? 'todo' : nextStatus;
+    state.items[id] = { status: status, memo: cur.memo };
+    saveState();
+    render();
+  }
+
+  function setItemMemo(id, memo) {
+    var cur = getItemRecord(id);
+    state.items[id] = { status: cur.status, memo: memo };
+    saveState();
+    updateSummary();
+  }
+
+  function updateSummary() {
+    var total = 0, okCount = 0, fixCount = 0;
+    ZONES.forEach(function (z) {
+      z.items.forEach(function (it) {
+        total++;
+        var st = getItemRecord(it.id).status;
+        if (st === 'ok') okCount++;
+        else if (st === 'fix') fixCount++;
+      });
+    });
+    var checked = okCount + fixCount;
+    var pct = total ? Math.round((okCount / total) * 100) : 0;
+    document.getElementById('progressCount').textContent = okCount + ' / ' + total + ' 통과';
+    document.getElementById('progressPct').textContent = '진행률 ' + pct + '% (확인 ' + checked + '개)';
+    document.getElementById('okBadge').textContent = '✓ 통과 ' + okCount;
+    document.getElementById('fixBadge').textContent = '⚠️ 보완요청 ' + fixCount;
+    document.getElementById('barFill').style.width = pct + '%';
+  }
+
+  function render() {
+    var container = document.getElementById('zonesContainer');
+    container.innerHTML = '';
+    var visibleTotal = 0;
+
+    ZONES.forEach(function (zone) {
+      var zoneDone = 0;
+      zone.items.forEach(function (it) {
+        if (getItemRecord(it.id).status === 'ok') zoneDone++;
+      });
+
+      var visibleItems = zone.items.filter(function (it) {
+        var st = getItemRecord(it.id).status;
+        if (currentFilter === 'all') return true;
+        return st === currentFilter;
+      });
+
+      if (!visibleItems.length) return;
+      visibleTotal += visibleItems.length;
+
+      var sec = document.createElement('section');
+      sec.className = 'zone';
+      sec.id = 'zone-' + zone.id;
+
+      var head = document.createElement('div');
+      head.className = 'zone-head';
+      var h2 = document.createElement('h2');
+      h2.textContent = zone.title;
+      var cnt = document.createElement('span');
+      cnt.className = 'zone-count';
+      cnt.textContent = zoneDone + ' / ' + zone.items.length + ' 완료';
+      head.appendChild(h2);
+      head.appendChild(cnt);
+      sec.appendChild(head);
+
+      visibleItems.forEach(function (it) {
+        var rec = getItemRecord(it.id);
+        var card = document.createElement('article');
+        card.className = 'card' + (rec.memo ? ' has-memo' : '');
+        card.setAttribute('data-state', rec.status);
+
+        var top = document.createElement('div');
+        top.className = 'card-top';
+
+        var body = document.createElement('div');
+        body.className = 'item-body';
+        body.addEventListener('click', function () {
+          setItemStatus(it.id, 'ok');
+        });
+
+        if (it.tags && it.tags.length) {
+          var tagRow = document.createElement('div');
+          tagRow.className = 'item-tags';
+          it.tags.forEach(function (t) {
+            var sp = document.createElement('span');
+            sp.className = 'tag' + (t.kind ? ' ' + t.kind : '');
+            sp.textContent = t.text;
+            tagRow.appendChild(sp);
+          });
+          body.appendChild(tagRow);
+        }
+
+        var title = document.createElement('h3');
+        title.className = 'item-title';
+        title.textContent = it.title;
+        body.appendChild(title);
+
+        var desc = document.createElement('p');
+        desc.className = 'item-desc';
+        desc.textContent = it.desc;
+        body.appendChild(desc);
+
+        var btns = document.createElement('div');
+        btns.className = 'state-btns';
+
+        var okBtn = document.createElement('button');
+        okBtn.type = 'button';
+        okBtn.className = 'btn-state ok-btn';
+        okBtn.setAttribute('aria-pressed', String(rec.status === 'ok'));
+        okBtn.textContent = '✓ 통과';
+        okBtn.addEventListener('click', function () {
+          setItemStatus(it.id, 'ok');
+        });
+
+        var fixBtn = document.createElement('button');
+        fixBtn.type = 'button';
+        fixBtn.className = 'btn-state fix-btn';
+        fixBtn.setAttribute('aria-pressed', String(rec.status === 'fix'));
+        fixBtn.textContent = '⚠️ 보완';
+        fixBtn.addEventListener('click', function () {
+          setItemStatus(it.id, 'fix');
+        });
+
+        btns.appendChild(okBtn);
+        btns.appendChild(fixBtn);
+
+        top.appendChild(body);
+        top.appendChild(btns);
+        card.appendChild(top);
+
+        var memoToggle = document.createElement('button');
+        memoToggle.type = 'button';
+        memoToggle.className = 'memo-toggle';
+        memoToggle.textContent = rec.memo ? '메모 수정' : '+ 현장 메모 적기';
+        memoToggle.addEventListener('click', function () {
+          card.classList.toggle('open-memo');
+          var inp = card.querySelector('.memo-input');
+          if (inp && card.classList.contains('open-memo')) inp.focus();
+        });
+        card.appendChild(memoToggle);
+
+        var memoWrap = document.createElement('div');
+        memoWrap.className = 'memo-wrap';
+        var memoInput = document.createElement('input');
+        memoInput.type = 'text';
+        memoInput.className = 'memo-input';
+        memoInput.placeholder = '미흡한 위치나 메모 입력 (예: 싱크대 걸레받이 안쪽 톱밥 남음)';
+        memoInput.value = rec.memo;
+        memoInput.addEventListener('input', function () {
+          setItemMemo(it.id, memoInput.value);
+          if (memoInput.value.trim()) card.classList.add('has-memo');
+          else card.classList.remove('has-memo');
+        });
+        memoWrap.appendChild(memoInput);
+        card.appendChild(memoWrap);
+
+        sec.appendChild(card);
+      });
+
+      container.appendChild(sec);
+    });
+
+    document.getElementById('emptyMsg').hidden = visibleTotal > 0;
+    updateSummary();
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filters button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      currentFilter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.filters button').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+      render();
+    });
+  });
+
+  // Measure inputs
+  MEASURE_IDS.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = state.measures[id] || '';
+    el.addEventListener('input', function () {
+      state.measures[id] = el.value;
+      saveState();
+    });
+  });
+
+  function copyText(text, successMsg) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        showToast(successMsg);
+      }).catch(function () {
+        fallbackCopy(text, successMsg);
+      });
+    } else {
+      fallbackCopy(text, successMsg);
+    }
+  }
+
+  function fallbackCopy(text, successMsg) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast(successMsg); } catch (_) { showToast('복사에 실패했습니다.'); }
+    document.body.removeChild(ta);
+  }
+
+  document.getElementById('copyFixBtn').addEventListener('click', function () {
+    var lines = ['[강변 스카이타워 36B · 입주청소 보완 요청 사항]'];
+    var count = 0;
+    ZONES.forEach(function (z) {
+      z.items.forEach(function (it) {
+        var r = getItemRecord(it.id);
+        if (r.status === 'fix') {
+          count++;
+          lines.push(count + '. ' + it.title + (r.memo ? ' — ' + r.memo : ''));
+        }
+      });
+    });
+    if (count === 0) {
+      showToast('현재 ⚠️ 보완 요청으로 표시된 항목이 없습니다.');
+      return;
+    }
+    lines.push('\n확인 및 보완 부탁드립니다. 감사합니다!');
+    copyText(lines.join('\n'), '보완 요청 ' + count + '건을 클립보드에 복사했습니다!');
+  });
+
+  document.getElementById('copyAllBtn').addEventListener('click', function () {
+    var lines = ['[강변 스카이타워 36B · 11/27 입주청소 검수 & 실측 기록 (청소를 부탁해)]', ''];
+    ZONES.forEach(function (z) {
+      lines.push('■ ' + z.title);
+      z.items.forEach(function (it) {
+        var r = getItemRecord(it.id);
+        var mark = r.status === 'ok' ? '[✓]' : (r.status === 'fix' ? '[⚠️보완]' : '[ ]');
+        lines.push('  ' + mark + ' ' + it.title + (r.memo ? ' (' + r.memo + ')' : ''));
+      });
+      lines.push('');
+    });
+    lines.push('■ 현장 실측 & 하자 메모');
+    lines.push('  - 냉장고장 안쪽 깊이: ' + (state.measures.mFridgeDepth || '미입력'));
+    lines.push('  - 전자레인지 칸 깊이: ' + (state.measures.mMwDepth || '미입력'));
+    lines.push('  - 거실 커튼박스/레일: ' + (state.measures.mLivingCurtain || '미입력'));
+    lines.push('  - 침실 커튼박스/레일: ' + (state.measures.mBedCurtain || '미입력'));
+    lines.push('  - 하자/특이사항: ' + (state.measures.mDefectMemo || '미입력'));
+    copyText(lines.join('\n'), '전체 검수 결과와 실측 메모를 복사했습니다!');
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function () {
+    window.print();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    if (!window.confirm('체크한 검수 상태와 메모를 모두 초기화할까요?')) return;
+    state = { items: {}, measures: {} };
+    MEASURE_IDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    saveState();
+    render();
+    showToast('초기화되었습니다.');
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
